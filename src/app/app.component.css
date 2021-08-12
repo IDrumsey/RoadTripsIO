@@ -1,0 +1,22 @@
+#top,
+#body {
+  width: 100%;
+}
+
+#top {
+  height: 7%;
+  display: flex;
+  align-items: center;
+}
+
+#body {
+  height: 93%;
+}
+
+#website-title {
+  color: #ebf2ff;
+  font-family: "Caveat Brush", "Times New Romans";
+  margin-left: 2%;
+  font-size: 30px;
+  padding-right: 25px;
+}
