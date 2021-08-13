@@ -1,0 +1,8 @@
+<div class="icon-button" *ngIf="icon != null">
+  <fa-icon
+    [icon]="icon"
+    [ngStyle]="getIconStyles()"
+    (mouseenter)="onIconMouseEnter()"
+    (mouseleave)="onIconMouseExit()"
+  ></fa-icon>
+</div>

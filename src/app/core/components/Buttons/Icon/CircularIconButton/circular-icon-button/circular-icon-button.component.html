@@ -1,0 +1,9 @@
+<div
+  class="icon-button circle-icon-button"
+  *ngIf="icon != null"
+  [ngStyle]="getOutlineStyles()"
+  (mouseenter)="onOutlineMouseEnter()"
+  (mouseleave)="onOutlineMouseExit()"
+>
+  <fa-icon [icon]="icon" [ngStyle]="getIconStyles()"></fa-icon>
+</div>
