@@ -34,7 +34,7 @@
 
 ### `highlightColor` -
 
-### Type : string
+### Type : string | null
 
 ### Default : "#b7f3ff"
 
@@ -105,3 +105,73 @@
 ### Default : "25px"
 
 ### Description: The width and height of the outlining shape
+
+<br/>
+
+## **Toolbar**
+
+---
+
+### Selector: app-toolbar
+
+### Description : A group of button components
+
+## Inputs -
+
+### `orientation` -
+
+### Type : ComponentOrientations
+
+### Default : ComponentOrientations.Horizontal
+
+### Description : The orientation of the buttons. They can be horizontal or vertical
+
+### `height` -
+
+### Type : string
+
+### Default : "auto"
+
+### Description : The height of the toolbar which wraps the buttons
+
+### `width` -
+
+### Type : string
+
+### Default : "auto"
+
+### Description : The width of the toolbar which wraps the buttons
+
+### `gap` -
+
+### Type : number
+
+### Default : 5
+
+### Description : The number of pixels between each button
+
+<br/>
+
+## **Expandable Toolbar**
+
+---
+
+### Selector: app-expandable-toolbar
+
+### Description : A group of button components that can be expanded and collapsed. This component extends the toolbar component.
+
+## Inputs -
+
+### `isExpanded` -
+
+### Type : boolean
+
+### Default : true
+
+### Description : Whether or not all the buttons in the toolbar are showing
+
+## Controls -
+
+### `#Toggle` -
+
+### Description : Placed on one of the button child components, this references which button will act as the toggle for expanding and collapsing the toolbar.

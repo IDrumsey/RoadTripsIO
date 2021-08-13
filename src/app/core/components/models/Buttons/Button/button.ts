@@ -1,15 +1,16 @@
 // Native
 import {EventEmitter} from '@angular/core';
+import { Subject } from 'rxjs';
 
 import {ButtonInterface} from '../button-interface';
 
 export class Button implements ButtonInterface {
-    click: EventEmitter<any> = new EventEmitter();
+    click: Subject<any> = new Subject();
 
     constructor(){}
 
     onClick(): void {
-        this.click.emit();
+        this.click.next();
     }
 
     onIconMouseEnter(): void {
@@ -17,6 +18,14 @@ export class Button implements ButtonInterface {
     }
 
     onIconMouseExit(): void {
+        
+    }
+
+    hide(): void {
+        
+    }
+
+    show(): void {
         
     }
 }

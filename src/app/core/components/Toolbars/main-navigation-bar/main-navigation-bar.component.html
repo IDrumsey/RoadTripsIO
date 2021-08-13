@@ -1,0 +1,18 @@
+<app-expandable-toolbar [gap]="35">
+  <app-circular-icon-button
+    *ngFor="let icon of otherIcons"
+    [icon]="icon"
+    [iconSize]="'22px'"
+    [regularBorderColor]="null"
+    [backgroundHighlightColor]="'rgba(0,0,255,.2)'"
+    [highlightColor]="null"
+  ></app-circular-icon-button>
+  <app-circular-icon-button
+    #toggle
+    [icon]="toggleIcon"
+    [iconSize]="'22px'"
+    [regularBorderColor]="null"
+    [backgroundHighlightColor]="'rgba(0,0,255,.2)'"
+    [highlightColor]="null"
+  ></app-circular-icon-button>
+</app-expandable-toolbar>

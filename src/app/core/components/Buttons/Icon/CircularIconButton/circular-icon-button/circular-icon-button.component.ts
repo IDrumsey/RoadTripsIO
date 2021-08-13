@@ -3,10 +3,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import {IconButtonComponent} from '../../../icon-button/icon-button.component';
 import {OutlinedButtonInterface} from '../../../../models/Buttons/outlined-button-interface';
 import { AppColors } from 'src/app/core/data/models/app-colors';
+import { ButtonComponent } from '../../../button/button.component';
+import { ElementRef } from '@angular/core';
 
 
 @Component({
   selector: 'app-circular-icon-button',
+  providers: [{provide: ButtonComponent, useExisting: CircularIconButtonComponent}],
   templateUrl: './circular-icon-button.component.html',
   styleUrls: ['./circular-icon-button.component.css']
 })
@@ -22,8 +25,8 @@ export class CircularIconButtonComponent extends IconButtonComponent implements 
   backgroundColor: string = this.regularBackgroundColor;
   borderColor: string | null = this.regularBorderColor;
 
-  constructor() {
-    super();
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
   }
 
   ngOnInit(): void {
@@ -74,5 +77,15 @@ export class CircularIconButtonComponent extends IconButtonComponent implements 
       width: this.size,
       height: this.size
     }
+  }
+
+  hide(): void {
+    this.showing = false;
+    this.hideWrapper();
+  }
+
+  show(): void {
+    this.showWrapper();
+    this.showing = true;
   }
 }

@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
-import { Button } from '../../models/Buttons/Button/button';
+import { ButtonComponent } from '../button/button.component';
 import {AppColors} from 'src/app/core/data/models/app-colors'
 
 @Component({
   selector: 'app-icon-button',
+  // https://github.com/angular/angular/issues/8580
+  providers: [{provide: ButtonComponent, useExisting: IconButtonComponent}],
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.css']
 })
-export class IconButtonComponent extends Button implements OnInit {
+export class IconButtonComponent extends ButtonComponent implements OnInit {
   @Input() icon: IconDefinition | null = null;
   @Input() iconSize: string = "25px";
   @Input() regularColor: string = AppColors.onColorLight;
@@ -18,8 +20,8 @@ export class IconButtonComponent extends Button implements OnInit {
 
   iconColor: string = this.regularColor;
 
-  constructor() {
-    super();
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
   }
 
   ngOnInit(): void {
@@ -49,5 +51,15 @@ export class IconButtonComponent extends Button implements OnInit {
       color: this.iconColor,
       fontSize: this.iconSize
     }
+  }
+
+  hide(): void {
+    this.showing = false;
+    this.hideWrapper();
+  }
+
+  show(): void {
+    this.showWrapper();
+    this.showing = true;
   }
 }

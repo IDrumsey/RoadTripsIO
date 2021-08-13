@@ -30,3 +30,8 @@ app-root {
 .icon-button:hover {
   cursor: pointer;
 }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+}

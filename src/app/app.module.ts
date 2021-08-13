@@ -12,13 +12,21 @@ import { AppComponent } from './app.component';
 import { IconButtonComponent } from './core/components/Buttons/icon-button/icon-button.component';
 import { CircularIconButtonComponent } from './core/components/Buttons/Icon/CircularIconButton/circular-icon-button/circular-icon-button.component';
 import { SquareIconButtonComponent } from './core/components/Buttons/Icon/SquareIconButton/square-icon-button/square-icon-button.component';
+import { ToolbarComponent } from './core/components/Toolbars/toolbar/toolbar.component';
+import { ExpandableToolbarComponent } from './core/components/Toolbars/expandable-toolbar/expandable-toolbar.component';
+import { ButtonComponent } from './core/components/Buttons/button/button.component';
+import { MainNavigationBarComponent } from './core/components/Toolbars/main-navigation-bar/main-navigation-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IconButtonComponent,
     CircularIconButtonComponent,
-    SquareIconButtonComponent
+    SquareIconButtonComponent,
+    ToolbarComponent,
+    ExpandableToolbarComponent,
+    ButtonComponent,
+    MainNavigationBarComponent
   ],
   imports: [
     BrowserModule,

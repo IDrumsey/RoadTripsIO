@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {faBars, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faUser, faRoute, faSignInAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,10 @@ import {faBars, faUser} from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'RoadTripsIOClient';
 
-  navToggleIcon = faBars;
-  userIcon = faUser;
+  mainNavToggleBtn = faBars;
+  mainNavBarBtnIcons: IconDefinition[] = [
+    faUser,
+    faRoute,
+    faSignInAlt,
+  ]
 }

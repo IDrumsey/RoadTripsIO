@@ -1,7 +1,8 @@
 <div
   class="icon-button circle-icon-button"
-  *ngIf="icon != null"
+  *ngIf="icon != null && showing"
   [ngStyle]="getOutlineStyles()"
+  (click)="onClick()"
   (mouseenter)="onOutlineMouseEnter()"
   (mouseleave)="onOutlineMouseExit()"
 >
