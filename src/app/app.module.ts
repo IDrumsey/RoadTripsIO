@@ -16,6 +16,8 @@ import { ToolbarComponent } from './core/components/Toolbars/toolbar/toolbar.com
 import { ExpandableToolbarComponent } from './core/components/Toolbars/expandable-toolbar/expandable-toolbar.component';
 import { ButtonComponent } from './core/components/Buttons/button/button.component';
 import { MainNavigationBarComponent } from './core/components/Toolbars/main-navigation-bar/main-navigation-bar.component';
+import { SelectToolbarComponent } from './core/components/Toolbars/select-toolbar/select-toolbar.component';
+import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-select-toolbar/single-select-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { MainNavigationBarComponent } from './core/components/Toolbars/main-navi
     ToolbarComponent,
     ExpandableToolbarComponent,
     ButtonComponent,
-    MainNavigationBarComponent
+    MainNavigationBarComponent,
+    SelectToolbarComponent,
+    SingleSelectToolbarComponent
   ],
   imports: [
     BrowserModule,

@@ -35,14 +35,18 @@ export class CircularIconButtonComponent extends IconButtonComponent implements 
     this.borderColor = this.regularBorderColor
   }
 
-  onOutlineMouseEnter(): void {
+  onOutlineMouseEnter = this.defaultOnOutlineMouseEnter
+
+  defaultOnOutlineMouseEnter(): void {
     this.onIconMouseEnter();
 
     this.highlightBackground();
     this.highlightBorder();
   }
 
-  onOutlineMouseExit(): void {
+  onOutlineMouseExit = this.defaultOnOutlineMouseExit
+
+  defaultOnOutlineMouseExit(): void {
     this.onIconMouseExit();
 
     this.removeBackgroundHighlight();
@@ -87,5 +91,45 @@ export class CircularIconButtonComponent extends IconButtonComponent implements 
   show(): void {
     this.showWrapper();
     this.showing = true;
+  }
+
+  select(foregroundColor: string, backgroundColor?: string): void {
+    this.iconColor = foregroundColor;
+    if(backgroundColor){
+      this.backgroundColor = backgroundColor
+    }
+
+    this.disableHoverEffects();
+  }
+
+  unselect(single?: boolean): void {
+    if(!single){
+      this.enableHoverEffects();
+      this.onOutlineMouseEnter();
+    }
+    else{
+      this.enableHoverEffects();
+      this.backgroundColor = this.regularBackgroundColor;
+    }
+  }
+
+  disableShapeHoverEffects(): void {
+    this.onOutlineMouseEnter = () => {}
+    this.onOutlineMouseExit = () => {}
+  }
+
+  disableHoverEffects(): void {
+    this.disableIconHoverEffects();
+    this.disableShapeHoverEffects();
+  }
+
+  enableShapeHoverEffects(): void {
+    this.onOutlineMouseEnter = this.defaultOnOutlineMouseEnter
+    this.onOutlineMouseExit = this.defaultOnOutlineMouseExit
+  }
+
+  enableHoverEffects(): void {
+    this.enableIconHoverEffects();
+    this.enableShapeHoverEffects();
   }
 }

@@ -28,11 +28,15 @@ export class IconButtonComponent extends ButtonComponent implements OnInit {
     this.iconColor = this.regularColor;
   }
 
-  onIconMouseEnter() {
+  onIconMouseEnter = this.defaultOnIconMouseEnter;
+
+  onIconMouseExit = this.defaultOnIconMouseExit;
+
+  defaultOnIconMouseEnter() {
     this.highlightIcon();
   }
 
-  onIconMouseExit() {
+  defaultOnIconMouseExit() {
     this.removeIconHighlight();
   }
 
@@ -61,5 +65,25 @@ export class IconButtonComponent extends ButtonComponent implements OnInit {
   show(): void {
     this.showWrapper();
     this.showing = true;
+  }
+
+  select(foregroundColor: string): void {
+    this.disableIconHoverEffects()
+    this.iconColor = foregroundColor;
+  }
+
+  unselect(): void {
+    this.enableIconHoverEffects()
+    this.onIconMouseEnter()
+  }
+
+  disableIconHoverEffects(): void {
+    this.onIconMouseEnter = () => {}
+    this.onIconMouseExit = () => {}
+  }
+
+  enableIconHoverEffects(): void {
+    this.onIconMouseEnter = this.defaultOnIconMouseEnter
+    this.onIconMouseExit = this.defaultOnIconMouseExit
   }
 }

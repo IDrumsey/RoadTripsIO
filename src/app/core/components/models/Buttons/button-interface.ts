@@ -4,4 +4,6 @@ export interface ButtonInterface {
     onIconMouseExit(): void;
     hide(): void;
     show(): void;
+    select(foregroundColor: string, backgroundColor?: string): void;
+    unselect(): void;
 }

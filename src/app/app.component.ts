@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {faBars, faUser, faRoute, faSignInAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import { ComponentOrientations } from './core/components/models/component-orientations';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,13 @@ import {faBars, faUser, faRoute, faSignInAlt, IconDefinition} from '@fortawesome
 export class AppComponent {
   title = 'RoadTripsIOClient';
 
-  mainNavToggleBtn = faBars;
-  mainNavBarBtnIcons: IconDefinition[] = [
+  icons: IconDefinition[] = [
     faUser,
     faRoute,
     faSignInAlt,
+    faBars
   ]
+
+  vertical = ComponentOrientations.Vertical;
+  horizontal = ComponentOrientations.Horizontal;
 }

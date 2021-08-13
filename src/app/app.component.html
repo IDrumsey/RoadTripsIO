@@ -3,5 +3,20 @@
   <app-main-navigation-bar id="main-navbar"></app-main-navigation-bar>
 </div>
 <div id="body">
-  <div id="body-content"></div>
+  <div id="body-content">
+    <app-single-select-toolbar
+      [orientation]="horizontal"
+      [gap]="0"
+      [selectBackgroundColor]="'rgba(0, 0, 255, 0.25)'"
+    >
+      <app-square-icon-button
+        *ngFor="let icon of icons"
+        [icon]="icon"
+        #Selected
+        [regularBorderColor]="null"
+        [backgroundHighlightColor]="'rgba(255, 0, 0, 0.25)'"
+        [highlightColor]="null"
+      ></app-square-icon-button>
+    </app-single-select-toolbar>
+  </div>
 </div>

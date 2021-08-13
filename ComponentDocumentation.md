@@ -174,4 +174,46 @@
 
 ### `#Toggle` -
 
-### Description : Placed on one of the button child components, this references which button will act as the toggle for expanding and collapsing the toolbar.
+### Description : Placed on one of the button child components, this references which button will act as the toggle for expanding and collapsing the toolbar. If this control isn't specified, the first button child component is set to the toggle button.
+
+<br/>
+
+## **Select Toolbar**
+
+---
+
+### Selector: app-select-toolbar
+
+### Description : A group of button components that can all be selected and unselected. It's like checkboxes but with the custom buttons.
+
+## Inputs -
+
+### `selectForegroundColor`
+
+### Type : string
+
+### Default : "#fff"
+
+### Description : The color of the foreground in a button component when it's selected
+
+### `selectBackgroundColor`
+
+### Type : string
+
+### Description : The color of the background in a button component when it's selected
+
+## Controls -
+
+### `#Selected` -
+
+### Description : Indicates the a button component within the toolbar is initially selected
+
+<br/>
+
+## **Select Toolbar**
+
+---
+
+### Selector: app-single-select-toolbar
+
+### Description : A group of button components of which only one can be selected and unselected at a time. It's like checkboxes but with the custom buttons. This component extends the select toolbar component.

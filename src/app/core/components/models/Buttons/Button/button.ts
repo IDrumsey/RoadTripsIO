@@ -13,19 +13,19 @@ export class Button implements ButtonInterface {
         this.click.next();
     }
 
-    onIconMouseEnter(): void {
+    onIconMouseEnter(): void {}
 
+    onIconMouseExit(): void {}
+
+    hide(): void {}
+
+    show(): void {}
+
+    select(foregroundColor: string, backgroundColor?: string): void {
+        console.log("selecting btn")
     }
 
-    onIconMouseExit(): void {
-        
-    }
-
-    hide(): void {
-        
-    }
-
-    show(): void {
-        
+    unselect(single?: boolean): void {
+        console.log("unselecting btn")
     }
 }
