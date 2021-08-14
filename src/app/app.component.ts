@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
-import {faBars, faUser, faRoute, faSignInAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import { ComponentOrientations } from './core/components/models/component-orientations';
+import { AppColors } from './core/data/models/app-colors';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +9,5 @@ import { ComponentOrientations } from './core/components/models/component-orient
 export class AppComponent {
   title = 'RoadTripsIOClient';
 
-  icons: IconDefinition[] = [
-    faUser,
-    faRoute,
-    faSignInAlt,
-    faBars
-  ]
-
-  vertical = ComponentOrientations.Vertical;
-  horizontal = ComponentOrientations.Horizontal;
+  textColor = AppColors.onColorLight
 }

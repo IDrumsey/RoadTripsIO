@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 // Third Party
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -18,6 +19,8 @@ import { ButtonComponent } from './core/components/Buttons/button/button.compone
 import { MainNavigationBarComponent } from './core/components/Toolbars/main-navigation-bar/main-navigation-bar.component';
 import { SelectToolbarComponent } from './core/components/Toolbars/select-toolbar/select-toolbar.component';
 import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-select-toolbar/single-select-toolbar.component';
+import { EditableTextComponent } from './core/components/Text/editable-text/editable-text.component';
+import { TextInputComponent } from './core/components/Text/text-input/text-input.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +33,16 @@ import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-
     ButtonComponent,
     MainNavigationBarComponent,
     SelectToolbarComponent,
-    SingleSelectToolbarComponent
+    SingleSelectToolbarComponent,
+    EditableTextComponent,
+    TextInputComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GoogleMapsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

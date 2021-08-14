@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  background-color: #101010;
+  background-color: #101010 !important;
 }
 
 h1,
@@ -32,6 +32,27 @@ app-root {
 }
 
 .toolbar {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+}
+
+.button {
+  display: inline-block;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.editable-text {
+  margin: auto;
+}
+
+app-toolbar {
+  display: inline-block;
 }

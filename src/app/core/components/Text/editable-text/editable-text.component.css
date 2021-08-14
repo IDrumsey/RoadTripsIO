@@ -1,0 +1,12 @@
+.text {
+  display: inline-block;
+}
+
+.edit-button {
+  margin-left: 50px;
+}
+
+.edit-input-options {
+  margin-top: 10px;
+  float: right;
+}
