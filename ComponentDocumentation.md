@@ -217,3 +217,181 @@
 ### Selector: app-single-select-toolbar
 
 ### Description : A group of button components of which only one can be selected and unselected at a time. It's like checkboxes but with the custom buttons. This component extends the select toolbar component.
+
+<br/>
+
+## **Text Input**
+
+---
+
+### Selector: app-text-input
+
+### Description : A customizable text input.
+
+## Inputs -
+
+### `text`
+
+### Type : string
+
+### Default : ""
+
+### Description : The value of the text input
+
+### `placeholder`
+
+### Type : string
+
+### Description : The placeholder of the text input
+
+### `name` - Required
+
+### Type : string
+
+### Description : The name of the text input element used when referencing the input value
+
+### `textColor`
+
+### Type : string
+
+### Default : "#f8faff"
+
+### Description : The color of the text
+
+### `fontSize`
+
+### Type : string
+
+### Default : "20px"
+
+### Description : The size of the text
+
+### `font`
+
+### Type : string
+
+### Default : "Fira Sans"
+
+### Description : The font family of the text
+
+### `padding`
+
+### Type : number
+
+### Default : 5
+
+### Description : The padding of the text input
+
+### `width`
+
+### Type : string
+
+### Default : "100%"
+
+### Description : The width of the component
+
+### `bgColor`
+
+### Type : string
+
+### Default : "#2a2a2a"
+
+### Description : The background color of the text input
+
+### `focusBoxShadowBlurRadius`
+
+### Type : number
+
+### Default : 5
+
+### Description : The blur radius of the box shadow that appears when the input is focused on
+
+### `focusBoxShadowColor`
+
+### Type : string
+
+### Default : "#ebf2ff"
+
+### Description : The color of the box shadow that appears when the input is focused on
+
+### `blurStyles`
+
+### Type : {}
+
+### Description : The styles of the text input when not being focused on. Use this when there is an style input not specified that you want on the component.
+
+### `focusStyles`
+
+### Type : {}
+
+### Description : The styles of the text input when being focused on. Use this when there is an style input not specified that you want on the component.
+
+<br/>
+
+## **Editable Text**
+
+---
+
+### Selector: app-editable-text
+
+### Description : Some text that can be edited.
+
+## Inputs -
+
+### `text`
+
+### Type : string
+
+### Default : ""
+
+### Description : The value of the text
+
+### `width`
+
+### Type : string
+
+### Default : "75%"
+
+### Description : The width of the component
+
+### `textColor`
+
+### Type : string
+
+### Description : The color of the text when not editing
+
+### `fontSize`
+
+### Type : string
+
+### Default : "25px"
+
+### Description : The font size of the text when not editing
+
+### `font`
+
+### Type : string
+
+### Default : "Caveat Brush"
+
+### Description : The font family of the text when not editing
+
+### `inputBlurStyles`
+
+### Type : {}
+
+### Description : The styles of the text input when not being focused on. Use this when there is an style input not specified that you want on the component.
+
+### `inputFocusStyles`
+
+### Type : {}
+
+### Description : The styles of the text input when being focused on. Use this when there is an style input not specified that you want on the component.
+
+### `isEditing`
+
+### Type : boolean
+
+### Default : false
+
+### Description : Whether or not the component renders in its editing state or not
