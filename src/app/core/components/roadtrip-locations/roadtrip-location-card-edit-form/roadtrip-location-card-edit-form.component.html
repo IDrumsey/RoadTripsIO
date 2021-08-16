@@ -1,0 +1,85 @@
+<form
+  [formGroup]="form"
+  class="location-stop-edit-form"
+  [ngStyle]="getWrapperDetails()"
+  (ngSubmit)="confirmEdit()"
+>
+  <div class="field">
+    <h5 class="input-label">Address</h5>
+    <app-text-input
+      [placeholder]="'The value'"
+      [name]="'address'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['address']"
+    ></app-text-input>
+  </div>
+  <div class="field">
+    <h5 class="input-label">Coordinates</h5>
+    <div class="edit-coordinates">
+      <div>
+        <h5 class="sub-input-label">Latitude</h5>
+        <app-text-input
+          [placeholder]="'latitude'"
+          [name]="'latitude'"
+          [ngStyle]="getInputStyles()"
+          [focusBoxShadowBlurRadius]="2"
+          [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+          [control]="this.form.controls['latitude']"
+        ></app-text-input>
+      </div>
+      <div>
+        <h5 class="sub-input-label">Longitude</h5>
+        <app-text-input
+          [placeholder]="'longitude'"
+          [name]="'longitude'"
+          [ngStyle]="getInputStyles()"
+          [focusBoxShadowBlurRadius]="2"
+          [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+          [control]="this.form.controls['longitude']"
+        ></app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <h5 class="input-label">Title</h5>
+    <app-text-input
+      [placeholder]="'title'"
+      [name]="'title'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['title']"
+    ></app-text-input>
+  </div>
+  <div class="field">
+    <h5 class="input-label">Description</h5>
+    <app-text-input
+      [placeholder]="'description'"
+      [name]="'description'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['description']"
+    ></app-text-input>
+  </div>
+  <app-toolbar class="details-edit-form-options" [gap]="20">
+    <app-rectangle-button
+      [text]="'Cancel'"
+      [defaultBgColor]="cancelBtnColor"
+      [bgHoverColor]="cancelBtnHoverColor"
+      [fontSize]="'15px'"
+      [width]="'auto'"
+      (click)="cancelEdit()"
+    ></app-rectangle-button>
+    <app-rectangle-button
+      [text]="'Confirm Changes'"
+      [defaultBgColor]="confirmBtnColor"
+      [bgHoverColor]="confirmBtnHoverColor"
+      [fontSize]="'15px'"
+      [width]="'auto'"
+      (click)="confirmEdit()"
+    ></app-rectangle-button>
+  </app-toolbar>
+</form>

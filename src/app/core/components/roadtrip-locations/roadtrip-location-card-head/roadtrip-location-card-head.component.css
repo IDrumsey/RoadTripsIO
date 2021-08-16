@@ -1,0 +1,21 @@
+.roadtrip-location-card-head {
+  display: grid;
+  grid-template-columns: 60% 20% 20%;
+  width: 100%;
+  padding: 10px 20px;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.address,
+.coordinates {
+  margin-bottom: 0;
+}
+
+.address {
+  overflow-x: hidden;
+}
+
+.options {
+  margin-left: auto;
+}

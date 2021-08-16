@@ -16,7 +16,7 @@ export class EditableTextComponent implements OnInit {
   @ViewChild('editField') editInputField: TextInputComponent;
 
   // styles
-  @Input() width: string = "75%"
+  @Input() width: string = "100%"
   @Input() textColor: string;
   @Input() fontSize: string = "25px"
   @Input() font: string = AppFonts.Handwriting

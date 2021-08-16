@@ -1,0 +1,8 @@
+<div
+  class="button rectangle-button"
+  [ngStyle]="getButtonStyles()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+>
+  <h5 class="rectangle-button-text" [ngStyle]="getTextStyles()">{{ text }}</h5>
+</div>

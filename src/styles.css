@@ -6,11 +6,15 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
+  overflow: scroll;
 }
 
 body {
   background-color: #101010 !important;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 h1,
@@ -27,7 +31,7 @@ app-root {
   width: 100%;
 }
 
-.icon-button:hover {
+.button:hover {
   cursor: pointer;
 }
 
@@ -44,6 +48,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -55,4 +60,8 @@ body {
 
 app-toolbar {
   display: inline-block;
+}
+
+app-editable-text {
+  display: block;
 }

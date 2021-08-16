@@ -108,6 +108,90 @@
 
 <br/>
 
+## **Rectangle Button**
+
+---
+
+### Selector: app-rectangle-button
+
+### Description : A button in the shape of a rectangle with text on it
+
+## Inputs -
+
+### `text` - Required
+
+### Type : string
+
+### Description: The text that appears on the button
+
+### `fontSize` -
+
+### Type : string
+
+### Default : "25px"
+
+### Description: The size of the text
+
+### `defaultFontColor` -
+
+### Type : string
+
+### Default : "#ebf2ff"
+
+### Description: The color of the text when the button isn't being hovered over
+
+### `fontHoverColor` -
+
+### Type : string
+
+### Description: The color of the text when the button is being hovered over
+
+### `font` -
+
+### Type : string
+
+### Default : "Fira Sans"
+
+### Description: The font family of the text
+
+### `width` -
+
+### Type : string
+
+### Default : "100%"
+
+### Description: The width of the rectangle/button
+
+### `height` -
+
+### Type : string
+
+### Description: The height of the rectangle/button
+
+### `defaultBgColor` -
+
+### Type : string
+
+### Default : "#404040"
+
+### Description: The color of the background when not being hovered over
+
+### `bgHoverColor` -
+
+### Type : string
+
+### Description: The color of the background when being hovered over
+
+### `padding` -
+
+### Type : string
+
+### Default : "10px"
+
+### Description: The padding of the rectangle/button
+
+<br/>
+
 ## **Toolbar**
 
 ---
@@ -210,7 +294,7 @@
 
 <br/>
 
-## **Select Toolbar**
+## **Single Select Toolbar**
 
 ---
 
@@ -229,6 +313,12 @@
 ### Description : A customizable text input.
 
 ## Inputs -
+
+### `control`
+
+### Type : FormControl
+
+### Description : The form control to bind the input to
 
 ### `text`
 

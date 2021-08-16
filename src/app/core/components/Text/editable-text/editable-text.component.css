@@ -6,7 +6,13 @@
   margin-left: 50px;
 }
 
+.edit-input-options-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
 .edit-input-options {
   margin-top: 10px;
   float: right;
+  margin-left: auto;
 }

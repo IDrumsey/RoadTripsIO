@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Third Party
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -21,6 +21,12 @@ import { SelectToolbarComponent } from './core/components/Toolbars/select-toolba
 import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-select-toolbar/single-select-toolbar.component';
 import { EditableTextComponent } from './core/components/Text/editable-text/editable-text.component';
 import { TextInputComponent } from './core/components/Text/text-input/text-input.component';
+import { RoadtripComponent } from './core/pages/roadtrip/roadtrip.component';
+import { RoadtripLocationCardComponent } from './core/components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
+import { RoadtripLocationCardHeadComponent } from './core/components/roadtrip-locations/roadtrip-location-card-head/roadtrip-location-card-head.component';
+import { RoadtripLocationCardDetailsComponent } from './core/components/roadtrip-locations/roadtrip-location-card-details/roadtrip-location-card-details.component';
+import { RoadtripLocationCardEditFormComponent } from './core/components/roadtrip-locations/roadtrip-location-card-edit-form/roadtrip-location-card-edit-form.component';
+import { RectangleButtonComponent } from './core/components/Buttons/rectangle-button/rectangle-button.component';
 
 @NgModule({
   declarations: [
@@ -36,13 +42,20 @@ import { TextInputComponent } from './core/components/Text/text-input/text-input
     SingleSelectToolbarComponent,
     EditableTextComponent,
     TextInputComponent,
+    RoadtripComponent,
+    RoadtripLocationCardComponent,
+    RoadtripLocationCardHeadComponent,
+    RoadtripLocationCardDetailsComponent,
+    RoadtripLocationCardEditFormComponent,
+    RectangleButtonComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GoogleMapsModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

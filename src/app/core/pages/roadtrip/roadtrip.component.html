@@ -1,0 +1,39 @@
+<h1 *ngIf="!isOwner" [ngStyle]="getTitleStyles()">{{ title }}</h1>
+
+<app-editable-text
+  *ngIf="isOwner"
+  [text]="title"
+  [textColor]="titleColor"
+  [isEditing]="false"
+  [width]="'100%'"
+  [fontSize]="titleFontSize"
+></app-editable-text>
+
+<a
+  href="{{ '/users/' + owner.id }}"
+  id="roadtrip-owner"
+  [ngStyle]="getOwnerLinkStyles()"
+  >Made by {{ owner.username }}</a
+>
+
+<h5
+  *ngIf="!isOwner"
+  class="roadtrip-description"
+  [ngStyle]="getDescriptionStyles()"
+>
+  {{ description }}
+</h5>
+
+<app-editable-text
+  class="roadtrip-description"
+  *ngIf="isOwner"
+  [text]="description"
+  [textColor]="descriptionColor"
+  [isEditing]="false"
+  [width]="'100%'"
+  [fontSize]="descriptionFontSize"
+></app-editable-text>
+
+<div id="stops">
+  <app-roadtrip-location-card [isOwner]="isOwner"></app-roadtrip-location-card>
+</div>

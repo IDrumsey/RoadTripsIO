@@ -1,0 +1,21 @@
+<div class="location-stop-card">
+  <app-roadtrip-location-card-head
+    [isOwner]="isOwner"
+    [showingContent]="showingContent"
+    [address]="address"
+    [latitude]="latitude"
+    [longitude]="longitude"
+    (detailsClick)="toggleContent()"
+  ></app-roadtrip-location-card-head>
+  <div *ngIf="showingContent">
+    <app-roadtrip-location-card-details
+      *ngIf="showingContent"
+      [isOwner]="isOwner"
+      (edit)="showEditForm()"
+    ></app-roadtrip-location-card-details>
+    <app-roadtrip-location-card-edit-form
+      *ngIf="showingEditForm && isOwner"
+      (cancel)="hideEditForm()"
+    ></app-roadtrip-location-card-edit-form>
+  </div>
+</div>

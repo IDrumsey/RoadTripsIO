@@ -16,6 +16,7 @@ export class TextInputComponent implements OnInit {
   @Input() text: string = ""
   @Input() placeholder: string
   @Input() name: string
+  @Input() control: any
 
 
   // style inputs

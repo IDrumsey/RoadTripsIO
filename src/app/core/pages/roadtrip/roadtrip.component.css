@@ -1,0 +1,17 @@
+#roadtrip-owner {
+  text-decoration: none;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+#roadtrip-owner:hover {
+  text-decoration: underline;
+}
+
+.roadtrip-description {
+  margin-top: 20px;
+}
+
+#stops {
+  margin-top: 50px;
+}

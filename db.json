@@ -1,0 +1,31 @@
+{
+    "roadtrips": [
+        {
+            "id": 1,
+            "title": "Some cool roadtrip!",
+            "description": "This is the description of the roadtrip. It was a good roadtrip and I would recommend it.",
+            "ownerId": 1,
+            "collaboratorIds": [],
+            "LocationStops": [
+                {
+                    "id": 1,
+                    "location": {
+                        "id": 1,
+                        "address": "123 Street st. NW City, State",
+                        "coordinates" : {
+                            "latitude": 1.001,
+                            "longitude": -82.561
+                        },
+                        "title": "Some restaurant",
+                        "type": "food",
+                        "images": []
+                    },
+                    "description": "We really enjoyed eating at this restaurant. The food was very good!",
+                    "roadtripId": 1,
+                    "orderNumber": null,
+                    "images": []
+                }
+            ]
+        }
+    ]
+}

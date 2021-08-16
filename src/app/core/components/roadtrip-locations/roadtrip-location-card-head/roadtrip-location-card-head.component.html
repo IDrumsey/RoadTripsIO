@@ -1,0 +1,20 @@
+<div class="roadtrip-location-card-head" [ngStyle]="getWrapperStyles()">
+  <h4 class="address" [ngStyle]="getAddressStyles()">{{ address }}</h4>
+  <h4 class="coordinates" [ngStyle]="getCoordinateStyles()">
+    ({{ latitude }}, {{ longitude }})
+  </h4>
+  <app-toolbar class="options" [gap]="25">
+    <app-icon-button
+      [icon]="detailsBtn"
+      [regularColor]="'rgba(116, 162, 193, 1)'"
+      [highlightColor]="'rgba(116, 162, 193, .75)'"
+      (click)="onDetailsClick()"
+    ></app-icon-button>
+    <app-icon-button
+      *ngIf="isOwner"
+      [icon]="deleteBtn"
+      [regularColor]="'rgba(252, 119, 119, 1)'"
+      [highlightColor]="'rgba(252, 119, 119, .75)'"
+    ></app-icon-button>
+  </app-toolbar>
+</div>

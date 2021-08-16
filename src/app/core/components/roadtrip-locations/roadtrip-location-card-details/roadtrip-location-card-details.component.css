@@ -1,0 +1,25 @@
+.roadtrip-location-card-details {
+  padding: 15px 20px;
+  position: relative;
+}
+
+.details-top {
+  display: flex;
+  align-items: center;
+}
+
+.location-title {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-left: 25px;
+}
+
+.main-options {
+  margin-left: auto;
+}
+
+.edit-details-button {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+}

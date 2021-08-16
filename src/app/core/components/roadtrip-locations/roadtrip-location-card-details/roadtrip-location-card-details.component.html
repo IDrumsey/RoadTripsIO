@@ -1,0 +1,15 @@
+<div class="roadtrip-location-card-details" [ngStyle]="getWrapperStyles()">
+  <div class="details-top">
+    <fa-icon [icon]="typeIcon" [ngStyle]="getTypeIconStyles()"></fa-icon>
+    <h5 class="location-title">{{ title }}</h5>
+    <app-toolbar [gap]="25" class="main-options">
+      <app-icon-button [icon]="addToTripIcon"></app-icon-button>
+      <app-icon-button [icon]="addToVisitIcon"></app-icon-button>
+      <app-icon-button
+    *ngIf="isOwner"
+    [icon]="editBtn"
+    (click)="editStop()"
+  ></app-icon-button>
+    </app-toolbar>
+  </div>
+</div>

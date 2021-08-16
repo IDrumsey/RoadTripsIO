@@ -16,27 +16,29 @@
       [focusStyles]="inputFocusStyles"
       [placeholder]="text"
     ></app-text-input>
-    <app-toolbar class="edit-input-options" [gap]="10">
-      <app-circular-icon-button
-        class="editable-text-cancel-changes-btn"
-        [icon]="cancelEditBtn"
-        [size]="'35px'"
-        [regularBackgroundColor]="'rgba(255,0,0,.5)'"
-        [backgroundHighlightColor]="'rgba(255,0,0,.6)'"
-        [highlightColor]="null"
-        [regularBorderColor]="'#ebf2ff'"
-        (click)="onCancelChanges()"
-      ></app-circular-icon-button>
-      <app-circular-icon-button
-        class="editable-text-confirm-changes-btn"
-        [icon]="confirmChangeBtn"
-        [size]="'35px'"
-        [regularBackgroundColor]="'rgba(0,255,0,.5)'"
-        [backgroundHighlightColor]="'rgba(0,255,0,.6)'"
-        [highlightColor]="null"
-        [regularBorderColor]="'#ebf2ff'"
-        (click)="onConfirmChanges()"
-      ></app-circular-icon-button>
-    </app-toolbar>
+    <div class="edit-input-options-wrapper">
+      <app-toolbar class="edit-input-options" [gap]="10">
+        <app-circular-icon-button
+          class="editable-text-cancel-changes-btn"
+          [icon]="cancelEditBtn"
+          [size]="'35px'"
+          [regularBackgroundColor]="'rgba(255,0,0,.5)'"
+          [backgroundHighlightColor]="'rgba(255,0,0,.6)'"
+          [highlightColor]="null"
+          [regularBorderColor]="'#ebf2ff'"
+          (click)="onCancelChanges()"
+        ></app-circular-icon-button>
+        <app-circular-icon-button
+          class="editable-text-confirm-changes-btn"
+          [icon]="confirmChangeBtn"
+          [size]="'35px'"
+          [regularBackgroundColor]="'rgba(0,255,0,.5)'"
+          [backgroundHighlightColor]="'rgba(0,255,0,.6)'"
+          [highlightColor]="null"
+          [regularBorderColor]="'#ebf2ff'"
+          (click)="onConfirmChanges()"
+        ></app-circular-icon-button>
+      </app-toolbar>
+    </div>
   </div>
 </div>

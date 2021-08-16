@@ -1,0 +1,9 @@
+.rectangle-button {
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.rectangle-button-text {
+  text-align: center;
+  margin-bottom: 0;
+}
