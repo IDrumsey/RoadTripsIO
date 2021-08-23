@@ -1,0 +1,10 @@
+.date-posted,
+.time-posted {
+  margin-bottom: 0;
+}
+
+.comment-body {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}

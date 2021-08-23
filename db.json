@@ -1,31 +1,78 @@
 {
-    "roadtrips": [
-        {
-            "id": 1,
-            "title": "Some cool roadtrip!",
-            "description": "This is the description of the roadtrip. It was a good roadtrip and I would recommend it.",
-            "ownerId": 1,
-            "collaboratorIds": [],
-            "LocationStops": [
-                {
-                    "id": 1,
-                    "location": {
-                        "id": 1,
-                        "address": "123 Street st. NW City, State",
-                        "coordinates" : {
-                            "latitude": 1.001,
-                            "longitude": -82.561
-                        },
-                        "title": "Some restaurant",
-                        "type": "food",
-                        "images": []
-                    },
-                    "description": "We really enjoyed eating at this restaurant. The food was very good!",
-                    "roadtripId": 1,
-                    "orderNumber": null,
-                    "images": []
-                }
-            ]
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser1",
+      "firstname": "Matthew",
+      "lastname": "Orson",
+      "email": "testemail1@email.test"
+    },
+    {
+      "id": 2,
+      "username": "testuser2",
+      "firstname": "Tasha",
+      "lastname": "Christopher",
+      "email": "testemail2@email.test"
+    },
+    {
+      "id": 3,
+      "username": "testuser3",
+      "firstname": "Kristi",
+      "lastname": "Brandee",
+      "email": "testemail3@email.test"
+    }
+  ],
+  "roadtrips": [
+    {
+      "id": 1,
+      "title": "Down the East Coast",
+      "description": "For our summer vacation of 2021, we decided to travel from our home state of Maine down to the sunshine state, Florida. We had a great time and met a lot of new people.",
+      "datePosted": "2021-08-04 14:30",
+      "ownerId": 1,
+      "collaboratorIds": [],
+      "stopIds": [
+        1,
+        2
+      ],
+      "commentIds": [
+        1
+      ]
+    }
+  ],
+  "stops": [
+    {
+      "stop": 1,
+      "locationId": 1,
+      "title": "Bar Island Land Bridge",
+      "description": "Cool bride to cross with good views of the ocean."
+    },
+    {
+      "stop": 2,
+      "locationId": 2,
+      "title": "Crescent Beach",
+      "description": "Nice beach spot off the Atlantic."
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "address": null,
+      "latitude": 44.394041710189725,
+      "longitude": -68.21076306045076
+    },
+    {
+      "id": 2,
+      "address": "24 Gold Ribbon Dr, Wells, ME 04090",
+      "latitude": 43.2934818394737,
+      "longitude": -70.56759799489502
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "text": "I stopped at a few places on this plan. Good time!",
+      "datePosted": "2021-10-04 14:30",
+      "ownerId": 2
+    }
+  ]
 }

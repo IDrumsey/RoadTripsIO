@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
+import { RequestErrors } from '../../data/models/request-errors';
+import { User } from '../../data/user';
+import { DataAccessService } from '../../services/data/data-access.service';
 
 @Component({
   selector: 'app-roadtrip',
@@ -48,12 +52,45 @@ export class RoadtripComponent implements OnInit {
     }
   }
 
+  sectionTitleFontSize = "35px"
+  sectionTitleFont = AppFonts.Handwriting
+  sectionTitleColor = AppColors.onColor
+
+  getSectionTitleStyles(): {} {
+    return {
+      fontSize: this.sectionTitleFontSize,
+      fontFamily: this.sectionTitleFont,
+      color: this.sectionTitleColor
+    }
+  }
+
+  commentSectionIcon = faCommentAlt
+
+  getCommentSectionIconStyles(): {} {
+    return {
+      color: AppColors.onColor,
+      fontSize: "25px"
+    }
+  }
+
   // state
   isOwner: boolean = true;
 
-  constructor() { }
+  constructor(private api: DataAccessService) {
+    try{
+      this.api.getUserById(4)
+    }
+    catch(e){
+      if(e == RequestErrors.NotFound){
+        console.log("User not found")
+      }
+    }
+  }
 
   ngOnInit(): void {
   }
 
+  addRoadtripLocation(location: any): void {
+    console.log("adding location to page : ", location)
+  }
 }

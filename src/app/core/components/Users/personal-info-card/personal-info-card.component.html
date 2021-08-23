@@ -1,0 +1,52 @@
+<div class="personal-info-card" [ngStyle]="wrapperStyles">
+  <form [formGroup]="form">
+    <div class="field">
+      <h5 [ngStyle]="fieldTitleStyles">First Name</h5>
+      <app-editable-text
+        [text]="firstName"
+        [control]="form.controls['firstName']"
+        [font]="font"
+        [fontSize]="inputFontSize"
+        (submit)="updateFirstName()"
+      ></app-editable-text>
+    </div>
+    <hr />
+    <div class="field">
+      <h5 [ngStyle]="fieldTitleStyles">Last Name</h5>
+      <app-editable-text
+        [text]="lastName"
+        [control]="form.controls['lastName']"
+        [font]="font"
+        [fontSize]="inputFontSize"
+        (submit)="updateLastName()"
+      ></app-editable-text>
+    </div>
+    <hr />
+    <div class="field">
+      <h5 [ngStyle]="fieldTitleStyles">Username</h5>
+      <app-editable-text
+        [text]="username"
+        [control]="form.controls['username']"
+        [font]="font"
+        [fontSize]="inputFontSize"
+        (submit)="updateUsername()"
+      ></app-editable-text>
+    </div>
+    <hr />
+    <div class="field">
+      <h5 [ngStyle]="fieldTitleStyles">Email Address</h5>
+      <app-editable-text
+        [text]="email"
+        [control]="form.controls['email']"
+        [font]="font"
+        [fontSize]="inputFontSize"
+        (submit)="updateEmail()"
+      ></app-editable-text>
+    </div>
+    <hr />
+  </form>
+  <div class="change-password-button" (click)="changePassword()">
+    <fa-icon [icon]="lockIcon"></fa-icon>
+    <p class="no-mb inline-text change-password-text">Change Password</p>
+  </div>
+</div>

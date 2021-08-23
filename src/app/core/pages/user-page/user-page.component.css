@@ -1,0 +1,26 @@
+#user-profile-image {
+  margin: auto;
+}
+
+#user-image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.section:not(:last-child) {
+  margin-bottom: 50px;
+}
+
+.section-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 35px;
+}
+
+.section-top-icon {
+  font-size: 30px;
+}

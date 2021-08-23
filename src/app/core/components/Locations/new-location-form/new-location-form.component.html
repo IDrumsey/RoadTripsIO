@@ -1,0 +1,140 @@
+<form
+  [formGroup]="form"
+  class="location-stop-edit-form"
+  [ngStyle]="getWrapperDetails()"
+  (ngSubmit)="confirmEdit()"
+>
+  <div class="field">
+    <h5 class="input-label">Address</h5>
+    <app-text-input
+      [placeholder]="'The value'"
+      [name]="'address'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['address']"
+    ></app-text-input>
+  </div>
+  <div class="field">
+    <h5 class="input-label">Coordinates</h5>
+    <div class="edit-coordinates">
+      <div>
+        <h5 class="sub-input-label">Latitude</h5>
+        <app-text-input
+          [borderColor]="
+            form.get('latitude')?.errors && form.get('latitude')?.dirty
+              ? inputInvalidBorderColor
+              : inputValidBorderColor
+          "
+          [inputType]="'number'"
+          [placeholder]="'latitude'"
+          [name]="'latitude'"
+          [ngStyle]="getInputStyles()"
+          [focusBoxShadowBlurRadius]="2"
+          [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+          [control]="this.form.controls['latitude']"
+          (fieldChange)="onCoordinateChange($event)"
+        ></app-text-input>
+        <p
+          *ngIf="
+            form.get('latitude')?.errors &&
+            form.get('latitude')?.dirty &&
+            form.get('latitude')?.hasError('required')
+          "
+          class="form-input-error-message"
+          [ngStyle]="errorFieldMsgStyles"
+        >
+          Latitude required
+        </p>
+      </div>
+      <div>
+        <h5 class="sub-input-label">Longitude</h5>
+        <app-text-input
+          [borderColor]="
+            form.get('longitude')?.errors && form.get('longitude')?.dirty
+              ? inputInvalidBorderColor
+              : inputValidBorderColor
+          "
+          [inputType]="'number'"
+          [placeholder]="'longitude'"
+          [name]="'longitude'"
+          [ngStyle]="getInputStyles()"
+          [focusBoxShadowBlurRadius]="2"
+          [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+          [control]="this.form.controls['longitude']"
+          (fieldChange)="onCoordinateChange($event)"
+        ></app-text-input>
+        <p
+          *ngIf="
+            form.get('longitude')?.errors &&
+            form.get('longitude')?.dirty &&
+            form.get('longitude')?.hasError('required')
+          "
+          class="form-input-error-message"
+          [ngStyle]="errorFieldMsgStyles"
+        >
+          Longitude required
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <h5 class="input-label">Title</h5>
+    <app-text-input
+      [borderColor]="
+        form.get('title')?.errors && form.get('title')?.dirty
+          ? inputInvalidBorderColor
+          : inputValidBorderColor
+      "
+      [placeholder]="'title'"
+      [name]="'title'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['title']"
+    ></app-text-input>
+    <p
+      *ngIf="
+        form.get('title')?.errors &&
+        form.get('title')?.dirty &&
+        form.get('title')?.hasError('required')
+      "
+      class="form-input-error-message"
+      [ngStyle]="errorFieldMsgStyles"
+    >
+      Title required
+    </p>
+  </div>
+  <div class="field" *ngIf="!descriptionDisabled">
+    <h5 class="input-label">Description</h5>
+    <app-text-input
+      [placeholder]="'description'"
+      [name]="'description'"
+      [ngStyle]="getInputStyles()"
+      [focusBoxShadowBlurRadius]="2"
+      [focusBoxShadowColor]="'rgb(116, 162, 193)'"
+      [control]="this.form.controls['description']"
+    ></app-text-input>
+  </div>
+  <app-toolbar class="details-edit-form-options" [gap]="20">
+    <app-rectangle-button
+      [padding]="'10px'"
+      [text]="'Remove location'"
+      [bgRegularColor]="cancelBtnColor"
+      [bgHoverColor]="cancelBtnHoverColor"
+      [fontSize]="'15px'"
+      [width]="'auto'"
+      (buttonClick)="cancelEdit()"
+    ></app-rectangle-button>
+    <app-rectangle-button
+      *ngIf="form.valid"
+      [padding]="'10px'"
+      [text]="'Add new location'"
+      [bgRegularColor]="confirmBtnColor"
+      [bgHoverColor]="confirmBtnHoverColor"
+      [fontSize]="'15px'"
+      [width]="'auto'"
+      (buttonClick)="confirmEdit()"
+    ></app-rectangle-button>
+  </app-toolbar>
+</form>

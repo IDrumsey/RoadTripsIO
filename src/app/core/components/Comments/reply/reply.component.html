@@ -1,0 +1,27 @@
+<div class="reply" [ngStyle]="getReplyStyles()">
+  <app-text-input
+    [name]="'reply - text'"
+    [control]="text"
+    [placeholder]="'Replying to user'"
+    (focusEvent)="onFocus()"
+    (blurEvent)="onBlur()"
+  ></app-text-input>
+  <div class="reply-options-wrapper">
+    <app-toolbar class="reply-options" [gap]="10">
+      <app-rectangle-button
+        [text]="'Discard'"
+        [bgRegularColor]="discardBtnColor"
+        [bgHoverColor]="discardBtnHoverColor"
+        [fontSize]="btnFontSize"
+        (buttonClick)="onCancelClick()"
+      ></app-rectangle-button>
+      <app-rectangle-button
+        [text]="'Reply'"
+        [bgRegularColor]="submitBtnColor"
+        [bgHoverColor]="submitBtnHoverColor"
+        [fontSize]="btnFontSize"
+        (buttonClick)="onSubmitClick()"
+      ></app-rectangle-button>
+    </app-toolbar>
+  </div>
+</div>

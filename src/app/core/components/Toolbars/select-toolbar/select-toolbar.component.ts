@@ -36,16 +36,16 @@ export class SelectToolbarComponent extends ToolbarComponent implements OnInit, 
   }
 
   listenForBtnClicks(): void {
-    this.buttons.forEach(btn => {
-      btn.click.subscribe(() => {
-        if(!this.isBtnSelected(btn)){
-          this.selectBtn(btn);
-        }
-        else{
-          this.unselectBtn(btn);
-        }
-      })
-    })
+    // this.buttons.forEach(btn => {
+    //   btn.buttonClick.subscribe(() => {
+    //     if(!this.isBtnSelected(btn)){
+    //       this.selectBtn(btn);
+    //     }
+    //     else{
+    //       this.unselectBtn(btn);
+    //     }
+    //   })
+    // })
   }
 
   isBtnSelected(btn: ButtonComponent): boolean {
@@ -56,12 +56,10 @@ export class SelectToolbarComponent extends ToolbarComponent implements OnInit, 
   }
 
   selectBtn(btn: ButtonComponent): void {
-    btn.select(this.selectForegroundColor, this.selectBackgroundColor)
     this.selectedButtons.push(btn)
   }
 
   unselectBtn(btn: ButtonComponent): void {
-    btn.unselect();
     this.selectedButtons.splice(this.selectedButtons.indexOf(btn), 1)
   }
 }

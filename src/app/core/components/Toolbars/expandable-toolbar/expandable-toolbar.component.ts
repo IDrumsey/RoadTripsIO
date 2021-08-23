@@ -18,7 +18,6 @@ export class ExpandableToolbarComponent extends ToolbarComponent implements OnIn
 
   constructor() {
     super();
-    this.initExpandDirection();
   }
 
   ngOnInit(): void {
@@ -27,46 +26,30 @@ export class ExpandableToolbarComponent extends ToolbarComponent implements OnIn
   ngAfterViewInit(): void {
     this.buttons = this.buttonContentChildren.toArray();
     this.toggleButton = this.buttons[0];
+
     if(this.toggleButtonContentChild){
       this.toggleButton = this.toggleButtonContentChild
+      this.toggleButton.manager.clickEmitter.subscribe(() => {
+        this.getOtherBtns().forEach(btn => {
+          if(this.isExpanded){
+            this.getOtherBtns().forEach(btn => {
+              btn.hideWrapper()
+              this.isExpanded = false
+            })
+          }
+          else{
+            this.getOtherBtns().forEach(btn => {
+              btn.showWrapper()
+              this.isExpanded = true
+            })
+          }
+        })
+      })
     }
-
-    this.listenForToggleBtnClick();
-  }
-
-  initExpandDirection(){
-    if(this.orientation == ComponentOrientations.Horizontal){
-      this.expandDirection = ExpandDirections.Right;
-    }
-    else{
-      this.expandDirection = ExpandDirections.Down;
-    }
-  }
-
-  expand(): void {
-    this.isExpanded = true;
-    this.getOtherBtns().forEach(btn => btn.show())
-  }
-
-  collapse(): void {
-    this.isExpanded = false;
-    this.getOtherBtns().forEach(btn => {
-      btn.hide()
-    })
-  }
-
-  listenForToggleBtnClick(): void {
-    this.toggleButton.click.subscribe(() => {
-      this.onToggleBtnClick()
-    })
   }
 
   onToggleBtnClick(): void {
-    this.toggleExpand()
-  }
-
-  toggleExpand(): void {
-    this.isExpanded ? this.collapse() : this.expand()
+    console.log("toggle click")
   }
 
   getOtherBtns(): ButtonComponent[] {

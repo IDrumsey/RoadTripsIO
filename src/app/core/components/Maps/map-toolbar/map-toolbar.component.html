@@ -1,0 +1,28 @@
+<app-toolbar-group [gap]="toolbarGap">
+  <app-expandable-toolbar [gap]="buttonGap" class="add-to-map-toolbar">
+    <app-icon-button
+      [iconSize]="iconSize"
+      #toggle
+      [icon]="plusIcon"
+    ></app-icon-button>
+    <app-icon-button
+      [iconSize]="iconSize"
+      [icon]="mapMarkerIcon"
+      [selectable]="true"
+      [iconSelectColor]="addMarkerBtnClickColor"
+      (buttonClick)="this.manager.signal_addMarkerBtnClickEvent()"
+    ></app-icon-button>
+  </app-expandable-toolbar>
+  <app-expandable-toolbar [gap]="buttonGap" class="edit-map-toolbar">
+    <app-icon-button
+      [iconSize]="iconSize"
+      #Toggle
+      [icon]="pencilIcon"
+    ></app-icon-button>
+  </app-expandable-toolbar>
+  <app-icon-button
+    class="delete-roadtrip-button"
+    [iconSize]="iconSize"
+    [icon]="trashIcon"
+  ></app-icon-button>
+</app-toolbar-group>

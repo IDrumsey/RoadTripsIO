@@ -1,0 +1,18 @@
+<div class="comment-head" [ngStyle]="getWrapperStyles()">
+  <h4 class="inline-text comment-text">{{ text }}</h4>
+  <app-toolbar class="comment-options" [gap]="35">
+    <app-icon-button
+      [icon]="replyIcon"
+      (buttonClick)="onReplyClick()"
+    ></app-icon-button>
+    <app-icon-button
+      [icon]="reportIcon"
+      [disabled]="reported"
+      [disabledMessage]="'Comment already reported'"
+    ></app-icon-button>
+    <app-icon-button
+      [icon]="detailsIcon"
+      (buttonClick)="onDetailsClick()"
+    ></app-icon-button>
+  </app-toolbar>
+</div>

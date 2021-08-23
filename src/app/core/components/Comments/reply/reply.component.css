@@ -1,0 +1,13 @@
+.reply {
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.reply-options-wrapper {
+  margin-top: 10px;
+  display: flex;
+}
+
+.reply-options {
+  margin-left: auto;
+}

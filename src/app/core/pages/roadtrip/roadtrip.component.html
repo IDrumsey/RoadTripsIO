@@ -1,3 +1,10 @@
+<div class="roadtrip-map-wrapper">
+  <app-interactive-map
+    class="roadtrip-map"
+    (newLocationAdded)="addRoadtripLocation($event)"
+  ></app-interactive-map>
+</div>
+
 <h1 *ngIf="!isOwner" [ngStyle]="getTitleStyles()">{{ title }}</h1>
 
 <app-editable-text
@@ -35,5 +42,30 @@
 ></app-editable-text>
 
 <div id="stops">
+  <h4 class="inline-text" [ngStyle]="getSectionTitleStyles()">Stops</h4>
   <app-roadtrip-location-card [isOwner]="isOwner"></app-roadtrip-location-card>
+</div>
+
+<div id="comments">
+  <h4
+    class="inline-text comment-section-title"
+    [ngStyle]="getSectionTitleStyles()"
+  >
+    Comments
+  </h4>
+  <fa-icon
+    [icon]="commentSectionIcon"
+    [ngStyle]="getCommentSectionIconStyles()"
+  ></fa-icon>
+  <app-comment>
+    <app-comment [width]="'95%'"></app-comment>
+    <app-comment [width]="'95%'"></app-comment>
+  </app-comment>
+  <app-comment>
+    <app-comment [width]="'95%'">
+      <app-comment [width]="'95%'"></app-comment>
+      <app-comment [width]="'95%'"></app-comment>
+    </app-comment>
+    <app-comment [width]="'95%'"></app-comment>
+  </app-comment>
 </div>

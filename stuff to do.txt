@@ -1,0 +1,5 @@
+Some stuff I want to implement but seems either to advanced or not really necessary right now
+
+shadow overlay for the map markers
+
+animations on the markers for when they are added and removed

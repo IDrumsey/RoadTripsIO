@@ -1,5 +1,31 @@
 # Component Documentation
 
+## Button
+
+---
+
+### Description - component that shouldn't be used directly. Rather, use one of the derived buttons like the icon buttons or the rectangle buttons
+
+## Inputs -
+
+### `disabled`
+
+### Type : boolean
+
+### Default : false
+
+### Description : Whether or not the button is disabled
+
+### `tooltipMessage`
+
+### Type : string
+
+### Default : "Button disabled!"
+
+### Description : The tooltip message to show when hovering
+
+<br/>
+
 ## **Icon Button**
 
 ---

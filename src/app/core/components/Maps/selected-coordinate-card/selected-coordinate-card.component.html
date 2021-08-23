@@ -1,0 +1,13 @@
+<div class="selected-coordinate" [ngStyle]="wrapperStyles">
+  <fa-icon class="pin-icon" [icon]="pinIcon" [ngStyle]="pinStyles"></fa-icon>
+  <h4 class="coordinate no-mb" [ngStyle]="textStyles">
+    ({{ latitude }}, {{ longitude }})
+  </h4>
+  <app-icon-button
+    class="delete-button"
+    [icon]="xCircleIcon"
+    [iconRegularColor]="deleteBtnColor"
+    [iconHoverColor]="deleteBtnHoverColor"
+    [iconSize]="iconSize"
+  ></app-icon-button>
+</div>

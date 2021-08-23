@@ -1,0 +1,16 @@
+.field {
+  margin-bottom: 25px;
+}
+
+.change-password-button {
+  display: inline-block;
+}
+
+.change-password-button:hover {
+  cursor: pointer;
+  color: rgb(247, 123, 123);
+}
+
+.change-password-text {
+  margin-left: 10px;
+}

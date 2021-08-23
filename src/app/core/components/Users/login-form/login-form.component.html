@@ -1,0 +1,35 @@
+<form id="login-form" [formGroup]="form" [ngStyle]="wrapperStyles">
+  <div class="field">
+    <h4 [ngStyle]="fieldTitleStyles">Username</h4>
+    <app-text-input
+      [name]="'username'"
+      [control]="form.controls['username']"
+      [bgColor]="inputBgColor"
+    ></app-text-input>
+  </div>
+  <div class="field">
+    <h4 [ngStyle]="fieldTitleStyles">Password</h4>
+    <app-text-input
+      [inputType]="'password'"
+      [name]="'password'"
+      [control]="form.controls['password']"
+      [bgColor]="inputBgColor"
+    ></app-text-input>
+  </div>
+  <p id="login-error-message" [ngStyle]="errorMsgStyles">error messages</p>
+  <div id="options-wrapper">
+    <app-icon-button
+      id="cancel-button"
+      [icon]="cancelIcon"
+      [iconRegularColor]="cancelBtnColor"
+      [iconHoverColor]="cancelBtnHoverColor"
+      (buttonClick)="onCloseBtnClick()"
+    ></app-icon-button>
+    <app-icon-button
+      id="sign-in-button"
+      [icon]="signInIcon"
+      [iconRegularColor]="signInBtnColor"
+      [iconHoverColor]="signInBtnHoverColor"
+    ></app-icon-button>
+  </div>
+</form>

@@ -6,15 +6,15 @@
   <app-toolbar class="options" [gap]="25">
     <app-icon-button
       [icon]="detailsBtn"
-      [regularColor]="'rgba(116, 162, 193, 1)'"
-      [highlightColor]="'rgba(116, 162, 193, .75)'"
-      (click)="onDetailsClick()"
+      [iconRegularColor]="'rgba(116, 162, 193, 1)'"
+      [iconHoverColor]="'rgba(116, 162, 193, .75)'"
+      (buttonClick)="onDetailsClick()"
     ></app-icon-button>
     <app-icon-button
       *ngIf="isOwner"
       [icon]="deleteBtn"
-      [regularColor]="'rgba(252, 119, 119, 1)'"
-      [highlightColor]="'rgba(252, 119, 119, .75)'"
+      [iconRegularColor]="'rgba(252, 119, 119, 1)'"
+      [iconHoverColor]="'rgba(252, 119, 119, .75)'"
     ></app-icon-button>
   </app-toolbar>
 </div>

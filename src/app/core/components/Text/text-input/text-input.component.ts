@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -9,14 +9,20 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
   styleUrls: ['./text-input.component.css']
 })
 export class TextInputComponent implements OnInit {
+  // events
+  @Output() focusEvent = new EventEmitter()
+  @Output() blurEvent = new EventEmitter()
+  @Output() fieldChange = new EventEmitter<string>()
+
   // state
   isFocused: boolean = false;
 
   // data inputs
   @Input() text: string = ""
-  @Input() placeholder: string
+  @Input() placeholder: string = ""
   @Input() name: string
   @Input() control: any
+  @Input() inputType: string = "text"
 
 
   // style inputs
@@ -26,6 +32,7 @@ export class TextInputComponent implements OnInit {
   @Input() padding: number = 5
   @Input() width: string = "100%"
   @Input() bgColor: string = AppColors.elevation3
+  @Input() borderColor: string | null = AppColors.elevation1
 
   @Input() focusBoxShadowBlurRadius: number = 5
   @Input() focusBoxShadowColor: string = AppColors.onColorLight
@@ -34,30 +41,24 @@ export class TextInputComponent implements OnInit {
 
   @Input() focusStyles: {}
 
+  ngOnChanges(): void {
+    this.defineStyles()
+  }
+
   constructor() { }
 
   ngOnInit(): void {
-    this.blurStyles = {
-      color: this.textColor,
-      fontSize: this.fontSize,
-      fontFamily: this.font,
-      backgroundColor: this.bgColor,
-      border: `2px solid ${AppColors.elevation1}`,
-      padding: `${this.padding}px`,
-      width: this.width
-    }
-
-    this.focusStyles = {
-      boxShadow: `0 0 ${this.focusBoxShadowBlurRadius}px ${this.focusBoxShadowColor}`
-    }
+    this.defineStyles()
   }
 
   onFocus(): void {
     this.isFocused = true;
+    this.focusEvent.emit()
   }
 
   onBlur(): void {
     this.isFocused = false;
+    this.blurEvent.emit()
   }
 
   mergeBlurAndFocusStyles(): {} {
@@ -65,6 +66,22 @@ export class TextInputComponent implements OnInit {
     return {
       ... this.blurStyles,
       ... this.focusStyles
+    }
+  }
+
+  defineStyles(): void {
+    this.blurStyles = {
+      color: this.textColor,
+      fontSize: this.fontSize,
+      fontFamily: this.font,
+      backgroundColor: this.bgColor,
+      border: `2px solid ${this.borderColor}`,
+      padding: `${this.padding}px`,
+      width: this.width
+    }
+
+    this.focusStyles = {
+      boxShadow: `0 0 ${this.focusBoxShadowBlurRadius}px ${this.focusBoxShadowColor}`
     }
   }
 

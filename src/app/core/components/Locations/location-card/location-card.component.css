@@ -1,0 +1,8 @@
+.location-card-head {
+  display: flex;
+  align-items: center;
+}
+
+.location-card-head-options {
+  margin-left: auto;
+}

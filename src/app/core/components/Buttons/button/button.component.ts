@@ -1,18 +1,23 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-
-import { Button } from '../../models/Buttons/Button/button';
+import { Component, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']
 })
-export class ButtonComponent extends Button implements OnInit {
-  showing: boolean = true;
+export class ButtonComponent implements OnInit {
+  manager: any
+  
+  // styles
+  @Input() disabled: boolean = false;
+  @Input() selectable: boolean = false
+  @Input() disabledMessage: string
+  @Input() enabledMessage: string
+
+  // data
   wrapperElement: any;
 
   constructor(elementRef: ElementRef) {
-    super();
     this.wrapperElement = elementRef.nativeElement;
   }
 

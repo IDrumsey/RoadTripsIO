@@ -1,22 +1,26 @@
 <input
   *ngIf="!control"
   class="text-input"
-  type="text"
+  type="{{ inputType }}"
   [name]="name"
   [(ngModel)]="text"
   [ngStyle]="getStyles()"
   (focus)="onFocus()"
   (blur)="onBlur()"
   [placeholder]="placeholder"
+  (input)="(text)"
+  step="0.00000000000001"
 />
 <input
   *ngIf="control"
   class="text-input"
-  type="text"
+  type="{{ inputType }}"
   [name]="name"
   [ngStyle]="getStyles()"
   (focus)="onFocus()"
   (blur)="onBlur()"
   [placeholder]="placeholder"
   [formControl]="control"
+  (input)="fieldChange.next(control.value)"
+  step="0.00000000000001"
 />

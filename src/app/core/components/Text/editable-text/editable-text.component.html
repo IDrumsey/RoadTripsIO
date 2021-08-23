@@ -5,16 +5,26 @@
       class="edit-button"
       [icon]="editBtnIcon"
       [ngStyle]="getEditBtnStyles()"
-      (click)="onEditBtnClick()"
+      (buttonClick)="onEditBtnClick()"
     ></app-icon-button>
   </div>
   <div class="is-editing-content" *ngIf="isEditing">
     <app-text-input
       #editField
+      *ngIf="!control"
       [name]="'edit-text-input-field'"
       [blurStyles]="inputBlurStyles"
       [focusStyles]="inputFocusStyles"
       [placeholder]="text"
+    ></app-text-input>
+    <app-text-input
+      *ngIf="control"
+      #editField
+      [name]="'edit-text-input-field'"
+      [blurStyles]="inputBlurStyles"
+      [focusStyles]="inputFocusStyles"
+      [placeholder]="text"
+      [control]="control"
     ></app-text-input>
     <div class="edit-input-options-wrapper">
       <app-toolbar class="edit-input-options" [gap]="10">
@@ -22,21 +32,19 @@
           class="editable-text-cancel-changes-btn"
           [icon]="cancelEditBtn"
           [size]="'35px'"
-          [regularBackgroundColor]="'rgba(255,0,0,.5)'"
-          [backgroundHighlightColor]="'rgba(255,0,0,.6)'"
-          [highlightColor]="null"
-          [regularBorderColor]="'#ebf2ff'"
-          (click)="onCancelChanges()"
+          [bgRegularColor]="'rgba(255,0,0,.5)'"
+          [bgHoverColor]="'rgba(255,0,0,.6)'"
+          [borderRegularColor]="'#ebf2ff'"
+          (buttonClick)="onCancelChanges()"
         ></app-circular-icon-button>
         <app-circular-icon-button
           class="editable-text-confirm-changes-btn"
           [icon]="confirmChangeBtn"
           [size]="'35px'"
-          [regularBackgroundColor]="'rgba(0,255,0,.5)'"
-          [backgroundHighlightColor]="'rgba(0,255,0,.6)'"
-          [highlightColor]="null"
-          [regularBorderColor]="'#ebf2ff'"
-          (click)="onConfirmChanges()"
+          [bgRegularColor]="'rgba(0,255,0,.5)'"
+          [bgHoverColor]="'rgba(0,255,0,.6)'"
+          [borderRegularColor]="'#ebf2ff'"
+          (buttonClick)="onConfirmChanges()"
         ></app-circular-icon-button>
       </app-toolbar>
     </div>

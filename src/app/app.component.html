@@ -1,9 +1,16 @@
 <div id="top">
   <h4 id="website-title">Road Trips IO</h4>
-  <app-main-navigation-bar id="main-navbar"></app-main-navigation-bar>
+  <app-main-navigation-bar
+    (openLogin)="openLoginForm()"
+    id="main-navbar"
+  ></app-main-navigation-bar>
 </div>
 <div id="body">
   <div id="body-content">
-    <app-roadtrip></app-roadtrip>
+    <router-outlet></router-outlet>
   </div>
 </div>
+<app-login-form
+  *ngIf="showingLoginForm"
+  (close)="closeLoginForm()"
+></app-login-form>

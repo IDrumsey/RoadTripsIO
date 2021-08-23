@@ -1,0 +1,12 @@
+<div class="interactive-map">
+  <!-- <app-map-ui [manager]="manager"></app-map-ui> -->
+  <app-map-toolbar [manager]="manager"></app-map-toolbar>
+  <p *ngIf="showingActionHint" [ngStyle]="actionHintStyles">{{ actionHint }}</p>
+  <app-new-location-form
+    *ngIf="showingNewLocationForm"
+    [coordinates]="this.manager.markerCoordinatesBeingAdded"
+    (cancel)="this.manager.onNewLocationFormCancelBtnClick()"
+    (confirm)="onFormSubmit($event)"
+    (coordinatesDefined)="this.manager.onformCoordinatesDefined($event)"
+  ></app-new-location-form>
+</div>

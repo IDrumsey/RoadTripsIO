@@ -1,0 +1,4 @@
+.interactive-map {
+  display: grid;
+  gap: 10px;
+}

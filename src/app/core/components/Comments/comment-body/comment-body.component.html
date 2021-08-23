@@ -1,0 +1,10 @@
+<div class="comment-body" [ngStyle]="getWrapperStyles()">
+  <fa-icon [icon]="dateIcon" [ngStyle]="getIconStyles()"></fa-icon>
+  <h5 class="inline-text date-posted" [ngStyle]="getTextStyles()">
+    {{ getDatePosted() }}
+  </h5>
+  <fa-icon [icon]="timeIcon" [ngStyle]="getIconStyles()"></fa-icon>
+  <h5 class="inline-text time-posted" [ngStyle]="getTextStyles()">
+    {{ getTimePosted() }}
+  </h5>
+</div>

@@ -35,6 +35,10 @@ app-root {
   cursor: pointer;
 }
 
+.disabled-button:hover {
+  cursor: auto !important;
+}
+
 .toolbar {
   display: inline-flex;
   align-items: center;
@@ -58,10 +62,35 @@ body {
   margin: auto;
 }
 
-app-toolbar {
+app-toolbar,
+app-image-gallery,
+.inline-text,
+app-login-form {
   display: inline-block;
+}
+
+app-login-form {
+  position: absolute;
+  right: 25px;
+  top: 8%;
 }
 
 app-editable-text {
   display: block;
+}
+
+.image {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.comment {
+  margin-bottom: 10px;
+}
+
+.no-mb {
+  margin-bottom: 0;
+}
+
+.form-input-error {
+  border: 2px solid #f00;
 }

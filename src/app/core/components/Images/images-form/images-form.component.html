@@ -1,0 +1,48 @@
+<form class="images-form" [formGroup]="form">
+  <div>
+    <input
+      #selectButton
+      type="file"
+      class="select-images-button"
+      formControlName="images"
+    />
+    <app-rectangle-button
+      [text]="'Select Images'"
+      [width]="'auto'"
+      [bgRegularColor]="selectImagesButtonColor"
+      [bgHoverColor]="selectImagesButtonHoverColor"
+      [padding]="'10px 25px'"
+      [fontFamily]="selectImagesButtonFont"
+      [fontSize]="selectImagesButtonFontSize"
+      (buttonClick)="selectButton.click()"
+    ></app-rectangle-button>
+  </div>
+  <app-image-gallery
+    class="add-images-preview-gallery"
+    [numCols]="4"
+    [height]="getGalleryHeight()"
+  >
+    <app-image-template></app-image-template
+  ></app-image-gallery>
+  <div class="add-images-options">
+    <app-toolbar class="add-images-options-toolbar" [gap]="25">
+      <app-rectangle-button
+        [text]="'Cancel'"
+        [bgRegularColor]="cancelButtonColor"
+        [bgHoverColor]="cancelButtonHoverColor"
+        [padding]="'10px 25px'"
+        [fontFamily]="selectImagesButtonFont"
+        [fontSize]="'15px'"
+        (buttonClick)="onCancel()"
+      ></app-rectangle-button>
+      <app-rectangle-button
+        [text]="'Confirm'"
+        [bgRegularColor]="confirmButtonColor"
+        [bgHoverColor]="confirmButtonHoverColor"
+        [padding]="'10px 25px'"
+        [fontFamily]="selectImagesButtonFont"
+        [fontSize]="'15px'"
+      ></app-rectangle-button>
+    </app-toolbar>
+  </div>
+</form>

@@ -1,10 +1,13 @@
 <div
   class="button icon-button circle-icon-button"
   *ngIf="icon != null"
-  [ngStyle]="getOutlineStyles()"
-  (click)="onClick()"
-  (mouseenter)="onOutlineMouseEnter()"
-  (mouseleave)="onOutlineMouseExit()"
+  [ngStyle]="this.manager.getShapeStyles()"
+  (click)="this.manager.click()"
+  (mouseenter)="this.manager.mouseEnter()"
+  (mouseleave)="this.manager.mouseExit()"
 >
-  <fa-icon [icon]="icon" [ngStyle]="getIconStyles()"></fa-icon>
+  <fa-icon
+    [icon]="this.manager.icon"
+    [ngStyle]="this.manager.getIconStyles()"
+  ></fa-icon>
 </div>

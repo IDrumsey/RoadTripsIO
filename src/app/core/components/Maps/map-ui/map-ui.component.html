@@ -1,0 +1,14 @@
+<google-map
+  [options]="options"
+  [width]="'100%'"
+  (mapClick)="this.manager.signal_mapClickEvent($event)"
+>
+  <map-marker
+    *ngFor="let coord of this.manager.coordinates"
+    [options]="this.manager.markerOptions"
+    [position]="coord"
+    (mapMouseover)="this.manager.onMarkerEnter(coord)"
+    (mapMouseout)="this.manager.onMarkerExit(coord)"
+    (mapClick)="this.manager.onMarkerClick(coord)"
+  ></map-marker>
+</google-map>

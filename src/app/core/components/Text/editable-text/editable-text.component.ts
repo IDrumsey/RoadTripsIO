@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { faCheck, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { TextInputComponent } from '../text-input/text-input.component';
@@ -14,6 +14,13 @@ export class EditableTextComponent implements OnInit {
   // data
   @Input() text: string;
   @ViewChild('editField') editInputField: TextInputComponent;
+  // https://stackoverflow.com/questions/46422007/error-error-no-value-accessor-for-form-control-with-unspecified-name-attribute/54755671
+  @Input() control: any
+  // bug sol'n - figure out a way to removing the control value from the input on showing the input without deleting the control value
+
+  // events
+  @Output() submit = new EventEmitter()
+  @Output() cancel = new EventEmitter()
 
   // styles
   @Input() width: string = "100%"
@@ -73,6 +80,7 @@ export class EditableTextComponent implements OnInit {
 
   onCancelChanges(): void {
     this.toggleEditing();
+    this.cancel.emit()
   }
 
   onConfirmChanges(): void {
@@ -80,5 +88,6 @@ export class EditableTextComponent implements OnInit {
       this.text = this.editInputField.text;
     }
     this.toggleEditing()
+    this.submit.emit()
   }
 }

@@ -1,0 +1,102 @@
+<div [ngStyle]="getWrapperStyles()">
+  <div id="user-image-wrapper">
+    <app-user-profile-image id="user-profile-image"></app-user-profile-image>
+  </div>
+  <h5 [ngStyle]="usernameStyles">Username</h5>
+
+  <!-- Created roadtrips -->
+  <div class="section">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Created Roadtrips
+      </h1>
+      <app-icon-button
+        *ngIf="isOwner"
+        [icon]="addBtnIcon"
+        [iconSize]="'30px'"
+        [ngStyle]="sectionTopIconStyles"
+      ></app-icon-button>
+    </div>
+
+    <app-roadtrip-card [isOwner]="isOwner"></app-roadtrip-card>
+  </div>
+
+  <!-- Places Visited -->
+  <div class="section">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Places I've been
+      </h1>
+      <app-icon-button
+        *ngIf="isOwner"
+        [icon]="addBtnIcon"
+        [iconSize]="'30px'"
+        [ngStyle]="sectionTopIconStyles"
+      ></app-icon-button>
+    </div>
+    <app-location-card [isOwner]="isOwner"></app-location-card>
+  </div>
+
+  <!-- Places Visited -->
+  <div class="section">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Where I want to go
+      </h1>
+      <app-icon-button
+        *ngIf="isOwner"
+        [icon]="addBtnIcon"
+        [iconSize]="'30px'"
+        [ngStyle]="sectionTopIconStyles"
+      ></app-icon-button>
+    </div>
+    <app-location-card [isOwner]="isOwner"></app-location-card>
+  </div>
+
+  <!-- Personal Info -->
+  <div class="section" *ngIf="isOwner">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Personal Information
+      </h1>
+      <fa-icon
+        [icon]="personalInfoIcon"
+        class="section-top-icon"
+        [ngStyle]="sectionTopIconStyles"
+      ></fa-icon>
+    </div>
+    <app-personal-info-card *ngIf="isOwner"></app-personal-info-card>
+  </div>
+
+  <!-- Picture Gallery -->
+  <div class="section">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Pictures
+      </h1>
+      <fa-icon
+        [icon]="cameraIcon"
+        class="section-top-icon"
+        [ngStyle]="sectionTopIconStyles"
+      ></fa-icon>
+    </div>
+    <app-image-gallery>
+      <app-image *ngFor="let path of imagePaths" [filePath]="path"></app-image>
+    </app-image-gallery>
+  </div>
+</div>

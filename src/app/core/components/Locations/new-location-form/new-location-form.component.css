@@ -1,0 +1,34 @@
+.location-stop-edit-form {
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.input-label {
+  color: #ebf2ff;
+  font-size: 25px;
+}
+
+.sub-input-label {
+  color: #ebf2ff;
+  font-size: 15px;
+}
+
+.edit-coordinates {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.details-edit-form-options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-input-error-message {
+  margin-bottom: 0;
+}

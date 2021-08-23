@@ -53,7 +53,7 @@
       [control]="this.form.controls['title']"
     ></app-text-input>
   </div>
-  <div class="field">
+  <div class="field" *ngIf="!descriptionDisabled">
     <h5 class="input-label">Description</h5>
     <app-text-input
       [placeholder]="'description'"
@@ -67,19 +67,19 @@
   <app-toolbar class="details-edit-form-options" [gap]="20">
     <app-rectangle-button
       [text]="'Cancel'"
-      [defaultBgColor]="cancelBtnColor"
+      [bgRegularColor]="cancelBtnColor"
       [bgHoverColor]="cancelBtnHoverColor"
       [fontSize]="'15px'"
       [width]="'auto'"
-      (click)="cancelEdit()"
+      (buttonClick)="cancelEdit()"
     ></app-rectangle-button>
     <app-rectangle-button
       [text]="'Confirm Changes'"
-      [defaultBgColor]="confirmBtnColor"
+      [bgRegularColor]="confirmBtnColor"
       [bgHoverColor]="confirmBtnHoverColor"
       [fontSize]="'15px'"
       [width]="'auto'"
-      (click)="confirmEdit()"
+      (buttonClick)="confirmEdit()"
     ></app-rectangle-button>
   </app-toolbar>
 </form>

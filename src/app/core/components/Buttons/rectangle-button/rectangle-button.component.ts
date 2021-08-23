@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AppColors } from 'src/app/core/data/models/app-colors';
-import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { ButtonComponent } from '../button/button.component';
+import { RectangleTextButtonManager } from '../functionality/rectangle-text-button-manager';
 
 @Component({
   selector: 'app-rectangle-button[text]',
@@ -9,67 +9,46 @@ import { ButtonComponent } from '../button/button.component';
   styleUrls: ['./rectangle-button.component.css']
 })
 export class RectangleButtonComponent extends ButtonComponent implements OnInit {
-  // data
-  @Input() text: string
-
-  // styles
-  @Input() fontSize: string = "25px"
-  @Input() defaultFontColor: string = AppColors.onColorLight
-  @Input() font: string = AppFonts.Data
-  @Input() fontHoverColor: string | null
-
-  fontColor: string = this.defaultFontColor
-
-  @Input() width: string = "100%"
-  @Input() height: string
-  @Input() defaultBgColor: string = AppColors.elevation2
-  @Input() padding: string = "10px"
-  @Input() bgHoverColor: string | null
-
-  bgColor: string
-
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
+  constructor(element: ElementRef) {
+    super(element)
   }
 
   ngOnInit(): void {
-    this.bgColor = this.defaultBgColor
-    this.fontColor = this.defaultFontColor
-    this.setHoverColors()
+    this.manager = new RectangleTextButtonManager(this.text, this.fgRegularColor, false, true, this.disabled, this.selectable, this.fgHoverColor, this.fgSelectColor, this.enabledMessage, this.disabledMessage, this.bgRegularColor, this.bgHoverColor, this.bgSelectColor, this.borderRegularColor, this.borderHoverColor, this.borderSelectColor, this.borderWidth, this.padding, this.width, this.height, this.fontSize, this.fontFamily)
+
+    this.manager.clickEmitter.subscribe(() => {
+      this.buttonClick.emit()
+    })
+
+    this.manager.mouseEnterEmitter.subscribe(() => {
+      this.buttonMouseEnter.emit()
+    })
+
+    this.manager.mouseExitEmitter.subscribe(() => {
+      this.buttonMouseExit.emit()
+    })
   }
 
-  getButtonStyles(): {} {
-    return {
-      backgroundColor: this.bgColor,
-      width: this.width,
-      height: this.height,
-      padding: this.padding
-    }
-  }
+  // inputs
+  @Input() padding: string
+  @Input() fgRegularColor: string = AppColors.onColorLight
+  @Input() fgHoverColor: string
+  @Input() fgSelectColor: string
+  @Input() bgRegularColor: string
+  @Input() bgHoverColor: string
+  @Input() bgSelectColor: string
+  @Input() borderWidth: number
+  @Input() borderRegularColor: string
+  @Input() borderHoverColor: string
+  @Input() borderSelectColor: string
+  @Input() width: string
+  @Input() height: string
+  @Input() fontSize: string
+  @Input() text: string
+  @Input() fontFamily: string
 
-  getTextStyles(): {} {
-    return {
-      fontFamily: this.font,
-      color: this.fontColor,
-      fontSize: this.fontSize
-    }
-  }
-
-  onMouseEnter(): void {
-    this.setHoverColors()
-  }
-
-  onMouseExit(): void {
-    this.bgColor = this.defaultBgColor
-    this.fontColor = this.defaultFontColor
-  }
-
-  setHoverColors(): void {
-    if(this.bgHoverColor){
-      this.bgColor = this.bgHoverColor
-    }
-    if(this.fontHoverColor){
-      this.fontColor = this.fontHoverColor
-    }
-  }
+  // outputs
+  @Output() buttonClick = new EventEmitter();
+  @Output() buttonMouseEnter = new EventEmitter();
+  @Output() buttonMouseExit = new EventEmitter();
 }

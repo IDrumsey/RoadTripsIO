@@ -27,10 +27,8 @@ export class SingleSelectToolbarComponent extends SelectToolbarComponent impleme
 
   selectBtn(btn: ButtonComponent): void {
     if(this.selectedButton){
-      this.selectedButton.unselect(true);
     }
 
-    btn.select(this.selectForegroundColor, this.selectBackgroundColor)
     this.selectedButton = btn;
     this.selectedButtons[0] = btn
   }

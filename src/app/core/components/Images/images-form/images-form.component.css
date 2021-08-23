@@ -1,0 +1,22 @@
+/* https://stackoverflow.com/questions/53584875/how-to-create-a-custom-file-upload-button-in-angular */
+.select-images-button {
+  display: none;
+}
+
+.add-images-preview-gallery {
+  min-height: 200px;
+  display: block;
+  margin-top: 25px;
+}
+
+.images-form {
+  width: 100%;
+}
+
+.add-images-options {
+  display: flex;
+}
+
+.add-images-options-toolbar {
+  margin-left: auto;
+}

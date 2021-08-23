@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { faLandmark, faMapPin, faPencilAlt, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+
+import { faImages, faLandmark, faMapPin, faPencilAlt, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { LocationTypes } from 'src/app/core/data/models/location-types';
@@ -20,9 +21,11 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
   addToTripIcon = faPlus
   addToVisitIcon = faMapPin
   editBtn = faPencilAlt
+  addImagesIcon = faImages
 
   // state
   @Input() isOwner: boolean
+  showingAddImagesForm: boolean = false;
 
   // events
   @Output() edit = new EventEmitter();
@@ -54,5 +57,18 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
 
   editStop(): void {
     this.edit.emit();
+  }
+
+  addImages(): void {
+    console.log("adding images")
+    this.showImageForm()
+  }
+
+  showImageForm(): void {
+    this.showingAddImagesForm = true;
+  }
+
+  hideImageForm(): void {
+    this.showingAddImagesForm = false;
   }
 }

@@ -1,0 +1,8 @@
+.roadtrip-card {
+  display: flex;
+  align-items: center;
+}
+
+.roadtrip-card-options {
+  margin-left: auto;
+}

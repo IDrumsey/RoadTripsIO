@@ -1,0 +1,11 @@
+.comment-head {
+  display: flex;
+}
+
+.comment-text {
+  margin-bottom: 0;
+}
+
+.comment-options {
+  margin-left: auto;
+}

@@ -8,5 +8,9 @@ export enum AppColors {
     onColorLight = "#ebf2ff",
     onColorLighter = "#f8faff",
     onContrastPurple = "#f4d5ff",
-    onContrastBlue = "#b7f3ff"
+    onContrastBlue = "#b7f3ff",
+    onContrastRed = "#ed4a57",
+    onContrastDarkRed = "rgba(232, 53, 58, 0.75)",
+    onContrastGreen = "rgba(78, 181, 140)",
+    onContrastDarkGreen = "rgba(78, 181, 140, 0.75)"
 }

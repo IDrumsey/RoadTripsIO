@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms'
+import { Subject } from 'rxjs';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 
@@ -30,6 +31,11 @@ export class RoadtripLocationCardEditFormComponent implements OnInit {
   @Output() cancel = new EventEmitter()
   @Output() confirm = new EventEmitter<any>()
 
+  confirmObservable = new Subject();
+
+  // state
+  @Input() descriptionDisabled: boolean = false
+
   constructor() { }
 
   ngOnInit(): void {
@@ -54,5 +60,6 @@ export class RoadtripLocationCardEditFormComponent implements OnInit {
   confirmEdit(): void {
     console.log(this.form.controls)
     this.confirm.emit()
+    this.confirmObservable.next(this.form.controls)
   }
 }

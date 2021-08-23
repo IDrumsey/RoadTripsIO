@@ -1,0 +1,57 @@
+<div [ngStyle]="wrapperStyles">
+  <form class="map-radius-form" [formGroup]="form">
+    <div>
+      <h5 [ngStyle]="titleStyles">Center Point</h5>
+      <div class="center-field" [ngStyle]="fieldStyles">
+        <fa-icon
+          class="pin-icon"
+          [icon]="pinIcon"
+          [ngStyle]="iconStyles"
+        ></fa-icon>
+        <h5 class="display-inline-block no-mb">(</h5>
+        <input
+          type="number"
+          class="display-inline-block latitude-input"
+          [ngStyle]="inputStyles"
+          formControlName="latitude"
+        />
+        <h5 class="display-inline-block no-mb">,</h5>
+        <input
+          type="number"
+          class="display-inline-block longitude-input"
+          [ngStyle]="inputStyles"
+          formControlName="longitude"
+        />
+        <h5 class="display-inline-block no-mb">)</h5>
+      </div>
+    </div>
+    <div>
+      <h5 [ngStyle]="titleStyles">Radius</h5>
+      <div class="radius-field" [ngStyle]="fieldStyles">
+        <input
+          type="number"
+          class="display-inline-block radius-input"
+          [ngStyle]="inputStyles"
+          min="1"
+          formControlName="radius"
+        />
+        <p class="display-inline-block no-mb miles-text">miles</p>
+        <fa-icon
+          class="display-inline-block range-icon"
+          [icon]="rangeIcon"
+          [ngStyle]="iconStyles"
+        ></fa-icon>
+      </div>
+    </div>
+  </form>
+  <div class="options">
+    <app-icon-button
+      class="update-button"
+      [icon]="updateIcon"
+      [iconRegularColor]="updateBtnColor"
+      [iconHoverColor]="updateBtnHoverColor"
+      [iconSize]="updateBtnSize"
+      (buttonClick)="updateMap()"
+    ></app-icon-button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="roadtrip-card" [ngStyle]="cardStyles">
+  <h5 class="inline-text no-mb" [ngStyle]="titleStyles">{{ title }}</h5>
+  <app-toolbar class="roadtrip-card-options" [gap]="25">
+    <app-icon-button
+      [icon]="routeIcon"
+      (buttonClick)="routeToDetailsPage()"
+    ></app-icon-button>
+    <app-icon-button
+      *ngIf="isOwner"
+      [icon]="trashIcon"
+      [iconRegularColor]="deleteBtnColor"
+      [iconHoverColor]="deleteBtnHoverColor"
+    ></app-icon-button>
+  </app-toolbar>
+</div>

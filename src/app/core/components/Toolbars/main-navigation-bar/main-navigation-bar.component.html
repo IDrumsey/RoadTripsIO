@@ -1,20 +1,33 @@
 <app-expandable-toolbar [gap]="35">
   <app-circular-icon-button
-    *ngFor="let icon of otherIcons"
-    [icon]="icon"
-    [iconSize]="'25px'"
-    [regularBorderColor]="null"
-    [backgroundHighlightColor]="'rgba(0,0,255,.2)'"
-    [highlightColor]="null"
+    [icon]="otherIcons[0]"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
     [padding]="20"
+    (buttonClick)="routeToUserPage(1)"
   ></app-circular-icon-button>
+
+  <app-circular-icon-button
+    [icon]="otherIcons[1]"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
+    [padding]="20"
+    (buttonClick)="routeToBrowseRoadtripsPage()"
+  ></app-circular-icon-button>
+
+  <app-circular-icon-button
+    [icon]="otherIcons[2]"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
+    [padding]="20"
+    (buttonClick)="onSignInBtnClick()"
+  ></app-circular-icon-button>
+
   <app-circular-icon-button
     #toggle
     [icon]="toggleIcon"
-    [iconSize]="'22px'"
-    [regularBorderColor]="null"
-    [backgroundHighlightColor]="'rgba(0,0,255,.2)'"
-    [highlightColor]="null"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
     [padding]="20"
   ></app-circular-icon-button>
 </app-expandable-toolbar>

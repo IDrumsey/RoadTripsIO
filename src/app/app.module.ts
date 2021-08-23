@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import {HttpClientModule} from '@angular/common/http'
+
 
 // Third Party
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -27,6 +30,37 @@ import { RoadtripLocationCardHeadComponent } from './core/components/roadtrip-lo
 import { RoadtripLocationCardDetailsComponent } from './core/components/roadtrip-locations/roadtrip-location-card-details/roadtrip-location-card-details.component';
 import { RoadtripLocationCardEditFormComponent } from './core/components/roadtrip-locations/roadtrip-location-card-edit-form/roadtrip-location-card-edit-form.component';
 import { RectangleButtonComponent } from './core/components/Buttons/rectangle-button/rectangle-button.component';
+import { ImageComponent } from './core/components/Images/image/image.component';
+import { ImageTemplateComponent } from './core/components/Images/image-template/image-template.component';
+import { ImageGalleryComponent } from './core/components/Images/image-gallery/image-gallery.component';
+import { GeneralImageComponent } from './core/components/Images/general-image/general-image.component';
+import { ImagesFormComponent } from './core/components/Images/images-form/images-form.component';
+import { CommentComponent } from './core/components/Comments/comment/comment.component';
+import { CommentHeadComponent } from './core/components/Comments/comment-head/comment-head.component';
+import { CommentBodyComponent } from './core/components/Comments/comment-body/comment-body.component';
+import { ReplyComponent } from './core/components/Comments/reply/reply.component';
+import { UserPageComponent } from './core/pages/user-page/user-page.component';
+import { UserProfileImageComponent } from './core/components/Users/user-profile-image/user-profile-image.component';
+import { RoadtripCardComponent } from './core/components/Roadtrips/roadtrip-card/roadtrip-card.component';
+import { LocationCardComponent } from './core/components/Locations/location-card/location-card.component';
+import { PersonalInfoCardComponent } from './core/components/Users/personal-info-card/personal-info-card.component';
+import { BrowseRoadtripsPageComponent } from './core/pages/browse-roadtrips-page/browse-roadtrips-page.component';
+import { SelectedCoordinatesComponent } from './core/components/Maps/selected-coordinates/selected-coordinates.component';
+import { SelectedCoordinateCardComponent } from './core/components/Maps/selected-coordinate-card/selected-coordinate-card.component';
+import { MapRadiusFormComponent } from './core/components/Maps/map-radius-form/map-radius-form.component';
+import { LoginFormComponent } from './core/components/Users/login-form/login-form.component';
+import { InteractiveMapComponent } from './core/components/Maps/interactive-map/interactive-map.component';
+import { MapUiComponent } from './core/components/Maps/map-ui/map-ui.component';
+import { ToolbarGroupComponent } from './core/components/Toolbars/toolbar-group/toolbar-group.component';
+import { MapToolbarComponent } from './core/components/Maps/map-toolbar/map-toolbar.component';
+import { ShapeIconButtonComponent } from './core/components/Buttons/shape-icon-button/shape-icon-button.component';
+import { NewLocationFormComponent } from './core/components/Locations/new-location-form/new-location-form.component';
+
+const routes: Routes = [
+  {path: 'roadtrips/:roadtripId', component: RoadtripComponent},
+  {path: 'users/:userId', component: UserPageComponent},
+  {path: '', component: BrowseRoadtripsPageComponent}
+]
 
 @NgModule({
   declarations: [
@@ -48,6 +82,31 @@ import { RectangleButtonComponent } from './core/components/Buttons/rectangle-bu
     RoadtripLocationCardDetailsComponent,
     RoadtripLocationCardEditFormComponent,
     RectangleButtonComponent,
+    ImageComponent,
+    ImageTemplateComponent,
+    ImageGalleryComponent,
+    GeneralImageComponent,
+    ImagesFormComponent,
+    CommentComponent,
+    CommentHeadComponent,
+    CommentBodyComponent,
+    ReplyComponent,
+    UserPageComponent,
+    UserProfileImageComponent,
+    RoadtripCardComponent,
+    LocationCardComponent,
+    PersonalInfoCardComponent,
+    BrowseRoadtripsPageComponent,
+    SelectedCoordinatesComponent,
+    SelectedCoordinateCardComponent,
+    MapRadiusFormComponent,
+    LoginFormComponent,
+    InteractiveMapComponent,
+    MapUiComponent,
+    ToolbarGroupComponent,
+    MapToolbarComponent,
+    ShapeIconButtonComponent,
+    NewLocationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +114,9 @@ import { RectangleButtonComponent } from './core/components/Buttons/rectangle-bu
     GoogleMapsModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

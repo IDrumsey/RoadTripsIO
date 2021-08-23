@@ -1,0 +1,31 @@
+<div class="location-card" [ngStyle]="wrapperStyles">
+  <div class="location-card-head" [ngStyle]="headStyles">
+    <div>
+      <h5 [ngStyle]="titleStyles">{{ title }}</h5>
+      <h5 class="no-mb" [ngStyle]="addressStyles">{{ address }}</h5>
+    </div>
+    <app-toolbar class="location-card-head-options" [gap]="25">
+      <app-icon-button
+        [icon]="mapWithMarkerIcon"
+        (buttonClick)="openAddressInMaps()"
+      ></app-icon-button>
+      <app-icon-button
+        *ngIf="isOwner"
+        [icon]="pencilIcon"
+        (buttonClick)="onEditBtnClick()"
+      ></app-icon-button>
+      <app-icon-button
+        *ngIf="isOwner"
+        [icon]="trashIcon"
+        [iconRegularColor]="deleteBtnColor"
+        [iconHoverColor]="deleteBtnHoverColor"
+      ></app-icon-button>
+    </app-toolbar>
+  </div>
+  <app-roadtrip-location-card-edit-form
+    #editForm
+    *ngIf="showingEditForm"
+    [descriptionDisabled]="true"
+    (cancel)="onEditCancel()"
+  ></app-roadtrip-location-card-edit-form>
+</div>
