@@ -1,5 +1,6 @@
 import { RoadtripStop } from "./roadtrip-stop"
 import { Comment } from "../comment"
+import { User } from "../user"
 
 export class Roadtrip {
     // data
@@ -7,10 +8,10 @@ export class Roadtrip {
     title: string
     description: string
     datePosted: Date
-    ownerId: number
-    collaboratorIds: number[]
-    stops: RoadtripStop[]
-    comments: Comment[]
+    owner: User
+    collaborators: User[] = []
+    stops: RoadtripStop[] = []
+    comments: Comment[] = []
 
     // ------------------------------------------ PUBLIC FUNCTIONALITY ------------------------------------------
     addStop(stop: RoadtripStop): void {

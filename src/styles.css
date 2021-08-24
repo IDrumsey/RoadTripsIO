@@ -6,6 +6,10 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
+}
+
+html {
+  /* https://stackoverflow.com/questions/1174863/javascript-scrollto-method-does-nothing */
   overflow: scroll;
 }
 

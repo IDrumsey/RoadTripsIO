@@ -1,8 +1,5 @@
 <div class="roadtrip-location-card-head" [ngStyle]="getWrapperStyles()">
-  <h4 class="address" [ngStyle]="getAddressStyles()">{{ address }}</h4>
-  <h4 class="coordinates" [ngStyle]="getCoordinateStyles()">
-    ({{ latitude }}, {{ longitude }})
-  </h4>
+  <h4 class="address" [ngStyle]="getAddressStyles()">{{ stop.title }}</h4>
   <app-toolbar class="options" [gap]="25">
     <app-icon-button
       [icon]="detailsBtn"

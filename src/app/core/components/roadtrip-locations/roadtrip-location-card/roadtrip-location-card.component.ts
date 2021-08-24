@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
+
+import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card',
@@ -6,16 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./roadtrip-location-card.component.css']
 })
 export class RoadtripLocationCardComponent implements OnInit {
-  address = "123 Street ave. City, State Zip"
-  latitude = 1.0252
-  longitude = -24.915
+  @Input() stop: RoadtripStop
+  element: any
 
   // state
   showingContent = false;
   showingEditForm = false;
   @Input() isOwner = true
 
-  constructor() { }
+  constructor(element: ElementRef) {
+    this.element = element.nativeElement
+  }
 
   ngOnInit(): void {
   }

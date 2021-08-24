@@ -4,6 +4,7 @@ import { faImages, faLandmark, faMapPin, faPencilAlt, faPlus, IconDefinition } f
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { LocationTypes } from 'src/app/core/data/models/location-types';
+import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card-details',
@@ -12,6 +13,7 @@ import { LocationTypes } from 'src/app/core/data/models/location-types';
 })
 export class RoadtripLocationCardDetailsComponent implements OnInit {
   // data
+  @Input() stop: RoadtripStop
   title = "Statue of Liberty"
   description = "The statue of Liberty was so much bigger than we thought it would be."
   type = LocationTypes.Landmark
@@ -55,6 +57,14 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
     }
   }
 
+  getCoordinateStyles(): {} {
+    return {
+      color: AppColors.onColorLight,
+      fontFamily: AppFonts.Data,
+      fontSize: "15px"
+    }
+  }
+
   editStop(): void {
     this.edit.emit();
   }
@@ -70,5 +80,14 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
 
   hideImageForm(): void {
     this.showingAddImagesForm = false;
+  }
+
+  getTitle(): string {
+    if(this.stop.location.address){
+      return this.stop.location.address
+    }
+    else{
+      return this.stop.location.coordinates.genFormattedString()
+    }
   }
 }

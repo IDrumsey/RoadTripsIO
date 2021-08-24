@@ -1,71 +1,75 @@
-<div class="roadtrip-map-wrapper">
-  <app-interactive-map
-    class="roadtrip-map"
-    (newLocationAdded)="addRoadtripLocation($event)"
-  ></app-interactive-map>
-</div>
+<div class="roadtrip-page" *ngIf="dataLoaded">
+  <div class="roadtrip-map-wrapper">
+    <app-interactive-map
+      [roadtrip]="roadtrip"
+      class="roadtrip-map"
+      (newLocationAdded)="addRoadtripLocation($event)"
+      (markerSelected)="onStopSelect($event)"
+    ></app-interactive-map>
+  </div>
 
-<h1 *ngIf="!isOwner" [ngStyle]="getTitleStyles()">{{ title }}</h1>
+  <h1 *ngIf="!isOwner()" [ngStyle]="getTitleStyles()">{{ title }}</h1>
 
-<app-editable-text
-  *ngIf="isOwner"
-  [text]="title"
-  [textColor]="titleColor"
-  [isEditing]="false"
-  [width]="'100%'"
-  [fontSize]="titleFontSize"
-></app-editable-text>
+  <app-editable-text
+    *ngIf="isOwner()"
+    [text]="roadtrip.title"
+    [textColor]="titleColor"
+    [isEditing]="false"
+    [width]="'100%'"
+    [fontSize]="titleFontSize"
+  ></app-editable-text>
 
-<a
-  href="{{ '/users/' + owner.id }}"
-  id="roadtrip-owner"
-  [ngStyle]="getOwnerLinkStyles()"
-  >Made by {{ owner.username }}</a
->
-
-<h5
-  *ngIf="!isOwner"
-  class="roadtrip-description"
-  [ngStyle]="getDescriptionStyles()"
->
-  {{ description }}
-</h5>
-
-<app-editable-text
-  class="roadtrip-description"
-  *ngIf="isOwner"
-  [text]="description"
-  [textColor]="descriptionColor"
-  [isEditing]="false"
-  [width]="'100%'"
-  [fontSize]="descriptionFontSize"
-></app-editable-text>
-
-<div id="stops">
-  <h4 class="inline-text" [ngStyle]="getSectionTitleStyles()">Stops</h4>
-  <app-roadtrip-location-card [isOwner]="isOwner"></app-roadtrip-location-card>
-</div>
-
-<div id="comments">
-  <h4
-    class="inline-text comment-section-title"
-    [ngStyle]="getSectionTitleStyles()"
+  <a
+    href="{{ '/users/' + roadtrip.owner.id }}"
+    id="roadtrip-owner"
+    [ngStyle]="getOwnerLinkStyles()"
+    >Made by {{ roadtrip.owner.username }}</a
   >
-    Comments
-  </h4>
-  <fa-icon
-    [icon]="commentSectionIcon"
-    [ngStyle]="getCommentSectionIconStyles()"
-  ></fa-icon>
-  <app-comment>
-    <app-comment [width]="'95%'"></app-comment>
-    <app-comment [width]="'95%'"></app-comment>
-  </app-comment>
-  <app-comment>
-    <app-comment [width]="'95%'">
-      <app-comment [width]="'95%'"></app-comment>
-      <app-comment [width]="'95%'"></app-comment>
+
+  <h5
+    *ngIf="!isOwner()"
+    class="roadtrip-description"
+    [ngStyle]="getDescriptionStyles()"
+  >
+    {{ roadtrip.description }}
+  </h5>
+
+  <app-editable-text
+    class="roadtrip-description"
+    *ngIf="isOwner()"
+    [text]="roadtrip.description"
+    [textColor]="descriptionColor"
+    [isEditing]="false"
+    [width]="'100%'"
+    [fontSize]="descriptionFontSize"
+  ></app-editable-text>
+
+  <div id="stops">
+    <h4 class="inline-text" [ngStyle]="getSectionTitleStyles()">Stops</h4>
+    <app-roadtrip-location-card
+      *ngFor="let stop of roadtrip.stops"
+      [stop]="stop"
+      [isOwner]="isOwner()"
+    ></app-roadtrip-location-card>
+  </div>
+
+  <div id="comments">
+    <h4
+      class="inline-text comment-section-title"
+      [ngStyle]="getSectionTitleStyles()"
+    >
+      Comments
+    </h4>
+    <fa-icon
+      [icon]="commentSectionIcon"
+      [ngStyle]="getCommentSectionIconStyles()"
+    ></fa-icon>
+    <app-comment *ngFor="let comment of roadtrip.comments" [comment]="comment">
+      <app-comment
+        *ngFor="let reply of comment.replies"
+        [comment]="reply"
+        [width]="'95%'"
+      ></app-comment>
     </app-comment>
-    <app-comment [width]="'95%'"></app-comment>
-  </app-comment>
+  </div>
 </div>

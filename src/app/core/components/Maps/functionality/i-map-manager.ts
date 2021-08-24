@@ -33,7 +33,8 @@ export class IMapManager {
 
     markerOptions: google.maps.MarkerOptions = {
         icon: this.defaultMarkerIcon,
-        opacity: this.defaultMarkerOpacity
+        opacity: this.defaultMarkerOpacity,
+        animation: google.maps.Animation.DROP
     }
 
     isSelected(marker: google.maps.Marker): boolean {
@@ -50,6 +51,7 @@ export class IMapManager {
     newLocationCompleteEvent = new Subject()
 
     mapClickEvent = new Subject<google.maps.MapMouseEvent>()
+    markerClickEvent = new Subject<google.maps.LatLngLiteral>()
 
     newLocationFormSubmitEvent = new Subject()
 
@@ -128,6 +130,7 @@ export class IMapManager {
     }
 
     onMarkerClick(coord: google.maps.LatLngLiteral): void {
+        this.markerClickEvent.next(coord)
         // can only select one marker at a time
         // find the marker
         if(!(coord == this.markerCoordinatesBeingAdded)){
@@ -135,6 +138,7 @@ export class IMapManager {
 
             if(markerToSelect){
                 this.changeSelectedMarker(markerToSelect)
+                this.bounceMarker(markerToSelect)
             }
         }
     }
@@ -309,5 +313,12 @@ export class IMapManager {
           }
           currMarkerIndex++
         }, interval)
+    }
+
+    bounceMarker(marker: google.maps.Marker): void {
+        marker.setAnimation(google.maps.Animation.BOUNCE)
+        setTimeout(() => {
+            marker.setAnimation(null)
+        }, 700)
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faInfoCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card-head',
@@ -12,9 +13,7 @@ export class RoadtripLocationCardHeadComponent implements OnInit {
   @Output() detailsClick = new EventEmitter()
 
   // data
-  @Input() address: string;
-  @Input() latitude: number;
-  @Input() longitude: number;
+  @Input() stop: RoadtripStop
 
   // state
   @Input() showingContent: boolean;
@@ -53,14 +52,6 @@ export class RoadtripLocationCardHeadComponent implements OnInit {
       color: AppColors.onColorLight,
       fontFamily: AppFonts.Data,
       fontSize: "25px"
-    }
-  }
-
-  getCoordinateStyles(): {} {
-    return {
-      color: AppColors.onColorLight,
-      fontFamily: AppFonts.Data,
-      fontSize: "22px"
     }
   }
 

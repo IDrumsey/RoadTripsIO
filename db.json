@@ -41,13 +41,13 @@
   ],
   "stops": [
     {
-      "stop": 1,
+      "id": 1,
       "locationId": 1,
       "title": "Bar Island Land Bridge",
       "description": "Cool bride to cross with good views of the ocean."
     },
     {
-      "stop": 2,
+      "id": 2,
       "locationId": 2,
       "title": "Crescent Beach",
       "description": "Nice beach spot off the Atlantic."
@@ -72,7 +72,19 @@
       "id": 1,
       "text": "I stopped at a few places on this plan. Good time!",
       "datePosted": "2021-10-04 14:30",
-      "ownerId": 2
+      "replyIds": [2],
+      "ownerId": 2,
+      "roadtripId": 1,
+      "parentCommentId": null
+    },
+    {
+      "id": 2,
+      "text": "same",
+      "datePosted": "2021-10-07 17:45",
+      "replyIds": [],
+      "ownerId": 3,
+      "roadtripId": 1,
+      "parentCommentId": 1
     }
   ]
 }

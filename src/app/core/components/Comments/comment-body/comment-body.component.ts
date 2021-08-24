@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { faCalendarDay, faClock } from '@fortawesome/free-solid-svg-icons';
+import { Comment } from 'src/app/core/data/comment';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -12,6 +13,7 @@ import { CalendarService } from 'src/app/core/services/utilities/calendar.servic
 })
 export class CommentBodyComponent implements OnInit {
   // data
+  @Input() comment: Comment
   datePosted: Date = new Date()
 
   // styles
@@ -24,11 +26,11 @@ export class CommentBodyComponent implements OnInit {
   }
 
   getDatePosted(): string {
-    return this.calendarService.getDateStandard(this.datePosted)
+    return this.calendarService.getDateStandard(this.comment.datePosted)
   }
 
   getTimePosted(): string {
-    return this.calendarService.getTime(this.datePosted)
+    return this.calendarService.getTime(this.comment.datePosted)
   }
 
   getWrapperStyles(): {} {

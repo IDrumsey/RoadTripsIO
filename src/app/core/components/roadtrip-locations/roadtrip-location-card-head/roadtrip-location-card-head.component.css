@@ -1,14 +1,13 @@
 .roadtrip-location-card-head {
   display: grid;
-  grid-template-columns: 60% 20% 20%;
+  grid-template-columns: 80% 20%;
   width: 100%;
   padding: 10px 20px;
   white-space: nowrap;
   align-items: center;
 }
 
-.address,
-.coordinates {
+.address {
   margin-bottom: 0;
 }
 

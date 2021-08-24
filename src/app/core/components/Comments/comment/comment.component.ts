@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ContentChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Comment } from 'src/app/core/data/comment';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 
 @Component({
@@ -8,6 +9,8 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 })
 export class CommentComponent implements OnInit, AfterViewInit {
   // data
+  @Input() comment: Comment
+  
   @ContentChildren(CommentComponent) replyChildren: QueryList<CommentComponent> = new QueryList()
   replies: CommentComponent[]
 

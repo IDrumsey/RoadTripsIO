@@ -17,6 +17,9 @@
 }
 
 #stops {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   margin: 50px 0;
 }
 

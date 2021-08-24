@@ -6,10 +6,14 @@
 .details-top {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.stop-coordinates {
   margin-bottom: 25px;
 }
 
-.location-title {
+.location-address {
   display: inline-block;
   margin-bottom: 0;
   margin-left: 25px;

@@ -2,10 +2,14 @@
   <div class="comment" [ngStyle]="getCommentStyles()">
     <app-comment-head
       *ngIf="showingHead"
+      [comment]="comment"
       (detailsClick)="toggleBody()"
       (replyClick)="reply()"
     ></app-comment-head>
-    <app-comment-body *ngIf="showingBody"></app-comment-body>
+    <app-comment-body
+      *ngIf="showingBody"
+      [comment]="comment"
+    ></app-comment-body>
   </div>
   <!-- replies -->
   <ng-content></ng-content>

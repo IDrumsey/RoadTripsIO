@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { faFlag, faInfoCircle, faReply } from '@fortawesome/free-solid-svg-icons';
+import { Comment } from 'src/app/core/data/comment';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 
@@ -14,7 +15,7 @@ export class CommentHeadComponent implements OnInit {
   @Output() replyClick = new EventEmitter()
 
   // data
-  text: string = "Definitely some highlights on this trip!"
+  @Input() comment: Comment
 
   // styles
   replyIcon = faReply

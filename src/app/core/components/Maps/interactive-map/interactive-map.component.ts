@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
+import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 import { InteractiveMapService } from 'src/app/core/services/maps/interactive-map.service';
 import { IMapManager } from '../functionality/i-map-manager';
 
@@ -12,13 +14,27 @@ import { IMapManager } from '../functionality/i-map-manager';
 })
 export class InteractiveMapComponent implements OnInit {
   manager: IMapManager
+  @Input() roadtrip: Roadtrip
+
+  @Output() markerSelected = new EventEmitter<RoadtripStop>()
 
   constructor(private mapServices: InteractiveMapService) {
-    this.manager = new IMapManager(this.defaultCoords, this.mapServices)
-    this.initListening()
   }
 
   ngOnInit(): void {
+    this.manager = new IMapManager(this.getDefaultCoords(), this.mapServices)
+    this.initListening()
+
+    this.manager.markerClickEvent.subscribe(selectedMarkerCoords => {
+      let stopSelected = this.roadtrip.stops.find(stop => stop.location.coordinates.compare(selectedMarkerCoords))
+      this.markerSelected.emit(stopSelected)
+    })
+  }
+
+  getDefaultCoords(): google.maps.LatLngLiteral[] {
+    return this.roadtrip.stops.map(stop => {
+      return {lat: stop.location.coordinates.latitude, lng: stop.location.coordinates.longitude}
+    })
   }
 
   // styles
