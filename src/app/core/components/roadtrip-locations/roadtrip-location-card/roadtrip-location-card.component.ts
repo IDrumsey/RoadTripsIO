@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 
 import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 
@@ -10,6 +10,8 @@ import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 export class RoadtripLocationCardComponent implements OnInit {
   @Input() stop: RoadtripStop
   element: any
+
+  @Output() deleteStopEvent = new EventEmitter<RoadtripStop>()
 
   // state
   showingContent = false;
@@ -46,5 +48,9 @@ export class RoadtripLocationCardComponent implements OnInit {
   persistChanges(newData: any): void {
     console.log("submitting changes : ", newData)
     this.hideEditForm()
+  }
+
+  onDeleteStop(): void {
+    this.deleteStopEvent.emit(this.stop)
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from './core/data/models/app-colors';
 
 @Component({
@@ -11,11 +11,16 @@ export class AppComponent {
   // data
   title = 'RoadTripsIOClient';
 
+  toTopBtnIcon = faArrowCircleUp
+
   // state
   showingLoginForm = false;
 
   // styles
   textColor = AppColors.onColorLight
+
+  toTopBtnColor = AppColors.onColor
+  toTopBtnHoverColor = AppColors.onContrastBlue
 
   openLoginForm(): void {
     this.showingLoginForm = true
@@ -25,5 +30,7 @@ export class AppComponent {
     this.showingLoginForm = false
   }
 
-  icon=faMapMarkerAlt
+  scrollToTop(): void {
+    window.scrollTo(0, 0)
+  }
 }

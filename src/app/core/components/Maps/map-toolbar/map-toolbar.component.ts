@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, Input } from '@angular/core';
-import { faMapMarkerAlt, faPencilAlt, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { faExpandArrowsAlt, faInfo, faMapMarkerAlt, faPencilAlt, faPlus, faRoute, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { AppColors } from 'src/app/core/data/models/app-colors';
+import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
 
 import { ButtonComponent } from '../../Buttons/button/button.component';
 import { IMapManager } from '../functionality/i-map-manager';
-import { IMapActions } from '../models/imap-actions';
 
 @Component({
   selector: 'app-map-toolbar',
@@ -13,16 +13,23 @@ import { IMapActions } from '../models/imap-actions';
   styleUrls: ['./map-toolbar.component.css']
 })
 export class MapToolbarComponent implements OnInit, AfterViewInit {
+  @Input() roadtrip: Roadtrip
   @Input() manager: IMapManager
   // data
   @ViewChildren(ButtonComponent) buttonChildren: QueryList<ButtonComponent> = new QueryList()
   buttons: ButtonComponent[]
+
+  @Output() detailsBtnClick = new EventEmitter()
 
   // styles
   plusIcon = faPlus
   mapMarkerIcon = faMapMarkerAlt
   pencilIcon = faPencilAlt
   trashIcon = faTrashAlt
+  routeIcon = faRoute
+  zoomMarkerIcon = faSearchLocation
+  detailsIcon = faInfo
+  expandMapIcon = faExpandArrowsAlt
 
   iconSize = "20px"
   buttonGap = 25
@@ -63,5 +70,13 @@ export class MapToolbarComponent implements OnInit, AfterViewInit {
 
   onDoneAddingNewLocation(): void {
     this.buttons[1].manager.quietClickHandler()
+  }
+
+  onDetailsToolBtnClick(): void {
+    this.detailsBtnClick.emit()
+  }
+
+  onZoomOutToolBtnClick(): void {
+    this.manager.panMapToFitCoordinates(this.manager.coordinates)
   }
 }

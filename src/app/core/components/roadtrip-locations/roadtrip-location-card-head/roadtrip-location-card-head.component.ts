@@ -11,6 +11,7 @@ import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
 })
 export class RoadtripLocationCardHeadComponent implements OnInit {
   @Output() detailsClick = new EventEmitter()
+  @Output() deleteStopEvent = new EventEmitter()
 
   // data
   @Input() stop: RoadtripStop
@@ -57,5 +58,10 @@ export class RoadtripLocationCardHeadComponent implements OnInit {
 
   onDetailsClick(): void {
     this.detailsClick.emit()
+  }
+
+  // ------------------------------ EVENT HANDLERS ------------------------------
+  onDeleteClick(): void {
+    this.deleteStopEvent.emit()
   }
 }

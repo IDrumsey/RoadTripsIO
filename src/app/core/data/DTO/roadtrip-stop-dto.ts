@@ -1,8 +1,9 @@
+import { AsyncService } from "../../services/async.service"
 import { DataAccessService } from "../../services/data/data-access.service"
 import { RoadtripStop } from "../Roadtrip/roadtrip-stop"
 
 export class RoadtripStopDTO {
-    constructor(private api: DataAccessService){}
+    constructor(private api: DataAccessService, private asyncService: AsyncService){}
     // ------------------------------------------ DATA ------------------------------------------
     id: number
     locationId: number
@@ -19,7 +20,7 @@ export class RoadtripStopDTO {
 
     toRoadtripStop(): Promise<RoadtripStop> {
         return new Promise((resolve) => {
-            let stop = new RoadtripStop()
+            let stop = new RoadtripStop(this.api, this.asyncService)
 
             // transfer primitives
             stop.id = this.id
@@ -35,5 +36,28 @@ export class RoadtripStopDTO {
                 resolve(stop)
             })
         })
+    }
+
+    upload(): Promise<RoadtripStopDTO> {
+        return new Promise(resolve => {
+            this.api.addStop(this).then(stopDTO => {
+                let stopUploadedDTO = new RoadtripStopDTO(this.api, this.asyncService)
+                stopUploadedDTO.initFromRawData(stopDTO)
+                resolve(stopUploadedDTO)
+            })
+        })
+    }
+
+    async remove(): Promise<RoadtripStopDTO> {
+        return this.api.removeStop(this)
+    }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            locationId: this.locationId,
+            title: this.title,
+            description: this.description
+        }
     }
 }

@@ -14,3 +14,11 @@
   *ngIf="showingLoginForm"
   (close)="closeLoginForm()"
 ></app-login-form>
+<app-icon-button
+  id="to-top-button"
+  [icon]="toTopBtnIcon"
+  [iconSize]="'40px'"
+  [iconRegularColor]="toTopBtnColor"
+  [iconHoverColor]="toTopBtnHoverColor"
+  (buttonClick)="scrollToTop()"
+></app-icon-button>

@@ -1,9 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Coordinate } from 'src/app/core/data/coordinate';
+import { Location } from 'src/app/core/data/location';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
 import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
+import { AsyncService } from 'src/app/core/services/async.service';
+import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { InteractiveMapService } from 'src/app/core/services/maps/interactive-map.service';
 import { IMapManager } from '../functionality/i-map-manager';
 
@@ -13,13 +17,7 @@ import { IMapManager } from '../functionality/i-map-manager';
   styleUrls: ['./interactive-map.component.css']
 })
 export class InteractiveMapComponent implements OnInit {
-  manager: IMapManager
-  @Input() roadtrip: Roadtrip
-
-  @Output() markerSelected = new EventEmitter<RoadtripStop>()
-
-  constructor(private mapServices: InteractiveMapService) {
-  }
+  constructor(private mapServices: InteractiveMapService, private api: DataAccessService, private asyncService: AsyncService) {}
 
   ngOnInit(): void {
     this.manager = new IMapManager(this.getDefaultCoords(), this.mapServices)
@@ -31,58 +29,43 @@ export class InteractiveMapComponent implements OnInit {
     })
   }
 
+  // --------------------------------------------- DATA ---------------------------------------------
+
+  // ----------- REGULAR DATA -----------
+  manager: IMapManager
+  actionHint: string
+
+  // ----------- INPUT DATA -----------
+  @Input() roadtrip: Roadtrip
+
+  // --------------------------------------------- EVENTS ---------------------------------------------
+  @Output() markerSelected = new EventEmitter<RoadtripStop>()
+  @Output() newLocationAdded = new EventEmitter<any>()
+  @Output() detailsToolBtnClick = new EventEmitter<RoadtripStop>()
+
+  // --------------------------------------------- STATE ---------------------------------------------
+  showingActionHint = false;
+  showingNewLocationForm = false
+
+  // --------------------------------------------- STYLES ---------------------------------------------
+  actionHintStyles = {
+    color: AppColors.onColorLight,
+    fontFamily: AppFonts.Data
+  }
+
+  // --------------------------------------------- PUBLIC FUNCTIONALITY ---------------------------------------------
+
   getDefaultCoords(): google.maps.LatLngLiteral[] {
     return this.roadtrip.stops.map(stop => {
       return {lat: stop.location.coordinates.latitude, lng: stop.location.coordinates.longitude}
     })
   }
 
-  // styles
-
-  actionHintStyles = {
-    color: AppColors.onColorLight,
-    fontFamily: AppFonts.Data
-  }
-
-  // data
-
-  defaultCoords: google.maps.LatLngLiteral[] = [
-    {lat: 40.68939990124159, lng: -74.04445748465636},
-    {lat: 39.90524641157898, lng: -74.65001090669422},
-    {lat: 39.7533802173312, lng: -107.16954193416196},
-  ]
-
-  actionHint: string
-
-  // state
-
-  showingActionHint = false;
-  showingNewLocationForm = false
-
-  // events
-  @Output() newLocationAdded = new EventEmitter<any>()
-
-  // functionality
-
   initListening(): void {
     this.manager.addNewLocationEvent.subscribe(() => this.onaddMarkerEventOpen())
     this.manager.newLocationCompleteEvent.subscribe(() => this.onStopAddingLocation())
     this.manager.addLocationCancelEvent.subscribe(() => this.onStopAddingLocation())
   }
-
-  // -------------------------------------------------- EVENT HANDLERS --------------------------------------------------
-
-  onaddMarkerEventOpen(): void {
-    this.showActionHint("Click anywhere on the map to add a new marker")
-    this.showingNewLocationForm = true
-  }
-
-  onStopAddingLocation(): void {
-    this.hideForm()
-    this.hideActionHint()
-  }
-
-  // -------------------------------------------------- HELPER FUNCTIONS --------------------------------------------------
 
   showActionHint(hint: string): void {
     this.actionHint = hint
@@ -98,15 +81,52 @@ export class InteractiveMapComponent implements OnInit {
     this.showingNewLocationForm = false
   }
 
+  // ----------------- EVENT HANDLERS -----------------
+
+  onaddMarkerEventOpen(): void {
+    this.showActionHint("Click anywhere on the map to add a new marker")
+    this.showingNewLocationForm = true
+  }
+
+  onStopAddingLocation(): void {
+    this.hideForm()
+    this.hideActionHint()
+  }
+
   onFormSubmit(form: FormGroup): void {
-    // convert to the location obj and signal to page
-    this.newLocationAdded.emit({
-      address: form.get('address')?.value,
-      latitude: form.get('latitude')?.value,
-      longitude: form.get('longitude')?.value,
-      title: form.get('title')?.value,
-      description: form.get('description')?.value,
-    })
+    // BUG : might add marker to map even if api fails
     this.manager.finishAddingLocation()
+
+    // convert form to stop
+    let newStopData = this.convertFormToStop(form)
+
+    console.log(newStopData)
+
+    // add to roadtrip
+    this.roadtrip.addStop(newStopData)
+  }
+
+  onDetailsToolBtnClick(): void {
+    if(this.manager.selectedMarkers[0]){
+      let selectedMarkerCoords = this.mapServices.getMarkerCoordinates(this.manager.selectedMarkers[0])
+      let stop = this.roadtrip.stops.find(stop => {
+        // BUG: the 'as' could cause errors
+          return stop.location.coordinates.compare(selectedMarkerCoords as google.maps.LatLngLiteral)
+      })
+      this.detailsToolBtnClick.emit(stop)
+    }
+  }
+
+  // --------------------------------------------- PRIVATE FUNCTIONALITY ---------------------------------------------
+  private convertFormToStop(form: FormGroup): RoadtripStop {
+    let stop = new RoadtripStop(this.api, this.asyncService)
+    stop.location = new Location(this.api)
+
+    stop.location.address = form.get('address')?.value
+    stop.location.coordinates = new Coordinate(form.get('latitude')?.value, form.get('longitude')?.value)
+    stop.title = form.get('title')?.value
+    stop.description = form.get('description')?.value
+
+    return stop
   }
 }

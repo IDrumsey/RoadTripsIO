@@ -1,4 +1,7 @@
-<div id="browse-roadtrips-page">
-  <h1>Browse Roadtrips</h1>
-  <app-roadtrip-card></app-roadtrip-card>
+<div *ngIf="dataLoaded" id="browse-roadtrips-page">
+  <h1 id="page-title" [ngStyle]="titleStyles">Browse Roadtrips</h1>
+  <app-roadtrip-card
+    *ngFor="let roadtrip of roadtrips"
+    [roadtrip]="roadtrip"
+  ></app-roadtrip-card>
 </div>

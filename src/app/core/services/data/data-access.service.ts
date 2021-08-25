@@ -68,6 +68,11 @@ export class DataAccessService {
     return this.api.post<RoadtripDTO>(url, roadtrip, this.requestOptions)
   }
 
+  private updateSingleRoadtrip(roadtrip: RoadtripDTO): Observable<RoadtripDTO> {
+    let url = this.genEndpointURL(`/roadtrips/${roadtrip.id}`)
+    return this.api.put<RoadtripDTO>(url, roadtrip.getUploadFormat(), this.requestOptions)
+  }
+
   private removeSingleRoadtrip(id: number): Observable<RoadtripDTO> {
     let url = this.genEndpointURL(`/roadtrips/${id}`)
     return this.api.delete<RoadtripDTO>(url)
@@ -86,7 +91,7 @@ export class DataAccessService {
 
   private addSingleStop(stop: RoadtripStopDTO): Observable<RoadtripStopDTO> {
     let url = this.genEndpointURL(`/stops`)
-    return this.api.post<RoadtripStopDTO>(url, stop, this.requestOptions)
+    return this.api.post<RoadtripStopDTO>(url, stop.getUploadFormat(), this.requestOptions)
   }
 
   private removeSingleStop(id: number): Observable<RoadtripStopDTO> {
@@ -96,22 +101,22 @@ export class DataAccessService {
 
   // --------- LOCATIONS ---------
   private requestAllLocations(): Observable<LocationDTO[]> {
-    let url = this.genEndpointURL('/Locations')
+    let url = this.genEndpointURL('/locations')
     return this.api.get<LocationDTO[]>(url)
   }
 
   private requestSingleLocation(id: number): Observable<LocationDTO> {
-    let url = this.genEndpointURL(`/Locations/${id}`)
+    let url = this.genEndpointURL(`/locations/${id}`)
     return this.api.get<LocationDTO>(url)
   }
 
   private addSingleLocation(location: LocationDTO): Observable<LocationDTO> {
-    let url = this.genEndpointURL(`/Locations`)
-    return this.api.post<LocationDTO>(url, location, this.requestOptions)
+    let url = this.genEndpointURL(`/locations`)
+    return this.api.post<LocationDTO>(url, location.getUploadFormat(), this.requestOptions)
   }
 
   private removeSingleLocation(id: number): Observable<LocationDTO> {
-    let url = this.genEndpointURL(`/Locations/${id}`)
+    let url = this.genEndpointURL(`/locations/${id}`)
     return this.api.delete<LocationDTO>(url)
   }
 
@@ -188,6 +193,11 @@ export class DataAccessService {
     return this.genPromise(producer)
   }
 
+  updateRoadtrip(roadtrip: RoadtripDTO): Promise<RoadtripDTO> {
+    let producer = this.updateSingleRoadtrip(roadtrip)
+    return this.genPromise(producer)
+  }
+
   removeRoadtrip(Roadtrip: Roadtrip): Promise<RoadtripDTO> {
     let producer = this.removeSingleRoadtrip(Roadtrip.id)
     return this.genPromise(producer)
@@ -201,7 +211,7 @@ export class DataAccessService {
 
   getStopById(id: number): Promise<RoadtripStopDTO> {
     let producer = this.requestSingleStop(id)
-    let stop = new RoadtripStopDTO(this)
+    let stop = new RoadtripStopDTO(this, this.asyncService)
 
     return new Promise(resolve => {
       this.genPromise(producer).then(data => {
@@ -228,7 +238,7 @@ export class DataAccessService {
 
   getLocationById(id: number): Promise<LocationDTO> {
     let producer = this.requestSingleLocation(id)
-    let locationDTO = new LocationDTO()
+    let locationDTO = new LocationDTO(this)
 
     return new Promise(resolve => {
       this.genPromise(producer).then(data => {
@@ -296,6 +306,7 @@ export class DataAccessService {
       producer.subscribe(response => {
         resolve(response)
       }, err => {
+        console.log(err)
         let simpleError = this.httpErrorGenerator(err)
         reject(simpleError)
       })

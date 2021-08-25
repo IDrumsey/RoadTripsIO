@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoadtripComponent } from './roadtrip.component';
+import { RoadtripPageComponent } from './roadtrip-page.component';
 
-describe('RoadtripComponent', () => {
-  let component: RoadtripComponent;
-  let fixture: ComponentFixture<RoadtripComponent>;
+describe('RoadtripPageComponent', () => {
+  let component: RoadtripPageComponent;
+  let fixture: ComponentFixture<RoadtripPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RoadtripComponent ]
+      declarations: [ RoadtripPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoadtripComponent);
+    fixture = TestBed.createComponent(RoadtripPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

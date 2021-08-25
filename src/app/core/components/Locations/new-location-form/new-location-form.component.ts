@@ -87,8 +87,8 @@ export class NewLocationFormComponent implements OnInit, OnChanges {
     let latVal = this.form.get('latitude')?.value
     let lngVal = this.form.get('longitude')?.value
     this.coordinatesDefined.emit({
-      lat: parseInt(latVal),
-      lng: parseInt(lngVal)
+      lat: parseFloat(latVal),
+      lng: parseFloat(lngVal)
     })
   }
 }

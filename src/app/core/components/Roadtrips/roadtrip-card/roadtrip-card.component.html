@@ -1,5 +1,7 @@
 <div class="roadtrip-card" [ngStyle]="cardStyles">
-  <h5 class="inline-text no-mb" [ngStyle]="titleStyles">{{ title }}</h5>
+  <h5 class="inline-text no-mb" [ngStyle]="titleStyles">
+    {{ roadtrip.title }}
+  </h5>
   <app-toolbar class="roadtrip-card-options" [gap]="25">
     <app-icon-button
       [icon]="routeIcon"

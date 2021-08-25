@@ -32,7 +32,7 @@ export class RoadtripDTO {
 
     async toRoadtrip(): Promise<Roadtrip> {
         return new Promise((resolve) => {
-            let roadtrip = new Roadtrip()
+            let roadtrip = new Roadtrip(this.api, this.asyncService)
             // map data already loaded
             roadtrip.id = this.id
             roadtrip.title = this.title
@@ -90,5 +90,28 @@ export class RoadtripDTO {
                 resolve(roadtrip)
             })
         })
+    }
+
+    upload(): Promise<RoadtripDTO> {
+        return new Promise(resolve => {
+            this.api.updateRoadtrip(this).then(dto => {
+                let updatedDTO = new RoadtripDTO(this.api, this.asyncService)
+                updatedDTO.initFromRawData(dto)
+                resolve(updatedDTO)
+            })
+        })
+    }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            datePosted: this.datePosted,
+            ownerId: this.ownerId,
+            collaboratorIds: this.collaboratorIds,
+            stopIds: this.stopIds,
+            commentIds: this.commentIds
+        }
     }
 }

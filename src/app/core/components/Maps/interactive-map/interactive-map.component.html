@@ -1,6 +1,9 @@
 <div class="interactive-map">
   <app-map-ui [manager]="manager"></app-map-ui>
-  <app-map-toolbar [manager]="manager"></app-map-toolbar>
+  <app-map-toolbar
+    [manager]="manager"
+    (detailsBtnClick)="onDetailsToolBtnClick()"
+  ></app-map-toolbar>
   <p *ngIf="showingActionHint" [ngStyle]="actionHintStyles">{{ actionHint }}</p>
   <app-new-location-form
     *ngIf="showingNewLocationForm"

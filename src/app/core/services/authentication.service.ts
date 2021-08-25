@@ -7,5 +7,5 @@ export class AuthenticationService {
   constructor() { }
 
   // ------------------------------------ DATA ------------------------------------
-  currentlyLoggedInUserId: number = 2
+  currentlyLoggedInUserId: number = 1
 }

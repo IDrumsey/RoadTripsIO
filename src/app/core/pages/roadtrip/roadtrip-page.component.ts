@@ -1,6 +1,7 @@
-import { Component, OnInit, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { InteractiveMapComponent } from '../../components/Maps/interactive-map/interactive-map.component';
 import { RoadtripLocationCardComponent } from '../../components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
 
 import { AppColors } from '../../data/models/app-colors';
@@ -11,14 +12,16 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { DataAccessService } from '../../services/data/data-access.service';
 
 @Component({
-  selector: 'app-roadtrip',
-  templateUrl: './roadtrip.component.html',
-  styleUrls: ['./roadtrip.component.css']
+  selector: 'app-roadtrip-page',
+  templateUrl: './roadtrip-page.component.html',
+  styleUrls: ['./roadtrip-page.component.css']
 })
-export class RoadtripComponent implements OnInit, AfterViewInit {
+export class RoadtripPageComponent implements OnInit, AfterViewInit {
   constructor(private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute) {
     this.initPage()
   }
+
+  @ViewChild("RoadtripMap") roadtripMap: InteractiveMapComponent
 
   @ViewChildren(RoadtripLocationCardComponent) private stopCardElements: QueryList<RoadtripLocationCardComponent> = new QueryList()
   stopCards: RoadtripLocationCardComponent[]
@@ -31,7 +34,6 @@ export class RoadtripComponent implements OnInit, AfterViewInit {
 
     this.stopCardElements.changes.subscribe(() => {
       this.defineStopCards()
-      console.log(this.stopCards)
     })
   }
 
@@ -111,10 +113,6 @@ export class RoadtripComponent implements OnInit, AfterViewInit {
     return this.roadtrip.owner.id == this.auth.currentlyLoggedInUserId
   }
 
-  addRoadtripLocation(location: any): void {
-    console.log("adding location to page : ", location)
-  }
-
   initPage(): void {
     // get the roadtrip id
     this.route.paramMap.subscribe(params => {
@@ -140,13 +138,28 @@ export class RoadtripComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onStopSelect(stop: RoadtripStop): void {
-    console.log("selecting stop : ", stop)
-    let stopCard = this.stopCards.find(card => card.stop == stop)
-    let pxFromTop = stopCard?.element.getBoundingClientRect().top
-    setTimeout(() => {
-      window.scrollTo(0, pxFromTop)
-    }, 800)
-    stopCard?.showDetails()
+  onMarkerSelect(stop: RoadtripStop): void {
+    // do nothing right now
+  }
+
+  onDeleteStop(stopToDelete: RoadtripStop): void {
+    this.deleteStop(stopToDelete)
+  }
+
+  deleteStop(stop: RoadtripStop): void {
+    this.roadtrip.removeStop(stop).then(() => {
+      this.roadtripMap.manager.removeCoordinate(stop.location.coordinates.toLatLngLiteral())
+    })
+  }
+
+  onDetailsToolBtnClick(selectedStop: RoadtripStop): void {
+    let cardToScrollTo = this.stopCards.find(card => card.stop == selectedStop)
+    if(cardToScrollTo){
+      let pxFromTop = cardToScrollTo.element.getBoundingClientRect().top
+      setTimeout(() => {
+        window.scrollTo(0, pxFromTop)
+      }, 800)
+      cardToScrollTo.showDetails()
+    }
   }
 }

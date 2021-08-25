@@ -3,6 +3,34 @@
     <app-icon-button
       [iconSize]="iconSize"
       #toggle
+      [icon]="routeIcon"
+    ></app-icon-button>
+    <app-icon-button
+      [iconSize]="iconSize"
+      [icon]="zoomMarkerIcon"
+      [iconSelectColor]="addMarkerBtnClickColor"
+      [enabledMessage]="'Zoom in on selected stop'"
+      (buttonClick)="manager.zoomInOnSelectedMarker()"
+    ></app-icon-button>
+    <app-icon-button
+      [iconSize]="iconSize"
+      [icon]="detailsIcon"
+      [iconSelectColor]="addMarkerBtnClickColor"
+      [enabledMessage]="'See details'"
+      (buttonClick)="onDetailsToolBtnClick()"
+    ></app-icon-button>
+    <app-icon-button
+      [iconSize]="iconSize"
+      [icon]="expandMapIcon"
+      [iconSelectColor]="addMarkerBtnClickColor"
+      [enabledMessage]="'See details'"
+      (buttonClick)="onZoomOutToolBtnClick()"
+    ></app-icon-button>
+  </app-expandable-toolbar>
+  <app-expandable-toolbar [gap]="buttonGap" class="add-to-map-toolbar">
+    <app-icon-button
+      [iconSize]="iconSize"
+      #toggle
       [icon]="plusIcon"
     ></app-icon-button>
     <app-icon-button

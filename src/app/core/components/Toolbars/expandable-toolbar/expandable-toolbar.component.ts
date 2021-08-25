@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ContentChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ContentChild } from '@angular/core';
 import { ButtonComponent } from '../../Buttons/button/button.component';
 import { ComponentOrientations } from '../../models/component-orientations';
 import { ExpandDirections } from '../../models/Toolbars/expand-directions';
@@ -11,10 +11,9 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
   styleUrls: ['./expandable-toolbar.component.css']
 })
 export class ExpandableToolbarComponent extends ToolbarComponent implements OnInit, AfterViewInit {
-  @Input() isExpanded: boolean = true;
-  toggleButton: ButtonComponent;
+  @Input() isExpanded: boolean = false;
+  @ContentChild('toggle') toggleButton: ButtonComponent;
   expandDirection: ExpandDirections;
-  @ContentChild('toggle') toggleButtonContentChild: ButtonComponent | null;
 
   constructor() {
     super();
@@ -25,31 +24,41 @@ export class ExpandableToolbarComponent extends ToolbarComponent implements OnIn
 
   ngAfterViewInit(): void {
     this.buttons = this.buttonContentChildren.toArray();
-    this.toggleButton = this.buttons[0];
 
-    if(this.toggleButtonContentChild){
-      this.toggleButton = this.toggleButtonContentChild
+    // close toolbar if needed
+    if(!this.isExpanded){
+      this.close()
+    }
+
+    if(this.toggleButton){
+      this.toggleButton = this.toggleButton
       this.toggleButton.manager.clickEmitter.subscribe(() => {
-        this.getOtherBtns().forEach(btn => {
-          if(this.isExpanded){
-            this.getOtherBtns().forEach(btn => {
-              btn.hideWrapper()
-              this.isExpanded = false
-            })
-          }
-          else{
-            this.getOtherBtns().forEach(btn => {
-              btn.showWrapper()
-              this.isExpanded = true
-            })
-          }
-        })
+        this.onToggleBtnClick()
       })
     }
   }
 
   onToggleBtnClick(): void {
-    console.log("toggle click")
+    if(this.isExpanded){
+      this.close()
+    }
+    else{
+      this.open()
+    }
+  }
+
+  close(): void {
+    this.isExpanded = false
+    this.getOtherBtns().forEach(btn => {
+      btn.hideWrapper()
+    })
+  }
+
+  open(): void {
+    this.isExpanded = true
+    this.getOtherBtns().forEach(btn => {
+      btn.showWrapper()
+    })
   }
 
   getOtherBtns(): ButtonComponent[] {

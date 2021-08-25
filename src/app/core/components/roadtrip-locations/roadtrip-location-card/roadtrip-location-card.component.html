@@ -4,6 +4,7 @@
     [showingContent]="showingContent"
     [stop]="stop"
     (detailsClick)="toggleContent()"
+    (deleteStopEvent)="onDeleteStop()"
   ></app-roadtrip-location-card-head>
   <div *ngIf="showingContent">
     <app-roadtrip-location-card-details

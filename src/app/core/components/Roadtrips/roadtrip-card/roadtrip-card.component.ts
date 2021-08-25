@@ -4,6 +4,7 @@ import { faRoute, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
 
 @Component({
   selector: 'app-roadtrip-card',
@@ -12,6 +13,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 })
 export class RoadtripCardComponent implements OnInit {
   // data
+  @Input() roadtrip: Roadtrip
   title: string = "Roadtrip down the East Coast!"
 
   // isOwner
@@ -42,6 +44,6 @@ export class RoadtripCardComponent implements OnInit {
   }
 
   routeToDetailsPage(): void {
-    this.router.navigate(['roadtrips', 1])
+    this.router.navigate(['roadtrips', this.roadtrip.id])
   }
 }

@@ -24,7 +24,7 @@ import { SelectToolbarComponent } from './core/components/Toolbars/select-toolba
 import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-select-toolbar/single-select-toolbar.component';
 import { EditableTextComponent } from './core/components/Text/editable-text/editable-text.component';
 import { TextInputComponent } from './core/components/Text/text-input/text-input.component';
-import { RoadtripComponent } from './core/pages/roadtrip/roadtrip.component';
+import { RoadtripPageComponent } from './core/pages/roadtrip/roadtrip-page.component';
 import { RoadtripLocationCardComponent } from './core/components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
 import { RoadtripLocationCardHeadComponent } from './core/components/roadtrip-locations/roadtrip-location-card-head/roadtrip-location-card-head.component';
 import { RoadtripLocationCardDetailsComponent } from './core/components/roadtrip-locations/roadtrip-location-card-details/roadtrip-location-card-details.component';
@@ -57,7 +57,7 @@ import { ShapeIconButtonComponent } from './core/components/Buttons/shape-icon-b
 import { NewLocationFormComponent } from './core/components/Locations/new-location-form/new-location-form.component';
 
 const routes: Routes = [
-  {path: 'roadtrips/:roadtripId', component: RoadtripComponent},
+  {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
   {path: 'users/:userId', component: UserPageComponent},
   {path: '', component: BrowseRoadtripsPageComponent}
 ]
@@ -76,7 +76,7 @@ const routes: Routes = [
     SingleSelectToolbarComponent,
     EditableTextComponent,
     TextInputComponent,
-    RoadtripComponent,
+    RoadtripPageComponent,
     RoadtripLocationCardComponent,
     RoadtripLocationCardHeadComponent,
     RoadtripLocationCardDetailsComponent,

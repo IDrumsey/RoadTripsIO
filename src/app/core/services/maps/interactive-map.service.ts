@@ -65,4 +65,17 @@ export class InteractiveMapService {
   LatLngToMarker(coord: google.maps.LatLng): google.maps.Marker {
     return new google.maps.Marker({position: coord})
   }
+
+  getMarkerCoordinates(marker: google.maps.Marker): google.maps.LatLngLiteral | null {
+    let pos = marker.getPosition()
+    if(pos){
+      return {
+        lat: pos.lat(),
+        lng: pos.lng()
+      }
+    }
+    else{
+      return null
+    }
+  }
 }

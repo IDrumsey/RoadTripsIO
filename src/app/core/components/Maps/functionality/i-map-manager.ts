@@ -321,4 +321,27 @@ export class IMapManager {
             marker.setAnimation(null)
         }, 700)
     }
+
+    zoomInOnSelectedMarker(): void {
+        if(this.selectedMarkers[0]){
+            this.zoomInOnMarker(this.selectedMarkers[0])
+        }
+    }
+
+    private zoomInOnMarker(marker: google.maps.Marker): void {
+        // https://stackoverflow.com/questions/5054515/zoom-in-to-marker-google-maps
+        let position = marker.getPosition()
+        if(position){
+            this.mapObj.setZoom(15)
+            this.mapObj.panTo(position)
+        }
+    }
+
+    onMarkerDblClick(coord: google.maps.LatLngLiteral): void {
+        // find the marker
+        let marker = this.findMarker(coord)
+        if(marker){
+            this.zoomInOnMarker(marker)
+        }
+    }
 }

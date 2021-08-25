@@ -1,10 +1,11 @@
 <div class="roadtrip-page" *ngIf="dataLoaded">
   <div class="roadtrip-map-wrapper">
     <app-interactive-map
+      #RoadtripMap
       [roadtrip]="roadtrip"
       class="roadtrip-map"
-      (newLocationAdded)="addRoadtripLocation($event)"
-      (markerSelected)="onStopSelect($event)"
+      (markerSelected)="onMarkerSelect($event)"
+      (detailsToolBtnClick)="onDetailsToolBtnClick($event)"
     ></app-interactive-map>
   </div>
 
@@ -50,6 +51,7 @@
       *ngFor="let stop of roadtrip.stops"
       [stop]="stop"
       [isOwner]="isOwner()"
+      (deleteStopEvent)="deleteStop($event)"
     ></app-roadtrip-location-card>
   </div>
 
