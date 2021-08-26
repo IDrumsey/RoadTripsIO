@@ -55,6 +55,7 @@ import { ToolbarGroupComponent } from './core/components/Toolbars/toolbar-group/
 import { MapToolbarComponent } from './core/components/Maps/map-toolbar/map-toolbar.component';
 import { ShapeIconButtonComponent } from './core/components/Buttons/shape-icon-button/shape-icon-button.component';
 import { NewLocationFormComponent } from './core/components/Locations/new-location-form/new-location-form.component';
+import { ConfirmationPopupComponent } from './core/components/confirmation-popup/confirmation-popup.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -107,6 +108,7 @@ const routes: Routes = [
     MapToolbarComponent,
     ShapeIconButtonComponent,
     NewLocationFormComponent,
+    ConfirmationPopupComponent
   ],
   imports: [
     BrowserModule,

@@ -180,6 +180,15 @@ export class ButtonManager {
         }
     }
 
+    disableChangeHandler(): void {
+        if(this.disabled){
+            this.disable()
+        }
+        else{
+            this.enable()
+        }
+    }
+
     protected disableStateHandler(): void {
         this.disabled = true
         if(this.disabledTitle){

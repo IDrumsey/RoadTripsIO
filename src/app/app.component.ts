@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleUp, faUmbrella } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from './core/data/models/app-colors';
 
 @Component({
@@ -15,6 +15,8 @@ export class AppComponent {
 
   // state
   showingLoginForm = false;
+
+  testIcon = faUmbrella
 
   // styles
   textColor = AppColors.onColorLight

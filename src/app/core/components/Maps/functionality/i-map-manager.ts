@@ -263,7 +263,6 @@ export class IMapManager {
     addLocation(coord: google.maps.LatLng): void {
         let coordLiteral = this.mapServices.LatLngToLiteral(coord)
         this.markerCoordinatesBeingAdded = coordLiteral
-        console.log(this.markerCoordinatesBeingAdded)
         this.addCoordinate(coordLiteral)
     }
 

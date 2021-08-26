@@ -14,7 +14,7 @@ export class RectangleButtonComponent extends ButtonComponent implements OnInit 
   }
 
   ngOnInit(): void {
-    this.manager = new RectangleTextButtonManager(this.text, this.fgRegularColor, false, true, this.disabled, this.selectable, this.fgHoverColor, this.fgSelectColor, this.enabledMessage, this.disabledMessage, this.bgRegularColor, this.bgHoverColor, this.bgSelectColor, this.borderRegularColor, this.borderHoverColor, this.borderSelectColor, this.borderWidth, this.padding, this.width, this.height, this.fontSize, this.fontFamily)
+    this.manager = new RectangleTextButtonManager(this.text, this.fgRegularColor, false, true, this.disabled, this.selectable, this.fgHoverColor, this.fgSelectColor, this.enabledMessage, this.disabledMessage, this.bgRegularColor, this.bgHoverColor, this.bgSelectColor, this.borderRegularColor, this.borderHoverColor, this.borderSelectColor, this.borderWidth, this.padding, this.width, this.height, this.fontSize, this.fontFamily, this.borderRadius)
 
     this.manager.clickEmitter.subscribe(() => {
       this.buttonClick.emit()
@@ -46,9 +46,15 @@ export class RectangleButtonComponent extends ButtonComponent implements OnInit 
   @Input() fontSize: string
   @Input() text: string
   @Input() fontFamily: string
+  @Input() borderRadius: number = 5
 
   // outputs
   @Output() buttonClick = new EventEmitter();
   @Output() buttonMouseEnter = new EventEmitter();
   @Output() buttonMouseExit = new EventEmitter();
+
+  // ------------------------------- STYLES -------------------------------
+  wrapperStyles = {
+    borderRadius: `${this.borderRadius}px`
+  }
 }

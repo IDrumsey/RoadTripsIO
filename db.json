@@ -31,7 +31,6 @@
       "ownerId": 1,
       "collaboratorIds": [],
       "stopIds": [
-        2,
         3,
         1
       ],
@@ -46,12 +45,6 @@
       "locationId": 1,
       "title": "Bar Island Land Bridge",
       "description": "Cool bride to cross with good views of the ocean."
-    },
-    {
-      "id": 2,
-      "locationId": 2,
-      "title": "Crescent Beach",
-      "description": "Nice beach spot off the Atlantic."
     },
     {
       "locationId": 3,
@@ -198,6 +191,18 @@
       "latitude": 42.51737942526997,
       "longitude": -72.04350978456259,
       "id": 17
+    },
+    {
+      "address": "test",
+      "latitude": 42.71142241050953,
+      "longitude": -71.20854884706259,
+      "id": 18
+    },
+    {
+      "address": "asdf",
+      "latitude": 42.4525640964209,
+      "longitude": -71.51616603456259,
+      "id": 19
     }
   ],
   "comments": [

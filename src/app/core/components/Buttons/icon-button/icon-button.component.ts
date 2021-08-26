@@ -36,15 +36,21 @@ export class IconButtonComponent extends ButtonComponent implements OnInit {
     this.manager = new IconButtonManager(this.icon, this.iconRegularColor, false, true, this.disabled, this.selectable, this.iconHoverColor, this.iconSelectColor, this.enabledMessage, this.disabledMessage, this.iconSize)
 
     this.manager.clickEmitter.subscribe(() => {
-      this.buttonClick.emit()
+      if(!this.disabled){
+        this.buttonClick.emit()
+      }
     })
 
     this.manager.mouseEnterEmitter.subscribe(() => {
-      this.buttonMouseEnter.emit()
+      if(!this.disabled){
+        this.buttonMouseEnter.emit()
+      }
     })
 
     this.manager.mouseExitEmitter.subscribe(() => {
-      this.buttonMouseExit.emit()
+      if(!this.disabled){
+        this.buttonMouseExit.emit()
+      }
     })
   }
 

@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnInit, OnChanges {
   manager: any
   
   // styles
@@ -22,6 +22,15 @@ export class ButtonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if(this.manager){
+      if(changes.disabled != null){
+        this.manager.disabled = changes.disabled.currentValue
+        this.manager.disableChangeHandler()
+      }
+    }
   }
 
   hideWrapper(): void {

@@ -8,22 +8,48 @@ import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
   styleUrls: ['./roadtrip-location-card.component.css']
 })
 export class RoadtripLocationCardComponent implements OnInit {
-  @Input() stop: RoadtripStop
-  element: any
-
-  @Output() deleteStopEvent = new EventEmitter<RoadtripStop>()
-
-  // state
-  showingContent = false;
-  showingEditForm = false;
-  @Input() isOwner = true
-
   constructor(element: ElementRef) {
     this.element = element.nativeElement
   }
 
   ngOnInit(): void {
   }
+
+  // ------------------------------------------ DATA ------------------------------------------
+  @Input() stop: RoadtripStop
+  element: any
+
+  // ------------------------------------------ STATE ------------------------------------------
+  showingContent = false;
+  showingEditForm = false;
+  @Input() isOwner = true
+  showingDeleteConfirmationPopup = false
+  deleteEnabled = true
+
+  // ------------------------------------------ EVENTS ------------------------------------------
+  @Output() deleteStopEvent = new EventEmitter<RoadtripStop>()
+
+  // ------------------------------------------ EVENT HANDLERS ------------------------------------------
+  onDetailsClick(): void {
+    this.toggleContent()
+  }
+
+  onDeleteClick(): void {
+    this.showConfirmation()
+    this.disableDeleteButton()
+  }
+
+  onConfirmationCancel(): void {
+    this.enableDeleteButton()
+    this.hideConfirmation()
+  }
+
+  onConfirmationConfirm(): void {
+    this.deleteStopEvent.emit(this.stop)
+    this.hideConfirmation()
+  }
+
+  // ------------------------------------------ FUNCTIONALITY ------------------------------------------
 
   toggleContent(): void {
     this.showingContent = !this.showingContent
@@ -50,7 +76,19 @@ export class RoadtripLocationCardComponent implements OnInit {
     this.hideEditForm()
   }
 
-  onDeleteStop(): void {
-    this.deleteStopEvent.emit(this.stop)
+  private showConfirmation(): void {
+    this.showingDeleteConfirmationPopup = true
+  }
+
+  private hideConfirmation(): void {
+    this.showingDeleteConfirmationPopup = false
+  }
+
+  private disableDeleteButton(): void {
+    this.deleteEnabled = false
+  }
+
+  private enableDeleteButton(): void {
+    this.deleteEnabled = true
   }
 }

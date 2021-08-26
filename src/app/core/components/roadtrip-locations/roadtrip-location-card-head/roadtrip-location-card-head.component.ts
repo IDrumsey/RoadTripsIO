@@ -19,6 +19,7 @@ export class RoadtripLocationCardHeadComponent implements OnInit {
   // state
   @Input() showingContent: boolean;
   @Input() isOwner: boolean
+  @Input() deleteEnabled: boolean
 
   detailsBtn = faInfoCircle;
   deleteBtn = faTrashAlt;

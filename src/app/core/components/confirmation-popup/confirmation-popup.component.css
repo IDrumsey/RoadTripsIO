@@ -1,0 +1,30 @@
+.confirmation-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.top {
+  padding: 25px;
+}
+
+.confirmation-popup-message {
+  margin-bottom: 25px;
+}
+
+.confirmation-popup-error-message {
+  margin-bottom: 0;
+}
+
+.confirmation-popup-toolbar-wrapper {
+  display: flex;
+}
+
+app-toolbar {
+  width: 100%;
+}
+
+app-rectangle-button {
+  flex: 1;
+}

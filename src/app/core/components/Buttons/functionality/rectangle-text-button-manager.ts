@@ -3,7 +3,7 @@ import { AppFonts } from "src/app/core/data/models/app-fonts"
 import { ButtonManager } from "./button-manager"
 
 export class RectangleTextButtonManager extends ButtonManager {
-    constructor(text: string, fgDefaultColor: string, isSelected: boolean, isShowing: boolean, isDisabled: boolean, isSelectable: boolean, fgHoverColor?: string, fgSelectColor?: string, enabledTitle?: string, disabledTitle?: string, bgRegularColor?: string, bgHoverColor?: string, bgSelectColor?: string, borderRegularColor?: string, borderHoverColor?: string, borderSelectColor?: string, borderWidth?: number, padding?: string, width?: string, height?: string, fontSize?: string, fontFamily?: string){
+    constructor(text: string, fgDefaultColor: string, isSelected: boolean, isShowing: boolean, isDisabled: boolean, isSelectable: boolean, fgHoverColor?: string, fgSelectColor?: string, enabledTitle?: string, disabledTitle?: string, bgRegularColor?: string, bgHoverColor?: string, bgSelectColor?: string, borderRegularColor?: string, borderHoverColor?: string, borderSelectColor?: string, borderWidth?: number, padding?: string, width?: string, height?: string, fontSize?: string, fontFamily?: string, borderRadius?: number){
         super(fgDefaultColor, isSelected, isShowing, isDisabled, isSelectable, fgHoverColor, fgSelectColor, enabledTitle, disabledTitle)
 
         // define initial styles
@@ -78,7 +78,7 @@ export class RectangleTextButtonManager extends ButtonManager {
             this.height = "auto"
         }
 
-        if(borderWidth){
+        if(borderWidth != null){
             this.borderWidth = borderWidth
         }
         else{
@@ -98,6 +98,13 @@ export class RectangleTextButtonManager extends ButtonManager {
         else{
             this.fontFamily = this.defaultFontFamily
         }
+        
+        if(borderRadius != null){
+            this.borderRadius = borderRadius
+        }
+        else{
+            this.borderRadius = this.defaultborderRadius
+        }
 
         this.mouseEnterEmitter.subscribe(() => {
             this.shapeHoverHandler()
@@ -116,6 +123,7 @@ export class RectangleTextButtonManager extends ButtonManager {
     protected defaultPadding = "5px"
     protected defaultFontSize: string = "25px"
     protected defaultFontFamily: string = AppFonts.Data
+    protected defaultborderRadius: number = 5
 
     // defined styles
     protected bgRegularColor: string
@@ -134,11 +142,13 @@ export class RectangleTextButtonManager extends ButtonManager {
     protected borderColor: string
     protected fontSize: string
     protected fontFamily: string
+    protected borderRadius: number
 
     getShapeStyles(): {} {
         return {
             backgroundColor: this.bgColor,
             border: `${this.borderWidth} solid ${this.borderColor}`,
+            borderRadius: `${this.borderRadius}px`,
             padding: this.padding,
             width: this.width,
             height: this.height

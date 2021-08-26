@@ -1,0 +1,34 @@
+<div class="confirmation-popup" [ngStyle]="wrapperStyles">
+  <div class="top">
+    <h4 class="confirmation-popup-message" [ngStyle]="mainMessageStyles">
+      {{ message }}
+    </h4>
+    <p
+      *ngIf="isShowingErrorMessage"
+      class="confirmation-popup-error-message"
+      [ngStyle]="errorMessageStyles"
+    >
+      {{ errorMessage }}
+    </p>
+  </div>
+  <div class="confirmation-popup-toolbar-wrapper">
+    <app-toolbar [gap]="0" [width]="'100%'">
+      <app-rectangle-button
+        [text]="'No'"
+        [bgRegularColor]="cancelButtonBgColor"
+        [bgHoverColor]="cancelButtonBgHoverColor"
+        [borderRadius]="0"
+        [width]="'100%'"
+        (buttonClick)="onCancelClick()"
+      ></app-rectangle-button>
+      <app-rectangle-button
+        [text]="'Yes'"
+        [bgRegularColor]="confirmButtonBgColor"
+        [bgHoverColor]="confirmButtonBgHoverColor"
+        [borderRadius]="0"
+        [width]="'100%'"
+        (buttonClick)="onConfirmClick()"
+      ></app-rectangle-button>
+    </app-toolbar>
+  </div>
+</div>

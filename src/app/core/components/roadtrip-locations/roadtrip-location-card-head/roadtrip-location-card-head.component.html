@@ -5,6 +5,7 @@
       [icon]="detailsBtn"
       [iconRegularColor]="'rgba(116, 162, 193, 1)'"
       [iconHoverColor]="'rgba(116, 162, 193, .75)'"
+      [enabledMessage]="'See details'"
       (buttonClick)="onDetailsClick()"
     ></app-icon-button>
     <app-icon-button
@@ -12,6 +13,9 @@
       [icon]="deleteBtn"
       [iconRegularColor]="'rgba(252, 119, 119, 1)'"
       [iconHoverColor]="'rgba(252, 119, 119, .75)'"
+      [disabled]="!deleteEnabled"
+      [disabledMessage]="'Cannot do this right now'"
+      [enabledMessage]="'Delete this stop'"
       (buttonClick)="onDeleteClick()"
     ></app-icon-button>
   </app-toolbar>

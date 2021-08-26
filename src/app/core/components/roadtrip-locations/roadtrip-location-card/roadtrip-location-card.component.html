@@ -3,8 +3,9 @@
     [isOwner]="isOwner"
     [showingContent]="showingContent"
     [stop]="stop"
-    (detailsClick)="toggleContent()"
-    (deleteStopEvent)="onDeleteStop()"
+    [deleteEnabled]="deleteEnabled"
+    (detailsClick)="onDetailsClick()"
+    (deleteStopEvent)="onDeleteClick()"
   ></app-roadtrip-location-card-head>
   <div *ngIf="showingContent">
     <app-roadtrip-location-card-details
@@ -19,3 +20,9 @@
     ></app-roadtrip-location-card-edit-form>
   </div>
 </div>
+<app-confirmation-popup
+  *ngIf="showingDeleteConfirmationPopup"
+  [message]="'Are you sure you want to delete this stop?'"
+  (cancelEvent)="onConfirmationCancel()"
+  (confirmEvent)="onConfirmationConfirm()"
+></app-confirmation-popup>
