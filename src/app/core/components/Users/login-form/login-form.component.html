@@ -16,7 +16,13 @@
       [bgColor]="inputBgColor"
     ></app-text-input>
   </div>
-  <p id="login-error-message" [ngStyle]="errorMsgStyles">error messages</p>
+  <p
+    id="login-error-message"
+    *ngFor="let errorMessage of errorMessages"
+    [ngStyle]="errorMsgStyles"
+  >
+    {{ errorMessage }}
+  </p>
   <div id="options-wrapper">
     <app-icon-button
       id="cancel-button"
@@ -30,6 +36,7 @@
       [icon]="signInIcon"
       [iconRegularColor]="signInBtnColor"
       [iconHoverColor]="signInBtnHoverColor"
+      (buttonClick)="onSignInBtnClick()"
     ></app-icon-button>
   </div>
 </form>

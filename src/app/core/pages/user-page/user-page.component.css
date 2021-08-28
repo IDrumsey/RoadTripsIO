@@ -24,3 +24,9 @@
 .section-top-icon {
   font-size: 30px;
 }
+
+.section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

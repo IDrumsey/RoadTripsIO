@@ -21,7 +21,7 @@
   ></app-editable-text>
 
   <a
-    href="{{ '/users/' + roadtrip.owner.id }}"
+    [routerLink]="['/users', roadtrip.owner.id]"
     id="roadtrip-owner"
     [ngStyle]="getOwnerLinkStyles()"
     >Made by {{ roadtrip.owner.username }}</a

@@ -1,8 +1,13 @@
 <div class="location-card" [ngStyle]="wrapperStyles">
   <div class="location-card-head" [ngStyle]="headStyles">
     <div>
-      <h5 [ngStyle]="titleStyles">{{ title }}</h5>
-      <h5 class="no-mb" [ngStyle]="addressStyles">{{ address }}</h5>
+      <h5 [ngStyle]="titleStyles">{{ location.title }}</h5>
+      <h5 class="no-mb" *ngIf="location.address" [ngStyle]="addressStyles">
+        {{ location.address }}
+      </h5>
+      <h5 class="no-mb" *ngIf="!location.address" [ngStyle]="addressStyles">
+        {{ location.coordinates.genFormattedString() }}
+      </h5>
     </div>
     <app-toolbar class="location-card-head-options" [gap]="25">
       <app-icon-button

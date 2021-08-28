@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { faMapMarkedAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Location } from 'src/app/core/data/location';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -12,7 +13,14 @@ import { RoadtripLocationCardEditFormComponent } from '../../roadtrip-locations/
   styleUrls: ['./location-card.component.css']
 })
 export class LocationCardComponent implements OnInit, AfterViewInit {
+  constructor(private stringService: StringService) { }
+
+  ngOnInit(): void {
+    console.log(this.location)
+  }
+
   // data
+  @Input() location: Location
   address: string = "The Statue Of Liberty, New York, NY"
   title: string = "The Statue of Liberty"
   latitude: number = 40.69046988391412
@@ -60,12 +68,6 @@ export class LocationCardComponent implements OnInit, AfterViewInit {
     backgroundColor: AppColors.elevation2
   }
 
-
-  constructor(private stringService: StringService) { }
-
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
     this.editFormChildren.changes.subscribe((editForms: QueryList<RoadtripLocationCardEditFormComponent>) => {
       let forms = editForms.toArray()
@@ -104,11 +106,11 @@ export class LocationCardComponent implements OnInit, AfterViewInit {
   }
 
   openAddressInMaps(): void {
-    if(this.address){
-      window.open(this.stringService.getGoogleMapsURLByAddress(this.address))
+    if(this.location.address){
+      window.open(this.stringService.getGoogleMapsURLByAddress(this.location.address))
     }
     else{
-      window.open(this.stringService.getGoogleMapsURLbyCoordinates(this.latitude, this.longitude))
+      window.open(this.stringService.getGoogleMapsURLbyCoordinates(this.location.coordinates.latitude, this.location.coordinates.longitude))
     }
   }
 }

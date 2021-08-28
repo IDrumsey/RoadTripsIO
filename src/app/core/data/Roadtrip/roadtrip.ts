@@ -50,6 +50,14 @@ export class Roadtrip {
         return this.stops.find(tempStop => tempStop === stop)
     }
 
+    isCollaborator(user: User): boolean {
+        // check collabs
+        if(this.collaborators.indexOf(user) != -1) {
+            return true
+        }
+        return false
+    }
+
     // ------------------------------------------ PRIVATE FUNCTIONALITY ------------------------------------------
 
     private getStopIndex(stop: RoadtripStop): number {

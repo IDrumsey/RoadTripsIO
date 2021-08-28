@@ -24,7 +24,6 @@ export class RoadtripStopDTO {
 
             // transfer primitives
             stop.id = this.id
-            stop.title = this.title
             stop.description = this.description
 
             // make api calls

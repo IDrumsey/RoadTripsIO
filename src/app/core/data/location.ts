@@ -7,8 +7,10 @@ export class Location {
 
     // ------------------------------------------ DATA ------------------------------------------
     id: number
+    title: string
     address: string
     coordinates: Coordinate
+    photos: string[] = []
 
     // ------------------------------------------ PUBLIC FUNCTIONALITY ------------------------------------------
     upload(): Promise<Location> {
@@ -27,9 +29,11 @@ export class Location {
         let dto = new LocationDTO(this.api)
 
         dto.id = this.id
+        dto.title = this.title
         dto.address = this.address
         dto.latitude = this.coordinates.latitude
         dto.longitude = this.coordinates.longitude
+        dto.photos = this.photos
 
         return dto
     }

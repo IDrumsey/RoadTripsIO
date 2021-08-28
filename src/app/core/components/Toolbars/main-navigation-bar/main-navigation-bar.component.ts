@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBars, faRoute, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRoute, faSignInAlt, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-main-navigation-bar',
@@ -8,19 +9,19 @@ import { faBars, faRoute, faSignInAlt, faUser } from '@fortawesome/free-solid-sv
   styleUrls: ['./main-navigation-bar.component.css']
 })
 export class MainNavigationBarComponent implements OnInit {
-  // events
-  @Output() openLogin = new EventEmitter()
-
-  toggleIcon = faBars;
-  otherIcons = [faUser, faRoute, faSignInAlt]
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
-  routeToUserPage(userId: number): void {
-    this.router.navigate(['users', userId])
+  // events
+  @Output() openLogin = new EventEmitter()
+
+  toggleIcon = faBars;
+  otherIcons = [faUser, faRoute, faSignInAlt, faSignOutAlt]
+
+  routeToUserPage(): void {
+    this.router.navigate(['users', this.auth.currentlyLoggedInUserId])
   }
 
   routeToBrowseRoadtripsPage(): void {
@@ -29,5 +30,13 @@ export class MainNavigationBarComponent implements OnInit {
 
   onSignInBtnClick(): void {
     this.openLogin.emit()
+  }
+
+  isUserSignedIn(): boolean {
+    return this.auth.currentlyLoggedInUserId != null
+  }
+
+  onSignOutBtnClick(): void {
+    this.auth.signOut()
   }
 }

@@ -12,6 +12,17 @@ import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
   styleUrls: ['./roadtrip-location-card-details.component.css']
 })
 export class RoadtripLocationCardDetailsComponent implements OnInit {
+  constructor() { }
+
+  ngOnInit(): void {
+    console.log(this.stop)
+    switch(this.type){
+      case LocationTypes.Landmark: {
+        this.typeIcon = faLandmark
+      }
+    }
+  }
+
   // data
   @Input() stop: RoadtripStop
   title = "Statue of Liberty"
@@ -31,16 +42,6 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
 
   // events
   @Output() edit = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-    switch(this.type){
-      case LocationTypes.Landmark: {
-        this.typeIcon = faLandmark
-      }
-    }
-  }
 
   getWrapperStyles(): {} {
     return {

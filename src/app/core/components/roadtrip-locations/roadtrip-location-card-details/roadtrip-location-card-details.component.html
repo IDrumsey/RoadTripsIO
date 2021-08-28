@@ -26,10 +26,8 @@
   <p>{{ stop.description }}</p>
   <app-image-gallery class="location-stop-image-gallery">
     <app-image
-      [filePath]="'assets/images/pexels-andrea-piacquadio-722014.jpg'"
-    ></app-image>
-    <app-image
-      [filePath]="'assets/images/pexels-andrea-piacquadio-722014.jpg'"
+      *ngFor="let imagePath of stop.location.photos"
+      [filePath]="imagePath"
     ></app-image>
   </app-image-gallery>
   <app-images-form

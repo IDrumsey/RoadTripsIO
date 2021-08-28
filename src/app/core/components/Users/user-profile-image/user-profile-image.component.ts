@@ -8,7 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 })
 export class UserProfileImageComponent implements OnInit {
   // data
-  path: string = "assets/images/pexels-andrea-piacquadio-722014.jpg"
+  @Input() path: string = "assets/images/pexels-andrea-piacquadio-722014.jpg"
   placeholderIcon = faUser
 
   // styles

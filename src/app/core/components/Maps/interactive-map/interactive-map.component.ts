@@ -124,7 +124,7 @@ export class InteractiveMapComponent implements OnInit {
 
     stop.location.address = form.get('address')?.value
     stop.location.coordinates = new Coordinate(form.get('latitude')?.value, form.get('longitude')?.value)
-    stop.title = form.get('title')?.value
+    stop.location.title = form.get('title')?.value
     stop.description = form.get('description')?.value
 
     return stop

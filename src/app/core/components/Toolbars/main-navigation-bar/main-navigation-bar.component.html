@@ -4,7 +4,7 @@
     [iconSize]="'20px'"
     [bgHoverColor]="'rgba(0,0,255,.2)'"
     [padding]="20"
-    (buttonClick)="routeToUserPage(1)"
+    (buttonClick)="routeToUserPage()"
   ></app-circular-icon-button>
 
   <app-circular-icon-button
@@ -16,11 +16,21 @@
   ></app-circular-icon-button>
 
   <app-circular-icon-button
+    *ngIf="!isUserSignedIn()"
     [icon]="otherIcons[2]"
     [iconSize]="'20px'"
     [bgHoverColor]="'rgba(0,0,255,.2)'"
     [padding]="20"
     (buttonClick)="onSignInBtnClick()"
+  ></app-circular-icon-button>
+
+  <app-circular-icon-button
+    *ngIf="isUserSignedIn()"
+    [icon]="otherIcons[3]"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
+    [padding]="20"
+    (buttonClick)="onSignOutBtnClick()"
   ></app-circular-icon-button>
 
   <app-circular-icon-button

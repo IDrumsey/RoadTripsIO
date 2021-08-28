@@ -1,8 +1,11 @@
-<div [ngStyle]="getWrapperStyles()">
+<div *ngIf="dataLoaded" [ngStyle]="getWrapperStyles()">
   <div id="user-image-wrapper">
-    <app-user-profile-image id="user-profile-image"></app-user-profile-image>
+    <app-user-profile-image
+      [path]="user.photo"
+      id="user-profile-image"
+    ></app-user-profile-image>
   </div>
-  <h5 [ngStyle]="usernameStyles">Username</h5>
+  <h5 [ngStyle]="usernameStyles">{{ user.username }}</h5>
 
   <!-- Created roadtrips -->
   <div class="section">
@@ -14,14 +17,46 @@
         Created Roadtrips
       </h1>
       <app-icon-button
-        *ngIf="isOwner"
+        *ngIf="isOwner()"
         [icon]="addBtnIcon"
         [iconSize]="'30px'"
         [ngStyle]="sectionTopIconStyles"
       ></app-icon-button>
     </div>
 
-    <app-roadtrip-card [isOwner]="isOwner"></app-roadtrip-card>
+    <app-roadtrip-card
+      *ngFor="let roadtrip of createdRoadtrips"
+      [roadtrip]="roadtrip"
+      [isOwner]="isOwner()"
+    ></app-roadtrip-card>
+  </div>
+
+  <!-- Collaboration roadtrips -->
+  <div class="section">
+    <div class="section-top">
+      <h1
+        class="inline-text no-mb section-title"
+        [ngStyle]="sectionTitleStyles"
+      >
+        Roadtrips I'm collaborating on
+      </h1>
+      <div class="section-list">
+        <app-icon-button
+          *ngIf="isOwner()"
+          [icon]="addBtnIcon"
+          [iconSize]="'30px'"
+          [ngStyle]="sectionTopIconStyles"
+        ></app-icon-button>
+      </div>
+    </div>
+
+    <div class="section-list">
+      <app-roadtrip-card
+        *ngFor="let roadtrip of collabRoadtrips"
+        [roadtrip]="roadtrip"
+        [isOwner]="false"
+      ></app-roadtrip-card>
+    </div>
   </div>
 
   <!-- Places Visited -->
@@ -34,16 +69,22 @@
         Places I've been
       </h1>
       <app-icon-button
-        *ngIf="isOwner"
+        *ngIf="isOwner()"
         [icon]="addBtnIcon"
         [iconSize]="'30px'"
         [ngStyle]="sectionTopIconStyles"
       ></app-icon-button>
     </div>
-    <app-location-card [isOwner]="isOwner"></app-location-card>
+    <div class="section-list">
+      <app-location-card
+        *ngFor="let location of getPlacesVisited()"
+        [location]="location"
+        [isOwner]="isOwner()"
+      ></app-location-card>
+    </div>
   </div>
 
-  <!-- Places Visited -->
+  <!-- Places To Visit -->
   <div class="section">
     <div class="section-top">
       <h1
@@ -53,17 +94,23 @@
         Where I want to go
       </h1>
       <app-icon-button
-        *ngIf="isOwner"
+        *ngIf="isOwner()"
         [icon]="addBtnIcon"
         [iconSize]="'30px'"
         [ngStyle]="sectionTopIconStyles"
       ></app-icon-button>
     </div>
-    <app-location-card [isOwner]="isOwner"></app-location-card>
+    <div class="section-list">
+      <app-location-card
+        *ngFor="let location of locationsToVisit"
+        [location]="location"
+        [isOwner]="isOwner()"
+      ></app-location-card>
+    </div>
   </div>
 
   <!-- Personal Info -->
-  <div class="section" *ngIf="isOwner">
+  <div class="section" *ngIf="isOwner()">
     <div class="section-top">
       <h1
         class="inline-text no-mb section-title"
@@ -77,7 +124,10 @@
         [ngStyle]="sectionTopIconStyles"
       ></fa-icon>
     </div>
-    <app-personal-info-card *ngIf="isOwner"></app-personal-info-card>
+    <app-personal-info-card
+      [user]="user"
+      *ngIf="isOwner()"
+    ></app-personal-info-card>
   </div>
 
   <!-- Picture Gallery -->
@@ -96,7 +146,7 @@
       ></fa-icon>
     </div>
     <app-image-gallery>
-      <app-image *ngFor="let path of imagePaths" [filePath]="path"></app-image>
+      <app-image *ngFor="let path of getPhotos()" [filePath]="path"></app-image>
     </app-image-gallery>
   </div>
 </div>

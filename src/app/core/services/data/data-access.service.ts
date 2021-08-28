@@ -151,7 +151,7 @@ export class DataAccessService {
 
   getUserById(id: number): Promise<User> {
     let producer = this.requestSingleUser(id)
-    let user = new User()
+    let user = new User(this, this.asyncService)
     
     return new Promise(resolve => {
       this.genPromise(producer).then(data => {
@@ -173,7 +173,18 @@ export class DataAccessService {
   // --------- ROADTRIPS ---------
   getAllRoadtrips(): Promise<RoadtripDTO[]> {
     let producer = this.requestAllRoadtrips()
-    return this.genPromise(producer)
+
+    return new Promise(resolve => {
+      this.genPromise(producer).then(rawDTOS => {
+        let actualDTOS: RoadtripDTO[] = []
+        rawDTOS.forEach(rawDTO => {
+          let newDTO = new RoadtripDTO(this, this.asyncService)
+          newDTO.initFromRawData(rawDTO)
+          actualDTOS.push(newDTO)
+        })
+        resolve(actualDTOS)
+      })
+    })
   }
 
   getRoadtripById(id: number): Promise<RoadtripDTO> {

@@ -3,7 +3,7 @@
     <div class="field">
       <h5 [ngStyle]="fieldTitleStyles">First Name</h5>
       <app-editable-text
-        [text]="firstName"
+        [text]="user.firstname"
         [control]="form.controls['firstName']"
         [font]="font"
         [fontSize]="inputFontSize"
@@ -14,7 +14,7 @@
     <div class="field">
       <h5 [ngStyle]="fieldTitleStyles">Last Name</h5>
       <app-editable-text
-        [text]="lastName"
+        [text]="user.lastname"
         [control]="form.controls['lastName']"
         [font]="font"
         [fontSize]="inputFontSize"
@@ -25,7 +25,7 @@
     <div class="field">
       <h5 [ngStyle]="fieldTitleStyles">Username</h5>
       <app-editable-text
-        [text]="username"
+        [text]="user.username"
         [control]="form.controls['username']"
         [font]="font"
         [fontSize]="inputFontSize"
@@ -36,7 +36,7 @@
     <div class="field">
       <h5 [ngStyle]="fieldTitleStyles">Email Address</h5>
       <app-editable-text
-        [text]="email"
+        [text]="user.email"
         [control]="form.controls['email']"
         [font]="font"
         [fontSize]="inputFontSize"

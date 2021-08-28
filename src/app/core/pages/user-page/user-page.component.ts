@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { faAddressCard, faCameraRetro, faMapPin, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
+import { Roadtrip } from '../../data/Roadtrip/roadtrip';
+import { User } from '../../data/user';
+import { AsyncService } from '../../services/async.service';
+import { DataAccessService } from '../../services/data/data-access.service';
+import { Location } from '../../data/location';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-user-page',
@@ -10,18 +17,24 @@ import { AppFonts } from '../../data/models/app-fonts';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
+  constructor(private route: ActivatedRoute, private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService) { }
+
+  ngOnInit(): void {
+    this.initPage()
+  }
+
   // data
-  user: any
-  imagePaths: string[] = [
-    "assets/images/pexels-andrea-piacquadio-722014.jpg",
-    "assets/images/pexels-andrea-piacquadio-722014.jpg",
-    "assets/images/pexels-andrea-piacquadio-722014.jpg",
-    "assets/images/pexels-andrea-piacquadio-722014.jpg",
-    "assets/images/pexels-andrea-piacquadio-722014.jpg"
-  ]
+  user: User
+  createdRoadtrips: Roadtrip[]
+  collabRoadtrips: Roadtrip[]
+  locationsToVisit: Location[]
 
   // state
-  isOwner: boolean = true
+  dataLoaded = false
+  
+  isOwner(): boolean {
+    return this.auth.currentlyLoggedInUserId == this.user.id
+  }
 
   // styles
   textColor = AppColors.onColorLight
@@ -47,14 +60,78 @@ export class UserPageComponent implements OnInit {
     margin: "25px"
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   getWrapperStyles(): {} {
     return {
       color: this.textColor
     }
+  }
+
+  // -------------------------------------- PRIVATE FUNCTIONALITY --------------------------------------
+  initPage(): void {
+    // get user id from url
+    this.route.paramMap.subscribe(params => {
+      let userId = params.get("userId")
+      if(userId != null){
+        // load data
+        this.loadData(parseInt(userId)).then(() => {
+          console.log("done loading data")
+          this.dataLoaded = true
+        })
+      }
+    })
+  }
+  
+  async loadData(userId: number): Promise<void> {
+    return new Promise(resolve => {
+      this.api.getUserById(userId).then(user => {
+        this.user = user
+        this.asyncService.runMultiplePromises([
+          // get the roadtrip data
+          user.getCreatedRoadtrips().then(roadtrips => {
+            this.createdRoadtrips = roadtrips
+          }),
+          user.getCollabRoadtrips().then(roadtrips => [
+            this.collabRoadtrips = roadtrips
+          ]),
+          this.user.getLocationsToVisit().then(locations => {
+            this.locationsToVisit = locations
+          })
+        ]).then(() => {
+          resolve()
+        })
+      })
+    })
+  }
+
+  getPlacesVisited(): Location[] {
+    let locations: Location[] = []
+    // search in created roadtrips
+    this.createdRoadtrips.forEach(roadtrip => {
+      locations.push(...roadtrip.stops.map(stop => stop.location))
+    })
+    
+    return locations
+  }
+
+  /**
+   * Gets all the photos related to this user
+   * 1. Roadtrip location pictures
+   * 2. Locations to visit pictures
+   * 3. Locations visited pictures
+   */
+  getPhotos(): string[] {
+    let pictures: string[] = []
+    // get roadtrip pictures
+    this.createdRoadtrips.forEach(rt => {
+      rt.stops.map(stop => stop.location).forEach(location => pictures.push(...location.photos))
+    })
+
+    this.collabRoadtrips.forEach(rt => {
+      rt.stops.map(stop => stop.location).forEach(location => pictures.push(...location.photos))
+    })
+
+    this.locationsToVisit.forEach(location => pictures.push(...location.photos))
+
+    return pictures
   }
 }

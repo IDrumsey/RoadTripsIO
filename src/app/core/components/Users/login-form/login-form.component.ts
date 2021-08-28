@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { faBan, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-login-form',
@@ -10,6 +11,11 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
+  constructor(private auth: AuthenticationService) { }
+
+  ngOnInit(): void {
+  }
+
   // events
   @Output() close = new EventEmitter()
 
@@ -18,6 +24,8 @@ export class LoginFormComponent implements OnInit {
     username: new FormControl(),
     password: new FormControl()
   })
+
+  errorMessages: string[] = []
 
   // styles
   signInIcon = faSignInAlt
@@ -47,12 +55,19 @@ export class LoginFormComponent implements OnInit {
     fontFamily: AppFonts.Data
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   onCloseBtnClick(): void {
     this.close.emit()
+  }
+
+  onSignInBtnClick(): void {
+    this.auth.attemptSignIn().then(signedIn => {
+      if(signedIn){
+        this.close.emit()
+      }
+      else{
+        // display error message
+        this.errorMessages.push("Sorry, incorrect credentials.")
+      }
+    })
   }
 }

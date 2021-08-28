@@ -9,7 +9,6 @@ export class RoadtripStop {
     // ------------------------------------------ DATA ------------------------------------------
     id: number
     location: Location
-    title: string
     description: string
 
     // ------------------------------------------ PUBLIC FUNCTIONALITY ------------------------------------------
@@ -47,7 +46,6 @@ export class RoadtripStop {
 
         dto.id = this.id
         dto.locationId = this.location.id
-        dto.title = this.title
         dto.description = this.description
 
         return dto

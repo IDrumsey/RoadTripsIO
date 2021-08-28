@@ -73,7 +73,7 @@ app-login-form {
 }
 
 app-login-form {
-  position: absolute;
+  position: fixed;
   right: 25px;
   top: 8%;
 }

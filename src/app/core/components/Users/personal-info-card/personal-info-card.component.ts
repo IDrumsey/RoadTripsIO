@@ -1,9 +1,10 @@
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Input, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { User } from 'src/app/core/data/user';
 
 @Component({
   selector: 'app-personal-info-card',
@@ -11,6 +12,8 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
   styleUrls: ['./personal-info-card.component.css']
 })
 export class PersonalInfoCardComponent implements OnInit {
+  @Input() user: User
+  
   // data
   firstName: string = "Charlie"
   lastName: string = "Hm"
