@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
-
 import { Roadtrip } from '../../data/Roadtrip/roadtrip';
 import { AsyncService } from '../../services/async.service';
 import { DataAccessService } from '../../services/data/data-access.service';
@@ -13,7 +15,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
   styleUrls: ['./browse-roadtrips-page.component.css']
 })
 export class BrowseRoadtripsPageComponent implements OnInit {
-  constructor(private api: DataAccessService, private asyncService: AsyncService) {
+  constructor(private api: DataAccessService, private asyncService: AsyncService, private router: Router) {
     this.loadData()
   }
 
@@ -23,6 +25,8 @@ export class BrowseRoadtripsPageComponent implements OnInit {
   // ----------------------------------- DATA -----------------------------------
   dataLoaded: boolean = false
   roadtrips: Roadtrip[] = []
+
+  navPieces = [new NavURLPiece(this.router, "home", "")]
 
   // ----------------------------------- STYLES -----------------------------------
   titleStyles = {

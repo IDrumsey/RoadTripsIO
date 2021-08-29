@@ -1,6 +1,7 @@
 import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { InteractiveMapComponent } from '../../components/Maps/interactive-map/interactive-map.component';
 import { RoadtripLocationCardComponent } from '../../components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
 
@@ -17,7 +18,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
   styleUrls: ['./roadtrip-page.component.css']
 })
 export class RoadtripPageComponent implements OnInit, AfterViewInit {
-  constructor(private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute) {
+  constructor(private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
     this.initPage()
   }
 
@@ -44,12 +45,7 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
   // ----------------------------------------------- DATA -----------------------------------------------
   roadtrip: Roadtrip
 
-  title = "Some Cool Roadtrip!"
-  owner = {
-    id: 1,
-    username: "someUser1"
-  }
-  description = "This is the description of the roadtrip. It was a good roadtrip and I would recommend it."
+  navPieces: NavURLPiece[]
 
   // ----------------------------------------------- STATE -----------------------------------------------
   dataLoaded: boolean = false
@@ -117,8 +113,14 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
     // get the roadtrip id
     this.route.paramMap.subscribe(params => {
       let roadtripIdString = params.get("roadtripId")
+      
       if(roadtripIdString){
         let roadtripId = parseInt(roadtripIdString)
+
+        // setup nav url pieces
+        this.navPieces = [new NavURLPiece(this.router, "home", ""), new NavURLPiece(this.router, "roadtrips"), new NavURLPiece(this.router, roadtripId.toString(), "/roadtrips/" + roadtripId)]
+
+        // load data
         this.loadData(roadtripId).then(() => {
           this.dataLoaded = true
           console.log("done loading data")

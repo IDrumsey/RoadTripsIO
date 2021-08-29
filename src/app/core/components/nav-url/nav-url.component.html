@@ -1,0 +1,19 @@
+<div class="nav-url">
+  <p class="separator" [ngStyle]="separatorStyles">/</p>
+  <span *ngFor="let piece of pieces; let i = index">
+    <p
+      class="nav-url-piece"
+      [ngStyle]="getPieceStyles(piece)"
+      (click)="piece.route()"
+    >
+      {{ piece.name }}
+    </p>
+    <p
+      *ngIf="i != pieces.length - 1"
+      class="separator"
+      [ngStyle]="separatorStyles"
+    >
+      /
+    </p>
+  </span>
+</div>

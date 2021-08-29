@@ -58,6 +58,12 @@ export class NewRoadtripFormComponent implements OnInit {
       newRoadtripDTO.description = this.data.get('description')?.value
       newRoadtripDTO.collaboratorIds = this.collaborators.map(user => user.id)
 
+      // if owner id is collaborator -> remove the id
+      let ownerIdInCollabIndex = newRoadtripDTO.collaboratorIds.indexOf(newRoadtripDTO.ownerId)
+      if(ownerIdInCollabIndex){
+        newRoadtripDTO.collaboratorIds.splice(ownerIdInCollabIndex, 1)
+      }
+
       this.submitEvent.emit(newRoadtripDTO)
     }
   }

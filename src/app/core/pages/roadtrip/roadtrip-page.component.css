@@ -2,10 +2,15 @@
   margin-bottom: 50px;
 }
 
+.roadtrip-owner-info {
+  display: flex;
+  align-items: center;
+}
+
 #roadtrip-owner {
   text-decoration: none;
   font-size: 15px;
-  margin-top: 20px;
+  margin-left: 25px;
 }
 
 #roadtrip-owner:hover {
@@ -25,4 +30,17 @@
 
 .comment-section-title {
   margin-right: 25px;
+}
+
+.collaborators {
+  margin-top: 50px;
+}
+
+.collaborator-profile-images {
+  display: flex;
+  gap: 25px;
+}
+
+.collaborator {
+  cursor: pointer;
 }

@@ -1,1 +1,5 @@
 New roadtrip form on scroll scrolls the main page stuff.
+
+user profile image outline shape is a square which leads to change of cursor before mouse is over circle
+
+when creating a new roadtrip and selecting collaborators, you can select yourself. The only thing I can think to do is automatically remove yourself from collaborators when uploading the data. So to the user, it looks like they're a collaborator but really not.

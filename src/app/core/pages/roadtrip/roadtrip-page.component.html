@@ -1,4 +1,5 @@
 <div class="roadtrip-page" *ngIf="dataLoaded">
+  <app-nav-url [pieces]="navPieces"></app-nav-url>
   <div class="roadtrip-map-wrapper">
     <app-interactive-map
       #RoadtripMap
@@ -9,7 +10,7 @@
     ></app-interactive-map>
   </div>
 
-  <h1 *ngIf="!isOwner()" [ngStyle]="getTitleStyles()">{{ title }}</h1>
+  <h1 *ngIf="!isOwner()" [ngStyle]="getTitleStyles()">{{ roadtrip.title }}</h1>
 
   <app-editable-text
     *ngIf="isOwner()"
@@ -20,12 +21,22 @@
     [fontSize]="titleFontSize"
   ></app-editable-text>
 
-  <a
-    [routerLink]="['/users', roadtrip.owner.id]"
-    id="roadtrip-owner"
-    [ngStyle]="getOwnerLinkStyles()"
-    >Made by {{ roadtrip.owner.username }}</a
-  >
+  <div class="roadtrip-owner-info">
+    <app-user-profile-image
+      class="owner-profile-image collaborator"
+      [routerLink]="['/users', roadtrip.owner.id]"
+      [path]="roadtrip.owner.photo"
+      [size]="'35px'"
+      [iconSize]="'20px'"
+      title="{{ roadtrip.owner.username }}"
+    ></app-user-profile-image>
+    <a
+      [routerLink]="['/users', roadtrip.owner.id]"
+      id="roadtrip-owner"
+      [ngStyle]="getOwnerLinkStyles()"
+      >Made by {{ roadtrip.owner.username }}</a
+    >
+  </div>
 
   <h5
     *ngIf="!isOwner()"
@@ -44,6 +55,22 @@
     [width]="'100%'"
     [fontSize]="descriptionFontSize"
   ></app-editable-text>
+
+  <!-- collaborators -->
+  <div class="collaborators">
+    <h4 [ngStyle]="getSectionTitleStyles()">Collaborators</h4>
+    <div class="collaborator-profile-images">
+      <app-user-profile-image
+        *ngFor="let collaborator of roadtrip.collaborators"
+        class="collaborator"
+        [routerLink]="['/users', collaborator.id]"
+        [path]="collaborator.photo"
+        [size]="'35px'"
+        [iconSize]="'20px'"
+        title="{{ collaborator.username }}"
+      ></app-user-profile-image>
+    </div>
+  </div>
 
   <div id="stops">
     <h4 class="inline-text" [ngStyle]="getSectionTitleStyles()">Stops</h4>

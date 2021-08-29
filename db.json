@@ -33,7 +33,7 @@
       "description": "For our summer vacation of 2021, we decided to travel from our home state of Maine down to the sunshine state, Florida. We had a great time and met a lot of new people.",
       "datePosted": "2021-08-04 14:30",
       "ownerId": 1,
-      "collaboratorIds": [],
+      "collaboratorIds": [2,3],
       "stopIds": [
         3,
         1

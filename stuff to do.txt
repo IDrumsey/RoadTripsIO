@@ -17,3 +17,5 @@ search bar component
 for the user select form, instead of checkboxes use the user's profile photo and just turn the opacity to low and when clicked full opacity. Photo acts like the checkbox
 
 maybe groups of people who go on trips together often can create a group so that when they create a roadtrip it automatically adds everyone in the group as collaborators
+
+change nav url piece color on hover

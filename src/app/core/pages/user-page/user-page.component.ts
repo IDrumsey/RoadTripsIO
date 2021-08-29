@@ -11,6 +11,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
 import { Location } from '../../data/location';
 import { AuthenticationService } from '../../services/authentication.service';
 import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
+import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 
 @Component({
   selector: 'app-user-page',
@@ -29,6 +30,8 @@ export class UserPageComponent implements OnInit {
   createdRoadtrips: Roadtrip[] = []
   collabRoadtrips: Roadtrip[] = []
   locationsToVisit: Location[] = []
+
+  navPieces: NavURLPiece[]
 
   // state
   dataLoaded = false
@@ -72,11 +75,17 @@ export class UserPageComponent implements OnInit {
   initPage(): void {
     // get user id from url
     this.route.paramMap.subscribe(params => {
-      let userId = params.get("userId")
-      if(userId != null){
+      let userIdString = params.get("userId")
+      if(userIdString != null){
+        let userId = parseInt(userIdString)
+
         // load data
-        this.loadData(parseInt(userId)).then(() => {
+        this.loadData(userId).then(() => {
           console.log("done loading data")
+
+          // setup nav url pieces
+          this.navPieces = [new NavURLPiece(this.router, "home", ""), new NavURLPiece(this.router, "users"), new NavURLPiece(this.router, this.user.username, "/users/" + this.user.id)]
+
           this.dataLoaded = true
         })
       }
@@ -128,9 +137,10 @@ export class UserPageComponent implements OnInit {
       rt.stops.map(stop => stop.location).forEach(location => pictures.push(...location.photos))
     })
 
-    this.collabRoadtrips.forEach(rt => {
-      rt.stops.map(stop => stop.location).forEach(location => pictures.push(...location.photos))
-    })
+    // I don't think collab roadtrip pictures should be featured on a user's page until functionality is made for linking photos directly with a user
+    // this.collabRoadtrips.forEach(rt => {
+    //   rt.stops.map(stop => stop.location).forEach(location => pictures.push(...location.photos))
+    // })
 
     this.locationsToVisit.forEach(location => pictures.push(...location.photos))
 
