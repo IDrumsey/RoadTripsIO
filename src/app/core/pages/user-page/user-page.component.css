@@ -36,6 +36,6 @@ app-new-roadtrip-form {
   left: 50%;
   top: 100px;
   transform: translateX(-50%);
-  width: 80%;
+  width: 70%;
   z-index: 10;
 }

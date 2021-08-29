@@ -26,9 +26,9 @@ export class UserPageComponent implements OnInit {
 
   // data
   user: User
-  createdRoadtrips: Roadtrip[]
-  collabRoadtrips: Roadtrip[]
-  locationsToVisit: Location[]
+  createdRoadtrips: Roadtrip[] = []
+  collabRoadtrips: Roadtrip[] = []
+  locationsToVisit: Location[] = []
 
   // state
   dataLoaded = false

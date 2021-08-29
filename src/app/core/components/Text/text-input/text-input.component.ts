@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -9,23 +9,45 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
   styleUrls: ['./text-input.component.css']
 })
 export class TextInputComponent implements OnInit {
-  // events
+  constructor() { }
+
+  ngOnInit(): void {
+    this.defineStyles()
+  }
+
+  ngOnChanges(): void {
+    this.defineStyles()
+  }
+
+  // ---------------------------------------- EVENTS ----------------------------------------
   @Output() focusEvent = new EventEmitter()
   @Output() blurEvent = new EventEmitter()
   @Output() fieldChange = new EventEmitter<string>()
 
-  // state
+  // ---------------------------------------- STATE ----------------------------------------
   isFocused: boolean = false;
 
-  // data inputs
+  // ---------------------------------------- DATA ----------------------------------------
   @Input() text: string = ""
   @Input() placeholder: string = ""
   @Input() name: string
   @Input() control: any
   @Input() inputType: string = "text"
+  @ViewChild("NoControlTextInput") defaultInput: ElementRef
 
+  // ---------------------------------------- FUNCTIONALITY ----------------------------------------
+  onChange(): void {
+    if(this.control){
+      this.text = this.control.value
+    }
+    else{
+      this.text = this.defaultInput.nativeElement.value
+    }
 
-  // style inputs
+    this.fieldChange.next(this.text)
+  }
+
+  // ---------------------------------------- STYLES ----------------------------------------
   @Input() textColor: string = AppColors.onColorLighter
   @Input() fontSize: string = "20px"
   @Input() font: string = AppFonts.Data
@@ -40,16 +62,6 @@ export class TextInputComponent implements OnInit {
   @Input() blurStyles: {}
 
   @Input() focusStyles: {}
-
-  ngOnChanges(): void {
-    this.defineStyles()
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.defineStyles()
-  }
 
   onFocus(): void {
     this.isFocused = true;

@@ -1,4 +1,5 @@
 <input
+  #NoControlTextInput
   *ngIf="!control"
   class="text-input"
   type="{{ inputType }}"
@@ -8,7 +9,7 @@
   (focus)="onFocus()"
   (blur)="onBlur()"
   [placeholder]="placeholder"
-  (input)="(text)"
+  (input)="onChange()"
   step="0.01"
 />
 <input
@@ -21,6 +22,6 @@
   (blur)="onBlur()"
   [placeholder]="placeholder"
   [formControl]="control"
-  (input)="fieldChange.next(control.value)"
+  (input)="onChange()"
   step="0.01"
 />

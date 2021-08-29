@@ -52,7 +52,7 @@
                 data.get('title')?.dirty && data.get('title')?.errors?.minlength
               "
             >
-              <!-- Needs to be at least {{data.get('title')?errors?.minlength}} -->
+              Needs to be at least {{ titleMinLength }} characters
             </p>
           </div>
           <div class="title-wrapper field">
@@ -66,7 +66,10 @@
 
         <!-- collaborators page -->
         <div *ngIf="page == 'collaborators'" class="new-roadtrip-info-page">
-          Collaborators page
+          <app-select-users-form
+            [selectedUsers]="collaborators"
+            (userUnselected)="dropCollaborator($event)"
+          ></app-select-users-form>
         </div>
 
         <!-- settings page -->

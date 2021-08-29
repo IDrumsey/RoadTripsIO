@@ -1,1 +1,51 @@
-<p>select-users-form works!</p>
+<div class="select-users-form">
+  <!-- search bar - might want to create component for this -->
+  <div class="user-search-bar">
+    <app-text-input
+      [name]="'user-search-bar'"
+      [focusBoxShadowBlurRadius]="0"
+      [bgColor]="searchbarBgColor"
+      [placeholder]="'username'"
+      (fieldChange)="onSearchBarValueChange($event)"
+    ></app-text-input>
+  </div>
+
+  <!-- matching users -->
+  <div class="matching-users">
+    <div *ngFor="let userSelectable of userSelectables" class="matching-user">
+      <input
+        type="checkbox"
+        name="{{ 'user-' + userSelectable.user.id }}"
+        [(ngModel)]="userSelectable.checked"
+        (change)="onCheckBoxClick(userSelectable)"
+      />
+      <label
+        for="{{ 'user-' + userSelectable.user.id }}"
+        [ngStyle]="userLabelStyles"
+        >{{ userSelectable.user.username }}</label
+      >
+    </div>
+  </div>
+
+  <!-- selected users -->
+  <div class="selected-users">
+    <div *ngFor="let user of selectedUsers" class="selected-user">
+      <app-user-profile-image
+        [path]="user.photo"
+        [size]="'35px'"
+        [iconSize]="'20px'"
+      ></app-user-profile-image>
+      <p class="selected-user-username">
+        {{ user.username }}
+      </p>
+      <app-icon-button
+        class="selected-user-delete-button"
+        [icon]="deleteSelectedUserIcon"
+        [iconSize]="deleteBtnSize"
+        [iconRegularColor]="deleteBtnColor"
+        [iconHoverColor]="deleteBtnHoverColor"
+        (buttonClick)="onDeleteBtnClick(user)"
+      ></app-icon-button>
+    </div>
+  </div>
+</div>

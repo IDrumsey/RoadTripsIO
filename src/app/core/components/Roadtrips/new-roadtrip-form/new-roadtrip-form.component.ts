@@ -23,8 +23,9 @@ export class NewRoadtripFormComponent implements OnInit {
   }
 
   // ----------------------------------------- DATA -----------------------------------------
+  titleMinLength = 10
   data = new FormGroup({
-    title: new FormControl("", [Validators.minLength(10), Validators.required]),
+    title: new FormControl("", [Validators.minLength(this.titleMinLength), Validators.required]),
     description: new FormControl(),
     allowComments: new FormControl(true)
   })
@@ -58,6 +59,16 @@ export class NewRoadtripFormComponent implements OnInit {
       newRoadtripDTO.collaboratorIds = this.collaborators.map(user => user.id)
 
       this.submitEvent.emit(newRoadtripDTO)
+    }
+  }
+
+  dropCollaborator(user: User): void {
+    let userToDrop = this.collaborators.find(collab => collab.id == user.id)
+    if(userToDrop){
+      let index = this.collaborators.indexOf(userToDrop)
+      if(index != -1){
+        this.collaborators.splice(index, 1)
+      }
     }
   }
 

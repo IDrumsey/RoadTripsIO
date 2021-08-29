@@ -1,0 +1,40 @@
+.user-search-bar {
+  margin-bottom: 25px;
+}
+
+.matching-users {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-height: 50vh;
+  overflow: scroll;
+  margin-bottom: 25px;
+}
+
+.selected-users {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 30%;
+  overflow: scroll;
+}
+
+.matching-users::-webkit-scrollbar,
+.selected-users::-webkit-scrollbar {
+  display: none;
+}
+
+.selected-user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.selected-user-username {
+  margin-bottom: 0;
+  font-size: 17px;
+}
+
+.selected-user-delete-button {
+  margin-left: auto;
+}

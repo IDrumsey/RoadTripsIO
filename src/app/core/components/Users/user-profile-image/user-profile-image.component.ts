@@ -10,6 +10,7 @@ export class UserProfileImageComponent implements OnInit {
   // data
   @Input() path: string = "assets/images/pexels-andrea-piacquadio-722014.jpg"
   placeholderIcon = faUser
+  @Input() iconSize = "100px"
 
   // styles
   @Input() size: string = "200px"
@@ -17,21 +18,20 @@ export class UserProfileImageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.iconStyles.fontSize = this.iconSize
   }
 
   getWrapperStyles(): {} {
     return {
       width: this.size,
       height: this.size,
-      backgroundImage: `url('${this.path}')`
+      backgroundImage: this.path ? `url('${this.path}')` : "none"
     }
   }
 
-  getIconStyles(): {} {
-    return {
-      fontSize: "100px",
-      color: "#000"
-    }
+  iconStyles = {
+    color: "#000",
+    fontSize: this.iconSize
   }
 
   hasImage(): boolean {
