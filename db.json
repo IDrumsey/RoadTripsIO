@@ -7,7 +7,9 @@
       "lastname": "Orson",
       "email": "testemail1@email.test",
       "photo": "assets/images/pexels-elizabeth-zernetska-9292196.jpg",
-      "locationsToVisitIds": [2]
+      "locationsToVisitIds": [
+        2
+      ]
     },
     {
       "id": 2,

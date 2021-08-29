@@ -28,7 +28,6 @@ export class User {
 
     async getCreatedRoadtrips(): Promise<Roadtrip[]> {
         return new Promise(resolve => {
-            console.log("getting user's created roadtrips")
             // get all roadtrips
             this.api.getAllRoadtrips().then(dtos => {
                 // filter
@@ -48,12 +47,10 @@ export class User {
 
     async getCollabRoadtrips(): Promise<Roadtrip[]> {
         return new Promise(resolve => {
-            console.log("getting user's collab roadtrips")
             // get all roadtrips
             this.api.getAllRoadtrips().then(dtos => {
                 // filter
                 let collabRoadtripsDTOS = dtos.filter(dto => dto.collaboratorIds.includes(this.id))
-                console.log("filtered : ", collabRoadtripsDTOS)
 
                 let collabRoadtrips: Roadtrip[] = []
                 this.asyncService.runMultiplePromises(collabRoadtripsDTOS.map(dto => {
@@ -61,7 +58,6 @@ export class User {
                         collabRoadtrips.push(roadtrip)
                     })
                 })).then(() => {
-                    console.log("done")
                     resolve(collabRoadtrips)
                 })
             })

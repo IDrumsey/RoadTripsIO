@@ -1,0 +1,39 @@
+.new-roadtrip-form {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+}
+
+.new-roadtrip-form-body {
+  padding: 25px;
+}
+
+.new-roadtrip-form-options-wrapper {
+  display: flex;
+}
+
+.new-roadtrip-form-options {
+  margin-left: auto;
+}
+
+.error-warning {
+  font-size: 20px;
+  text-align: center;
+}
+
+.checkbox-label {
+  margin-left: 25px;
+}
+
+.new-roadtrip-data-inputs {
+  margin-bottom: 50px;
+}
+
+.field {
+  margin-bottom: 25px;
+}
+
+.error-message {
+  color: #ed4a57;
+  margin-bottom: 0;
+}

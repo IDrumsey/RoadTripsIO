@@ -1,4 +1,11 @@
 <div *ngIf="dataLoaded" [ngStyle]="getWrapperStyles()">
+  <!-- Centered Forms -->
+  <app-new-roadtrip-form
+    *ngIf="addingNewRoadtrip"
+    (cancelEvent)="onNewRoadtripCancel()"
+    (submitEvent)="onNewRoadtripSubmit($event)"
+  ></app-new-roadtrip-form>
+
   <div id="user-image-wrapper">
     <app-user-profile-image
       [path]="user.photo"
@@ -21,6 +28,7 @@
         [icon]="addBtnIcon"
         [iconSize]="'30px'"
         [ngStyle]="sectionTopIconStyles"
+        (buttonClick)="onAddRoadtripBtnClick()"
       ></app-icon-button>
     </div>
 

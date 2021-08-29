@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { ButtonComponent } from '../button/button.component';
 import { RectangleTextButtonManager } from '../functionality/rectangle-text-button-manager';
@@ -8,7 +8,7 @@ import { RectangleTextButtonManager } from '../functionality/rectangle-text-butt
   templateUrl: './rectangle-button.component.html',
   styleUrls: ['./rectangle-button.component.css']
 })
-export class RectangleButtonComponent extends ButtonComponent implements OnInit {
+export class RectangleButtonComponent extends ButtonComponent implements OnInit, OnChanges {
   constructor(element: ElementRef) {
     super(element)
   }
@@ -27,6 +27,22 @@ export class RectangleButtonComponent extends ButtonComponent implements OnInit 
     this.manager.mouseExitEmitter.subscribe(() => {
       this.buttonMouseExit.emit()
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.manager){
+      // bgRegularColor Changes
+      if(changes.bgRegularColor){
+        // check if current bgColor = regular color
+        if(this.manager.bgColor == this.manager.bgRegularColor){
+          this.manager.bgColor = changes.bgRegularColor.currentValue
+        }
+        this.manager.bgRegularColor = changes.bgRegularColor.currentValue
+      }
+      if(changes.bgHoverColor){
+        this.manager.bgHoverColor = changes.bgHoverColor
+      }
+    }
   }
 
   // inputs

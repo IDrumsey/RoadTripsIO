@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faAddressCard, faCameraRetro, faMapPin, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { AppColors } from '../../data/models/app-colors';
@@ -10,6 +10,7 @@ import { AsyncService } from '../../services/async.service';
 import { DataAccessService } from '../../services/data/data-access.service';
 import { Location } from '../../data/location';
 import { AuthenticationService } from '../../services/authentication.service';
+import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
 
 @Component({
   selector: 'app-user-page',
@@ -17,7 +18,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService) { }
+  constructor(private route: ActivatedRoute, private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.initPage()
@@ -31,6 +32,7 @@ export class UserPageComponent implements OnInit {
 
   // state
   dataLoaded = false
+  addingNewRoadtrip = false
   
   isOwner(): boolean {
     return this.auth.currentlyLoggedInUserId == this.user.id
@@ -133,5 +135,24 @@ export class UserPageComponent implements OnInit {
     this.locationsToVisit.forEach(location => pictures.push(...location.photos))
 
     return pictures
+  }
+
+  onAddRoadtripBtnClick(): void {
+    this.addingNewRoadtrip = true
+  }
+
+  onNewRoadtripCancel(): void {
+    this.addingNewRoadtrip = false
+  }
+
+  onNewRoadtripSubmit(newRoadtrip: RoadtripDTO): void {
+    console.log("uploading new roadtrip data : ", newRoadtrip)
+    this.api.addRoadtrip(newRoadtrip).then(rawDTO => {
+      let dto = new RoadtripDTO(this.api, this.asyncService)
+      dto.initFromRawData(rawDTO)
+      dto.toRoadtrip().then(roadtrip => {
+        this.router.navigate(['/roadtrips', roadtrip.id])
+      })
+    })
   }
 }

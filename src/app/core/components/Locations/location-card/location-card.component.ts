@@ -16,7 +16,6 @@ export class LocationCardComponent implements OnInit, AfterViewInit {
   constructor(private stringService: StringService) { }
 
   ngOnInit(): void {
-    console.log(this.location)
   }
 
   // data

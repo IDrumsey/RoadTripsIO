@@ -12,9 +12,9 @@ export class RoadtripDTO {
     description: string
     datePosted: Date
     ownerId: number
-    collaboratorIds: number[]
-    stopIds: number[]
-    commentIds: number[]
+    collaboratorIds: number[] = []
+    stopIds: number[] = []
+    commentIds: number[] = []
 
     errors: RequestErrors[] = []
 

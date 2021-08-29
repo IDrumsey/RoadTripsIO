@@ -65,7 +65,7 @@ export class DataAccessService {
 
   private addSingleRoadtrip(roadtrip: RoadtripDTO): Observable<RoadtripDTO> {
     let url = this.genEndpointURL(`/roadtrips`)
-    return this.api.post<RoadtripDTO>(url, roadtrip, this.requestOptions)
+    return this.api.post<RoadtripDTO>(url, roadtrip.getUploadFormat(), this.requestOptions)
   }
 
   private updateSingleRoadtrip(roadtrip: RoadtripDTO): Observable<RoadtripDTO> {

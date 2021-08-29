@@ -7,3 +7,7 @@ animations on the markers for when they are added and removed
 back to top btn
 
 num views on each roadtrip
+
+users can request collaboration on a roadtrip
+
+custom checkboxes
