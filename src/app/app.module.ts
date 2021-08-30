@@ -11,6 +11,8 @@ import {HttpClientModule} from '@angular/common/http'
 import { GoogleMapsModule } from '@angular/google-maps';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+
 // Local
 import { AppComponent } from './app.component';
 import { IconButtonComponent } from './core/components/Buttons/icon-button/icon-button.component';
@@ -59,6 +61,7 @@ import { ConfirmationPopupComponent } from './core/components/confirmation-popup
 import { NewRoadtripFormComponent } from './core/components/Roadtrips/new-roadtrip-form/new-roadtrip-form.component';
 import { SelectUsersFormComponent } from './core/components/Users/select-users-form/select-users-form.component';
 import { NavURLComponent } from './core/components/nav-url/nav-url.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -124,7 +127,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   exports: [RouterModule],
   providers: [],

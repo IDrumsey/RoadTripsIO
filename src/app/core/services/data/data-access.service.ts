@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpRequest } from '@angular/common/http';
 
 import { User } from '../../data/user';
 import { RequestErrors } from '../../data/models/request-errors';
@@ -23,7 +23,8 @@ export class DataAccessService {
     headers: {
       responseType: "application/json"
     },
-    withCredentials: true
+    withCredentials: true,
+    reportProgress: true
   }
 
   constructor(private api: HttpClient, private asyncService: AsyncService) { }
