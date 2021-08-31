@@ -4,14 +4,15 @@ import { faAddressCard, faCameraRetro, faMapPin, faPlus } from '@fortawesome/fre
 
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
-import { Roadtrip } from '../../data/Roadtrip/roadtrip';
-import { User } from '../../data/user';
+import { Roadtrip } from '../../data2/models/client/roadtrip';
+import { User } from '../../data2/models/client/user';
 import { AsyncService } from '../../services/async.service';
 import { DataAccessService } from '../../services/data/data-access.service';
-import { Location } from '../../data/location';
+import { Location } from '../../data2/models/client/location';
 import { AuthenticationService } from '../../services/authentication.service';
 import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
 import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
+import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
 
 @Component({
   selector: 'app-user-page',
@@ -19,7 +20,7 @@ import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private api: DataAccessService, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.initPage()
@@ -94,22 +95,13 @@ export class UserPageComponent implements OnInit {
   
   async loadData(userId: number): Promise<void> {
     return new Promise(resolve => {
-      this.api.getUserById(userId).then(user => {
+      this.api2.getUserById(userId).then(user => {
         this.user = user
-        this.asyncService.runMultiplePromises([
-          // get the roadtrip data
-          user.getCreatedRoadtrips().then(roadtrips => {
-            this.createdRoadtrips = roadtrips
-          }),
-          user.getCollabRoadtrips().then(roadtrips => [
-            this.collabRoadtrips = roadtrips
-          ]),
-          this.user.getLocationsToVisit().then(locations => {
-            this.locationsToVisit = locations
-          })
-        ]).then(() => {
-          resolve()
+        user.fetchCreatedRoadtrips().then(createdRoadtrips => {
+          this.createdRoadtrips = createdRoadtrips
+          console.log(this.createdRoadtrips)
         })
+        resolve()
       })
     })
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 
-import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
+import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card',

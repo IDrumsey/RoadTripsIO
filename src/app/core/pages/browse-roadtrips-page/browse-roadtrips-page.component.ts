@@ -5,9 +5,8 @@ import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
-import { Roadtrip } from '../../data/Roadtrip/roadtrip';
-import { AsyncService } from '../../services/async.service';
-import { DataAccessService } from '../../services/data/data-access.service';
+import { Roadtrip } from '../../data2/models/client/roadtrip';
+import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
 
 @Component({
   selector: 'app-browse-roadtrips-page',
@@ -15,7 +14,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
   styleUrls: ['./browse-roadtrips-page.component.css']
 })
 export class BrowseRoadtripsPageComponent implements OnInit {
-  constructor(private api: DataAccessService, private asyncService: AsyncService, private router: Router) {
+  constructor(private api: AbstractDataAccessService, private router: Router) {
     this.loadData()
   }
 
@@ -43,19 +42,9 @@ export class BrowseRoadtripsPageComponent implements OnInit {
 
   loadRoadtrips(): Promise<void> {
     return new Promise(resolve => {
-      this.api.getAllRoadtrips().then(dtoData => {
-        this.asyncService.runMultiplePromises([... dtoData.map(dtoWithoutFunctionality => {
-          return new Promise(resolve => {
-            let dtoWithFunctionality = new RoadtripDTO(this.api, this.asyncService)
-            dtoWithFunctionality.initFromRawData(dtoWithoutFunctionality)
-            dtoWithFunctionality.toRoadtrip().then(roadtrip => {
-              this.roadtrips.push(roadtrip)
-              resolve(null)
-            })
-          })
-        })]).then(() => {
-          resolve()
-        })
+      this.api.getAllRoadtrips().then(roadtrips => {
+        this.roadtrips = roadtrips
+        resolve()
       })
     })
   }

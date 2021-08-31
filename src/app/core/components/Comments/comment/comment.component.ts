@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ContentChildren, QueryList, AfterViewInit } from '@angular/core';
-import { Comment } from 'src/app/core/data/comment';
+import { Comment } from 'src/app/core/data2/models/client/comment';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 
 @Component({

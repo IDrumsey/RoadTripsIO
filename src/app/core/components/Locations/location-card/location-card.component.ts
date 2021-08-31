@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { faMapMarkedAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Location } from 'src/app/core/data/location';
+import { Location } from 'src/app/core/data2/models/client/location';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -16,6 +16,7 @@ export class LocationCardComponent implements OnInit, AfterViewInit {
   constructor(private stringService: StringService) { }
 
   ngOnInit(): void {
+    this.location.coordinates.genFormattedString()
   }
 
   // data

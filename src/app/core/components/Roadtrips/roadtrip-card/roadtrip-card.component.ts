@@ -4,7 +4,7 @@ import { faRoute, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
+import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 
 @Component({
   selector: 'app-roadtrip-card',

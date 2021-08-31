@@ -4,7 +4,7 @@ import { faImages, faLandmark, faMapPin, faPencilAlt, faPlus, IconDefinition } f
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { LocationTypes } from 'src/app/core/data/models/location-types';
-import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
+import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card-details',

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faInfoCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
+import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 
 @Component({
   selector: 'app-roadtrip-location-card-head',

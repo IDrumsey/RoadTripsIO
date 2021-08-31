@@ -1,15 +1,16 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Coordinate } from 'src/app/core/data/coordinate';
-import { Location } from 'src/app/core/data/location';
+import { Location } from 'src/app/core/data2/models/client/location';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
-import { RoadtripStop } from 'src/app/core/data/Roadtrip/roadtrip-stop';
+import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
+import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 import { AsyncService } from 'src/app/core/services/async.service';
 import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { InteractiveMapService } from 'src/app/core/services/maps/interactive-map.service';
 import { IMapManager } from '../functionality/i-map-manager';
+import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.service';
 
 @Component({
   selector: 'app-interactive-map',
@@ -17,7 +18,7 @@ import { IMapManager } from '../functionality/i-map-manager';
   styleUrls: ['./interactive-map.component.css']
 })
 export class InteractiveMapComponent implements OnInit {
-  constructor(private mapServices: InteractiveMapService, private api: DataAccessService, private asyncService: AsyncService) {}
+  constructor(private mapServices: InteractiveMapService, private api: DataAccessService, private api2: DataAccess2Service, private asyncService: AsyncService) {}
 
   ngOnInit(): void {
     this.manager = new IMapManager(this.getDefaultCoords(), this.mapServices)
@@ -103,7 +104,7 @@ export class InteractiveMapComponent implements OnInit {
     console.log(newStopData)
 
     // add to roadtrip
-    this.roadtrip.addStop(newStopData)
+    // TODO: this.roadtrip.addStop(newStopData)
   }
 
   onDetailsToolBtnClick(): void {
@@ -119,8 +120,8 @@ export class InteractiveMapComponent implements OnInit {
 
   // --------------------------------------------- PRIVATE FUNCTIONALITY ---------------------------------------------
   private convertFormToStop(form: FormGroup): RoadtripStop {
-    let stop = new RoadtripStop(this.api, this.asyncService)
-    stop.location = new Location(this.api)
+    let stop = new RoadtripStop(this.api2, this.asyncService)
+    stop.location = new Location()
 
     stop.location.address = form.get('address')?.value
     stop.location.coordinates = new Coordinate(form.get('latitude')?.value, form.get('longitude')?.value)

@@ -1,7 +1,14 @@
+import { AsyncService } from "src/app/core/services/async.service"
+import { DataAccess2Service } from "src/app/core/services/data/data-access-2.service"
 import { DtoDataObject } from "../../dto-data-object"
 import { User } from "../client/user"
+import { DataModel } from "../data-model"
 
-export class UserDTO implements DtoDataObject<UserDTO, User> {
+export class UserDTO extends DataModel implements DtoDataObject<UserDTO, User> {
+    constructor(private api: DataAccess2Service, private asyncService: AsyncService){
+        super(api, asyncService)
+    }
+    
     // ---------------------------------------- DATA ----------------------------------------
 
     id: number
@@ -9,6 +16,7 @@ export class UserDTO implements DtoDataObject<UserDTO, User> {
     firstname: string
     lastname: string
     email: string
+    photo: string
     locationsToVisitIds: number[] = []
 
     // ---------------------------------------- FUNCTIONALITY ----------------------------------------
@@ -19,16 +27,18 @@ export class UserDTO implements DtoDataObject<UserDTO, User> {
         this.lastname = data.lastname
         this.email = data.email
         this.locationsToVisitIds = data.locationsToVisitIds
+        this.photo = data.photo
     }
     
     toClient(): User {
-        let clientUser = new User()
+        let clientUser = new User(this.api, this.asyncService)
         clientUser.id = this.id
         clientUser.username = this.username
         clientUser.firstname = this.firstname
         clientUser.lastname = this.lastname
         clientUser.email = this.email
         clientUser.locationsToVisitIds = this.locationsToVisitIds
+        clientUser.photo = this.photo
 
         return clientUser
     }

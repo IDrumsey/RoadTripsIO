@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { faFlag, faInfoCircle, faReply } from '@fortawesome/free-solid-svg-icons';
-import { Comment } from 'src/app/core/data/comment';
+import { Comment } from 'src/app/core/data2/models/client/comment';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 

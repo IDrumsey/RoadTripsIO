@@ -7,9 +7,10 @@ import { RoadtripLocationCardComponent } from '../../components/roadtrip-locatio
 
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
-import { Roadtrip } from '../../data/Roadtrip/roadtrip';
-import { RoadtripStop } from '../../data/Roadtrip/roadtrip-stop';
+import { Roadtrip } from '../../data2/models/client/roadtrip';
+import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { AuthenticationService } from '../../services/authentication.service';
+import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
 import { DataAccessService } from '../../services/data/data-access.service';
 
 @Component({
@@ -18,7 +19,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
   styleUrls: ['./roadtrip-page.component.css']
 })
 export class RoadtripPageComponent implements OnInit, AfterViewInit {
-  constructor(private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+  constructor(private api: DataAccessService, private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
     this.initPage()
   }
 
@@ -131,11 +132,9 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
 
   loadData(roadtripId: number): Promise<void> {
     return new Promise((resolve) => {
-      this.api.getRoadtripById(roadtripId).then(roadtripDTO => {
-        roadtripDTO.toRoadtrip().then(roadtrip => {
-          this.roadtrip = roadtrip
-          resolve()
-        })
+      this.api2.getRoadtripById(roadtripId).then(roadtrip => {
+        this.roadtrip = roadtrip
+        resolve()
       })
     })
   }
@@ -149,9 +148,9 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
   }
 
   deleteStop(stop: RoadtripStop): void {
-    this.roadtrip.removeStop(stop).then(() => {
-      this.roadtripMap.manager.removeCoordinate(stop.location.coordinates.toLatLngLiteral())
-    })
+    // this.roadtrip.removeStop(stop).then(() => {
+    //   this.roadtripMap.manager.removeCoordinate(stop.location.coordinates.toLatLngLiteral())
+    // })
   }
 
   onDetailsToolBtnClick(selectedStop: RoadtripStop): void {
