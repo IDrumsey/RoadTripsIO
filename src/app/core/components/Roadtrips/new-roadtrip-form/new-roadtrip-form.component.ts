@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RoadtripDTO } from 'src/app/core/data/DTO/roadtrip-dto';
+import { RoadtripDTO } from 'src/app/core/data2/models/dto/roadtrip-dto';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { User } from 'src/app/core/data2/models/client/user';
 import { AsyncService } from 'src/app/core/services/async.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
+import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.service';
 
 @Component({
   selector: 'app-new-roadtrip-form',
@@ -16,7 +16,7 @@ import { DataAccessService } from 'src/app/core/services/data/data-access.servic
 })
 export class NewRoadtripFormComponent implements OnInit {
 
-  constructor(private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService) { }
+  constructor(private api: DataAccess2Service, private asyncService: AsyncService, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
     console.log(this.data.get('title')?.errors)

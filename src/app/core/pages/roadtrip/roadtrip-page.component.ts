@@ -11,7 +11,6 @@ import { Roadtrip } from '../../data2/models/client/roadtrip';
 import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
-import { DataAccessService } from '../../services/data/data-access.service';
 
 @Component({
   selector: 'app-roadtrip-page',
@@ -19,7 +18,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
   styleUrls: ['./roadtrip-page.component.css']
 })
 export class RoadtripPageComponent implements OnInit, AfterViewInit {
-  constructor(private api: DataAccessService, private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+  constructor(private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
     this.initPage()
   }
 

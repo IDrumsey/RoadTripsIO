@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
-import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
 import { Roadtrip } from '../../data2/models/client/roadtrip';

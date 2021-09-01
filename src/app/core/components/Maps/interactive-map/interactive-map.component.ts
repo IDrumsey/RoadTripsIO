@@ -7,7 +7,6 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 import { AsyncService } from 'src/app/core/services/async.service';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { InteractiveMapService } from 'src/app/core/services/maps/interactive-map.service';
 import { IMapManager } from '../functionality/i-map-manager';
 import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.service';
@@ -18,7 +17,7 @@ import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.ser
   styleUrls: ['./interactive-map.component.css']
 })
 export class InteractiveMapComponent implements OnInit {
-  constructor(private mapServices: InteractiveMapService, private api: DataAccessService, private api2: DataAccess2Service, private asyncService: AsyncService) {}
+  constructor(private mapServices: InteractiveMapService, private api: DataAccess2Service, private api2: DataAccess2Service, private asyncService: AsyncService) {}
 
   ngOnInit(): void {
     this.manager = new IMapManager(this.getDefaultCoords(), this.mapServices)

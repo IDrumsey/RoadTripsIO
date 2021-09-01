@@ -7,12 +7,12 @@ import { AppFonts } from '../../data/models/app-fonts';
 import { Roadtrip } from '../../data2/models/client/roadtrip';
 import { User } from '../../data2/models/client/user';
 import { AsyncService } from '../../services/async.service';
-import { DataAccessService } from '../../services/data/data-access.service';
 import { Location } from '../../data2/models/client/location';
 import { AuthenticationService } from '../../services/authentication.service';
-import { RoadtripDTO } from '../../data/DTO/roadtrip-dto';
+import { RoadtripDTO } from '../../data2/models/dto/roadtrip-dto';
 import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
+import { DataAccess2Service } from '../../services/data/data-access-2.service';
 
 @Component({
   selector: 'app-user-page',
@@ -20,7 +20,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private api: DataAccessService, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private api: DataAccess2Service, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.initPage()
@@ -149,12 +149,13 @@ export class UserPageComponent implements OnInit {
 
   onNewRoadtripSubmit(newRoadtrip: RoadtripDTO): void {
     console.log("uploading new roadtrip data : ", newRoadtrip)
-    this.api.addRoadtrip(newRoadtrip).then(rawDTO => {
-      let dto = new RoadtripDTO(this.api, this.asyncService)
-      dto.initFromRawData(rawDTO)
-      dto.toRoadtrip().then(roadtrip => {
-        this.router.navigate(['/roadtrips', roadtrip.id])
-      })
-    })
+    // TODO
+    // this.api.addRoadtrip(newRoadtrip).then(rawDTO => {
+    //   let dto = new RoadtripDTO(this.api, this.asyncService)
+    //   dto.initFromRawData(rawDTO)
+    //   dto.toRoadtrip().then(roadtrip => {
+    //     this.router.navigate(['/roadtrips', roadtrip.id])
+    //   })
+    // })
   }
 }
