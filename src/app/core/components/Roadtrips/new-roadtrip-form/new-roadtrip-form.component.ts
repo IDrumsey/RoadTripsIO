@@ -4,7 +4,7 @@ import { RoadtripDTO } from 'src/app/core/data/DTO/roadtrip-dto';
 
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { User } from 'src/app/core/data/user';
+import { User } from 'src/app/core/data2/models/client/user';
 import { AsyncService } from 'src/app/core/services/async.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { DataAccessService } from 'src/app/core/services/data/data-access.service';

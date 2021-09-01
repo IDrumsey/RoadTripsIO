@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, Input, Outpu
 import { faExpandArrowsAlt, faInfo, faMapMarkerAlt, faPencilAlt, faPlus, faRoute, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { AppColors } from 'src/app/core/data/models/app-colors';
-import { Roadtrip } from 'src/app/core/data/Roadtrip/roadtrip';
+import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 
 import { ButtonComponent } from '../../Buttons/button/button.component';
 import { IMapManager } from '../functionality/i-map-manager';

@@ -2,8 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { User } from 'src/app/core/data/user';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
+import { User } from 'src/app/core/data2/models/client/user';
+import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 
 class userSelectable {
@@ -17,7 +17,7 @@ class userSelectable {
   styleUrls: ['./select-users-form.component.css']
 })
 export class SelectUsersFormComponent implements OnInit {
-  constructor(private api: DataAccessService, private userService: UserService) { }
+  constructor(private api: DataAccess2Service, private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -64,7 +64,7 @@ export class SelectUsersFormComponent implements OnInit {
 
   async searchUsersForValue(): Promise<User[]> {
     return new Promise(resolve => {
-      this.api.getAllUsers().then(allUsers => {
+      this.api.getAllUsers().subscribe(allUsers => {
         let result = this.userService.filterByUsernameContain(this.searchValue, allUsers)
         resolve(result)
       })

@@ -152,4 +152,9 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
             })
         })
     }
+
+    addStop(stop: RoadtripStop): void {
+        // upload -> if good -> add to array
+        this.stops.push(stop)
+    }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Coordinate } from 'src/app/core/data/coordinate';
+import { Coordinate } from 'src/app/core/data2/models/client/coordinate';
 import { Location } from 'src/app/core/data2/models/client/location';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -104,7 +104,7 @@ export class InteractiveMapComponent implements OnInit {
     console.log(newStopData)
 
     // add to roadtrip
-    // TODO: this.roadtrip.addStop(newStopData)
+    this.roadtrip.addStop(newStopData)
   }
 
   onDetailsToolBtnClick(): void {

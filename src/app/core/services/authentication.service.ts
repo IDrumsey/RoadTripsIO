@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { User } from '../data/user';
-import { DataAccessService } from './data/data-access.service';
+import { User } from '../data2/models/client/user';
+import { DataAccess2Service } from './data/data-access-2.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private api: DataAccessService) { }
+  constructor(private api: DataAccess2Service) { }
 
   // ------------------------------------ DATA ------------------------------------
   currentlyLoggedInUserId: number | null = 1
@@ -19,13 +19,18 @@ export class AuthenticationService {
 
   async attemptSignIn(): Promise<boolean> {
     console.log("checking creds")
-
-    let userFound = await this.api.getUserById(1)
-    
-    if(true){
-      this.signUserIn(userFound)
-      return true
-    }
+    return new Promise(resolve => {
+      this.api.getUser(1).subscribe(userFound => {
+        // TODO
+        if(true){
+          this.signUserIn(userFound)
+          resolve(true)
+        }
+        else{
+          resolve(false)
+        }
+      })
+    })
   }
 
   // ------------------------------------ PRIVATE FUNCTIONALITY ------------------------------------
