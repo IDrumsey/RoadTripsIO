@@ -15,7 +15,6 @@ export class RoadtripLocationCardDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.stop)
     switch(this.type){
       case LocationTypes.Landmark: {
         this.typeIcon = faLandmark

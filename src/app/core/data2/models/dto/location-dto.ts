@@ -1,3 +1,4 @@
+import { DataAccessService } from "src/app/core/services/data/data-access.service"
 import { DtoDataObject } from "../../dto-data-object"
 import { Coordinate } from "../client/coordinate"
 import { Location } from "../client/location"
@@ -32,5 +33,16 @@ export class LocationDTO implements DtoDataObject<LocationDTO, Location> {
         client.photos = this.photos
 
         return client
+    }
+
+    upload(api: DataAccessService): Promise<Location>{
+        return new Promise((resolve, reject) => {
+            api.postLocation(this).then(newLocation => {
+                resolve(newLocation)
+            }, (err => {
+                console.log('caught')
+                reject(err)
+            }))
+        })
     }
 }

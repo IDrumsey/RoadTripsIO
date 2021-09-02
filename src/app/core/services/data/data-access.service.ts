@@ -76,6 +76,18 @@ export class DataAccessService {
     }))
   }
 
+  updateRoadtrip(roadtripDTO: RoadtripDTO): Promise<Roadtrip> {
+    let url = `${this.apiURL}/roadtrips/${roadtripDTO.id}`
+    let dataToUpload = roadtripDTO.getUploadFormat()
+    return new Promise((resolve, reject) => {
+      this.GETResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new RoadtripDTO(this, this.asyncService)
+        let client = this.resolveDTO(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
   // ------------ ROADTRIP STOPS ------------
 
   getRoadtripStopById(id: number): Observable<RoadtripStop> {
@@ -96,6 +108,21 @@ export class DataAccessService {
     }))
   }
 
+  postRoadtripStop(stopDTO: RoadtripStopDTO): Promise<RoadtripStop> {
+    let url = `${this.apiURL}/stops/`
+    return new Promise((resolve, reject) => {
+      // upload data
+      let dataToUpload = stopDTO.getUploadFormat()
+      this.GETResponseHandler(this.api.post<RoadtripStopDTO>(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new RoadtripStopDTO(this, this.asyncService)
+        console.log("dto to resolve : ", data)
+        let client = this.resolveDTO<RoadtripStopDTO, RoadtripStop>(dto, data)
+        console.log("resolved dto : ", client)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
   // ------------ LOCATIONS ------------
 
   getLocationById(id: number): Observable<Location> {
@@ -114,6 +141,18 @@ export class DataAccessService {
         return this.resolveDTO<LocationDTO, Location>(dto, dataObj)
       })
     }))
+  }
+
+  postLocation(location: LocationDTO): Promise<Location> {
+    let url = `${this.apiURL}/locations/`
+    return new Promise<Location>((resolve, reject) => {
+      // upload data
+      return this.GETResponseHandler(this.api.post<LocationDTO>(url, location, this.requestOptions), (data => {
+        let dto = new LocationDTO()
+        let client = this.resolveDTO<LocationDTO, Location>(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
   }
 
   // ------------ COMMENTS ------------

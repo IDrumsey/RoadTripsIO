@@ -29,4 +29,22 @@ export class RoadtripStopDTO extends DataModel implements DtoDataObject<Roadtrip
 
         return client
     }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            locationId: this.locationId,
+            description: this.description
+        }
+    }
+
+    upload(): Promise<RoadtripStop> {
+        return new Promise((resolve, reject) => {
+            this.api.postRoadtripStop(this).then(newStop => {
+                resolve(newStop)
+            }, err => {
+                reject(err)
+            })
+        })
+    }
 }

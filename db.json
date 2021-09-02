@@ -17,7 +17,9 @@
       "firstname": "Tasha",
       "lastname": "Christopher",
       "email": "testemail2@email.test",
-      "locationsToVisitIds": [1]
+      "locationsToVisitIds": [
+        1
+      ]
     },
     {
       "id": 3,
@@ -35,10 +37,14 @@
       "description": "For our summer vacation of 2021, we decided to travel from our home state of Maine down to the sunshine state, Florida. We had a great time and met a lot of new people.",
       "datePosted": "2021-08-04 14:30",
       "ownerId": 1,
-      "collaboratorIds": [2,3],
+      "collaboratorIds": [
+        2,
+        3
+      ],
       "stopIds": [
         3,
-        1
+        1,
+        4
       ],
       "commentIds": [
         1
@@ -55,6 +61,11 @@
       "locationId": 3,
       "description": "Good pizza place near the Atlantic",
       "id": 3
+    },
+    {
+      "locationId": 4,
+      "description": null,
+      "id": 4
     }
   ],
   "locations": [
@@ -87,6 +98,14 @@
       "photos": [
         "assets/images/pexels-sydney-troxell-708587.jpg"
       ]
+    },
+    {
+      "title": "asdf",
+      "address": null,
+      "latitude": 43.50545389725432,
+      "longitude": -70.91741115175009,
+      "photos": [],
+      "id": 4
     }
   ],
   "comments": [

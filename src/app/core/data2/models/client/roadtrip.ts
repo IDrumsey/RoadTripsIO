@@ -53,10 +53,10 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         dto.title = this.title
         dto.description = this.description
         dto.datePosted = this.datePosted
-        dto.ownerId = this.ownerId
-        dto.collaboratorIds = this.collaboratorIds
-        dto.stopIds = this.stopIds
-        dto.commentIds = this.commentIds
+        dto.ownerId = this._ownerId
+        dto.collaboratorIds = this.collaborators.map(collaborator => collaborator.id)
+        dto.stopIds = this.stops.map(stop => stop.id)
+        dto.commentIds = this.comments.map(comment => comment.id)
 
         return dto
     }
@@ -154,7 +154,24 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
     }
 
     addStop(stop: RoadtripStop): void {
-        // upload -> if good -> add to array
-        this.stops.push(stop)
+        // upload location to get id
+        stop.location.upload(this.api).then(newLocation => {
+            stop.locationId = newLocation.id
+            stop.upload().then(newStop => {
+                // already have the location so you don't need to fetch it
+                newStop.location = newLocation
+                this.stops.push(newStop)
+                // update roadtrip stop references to include new stop id in database
+                this.toDTO().update().then(updatedRoadtrip => {
+                    console.log("roadtrip updated")
+                }, err => {
+                    console.log("error occured : ", err)
+                })
+            }, (err => {
+                console.log("error occured : ", err)
+            }))
+        }, err => {
+            console.log("error occured : ", err)
+        })
     }
 }

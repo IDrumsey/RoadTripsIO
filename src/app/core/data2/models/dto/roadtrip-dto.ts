@@ -44,4 +44,21 @@ export class RoadtripDTO extends DataModel implements DtoDataObject<RoadtripDTO,
 
         return client
     }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            datePosted: this.datePosted,
+            ownerId: this.ownerId,
+            collaboratorIds: this.collaboratorIds,
+            stopIds: this.stopIds,
+            commentIds: this.commentIds
+        }
+    }
+
+    update(): Promise<Roadtrip> {
+        return this.api.updateRoadtrip(this)
+    }
 }

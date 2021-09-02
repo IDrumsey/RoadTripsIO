@@ -28,7 +28,7 @@ export class RoadtripStop extends DataModel implements ClientDataObject<Roadtrip
     toDTO(): RoadtripStopDTO {
         let dto = new RoadtripStopDTO(this.api, this.asyncService)
         dto.id = this.id
-        dto.locationId = this.locationId
+        dto.locationId = this._locationId
         dto.description = this.description
 
         return dto
@@ -51,6 +51,16 @@ export class RoadtripStop extends DataModel implements ClientDataObject<Roadtrip
             this.api.getLocationById(this._locationId).subscribe(location => {
                 this.location = location
                 resolve(location)
+            })
+        })
+    }
+
+    upload(): Promise<RoadtripStop> {
+        return new Promise((resolve, reject) => {
+            this.toDTO().upload().then(newStop => {
+                resolve(newStop)
+            }, err => {
+                reject(err)
             })
         })
     }
