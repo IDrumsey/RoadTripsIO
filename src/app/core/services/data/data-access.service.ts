@@ -19,7 +19,7 @@ import { AsyncService } from '../async.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DataAccess2Service {
+export class DataAccessService {
   constructor(private api: HttpClient, private asyncService: AsyncService) { }
 
   // --------------------------------------- DATA ---------------------------------------

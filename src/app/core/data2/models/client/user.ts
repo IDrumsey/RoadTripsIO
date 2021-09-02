@@ -1,5 +1,5 @@
 import { AsyncService } from "src/app/core/services/async.service"
-import { DataAccess2Service } from "src/app/core/services/data/data-access-2.service"
+import { DataAccessService } from "src/app/core/services/data/data-access.service"
 import { ClientDataObject } from "../../client-data-object"
 import { ComplexDataObject } from "../../complex-data-object"
 import { DataModel } from "../data-model"
@@ -8,7 +8,7 @@ import { Location } from "./location"
 import { Roadtrip } from "./roadtrip"
 
 export class User extends DataModel implements ClientDataObject<UserDTO, User>, ComplexDataObject {
-    constructor(private api: DataAccess2Service, private asyncService: AsyncService){
+    constructor(private api: DataAccessService, private asyncService: AsyncService){
         super(api, asyncService)
     }
 

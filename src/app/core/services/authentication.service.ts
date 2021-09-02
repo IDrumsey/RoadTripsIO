@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../data2/models/client/user';
-import { DataAccess2Service } from './data/data-access-2.service';
+import { DataAccessService } from './data/data-access.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private api: DataAccess2Service) { }
+  constructor(private api: DataAccessService) { }
 
   // ------------------------------------ DATA ------------------------------------
   currentlyLoggedInUserId: number | null = 1

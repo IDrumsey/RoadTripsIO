@@ -1,6 +1,6 @@
 import { AsyncService } from "../../services/async.service";
-import { DataAccess2Service } from "../../services/data/data-access-2.service";
+import { DataAccessService } from "../../services/data/data-access.service";
 
 export abstract class DataModel {
-    constructor(api: DataAccess2Service,asyncService: AsyncService){}
+    constructor(api: DataAccessService,asyncService: AsyncService){}
 }

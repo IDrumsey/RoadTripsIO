@@ -5,14 +5,14 @@ import { Roadtrip } from '../../data2/models/client/roadtrip';
 import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { User } from '../../data2/models/client/user';
 import { AsyncService } from '../async.service';
-import { DataAccess2Service } from './data-access-2.service';
+import { DataAccessService } from './data-access.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AbstractDataAccessService {
 
-  constructor(private apiService: DataAccess2Service, private asyncService: AsyncService) { }
+  constructor(private apiService: DataAccessService, private asyncService: AsyncService) { }
 
   // -------------------------------------- FUNCTIONALITY --------------------------------------
 

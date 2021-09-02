@@ -7,7 +7,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { User } from 'src/app/core/data2/models/client/user';
 import { AsyncService } from 'src/app/core/services/async.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.service';
+import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 
 @Component({
   selector: 'app-new-roadtrip-form',
@@ -16,7 +16,7 @@ import { DataAccess2Service } from 'src/app/core/services/data/data-access-2.ser
 })
 export class NewRoadtripFormComponent implements OnInit {
 
-  constructor(private api: DataAccess2Service, private asyncService: AsyncService, private auth: AuthenticationService) { }
+  constructor(private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
     console.log(this.data.get('title')?.errors)

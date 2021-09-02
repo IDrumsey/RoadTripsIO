@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { RoadtripDTO } from '../../data2/models/dto/roadtrip-dto';
 import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
-import { DataAccess2Service } from '../../services/data/data-access-2.service';
+import { DataAccessService } from '../../services/data/data-access.service';
 
 @Component({
   selector: 'app-user-page',
@@ -20,7 +20,7 @@ import { DataAccess2Service } from '../../services/data/data-access-2.service';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private api: DataAccess2Service, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private api: DataAccessService, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.initPage()

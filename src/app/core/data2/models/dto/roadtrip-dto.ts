@@ -1,11 +1,11 @@
 import { AsyncService } from "src/app/core/services/async.service"
-import { DataAccess2Service } from "src/app/core/services/data/data-access-2.service"
+import { DataAccessService } from "src/app/core/services/data/data-access.service"
 import { DtoDataObject } from "../../dto-data-object"
 import { Roadtrip } from "../client/roadtrip"
 import { DataModel } from "../data-model"
 
 export class RoadtripDTO extends DataModel implements DtoDataObject<RoadtripDTO, Roadtrip> {
-    constructor(private api: DataAccess2Service, private asyncService: AsyncService){
+    constructor(private api: DataAccessService, private asyncService: AsyncService){
         super(api, asyncService)
     }
     
