@@ -2,7 +2,9 @@
   <app-text-input
     [name]="'reply - text'"
     [control]="text"
-    [placeholder]="'Replying to user'"
+    [placeholder]="getPlaceholder()"
+    [inputType]="'textarea'"
+    [padding]="'10px'"
     (focusEvent)="onFocus()"
     (blurEvent)="onBlur()"
   ></app-text-input>

@@ -40,7 +40,7 @@ export class DataAccessService {
 
   getUser(id: number): Observable<User> {
     let url = `${this.apiURL}/users/${id}`
-    return this.GETResponseHandler<UserDTO, User>(this.api.get<UserDTO>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<UserDTO, User>(this.api.get<UserDTO>(url, this.requestOptions), (data => {
       let dto = new UserDTO(this, this.asyncService)
       return this.resolveDTO<UserDTO, User>(dto, data)
     }))
@@ -48,7 +48,7 @@ export class DataAccessService {
 
   getAllUsers(): Observable<User[]> {
     let url = `${this.apiURL}/users`
-    return this.GETResponseHandler<UserDTO[], User[]>(this.api.get<UserDTO[]>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<UserDTO[], User[]>(this.api.get<UserDTO[]>(url, this.requestOptions), (data => {
       return data.map(userData => {
         let dto = new UserDTO(this, this.asyncService)
         return this.resolveDTO<UserDTO, User>(dto, userData)
@@ -60,7 +60,7 @@ export class DataAccessService {
 
   getRoadtripById(id: number): Observable<Roadtrip> {
     let url = `${this.apiURL}/roadtrips/${id}`
-    return this.GETResponseHandler<RoadtripDTO, Roadtrip>(this.api.get<RoadtripDTO>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<RoadtripDTO, Roadtrip>(this.api.get<RoadtripDTO>(url, this.requestOptions), (data => {
       let dto = new RoadtripDTO(this, this.asyncService)
       return this.resolveDTO<RoadtripDTO, Roadtrip>(dto, data)
     }))
@@ -68,7 +68,7 @@ export class DataAccessService {
 
   getAllRoadtrips(): Observable<Roadtrip[]> {
     let url = `${this.apiURL}/roadtrips/`
-    return this.GETResponseHandler<RoadtripDTO[], Roadtrip[]>(this.api.get<RoadtripDTO[]>(url, this.requestOptions), (roadtripDataObjs => {
+    return this.ApiResponseHandler<RoadtripDTO[], Roadtrip[]>(this.api.get<RoadtripDTO[]>(url, this.requestOptions), (roadtripDataObjs => {
       return roadtripDataObjs.map(dataObj => {
         let dto = new RoadtripDTO(this, this.asyncService)
         return this.resolveDTO<RoadtripDTO, Roadtrip>(dto, dataObj)
@@ -76,11 +76,24 @@ export class DataAccessService {
     }))
   }
 
+  addRoadtrip(roadtripDTO: RoadtripDTO): Promise<Roadtrip> {
+    let url = `${this.apiURL}/roadtrips/`
+    return new Promise((resolve, reject) => {
+      // upload data
+      let dataToUpload = roadtripDTO.getUploadFormat()
+      this.ApiResponseHandler(this.api.post<RoadtripDTO>(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new RoadtripDTO(this, this.asyncService)
+        let client = this.resolveDTO<RoadtripDTO, Roadtrip>(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
   updateRoadtrip(roadtripDTO: RoadtripDTO): Promise<Roadtrip> {
     let url = `${this.apiURL}/roadtrips/${roadtripDTO.id}`
     let dataToUpload = roadtripDTO.getUploadFormat()
     return new Promise((resolve, reject) => {
-      this.GETResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
+      this.ApiResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
         let dto = new RoadtripDTO(this, this.asyncService)
         let client = this.resolveDTO(dto, data)
         resolve(client)
@@ -92,7 +105,7 @@ export class DataAccessService {
 
   getRoadtripStopById(id: number): Observable<RoadtripStop> {
     let url = `${this.apiURL}/stops/${id}`
-    return this.GETResponseHandler<RoadtripStopDTO, RoadtripStop>(this.api.get<RoadtripStopDTO>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<RoadtripStopDTO, RoadtripStop>(this.api.get<RoadtripStopDTO>(url, this.requestOptions), (data => {
       let dto = new RoadtripStopDTO(this, this.asyncService)
       return this.resolveDTO<RoadtripStopDTO, RoadtripStop>(dto, data)
     }))
@@ -100,7 +113,7 @@ export class DataAccessService {
 
   getAllRoadtripStops(): Observable<RoadtripStop[]> {
     let url = `${this.apiURL}/stops/`
-    return this.GETResponseHandler<RoadtripStopDTO[], RoadtripStop[]>(this.api.get<RoadtripStopDTO[]>(url, this.requestOptions), (roadtripStopDataObjs => {
+    return this.ApiResponseHandler<RoadtripStopDTO[], RoadtripStop[]>(this.api.get<RoadtripStopDTO[]>(url, this.requestOptions), (roadtripStopDataObjs => {
       return roadtripStopDataObjs.map(dataObj => {
         let dto = new RoadtripStopDTO(this, this.asyncService)
         return this.resolveDTO<RoadtripStopDTO, RoadtripStop>(dto, dataObj)
@@ -108,16 +121,26 @@ export class DataAccessService {
     }))
   }
 
-  postRoadtripStop(stopDTO: RoadtripStopDTO): Promise<RoadtripStop> {
+  addRoadtripStop(stopDTO: RoadtripStopDTO): Promise<RoadtripStop> {
     let url = `${this.apiURL}/stops/`
     return new Promise((resolve, reject) => {
       // upload data
       let dataToUpload = stopDTO.getUploadFormat()
-      this.GETResponseHandler(this.api.post<RoadtripStopDTO>(url, dataToUpload, this.requestOptions), (data => {
+      this.ApiResponseHandler(this.api.post<RoadtripStopDTO>(url, dataToUpload, this.requestOptions), (data => {
         let dto = new RoadtripStopDTO(this, this.asyncService)
-        console.log("dto to resolve : ", data)
         let client = this.resolveDTO<RoadtripStopDTO, RoadtripStop>(dto, data)
-        console.log("resolved dto : ", client)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
+  updateRoadtripStop(roadtripStopDTO: RoadtripStopDTO): Promise<RoadtripStop> {
+    let url = `${this.apiURL}/stops/${roadtripStopDTO.id}`
+    let dataToUpload = roadtripStopDTO.getUploadFormat()
+    return new Promise((resolve, reject) => {
+      this.ApiResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new RoadtripStopDTO(this, this.asyncService)
+        let client = this.resolveDTO(dto, data)
         resolve(client)
       })).subscribe(() => {}, (err) => {reject(err)})
     })
@@ -127,7 +150,7 @@ export class DataAccessService {
 
   getLocationById(id: number): Observable<Location> {
     let url = `${this.apiURL}/locations/${id}`
-    return this.GETResponseHandler<LocationDTO, Location>(this.api.get<LocationDTO>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<LocationDTO, Location>(this.api.get<LocationDTO>(url, this.requestOptions), (data => {
       let dto = new LocationDTO()
       return this.resolveDTO<LocationDTO, Location>(dto, data)
     }))
@@ -135,7 +158,7 @@ export class DataAccessService {
 
   getAllLocations(): Observable<Location[]> {
     let url = `${this.apiURL}/locations/`
-    return this.GETResponseHandler<LocationDTO[], Location[]>(this.api.get<LocationDTO[]>(url, this.requestOptions), (locationDataObjs => {
+    return this.ApiResponseHandler<LocationDTO[], Location[]>(this.api.get<LocationDTO[]>(url, this.requestOptions), (locationDataObjs => {
       return locationDataObjs.map(dataObj => {
         let dto = new LocationDTO()
         return this.resolveDTO<LocationDTO, Location>(dto, dataObj)
@@ -143,13 +166,24 @@ export class DataAccessService {
     }))
   }
 
-  postLocation(location: LocationDTO): Promise<Location> {
+  addLocation(location: LocationDTO): Promise<Location> {
     let url = `${this.apiURL}/locations/`
     return new Promise<Location>((resolve, reject) => {
       // upload data
-      return this.GETResponseHandler(this.api.post<LocationDTO>(url, location, this.requestOptions), (data => {
+      return this.ApiResponseHandler(this.api.post<LocationDTO>(url, location, this.requestOptions), (data => {
         let dto = new LocationDTO()
         let client = this.resolveDTO<LocationDTO, Location>(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
+  updateLocation(locationDTO: LocationDTO): Promise<Location> {
+    let url = `${this.apiURL}/locations/${locationDTO.id}`
+    return new Promise((resolve, reject) => {
+      this.ApiResponseHandler(this.api.put(url, locationDTO, this.requestOptions), (data => {
+        let dto = new LocationDTO()
+        let client = this.resolveDTO(dto, data)
         resolve(client)
       })).subscribe(() => {}, (err) => {reject(err)})
     })
@@ -159,7 +193,7 @@ export class DataAccessService {
 
   getCommentById(id: number): Observable<Comment> {
     let url = `${this.apiURL}/comments/${id}`
-    return this.GETResponseHandler<CommentDTO, Comment>(this.api.get<CommentDTO>(url, this.requestOptions), (data => {
+    return this.ApiResponseHandler<CommentDTO, Comment>(this.api.get<CommentDTO>(url, this.requestOptions), (data => {
       let dto = new CommentDTO(this, this.asyncService)
       return this.resolveDTO<CommentDTO, Comment>(dto, data)
     }))
@@ -167,7 +201,7 @@ export class DataAccessService {
 
   getAllComments(): Observable<Comment[]> {
     let url = `${this.apiURL}/comments/`
-    return this.GETResponseHandler<CommentDTO[], Comment[]>(this.api.get<CommentDTO[]>(url, this.requestOptions), (commentDataObjs => {
+    return this.ApiResponseHandler<CommentDTO[], Comment[]>(this.api.get<CommentDTO[]>(url, this.requestOptions), (commentDataObjs => {
       return commentDataObjs.map(dataObj => {
         let dto = new CommentDTO(this, this.asyncService)
         return this.resolveDTO<CommentDTO, Comment>(dto, dataObj)
@@ -175,9 +209,34 @@ export class DataAccessService {
     }))
   }
 
+  addComment(commentDTO: CommentDTO): Promise<Comment> {
+    let url = `${this.apiURL}/comments/`
+    return new Promise<Comment>((resolve, reject) => {
+      // upload data
+      let dataToUpload = commentDTO.getUploadFormat()
+      return this.ApiResponseHandler(this.api.post<CommentDTO>(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new CommentDTO(this, this.asyncService)
+        let client = this.resolveDTO<CommentDTO, Comment>(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
+  updateComment(commentDTO: CommentDTO): Promise<Comment> {
+    let url = `${this.apiURL}/comments/${commentDTO.id}`
+    let dataToUpload = commentDTO.getUploadFormat()
+    return new Promise((resolve, reject) => {
+      this.ApiResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new CommentDTO(this, this.asyncService)
+        let client = this.resolveDTO(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
   // --------------------------------------- HELPER FUNCTIONALITY ---------------------------------------
   
-  private GETResponseHandler<DtoResponseType, ClientResponseType>(observable: Observable<DtoResponseType>, toClientHandler: (data: DtoResponseType)=>ClientResponseType): Observable<ClientResponseType>{
+  private ApiResponseHandler<DtoResponseType, ClientResponseType>(observable: Observable<DtoResponseType>, toClientHandler: (data: DtoResponseType)=>ClientResponseType): Observable<ClientResponseType>{
     return observable.pipe(map(data => {
       return toClientHandler(data)
     }))

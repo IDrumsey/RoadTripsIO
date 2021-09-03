@@ -14,7 +14,8 @@ export class CommentDTO extends DataModel implements DtoDataObject<CommentDTO, C
     text: string
     datePosted: Date
     replyIds: number[]
-    parentCommentId: number
+    parentCommentId: number | null
+    ownerId: number
 
     // ------------------------------------ FUNCTIONALITY ------------------------------------
     initFromData(data: CommentDTO): void {
@@ -23,16 +24,37 @@ export class CommentDTO extends DataModel implements DtoDataObject<CommentDTO, C
         this.datePosted = data.datePosted
         this.replyIds = data.replyIds
         this.parentCommentId = data.parentCommentId
+        this.ownerId = data.ownerId
     }
 
     toClient(): Comment {
         let client = new Comment(this.api, this.asyncService)
         client.id = this.id
         client.text = this.text
-        client.datePosted = this.datePosted
+        client.datePosted = new Date(this.datePosted)
         client.replyIds = this.replyIds
         client.parentCommentId = this.parentCommentId
+        client.ownerId = this.ownerId
 
         return client
+    }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            text: this.text,
+            datePosted: this.datePosted,
+            replyIds: this.replyIds,
+            parentCommentId: this.parentCommentId,
+            ownerId: this.ownerId
+        }
+    }
+
+    upload(): Promise<Comment> {
+        return this.api.addComment(this)
+    }
+
+    update(): Promise<Comment> {
+        return this.api.updateComment(this)
     }
 }

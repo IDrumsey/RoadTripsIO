@@ -162,7 +162,7 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
                 newStop.location = newLocation
                 this.stops.push(newStop)
                 // update roadtrip stop references to include new stop id in database
-                this.toDTO().update().then(updatedRoadtrip => {
+                this.update().then(updatedRoadtrip => {
                     console.log("roadtrip updated")
                 }, err => {
                     console.log("error occured : ", err)
@@ -173,5 +173,39 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         }, err => {
             console.log("error occured : ", err)
         })
+    }
+
+    addCommentWithoutUpload(comment: Comment): boolean {
+        let startLength = this.comments.length
+        this.comments.push(comment)
+        if(startLength == this.comments.length - 1){
+            return true
+        }
+        return false
+    }
+
+    addCommentWithUpload(commentToUpload: Comment): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            commentToUpload.upload().then(newComment => {
+                console.log("comment uploaded : ", newComment)
+                // add to array
+                this.comments.push(newComment)
+                // update roadtrip comment ids in database
+                this.update().then(updatedRoadtrip => {
+                    resolve(true)
+                }, err => {
+                    // rollback
+                    this.comments.splice(this.comments.indexOf(newComment))
+                    resolve(false)
+                })
+              }, err => {
+                console.log("error uploading comment")
+                reject(false)
+              })
+        })
+    }
+
+    update(): Promise<Roadtrip> {
+        return this.toDTO().update()
     }
 }

@@ -8,3 +8,8 @@
   gap: 25px;
   align-items: center;
 }
+
+.comment-username {
+  margin-bottom: 0;
+  margin-left: auto;
+}

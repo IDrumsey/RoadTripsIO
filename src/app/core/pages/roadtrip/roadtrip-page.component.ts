@@ -7,6 +7,7 @@ import { RoadtripLocationCardComponent } from '../../components/roadtrip-locatio
 
 import { AppColors } from '../../data/models/app-colors';
 import { AppFonts } from '../../data/models/app-fonts';
+import { Comment } from '../../data2/models/client/comment';
 import { Roadtrip } from '../../data2/models/client/roadtrip';
 import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -49,6 +50,7 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
 
   // ----------------------------------------------- STATE -----------------------------------------------
   dataLoaded: boolean = false
+  addingRootReply: boolean = false
 
   // ----------------------------------------------- STYLES -----------------------------------------------
   titleFontFamily = AppFonts.Handwriting
@@ -161,5 +163,21 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
       }, 800)
       cardToScrollTo.showDetails()
     }
+  }
+
+  getRoadtripRootComments(): Comment[] {
+    return this.roadtrip.comments.filter(comment => comment.parentCommentId == null)
+  }
+
+  onRootCommentBtnClick(): void {
+    this.addRootReply()
+  }
+
+  addRootReply(): void {
+    this.addingRootReply = true
+  }
+
+  closeRootReply(): void {
+    this.addingRootReply = false
   }
 }

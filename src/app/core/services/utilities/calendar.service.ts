@@ -12,7 +12,7 @@ export class CalendarService {
     let hour = this.getHourStandard(date.getHours())
     let ending = this.isPm(date.getHours()) ? "PM" : "AM"
 
-    return `${hour}:${date.getMinutes()} ${ending}`
+    return `${hour}:${this.stringService.numToDoubleFormat(date.getMinutes())} ${ending}`
   }
 
   isPm(hour: number) {
@@ -29,6 +29,6 @@ export class CalendarService {
   }
 
   getDateStandard(date: Date): string {
-    return `${this.stringService.numToDoubleFormat(date.getMonth())}/${this.stringService.numToDoubleFormat(date.getDate())}/${this.stringService.numToDoubleFormat(date.getFullYear())}`
+    return `${this.stringService.numToDoubleFormat(date.getMonth() + 1)}/${this.stringService.numToDoubleFormat(date.getDate())}/${this.stringService.numToDoubleFormat(date.getFullYear())}`
   }
 }

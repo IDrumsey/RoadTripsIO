@@ -1,6 +1,6 @@
 <input
   #NoControlTextInput
-  *ngIf="!control"
+  *ngIf="!control && inputType != 'textarea'"
   class="text-input"
   type="{{ inputType }}"
   [name]="name"
@@ -13,7 +13,7 @@
   step="0.01"
 />
 <input
-  *ngIf="control"
+  *ngIf="control && inputType != 'textarea'"
   class="text-input"
   type="{{ inputType }}"
   [name]="name"
@@ -25,3 +25,28 @@
   (input)="onChange()"
   step="0.01"
 />
+<textarea
+  #NoControlTextInput
+  *ngIf="!control && inputType == 'textarea'"
+  class="text-input"
+  [name]="name"
+  [(ngModel)]="text"
+  [ngStyle]="getStyles()"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  [placeholder]="placeholder"
+  (input)="onChange()"
+  step="0.01"
+></textarea>
+<textarea
+  *ngIf="control && inputType == 'textarea'"
+  class="text-input"
+  [name]="name"
+  [ngStyle]="getStyles()"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  [placeholder]="placeholder"
+  [formControl]="control"
+  (input)="onChange()"
+  step="0.01"
+></textarea>

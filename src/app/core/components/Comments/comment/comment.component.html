@@ -12,11 +12,18 @@
     ></app-comment-body>
   </div>
   <!-- replies -->
-  <ng-content></ng-content>
+  <app-comment
+    *ngFor="let reply of sortReplies()"
+    [comment]="reply"
+    [roadtrip]="roadtrip"
+    [width]="'95%'"
+  ></app-comment>
   <!-- reply template -->
   <app-reply
     *ngIf="replying"
     class="reply-template"
+    [parentComment]="comment"
+    [roadtrip]="roadtrip"
     (close)="closeReply()"
     (typing)="highlightComment()"
     (stoppedTyping)="removeCommentHighlight()"

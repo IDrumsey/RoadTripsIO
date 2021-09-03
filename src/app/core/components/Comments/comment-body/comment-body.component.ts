@@ -14,7 +14,6 @@ import { CalendarService } from 'src/app/core/services/utilities/calendar.servic
 export class CommentBodyComponent implements OnInit {
   // data
   @Input() comment: Comment
-  datePosted: Date = new Date()
 
   // styles
   dateIcon = faCalendarDay
@@ -37,7 +36,7 @@ export class CommentBodyComponent implements OnInit {
     return {
       backgroundColor: AppColors.elevation3,
       color: AppColors.onColorLight,
-      padding: "5px 20px"
+      padding: "10px 20px"
     }
   }
 
@@ -52,5 +51,9 @@ export class CommentBodyComponent implements OnInit {
     return {
       fontSize: "20px"
     }
+  }
+
+  getUsername(): string {
+    return this.comment.owner ? this.comment.owner.username : "anonymous"
   }
 }

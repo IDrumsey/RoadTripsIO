@@ -37,7 +37,7 @@ export class LocationDTO implements DtoDataObject<LocationDTO, Location> {
 
     upload(api: DataAccessService): Promise<Location>{
         return new Promise((resolve, reject) => {
-            api.postLocation(this).then(newLocation => {
+            api.addLocation(this).then(newLocation => {
                 resolve(newLocation)
             }, (err => {
                 console.log('caught')

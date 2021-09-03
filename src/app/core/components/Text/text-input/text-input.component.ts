@@ -51,7 +51,7 @@ export class TextInputComponent implements OnInit {
   @Input() textColor: string = AppColors.onColorLighter
   @Input() fontSize: string = "20px"
   @Input() font: string = AppFonts.Data
-  @Input() padding: number = 5
+  @Input() padding: string = "5px"
   @Input() width: string = "100%"
   @Input() bgColor: string = AppColors.elevation3
   @Input() borderColor: string | null = AppColors.elevation1
@@ -88,7 +88,7 @@ export class TextInputComponent implements OnInit {
       fontFamily: this.font,
       backgroundColor: this.bgColor,
       border: `2px solid ${this.borderColor}`,
-      padding: `${this.padding}px`,
+      padding: this.padding,
       width: this.width
     }
 

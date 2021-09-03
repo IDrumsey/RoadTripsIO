@@ -89,17 +89,25 @@
     >
       Comments
     </h4>
-    <fa-icon
+    <app-icon-button
       [icon]="commentSectionIcon"
-      [ngStyle]="getCommentSectionIconStyles()"
-    ></fa-icon>
-    <app-comment *ngFor="let comment of roadtrip.comments" [comment]="comment">
-      <app-comment
-        *ngFor="let reply of comment.replies"
-        [comment]="reply"
-        [width]="'95%'"
-      ></app-comment>
+      (buttonClick)="onRootCommentBtnClick()"
+    ></app-icon-button>
+    <app-comment
+      *ngFor="let comment of getRoadtripRootComments()"
+      [comment]="comment"
+      [roadtrip]="roadtrip"
+    >
     </app-comment>
+    <!-- root reply -->
+    <app-reply
+      *ngIf="addingRootReply"
+      class="reply-template"
+      [parentComment]="null"
+      [width]="'100%'"
+      [roadtrip]="roadtrip"
+      (close)="closeRootReply()"
+    ></app-reply>
   </div>
 </div>
 <mat-spinner id="page-spinner" *ngIf="!dataLoaded"></mat-spinner>

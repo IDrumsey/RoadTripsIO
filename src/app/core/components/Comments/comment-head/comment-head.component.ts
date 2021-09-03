@@ -42,8 +42,7 @@ export class CommentHeadComponent implements OnInit {
     return {
       backgroundColor: AppColors.elevation4,
       color: AppColors.onColorLight,
-      padding: "5px 20px",
-      paddingTop: "10px",
+      padding: "10px 20px",
       fontFamily: AppFonts.Handwriting
     }
   }
