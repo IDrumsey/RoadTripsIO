@@ -186,7 +186,7 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
 
     addCommentWithUpload(commentToUpload: Comment): Promise<void> {
         return new Promise((resolve, reject) => {
-            commentToUpload.upload().then(newComment => {
+            commentToUpload.addToAPI().then(newComment => {
                 // add to array
                 newComment.loadAdditionalData().then(() => {
                     this.comments.push(newComment)

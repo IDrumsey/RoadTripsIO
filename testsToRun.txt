@@ -1,0 +1,3 @@
+Some tests that should probably be ran at some point
+
+test what happens when you try to add a comment to the api with an id that's already there

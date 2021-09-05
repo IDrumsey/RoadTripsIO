@@ -62,6 +62,7 @@ import { NewRoadtripFormComponent } from './core/components/Roadtrips/new-roadtr
 import { SelectUsersFormComponent } from './core/components/Users/select-users-form/select-users-form.component';
 import { NavURLComponent } from './core/components/nav-url/nav-url.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommentGroupComponent } from './core/components/Comments/comment-group/comment-group.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -117,7 +118,8 @@ const routes: Routes = [
     ConfirmationPopupComponent,
     NewRoadtripFormComponent,
     SelectUsersFormComponent,
-    NavURLComponent
+    NavURLComponent,
+    CommentGroupComponent
   ],
   imports: [
     BrowserModule,

@@ -118,7 +118,7 @@ export class Comment extends DataModel implements ClientDataObject<CommentDTO, C
         })
     }
 
-    upload(): Promise<Comment> {
+    addToAPI(): Promise<Comment> {
         return this.toDTO().upload()
     }
 
@@ -126,39 +126,12 @@ export class Comment extends DataModel implements ClientDataObject<CommentDTO, C
         return this.toDTO().update()
     }
 
-    addReplyOnly(reply: Comment): void {
-        this.replies.push(reply)
-    }
-
-    addReply(reply: Comment): Promise<Comment> {
-        return new Promise((resolve, reject) => {
-            reply.toDTO().upload().then(newReply => {
-                this.replies.push(newReply)
-                // update array in database
-                this.update().then(updatedComment => {
-                    resolve(newReply)
-                }, err => {
-                    reject(err)
-                })
-            }, err => {
-                reject(err)
-            })
-        })
-    }
-
-    addReplyWithoutUpload(reply: Comment): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.replies.push(reply)
-            this.update().then(updatedComment => {
-                resolve()
-            }, err => {
-                reject(err)
-            })
-        })
-    }
-
     deleteFromAPI(): Promise<void> {
         return this.api.deleteComment(this.id)
+    }
+
+    addReply(reply: Comment): void {
+        this.replies.push(reply)
     }
 
     removeReply(reply: Comment): void {

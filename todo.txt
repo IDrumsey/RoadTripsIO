@@ -1,0 +1,1 @@
+split up comment-head component onConfirmDelete method

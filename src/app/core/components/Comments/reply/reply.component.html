@@ -2,7 +2,7 @@
   <app-text-input
     [name]="'reply - text'"
     [control]="text"
-    [placeholder]="getPlaceholder()"
+    [placeholder]="getPlaceholderText()"
     [inputType]="'textarea'"
     [padding]="'10px'"
     (focusEvent)="onFocus()"
@@ -32,6 +32,6 @@
   [message]="
     'You are adding this comment anonymously. You will NOT be able to delete it. Are you sure you want to post this?'
   "
-  (cancelEvent)="cancelReplySubmit()"
-  (confirmEvent)="uploadReply()"
+  (cancelEvent)="cancelAnonymousSubmitConfirmation()"
+  (confirmEvent)="submitReply()"
 ></app-confirmation-popup>

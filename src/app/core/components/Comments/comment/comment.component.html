@@ -18,6 +18,7 @@
     [comment]="reply"
     [roadtrip]="roadtrip"
     [width]="replyWidth"
+    (replyAdded)="onReplyAdded($event)"
   ></app-comment>
   <!-- reply template -->
   <app-reply
@@ -28,5 +29,6 @@
     (close)="closeReply()"
     (typing)="highlightComment()"
     (stoppedTyping)="removeCommentHighlight()"
+    (uploaded)="onReplyAdded($event)"
   ></app-reply>
 </div>

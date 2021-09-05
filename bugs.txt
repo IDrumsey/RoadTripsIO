@@ -7,3 +7,5 @@ when creating a new roadtrip and selecting collaborators, you can select yoursel
 when new comment is added, delete btn doesn't show when it should when replying non-root
 
 can't delete two comments in a row -> shuts down server
+
+when adding root comment, server shorts

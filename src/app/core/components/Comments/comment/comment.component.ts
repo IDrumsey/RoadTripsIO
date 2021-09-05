@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from 'src/app/core/data2/models/client/comment';
-import { AppColors } from 'src/app/core/data/models/app-colors';
 import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 import { CommentSortService } from 'src/app/core/services/comments/comment-sort.service';
 
@@ -17,12 +16,15 @@ export class CommentComponent implements OnInit {
 
   // ----------------------------------- DATA -----------------------------------
   @Input() comment: Comment
-  @Input() roadtrip: Roadtrip
+  @Input() roadtrip: Roadtrip // TODO : goal is to remove this
 
   // ----------------------------------- STATE -----------------------------------
   showingHead: boolean = true
   showingBody: boolean = false
   replying: boolean = false
+
+  // ----------------------------------- EVENTS -----------------------------------
+  @Output() replyAdded = new EventEmitter<Comment>()
 
   // ----------------------------------- FUNCTIONALITY -----------------------------------
   toggleBody(): void {
@@ -66,5 +68,9 @@ export class CommentComponent implements OnInit {
     return {
       boxShadow: this.borderColor ?  `-4px 0 ${this.borderColor}` : "none"
     }
+  }
+
+  onReplyAdded(newReply: Comment): void {
+    this.replyAdded.emit(newReply)
   }
 }

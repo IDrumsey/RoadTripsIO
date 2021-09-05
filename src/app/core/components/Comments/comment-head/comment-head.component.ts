@@ -73,15 +73,12 @@ export class CommentHeadComponent implements OnInit {
     this.showingDeleteConfirmationPopup = false
 
     this.comment.deleteFromAPI().then(() => {
-      console.log("comment deleted from api")
       let parentComment: Comment | undefined
 
         if(!this.comment.isRoot()){
-          console.log("not root comment")
           // redudant but necessary check if parent comment null
           if(this.comment.parentCommentId){
             parentComment = this.roadtrip.getComment(this.comment.parentCommentId)
-            console.log("removing comment from parent replies")
             parentComment?.removeReply(this.comment)
           }
           else{
@@ -90,30 +87,22 @@ export class CommentHeadComponent implements OnInit {
         }
         else{
           // root comment
-          console.log("removing comment from roadtrip")
           this.roadtrip.removeCommentWithoutUpload(this.comment)
         }
 
         // if replies, need to handle appropriately to ensure that replies of the deleted comment still persist
         if(this.comment.hasReplies()){
           // gen the placeholder
-          console.log("generating placeholder")
           let placeholder = this.commentService.genDeletedCommentPlaceholder(this.comment)
           // add the placeholder to api
-          console.log("uploading placeholder")
-          placeholder.upload().then(uploadedPlaceholder => {
-            console.log("placeholder uploaded")
+          placeholder.addToAPI().then(uploadedPlaceholder => {
             if(this.comment.isRoot()){
               // add placeholder to roadtrip
-              console.log("adding placeholder to roadtrip")
               this.roadtrip.addCommentWithoutUpload(placeholder)
-              console.log("updating roadtrip")
               this.roadtrip.update()
             }
             else{
-              console.log("adding placeholder to parent comment")
-              parentComment?.addReplyOnly(placeholder)
-              console.log("updating parent comment")
+              parentComment?.addReply(placeholder)
               parentComment?.update()
             }
           })
@@ -121,11 +110,9 @@ export class CommentHeadComponent implements OnInit {
         else{
           // no replies -> no extra handling -> update roadtrip or parent
           if(this.comment.isRoot()){
-            console.log("updating roadtrip")
             this.roadtrip.update()
           }
           else{
-            console.log("updating parent comment")
             parentComment?.update()
           }
         }

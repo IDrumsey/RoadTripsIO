@@ -237,6 +237,7 @@ export class DataAccessService {
   deleteComment(id: number): Promise<void> {
     let url = `${this.apiURL}/comments/${id}`
     return new Promise((resolve, reject) => {
+      console.log("comment to delete : ", id)
       this.api.delete(url, this.requestOptions).subscribe(() => {
         resolve()
       }, err => reject(err))

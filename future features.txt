@@ -27,3 +27,6 @@ when you go to reply, the screen scrolls down to reply box because sometimes it 
 options for sorting comments
 
 suggest feature
+
+maybe a select multiple comments feature -
+    use case : delete multiple comments at once (Don't think this would be used very often though)

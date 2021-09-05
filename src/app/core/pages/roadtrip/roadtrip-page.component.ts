@@ -1,6 +1,7 @@
-import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, ViewChild, ContentChildren, AfterContentInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { CommentComponent } from '../../components/Comments/comment/comment.component';
 import { NavURLPiece } from '../../components/data/models/nav-urlpiece';
 import { InteractiveMapComponent } from '../../components/Maps/interactive-map/interactive-map.component';
 import { RoadtripLocationCardComponent } from '../../components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
@@ -19,7 +20,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
   templateUrl: './roadtrip-page.component.html',
   styleUrls: ['./roadtrip-page.component.css']
 })
-export class RoadtripPageComponent implements OnInit, AfterViewInit {
+export class RoadtripPageComponent implements OnInit, AfterContentInit {
   constructor(private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router, private commentSort: CommentSortService) {
     this.initPage()
   }
@@ -32,9 +33,7 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.defineStopCards()
-
+  ngAfterContentInit(): void {
     this.stopCardElements.changes.subscribe(() => {
       this.defineStopCards()
     })
@@ -136,9 +135,14 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
     return new Promise((resolve) => {
       this.api2.getRoadtripById(roadtripId).then(roadtrip => {
         this.roadtrip = roadtrip
+        this.onAfterDataLoad()
         resolve()
       })
     })
+  }
+
+  onAfterDataLoad(): void {
+    this.defineStopCards()
   }
 
   onMarkerSelect(stop: RoadtripStop): void {
@@ -181,5 +185,19 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
 
   closeRootReply(): void {
     this.addingRootReply = false
+  }
+
+  onCommentAdded(newComment: Comment): void {
+    if(newComment.isRoot()){
+      let addedToRoadtrip = this.roadtrip.addCommentWithoutUpload(newComment)
+      if(addedToRoadtrip) {
+        // done
+        this.roadtrip.update()
+      }
+      else{
+        // rollback
+        newComment.deleteFromAPI()
+      }
+    }
   }
 }

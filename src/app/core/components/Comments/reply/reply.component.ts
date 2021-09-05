@@ -22,6 +22,7 @@ export class ReplyComponent implements OnInit {
   @Output() close = new EventEmitter()
   @Output() typing = new EventEmitter()
   @Output() stoppedTyping = new EventEmitter()
+  @Output() uploaded = new EventEmitter<Comment>()
 
   // data
   text = new FormControl(null, Validators.required)
@@ -45,53 +46,7 @@ export class ReplyComponent implements OnInit {
     }
   }
 
-  submit(): Promise<void> {
-    // if submitting anonymously -> confirm before upload because can't delete
-    if(this.auth.currentlyLoggedInUser == null){
-      return new Promise((resolve, reject) => {
-        // show confirm anonymous popup
-        this.anonymousConfirmShowing = true
-        resolve()
-      })
-    }
-    else{
-      return this.uploadReply()
-    }
-  }
-
-  uploadReply(): Promise<void> {
-    let replyToUpload = new Comment(this.api, this.asyncService)
-    replyToUpload.parentCommentId = this.parentComment?.id ? this.parentComment.id : null
-    replyToUpload.text = this.text.value
-    if(this.auth.currentlyLoggedInUser){
-      replyToUpload.ownerId = this.auth.currentlyLoggedInUser.id
-    }
-
-    return new Promise((resolve, reject) => {
-      replyToUpload.upload().then(uploadedReply => {
-        if(this.auth.currentlyLoggedInUser){
-          uploadedReply.owner = this.auth.currentlyLoggedInUser
-        }
-        
-        if(this.parentComment){
-          // non-root reply
-          this.parentComment.addReplyOnly(uploadedReply)
-          this.parentComment.update().then(() => {
-            this.close.emit()
-          }, err => {console.log("error adding reply to parent comment")})
-        }
-        else{
-          // root reply
-          this.roadtrip.addCommentWithUpload(uploadedReply).then(() => {
-            this.close.emit()
-            resolve()
-          }, err => {reject(err)})
-        }
-      })
-    })
-  }
-
-  cancelReplySubmit(): void {
+  cancelAnonymousSubmitConfirmation(): void {
     this.anonymousConfirmShowing = false
   }
 
@@ -100,10 +55,44 @@ export class ReplyComponent implements OnInit {
   }
 
   onSubmitClick(): void {
-    this.submit().then(() => {
-      // maybe add notification with option to undo?
-    }, err => {
-      alert("Error adding comment")
+    if(this.auth.currentlyLoggedInUser == null){
+        // show confirm anonymous popup
+        this.anonymousConfirmShowing = true
+    }
+    else{
+      this.submitReply()
+    }
+  }
+
+  submitReply(): void {
+    this.uploadReply().then(uploadedReply => {
+      // comment uploaded to api
+      if(this.parentComment){
+        // non-root reply
+        this.parentComment.addReply(uploadedReply)
+        this.parentComment.update().then(() => {
+        }, err => {console.log("error adding reply to parent comment")})
+      }
+      this.close.emit()
+      this.uploaded.emit(uploadedReply)
+    }, err => {alert("Error adding comment")})
+  }
+
+  uploadReply(): Promise<Comment> {
+    let replyToUpload = new Comment(this.api, this.asyncService)
+    replyToUpload.parentCommentId = this.parentComment?.id ? this.parentComment.id : null
+    replyToUpload.text = this.text.value
+    if(this.auth.currentlyLoggedInUser){
+      replyToUpload.ownerId = this.auth.currentlyLoggedInUser.id
+    }
+
+    return new Promise((resolve, reject) => {
+      replyToUpload.addToAPI().then(uploadedReply => {
+        if(this.auth.currentlyLoggedInUser){
+          uploadedReply.owner = this.auth.currentlyLoggedInUser
+        }
+        resolve(uploadedReply)
+      }, err => reject(err))
     })
   }
 
@@ -115,7 +104,7 @@ export class ReplyComponent implements OnInit {
     this.stoppedTyping.emit()
   }
 
-  getPlaceholder(): string {
+  getPlaceholderText(): string {
     if(this.parentComment?.parentCommentId == null){
       return `Commenting on ${this.roadtrip.owner.username}'s roadtrip`
     }

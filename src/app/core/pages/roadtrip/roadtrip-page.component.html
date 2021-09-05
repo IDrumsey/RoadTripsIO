@@ -82,32 +82,35 @@
     ></app-roadtrip-location-card>
   </div>
 
-  <div id="comments">
-    <h4
-      class="inline-text comment-section-title"
-      [ngStyle]="getSectionTitleStyles()"
-    >
-      Comments
-    </h4>
-    <app-icon-button
-      [icon]="commentSectionIcon"
-      (buttonClick)="onRootCommentBtnClick()"
-    ></app-icon-button>
-    <app-comment
-      *ngFor="let comment of getRoadtripRootComments()"
-      [comment]="comment"
-      [roadtrip]="roadtrip"
-    >
-    </app-comment>
-    <!-- root reply -->
-    <app-reply
-      *ngIf="addingRootReply"
-      class="reply-template"
-      [parentComment]="null"
-      [width]="'100%'"
-      [roadtrip]="roadtrip"
-      (close)="closeRootReply()"
-    ></app-reply>
-  </div>
+  <app-comment-group (commentAdded)="onCommentAdded($event)">
+    <div id="comments">
+      <h4
+        class="inline-text comment-section-title"
+        [ngStyle]="getSectionTitleStyles()"
+      >
+        Comments
+      </h4>
+      <app-icon-button
+        [icon]="commentSectionIcon"
+        (buttonClick)="onRootCommentBtnClick()"
+      ></app-icon-button>
+      <app-comment
+        *ngFor="let comment of getRoadtripRootComments()"
+        [comment]="comment"
+        [roadtrip]="roadtrip"
+      >
+      </app-comment>
+      <!-- root reply -->
+      <app-reply
+        *ngIf="addingRootReply"
+        class="reply-template"
+        [parentComment]="null"
+        [width]="'100%'"
+        [roadtrip]="roadtrip"
+        (close)="closeRootReply()"
+        (uploaded)="onCommentAdded($event)"
+      ></app-reply>
+    </div>
+  </app-comment-group>
 </div>
 <mat-spinner id="page-spinner" *ngIf="!dataLoaded"></mat-spinner>
