@@ -28,6 +28,9 @@ export class ReplyComponent implements OnInit {
   @Input() parentComment: Comment | null
   @Input() roadtrip: Roadtrip
 
+  // ------------------------------ STATE ------------------------------
+  anonymousConfirmShowing = false
+
   // styles
   @Input() width: string = "95%"
   discardBtnColor = AppColors.onContrastDarkRed
@@ -42,32 +45,54 @@ export class ReplyComponent implements OnInit {
     }
   }
 
-  submit(): Promise<boolean> {
-    console.log("submit")
+  submit(): Promise<void> {
+    // if submitting anonymously -> confirm before upload because can't delete
+    if(this.auth.currentlyLoggedInUser == null){
+      return new Promise((resolve, reject) => {
+        // show confirm anonymous popup
+        this.anonymousConfirmShowing = true
+        resolve()
+      })
+    }
+    else{
+      return this.uploadReply()
+    }
+  }
+
+  uploadReply(): Promise<void> {
     let replyToUpload = new Comment(this.api, this.asyncService)
     replyToUpload.parentCommentId = this.parentComment?.id ? this.parentComment.id : null
     replyToUpload.text = this.text.value
-    if(this.auth.currentlyLoggedInUserId){
-      replyToUpload.ownerId = this.auth.currentlyLoggedInUserId
+    if(this.auth.currentlyLoggedInUser){
+      replyToUpload.ownerId = this.auth.currentlyLoggedInUser.id
     }
 
     return new Promise((resolve, reject) => {
-      if(this.parentComment){
-        // non-root reply
-        this.parentComment.addReply(replyToUpload).then(uploadedReply => {
-          this.close.emit()
-          this.roadtrip.addCommentWithoutUpload(uploadedReply)
-          resolve(true)
-        }, err => {reject(false)})
-      }
-      else{
-        // root reply
-        this.roadtrip.addCommentWithUpload(replyToUpload).then(status => {
-          this.close.emit()
-          resolve(true)
-        }, err => {reject(false)})
-      }
+      replyToUpload.upload().then(uploadedReply => {
+        if(this.auth.currentlyLoggedInUser){
+          uploadedReply.owner = this.auth.currentlyLoggedInUser
+        }
+        
+        if(this.parentComment){
+          // non-root reply
+          this.parentComment.addReplyOnly(uploadedReply)
+          this.parentComment.update().then(() => {
+            this.close.emit()
+          }, err => {console.log("error adding reply to parent comment")})
+        }
+        else{
+          // root reply
+          this.roadtrip.addCommentWithUpload(uploadedReply).then(() => {
+            this.close.emit()
+            resolve()
+          }, err => {reject(err)})
+        }
+      })
     })
+  }
+
+  cancelReplySubmit(): void {
+    this.anonymousConfirmShowing = false
   }
 
   onCancelClick(): void {
@@ -75,13 +100,10 @@ export class ReplyComponent implements OnInit {
   }
 
   onSubmitClick(): void {
-    this.submit().then(success => {
-      if(success){
-        console.log("added comment")
-      }
-      else{
-        alert("Error adding comment")
-      }
+    this.submit().then(() => {
+      // maybe add notification with option to undo?
+    }, err => {
+      alert("Error adding comment")
     })
   }
 

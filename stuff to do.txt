@@ -23,3 +23,7 @@ change nav url piece color on hover
 algorithm for sorting replies so some don't get thrown to the bottom everytime.
 
 when you go to reply, the screen scrolls down to reply box because sometimes it shows up off the page.
+
+options for sorting comments
+
+suggest feature

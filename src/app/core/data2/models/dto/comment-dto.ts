@@ -57,4 +57,8 @@ export class CommentDTO extends DataModel implements DtoDataObject<CommentDTO, C
     update(): Promise<Comment> {
         return this.api.updateComment(this)
     }
+
+    delete(): Promise<void> {
+        return this.api.deleteComment(this.id)
+    }
 }

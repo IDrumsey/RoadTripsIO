@@ -50,9 +50,9 @@ export class NewRoadtripFormComponent implements OnInit {
 
   submit(): void {
     // create new roadtrip object
-    if(this.auth.currentlyLoggedInUserId){
+    if(this.auth.currentlyLoggedInUser){
       let newRoadtripDTO = new RoadtripDTO(this.api, this.asyncService);
-      newRoadtripDTO.ownerId = this.auth.currentlyLoggedInUserId
+      newRoadtripDTO.ownerId = this.auth.currentlyLoggedInUser.id
       newRoadtripDTO.datePosted = new Date()
       newRoadtripDTO.title = this.data.get('title')?.value
       newRoadtripDTO.description = this.data.get('description')?.value

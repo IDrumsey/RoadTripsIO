@@ -39,7 +39,7 @@ export class UserPageComponent implements OnInit {
   addingNewRoadtrip = false
   
   isOwner(): boolean {
-    return this.auth.currentlyLoggedInUserId == this.user.id
+    return this.auth.isCurrentlyLoggedInUser(this.user)
   }
 
   // styles
@@ -99,7 +99,6 @@ export class UserPageComponent implements OnInit {
         this.user = user
         user.fetchCreatedRoadtrips().then(createdRoadtrips => {
           this.createdRoadtrips = createdRoadtrips
-          console.log(this.createdRoadtrips)
         })
         resolve()
       })

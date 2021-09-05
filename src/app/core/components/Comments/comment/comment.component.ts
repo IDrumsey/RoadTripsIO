@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/core/data2/models/client/comment';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
+import { CommentSortService } from 'src/app/core/services/comments/comment-sort.service';
 
 @Component({
   selector: 'app-comment[comment][roadtrip]',
@@ -9,7 +10,7 @@ import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-  constructor() { }
+  constructor(private commentSort: CommentSortService) { }
 
   ngOnInit(): void {
   }
@@ -37,21 +38,12 @@ export class CommentComponent implements OnInit {
   }
 
   sortReplies(): Comment[] {
-    return this.comment.replies.sort((a, b) => this.compareDates(a.datePosted, b.datePosted))
+    return this.commentSort.sortByDatePosted(this.comment.replies)
   }
-
-  compareDates(date1: Date, date2: Date): number {
-    if(date1 <= date2){
-      return -1
-    }
-    else{
-      return 1
-    }
-  }
-
+  
   // ----------------------------------- STYLES -----------------------------------
   @Input() width: string = "100%"
-  replyWidth = "90%"
+  replyWidth = "98%"
 
   @Input() borderHighlightColor: string = "rgba(116, 162, 193, .75)"
   @Input() borderColor: string | null

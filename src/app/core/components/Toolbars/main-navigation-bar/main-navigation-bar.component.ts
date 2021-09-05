@@ -21,7 +21,13 @@ export class MainNavigationBarComponent implements OnInit {
   otherIcons = [faUser, faRoute, faSignInAlt, faSignOutAlt]
 
   routeToUserPage(): void {
-    this.router.navigate(['users', this.auth.currentlyLoggedInUserId])
+    if(this.auth.currentlyLoggedInUser){
+      this.router.navigate(['users', this.auth.currentlyLoggedInUser.id])
+    }
+    else{
+      alert("You must be signed in to do this")
+      // maybe show the login component here
+    }
   }
 
   routeToBrowseRoadtripsPage(): void {
@@ -33,7 +39,7 @@ export class MainNavigationBarComponent implements OnInit {
   }
 
   isUserSignedIn(): boolean {
-    return this.auth.currentlyLoggedInUserId != null
+    return this.auth.currentlyLoggedInUser != null
   }
 
   onSignOutBtnClick(): void {

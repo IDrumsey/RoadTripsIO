@@ -3,6 +3,7 @@
     <app-comment-head
       *ngIf="showingHead"
       [comment]="comment"
+      [roadtrip]="roadtrip"
       (detailsClick)="toggleBody()"
       (replyClick)="reply()"
     ></app-comment-head>
@@ -16,7 +17,7 @@
     *ngFor="let reply of sortReplies()"
     [comment]="reply"
     [roadtrip]="roadtrip"
-    [width]="'95%'"
+    [width]="replyWidth"
   ></app-comment>
   <!-- reply template -->
   <app-reply

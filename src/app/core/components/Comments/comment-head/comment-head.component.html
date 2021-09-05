@@ -14,5 +14,19 @@
       [icon]="detailsIcon"
       (buttonClick)="onDetailsClick()"
     ></app-icon-button>
+    <app-icon-button
+      *ngIf="isOwner()"
+      [icon]="deleteIcon"
+      [iconRegularColor]="deleteBtnColor"
+      [iconHoverColor]="deleteBtnHoverColor"
+      (buttonClick)="onDeleteCommentBtnClick()"
+    ></app-icon-button>
   </app-toolbar>
 </div>
+
+<app-confirmation-popup
+  *ngIf="showingDeleteConfirmationPopup"
+  [message]="'Are you sure you want to delete this comment?'"
+  (cancelEvent)="onCancelDelete()"
+  (confirmEvent)="onConfirmDelete()"
+></app-confirmation-popup>

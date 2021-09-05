@@ -9,12 +9,11 @@ export class AuthenticationService {
   constructor(private api: DataAccessService) { }
 
   // ------------------------------------ DATA ------------------------------------
-  currentlyLoggedInUserId: number | null = 1
+  currentlyLoggedInUser: User | null
 
   // ------------------------------------ FUNCTIONALITY ------------------------------------
   signOut(): void {
-    console.log("signing out user : ", this.currentlyLoggedInUserId)
-    this.currentlyLoggedInUserId = null
+    this.currentlyLoggedInUser = null
   }
 
   async attemptSignIn(): Promise<boolean> {
@@ -22,7 +21,7 @@ export class AuthenticationService {
     return new Promise(resolve => {
       this.api.getUser(1).subscribe(userFound => {
         // TODO
-        if(true){
+        if(userFound){
           this.signUserIn(userFound)
           resolve(true)
         }
@@ -33,9 +32,15 @@ export class AuthenticationService {
     })
   }
 
+  isCurrentlyLoggedInUser(user: User): boolean {
+    if(this.currentlyLoggedInUser && this.currentlyLoggedInUser.id == user.id){
+      return true
+    }
+    return false
+  }
+
   // ------------------------------------ PRIVATE FUNCTIONALITY ------------------------------------
   private signUserIn(user: User): void {
-    console.log("user : ", user.id, " signed in")
-    this.currentlyLoggedInUserId = user.id
+    this.currentlyLoggedInUser = user
   }
 }

@@ -1,4 +1,5 @@
 import { AsyncService } from "src/app/core/services/async.service"
+import { CommentService } from "src/app/core/services/comments/comment.service"
 import { DataAccessService } from "src/app/core/services/data/data-access.service"
 import { ClientDataObject } from "../../client-data-object"
 import { ComplexDataObject } from "../../complex-data-object"
@@ -125,6 +126,10 @@ export class Comment extends DataModel implements ClientDataObject<CommentDTO, C
         return this.toDTO().update()
     }
 
+    addReplyOnly(reply: Comment): void {
+        this.replies.push(reply)
+    }
+
     addReply(reply: Comment): Promise<Comment> {
         return new Promise((resolve, reject) => {
             reply.toDTO().upload().then(newReply => {
@@ -139,5 +144,35 @@ export class Comment extends DataModel implements ClientDataObject<CommentDTO, C
                 reject(err)
             })
         })
+    }
+
+    addReplyWithoutUpload(reply: Comment): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.replies.push(reply)
+            this.update().then(updatedComment => {
+                resolve()
+            }, err => {
+                reject(err)
+            })
+        })
+    }
+
+    deleteFromAPI(): Promise<void> {
+        return this.api.deleteComment(this.id)
+    }
+
+    removeReply(reply: Comment): void {
+        let index = this.replies.findIndex(tempReply => tempReply.id == reply.id)
+        if(index != -1){
+            this.replies.splice(index, 1)
+        }
+    }
+
+    isRoot(): boolean {
+        return this._parentCommentId == null
+    }
+
+    hasReplies(): boolean {
+        return this.replies.length > 0
     }
 }

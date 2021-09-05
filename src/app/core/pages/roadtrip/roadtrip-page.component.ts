@@ -11,6 +11,7 @@ import { Comment } from '../../data2/models/client/comment';
 import { Roadtrip } from '../../data2/models/client/roadtrip';
 import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CommentSortService } from '../../services/comments/comment-sort.service';
 import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
 
 @Component({
@@ -19,7 +20,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
   styleUrls: ['./roadtrip-page.component.css']
 })
 export class RoadtripPageComponent implements OnInit, AfterViewInit {
-  constructor(private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+  constructor(private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router, private commentSort: CommentSortService) {
     this.initPage()
   }
 
@@ -108,7 +109,7 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
   // ------------------- FUNCTIONALITY -------------------
 
   isOwner(): boolean {
-    return this.roadtrip.owner.id == this.auth.currentlyLoggedInUserId
+    return this.auth.isCurrentlyLoggedInUser(this.roadtrip.owner)
   }
 
   initPage(): void {
@@ -166,7 +167,8 @@ export class RoadtripPageComponent implements OnInit, AfterViewInit {
   }
 
   getRoadtripRootComments(): Comment[] {
-    return this.roadtrip.comments.filter(comment => comment.parentCommentId == null)
+    let rootComments = this.roadtrip.comments.filter(comment => comment.parentCommentId == null)
+    return this.commentSort.sortByDatePosted(rootComments)
   }
 
   onRootCommentBtnClick(): void {

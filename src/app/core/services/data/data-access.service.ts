@@ -234,6 +234,15 @@ export class DataAccessService {
     })
   }
 
+  deleteComment(id: number): Promise<void> {
+    let url = `${this.apiURL}/comments/${id}`
+    return new Promise((resolve, reject) => {
+      this.api.delete(url, this.requestOptions).subscribe(() => {
+        resolve()
+      }, err => reject(err))
+    })
+  }
+
   // --------------------------------------- HELPER FUNCTIONALITY ---------------------------------------
   
   private ApiResponseHandler<DtoResponseType, ClientResponseType>(observable: Observable<DtoResponseType>, toClientHandler: (data: DtoResponseType)=>ClientResponseType): Observable<ClientResponseType>{

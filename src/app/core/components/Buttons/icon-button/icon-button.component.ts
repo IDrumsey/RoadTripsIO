@@ -29,7 +29,6 @@ export class IconButtonComponent extends ButtonComponent implements OnInit {
 
   constructor(elementRef: ElementRef) {
     super(elementRef);
-
   }
 
   ngOnInit(): void {

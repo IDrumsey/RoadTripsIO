@@ -27,3 +27,11 @@
     </app-toolbar>
   </div>
 </div>
+<app-confirmation-popup
+  *ngIf="anonymousConfirmShowing"
+  [message]="
+    'You are adding this comment anonymously. You will NOT be able to delete it. Are you sure you want to post this?'
+  "
+  (cancelEvent)="cancelReplySubmit()"
+  (confirmEvent)="uploadReply()"
+></app-confirmation-popup>

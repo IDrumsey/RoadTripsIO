@@ -79,7 +79,6 @@ export class User extends DataModel implements ClientDataObject<UserDTO, User>, 
             let createdRoadtrips: Roadtrip[] = []
 
             this.api.getAllRoadtrips().subscribe(roadtrips => {
-                console.log(roadtrips)
                 createdRoadtrips = roadtrips.filter(roadtrip => roadtrip._ownerId == this.id)
                 let loaders = createdRoadtrips.map(cRoadtrip => {
                     return new Promise<void>(resolve => {

@@ -63,7 +63,7 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
 
     loadAdditionalData(): Promise<void> {
         let loaders = [
-            this.fetchOwner(), 
+            this.fetchOwner(),
             this.fetchCollaborators(),
             this.fetchStops(),
             this.fetchComments()
@@ -184,28 +184,65 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         return false
     }
 
-    addCommentWithUpload(commentToUpload: Comment): Promise<boolean> {
+    addCommentWithUpload(commentToUpload: Comment): Promise<void> {
         return new Promise((resolve, reject) => {
             commentToUpload.upload().then(newComment => {
-                console.log("comment uploaded : ", newComment)
                 // add to array
-                this.comments.push(newComment)
-                // update roadtrip comment ids in database
-                this.update().then(updatedRoadtrip => {
-                    resolve(true)
+                newComment.loadAdditionalData().then(() => {
+                    this.comments.push(newComment)
+                    // update roadtrip comment ids in database
+                    this.update().then(updatedRoadtrip => {
+                        resolve()
+                    }, err => {
+                        // rollback
+                        this.comments.splice(this.comments.indexOf(newComment))
+                        reject(err)
+                    })
                 }, err => {
-                    // rollback
-                    this.comments.splice(this.comments.indexOf(newComment))
-                    resolve(false)
+                    // rollback -> delete comment
+                    newComment.deleteFromAPI().then(() => {
+                        resolve()
+                    }, err => {
+                        // can't delete the comment so contact admin?
+                        // TODO - not sure what to do about this situation
+                    })
                 })
               }, err => {
                 console.log("error uploading comment")
-                reject(false)
+                reject(err)
               })
         })
     }
 
+    removeCommentWithoutUpload(comment: Comment): void {
+        let index = this.comments.findIndex(tempComment => tempComment.id == comment.id)
+        if(index != -1){
+            this.comments.splice(index, 1)
+        }
+    }
+
     update(): Promise<Roadtrip> {
         return this.toDTO().update()
+    }
+
+    getComment(id: number): Comment | undefined {
+        // recursively(ish) finds the comment even if it's nested since the roadtrip doesn't store all the comments directly
+        let currLevelComments = this.comments
+        let nextLevelComments: Comment[]
+
+        do{
+            for(let comment of currLevelComments){
+                if(comment.id == id){
+                    return comment
+                }
+            }
+            nextLevelComments = []
+            currLevelComments.forEach(comment => {
+                nextLevelComments.push(...comment.replies)
+            })
+            currLevelComments = nextLevelComments
+        }while(currLevelComments.length > 0)
+        // not found
+        return undefined
     }
 }
