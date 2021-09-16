@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 import { ButtonComponent } from '../button/button.component';
@@ -12,7 +12,7 @@ import { IconButtonManager } from '../functionality/icon-button-manager';
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.css']
 })
-export class IconButtonComponent extends ButtonComponent implements OnInit {
+export class IconButtonComponent extends ButtonComponent implements OnInit, OnChanges {
   // data
 
   // initial styles
@@ -51,6 +51,23 @@ export class IconButtonComponent extends ButtonComponent implements OnInit {
         this.buttonMouseExit.emit()
       }
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if(this.manager){
+      if(changes.iconRegularColor != null){
+        this.manager.fgDefaultColor = changes.iconRegularColor.currentValue
+        this.manager.colorChangeHandler()
+      }
+      if(changes.iconHoverColor != null){
+        this.manager.fgHoverColor = changes.iconHoverColor.currentValue
+        this.manager.colorChangeHandler()
+      }
+      if(changes.enabledMessage != null){
+        this.manager.enabledTitle = changes.enabledMessage.currentValue
+        this.manager.titleChangeHandler()
+      }
+    }
   }
 
   hide(): void {

@@ -13,7 +13,7 @@
       id="user-profile-image"
     ></app-user-profile-image>
   </div>
-  <h5 [ngStyle]="usernameStyles">{{ user.username }}</h5>
+  <p [ngStyle]="usernameStyles">{{ user.username }}</p>
 
   <!-- Created roadtrips -->
   <div class="section">
@@ -160,3 +160,9 @@
   </div>
 </div>
 <mat-spinner id="page-spinner" *ngIf="!dataLoaded"></mat-spinner>
+<lib-progress-bar
+  id="loading-bar"
+  [progress]="percentDataLoaded"
+  [barColor]="'#03fc4e'"
+  [width]="'80%'"
+></lib-progress-bar>

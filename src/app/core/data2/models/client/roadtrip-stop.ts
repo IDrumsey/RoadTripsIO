@@ -64,4 +64,17 @@ export class RoadtripStop extends DataModel implements ClientDataObject<Roadtrip
             })
         })
     }
+
+    removeFromAPI(): Promise<RoadtripStop> {
+        return new Promise((resolve, reject) => {
+            this.location.removeFromAPI(this.api).then(locationRemoved => {
+                this.api.deleteRoadtripStop(this.id).then(() => {
+                    resolve(this)
+                }, err => {
+                    // rollback
+                    this.api.addLocation(locationRemoved.toDTO())
+                })
+            }, err => {reject(err)})
+        })
+    }
 }

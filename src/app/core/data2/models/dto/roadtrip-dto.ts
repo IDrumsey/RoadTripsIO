@@ -15,9 +15,9 @@ export class RoadtripDTO extends DataModel implements DtoDataObject<RoadtripDTO,
     description: string
     datePosted: Date
     ownerId: number
-    collaboratorIds: number[]
-    stopIds: number[]
-    commentIds: number[]
+    collaboratorIds: number[] = []
+    stopIds: number[] = []
+    commentIds: number[] = []
 
     // ---------------------------------------- FUNCTIONALITY ----------------------------------------
     initFromData(data: RoadtripDTO): void {

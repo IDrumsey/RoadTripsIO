@@ -13,6 +13,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 
+import {ProgressBarModule} from 'ui-loaders'
+
 // Local
 import { AppComponent } from './app.component';
 import { IconButtonComponent } from './core/components/Buttons/icon-button/icon-button.component';
@@ -131,7 +133,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ProgressBarModule
   ],
   exports: [RouterModule],
   providers: [],

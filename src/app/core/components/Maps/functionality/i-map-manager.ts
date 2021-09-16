@@ -144,6 +144,7 @@ export class IMapManager {
     }
 
     onMarkerEnter(coord: google.maps.LatLngLiteral): void {
+        console.log("marker enter")
         let marker = this.findMarker(coord)
 
         if(marker){
@@ -186,7 +187,9 @@ export class IMapManager {
 
     onAddOrDropMarker(): void {
         // look for new icon and set the styles
+        console.log("marker added or dropped")
         if(this.markerCoordinatesBeingAdded){
+            console.log(this.markerCoordinatesBeingAdded)
             let markerFound = this.findMarker(this.markerCoordinatesBeingAdded)
             if(markerFound){
                 // change styles
@@ -247,6 +250,7 @@ export class IMapManager {
 
     findMarker(coord: google.maps.LatLngLiteral): google.maps.Marker | undefined {
         return this.markers.find(marker => {
+            console.log(marker)
             let pos = marker.getPosition() as google.maps.LatLng
             let tempCoord: google.maps.LatLngLiteral = {
                 lat: pos.lat(),
@@ -338,6 +342,7 @@ export class IMapManager {
 
     onMarkerDblClick(coord: google.maps.LatLngLiteral): void {
         // find the marker
+        console.log("dbl click")
         let marker = this.findMarker(coord)
         if(marker){
             this.zoomInOnMarker(marker)

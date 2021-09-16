@@ -16,6 +16,11 @@ export class CommentHeadComponent implements OnInit {
   constructor(private auth: AuthenticationService, private commentService: CommentService) { }
 
   ngOnInit(): void {
+    // check if reported -> change btn color
+    if(this.isReported()){
+      this.reportBtnColor = this.reportBtnColor_Reported
+      this.reportBtnHoverColor = this.reportBtnHoverColor_Reported
+    }
   }
 
   // ----------------------------------- EVENTS -----------------------------------
@@ -26,7 +31,7 @@ export class CommentHeadComponent implements OnInit {
   @Input() comment: Comment
   @Input() roadtrip: Roadtrip
 
-  // ----------------------------------- STATE -----------------------------------
+  // ----------------------------------- STYLES -----------------------------------
   replyIcon = faReply
   reportIcon = faFlag
   detailsIcon = faInfoCircle
@@ -44,9 +49,51 @@ export class CommentHeadComponent implements OnInit {
   deleteBtnColor = AppColors.onContrastRed
   deleteBtnHoverColor = AppColors.onContrastDarkRed
 
+  reportBtnColor_NotReported = AppColors.onColorLight
+  reportBtnHoverColor_NotReported = AppColors.onColor
+  reportBtnColor_Reported = "#e7ed74"
+  reportBtnHoverColor_Reported = "#e1eb34"
+  reportBtnColor: string = this.reportBtnColor_NotReported
+  reportBtnHoverColor: string = this.reportBtnHoverColor_NotReported
+
   // ----------------------------------- STATE -----------------------------------
-  reported: boolean = true
   showingDeleteConfirmationPopup = false
+  @Input() showingBody: boolean
+
+  isUserLoggedIn(): boolean {
+    if(this.auth.currentlyLoggedInUser){
+      return true
+    }
+    return false
+  }
+
+  isReported(): boolean {
+    if(this.auth.currentlyLoggedInUser){
+      let found = this.auth.currentlyLoggedInUser?.reportedComments.find(reportedComment => reportedComment.id == this.comment.id)
+      if(found != null){
+        return true
+      }
+    }
+    return false
+  }
+
+  getReportBtnHoverMsg(): string {
+    if(!this.isReported()){
+      return "Report comment"
+    }
+    else{
+      return "Remove report"
+    }
+  }
+
+  getDetailsBtnHoverMsg(): string {
+    if(this.showingBody){
+      return "Hide details"
+    }
+    else{
+      return "Show details"
+    }
+  }
 
   // ----------------------------------- FUNCTIONALITY -----------------------------------
   onDetailsClick(): void {
@@ -123,5 +170,38 @@ export class CommentHeadComponent implements OnInit {
 
   onCancelDelete(): void {
     this.showingDeleteConfirmationPopup = false
+  }
+
+  onReportBtnClick(): void {
+    if(this.isReported()){
+      this.attemptUnreportComment()
+    }
+    else{
+      this.attemptReportComment()
+    }
+  }
+
+  attemptReportComment(): void {
+    if(this.auth.currentlyLoggedInUser){
+      this.auth.currentlyLoggedInUser.reportComment(this.comment, this.auth).then(reportedComment => {
+        this.reportBtnColor = this.reportBtnColor_Reported
+        this.reportBtnHoverColor = this.reportBtnHoverColor_Reported
+      }, err => {
+        alert("Couldn't report comment")
+        console.log(err)
+      })
+    }
+  }
+
+  attemptUnreportComment(): void {
+    if(this.auth.currentlyLoggedInUser){
+      this.auth.currentlyLoggedInUser.unreportComment(this.comment, this.auth).then(unreportedComment => {
+        this.reportBtnColor = this.reportBtnColor_NotReported
+        this.reportBtnHoverColor = this.reportBtnHoverColor_NotReported
+      }, err => {
+        alert("Couldn't unreport comment")
+        console.log(err)
+      })
+    }
   }
 }

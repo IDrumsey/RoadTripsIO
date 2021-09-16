@@ -30,3 +30,5 @@ suggest feature
 
 maybe a select multiple comments feature -
     use case : delete multiple comments at once (Don't think this would be used very often though)
+
+error reports for errors that need manually handled. for example if an operation fails and then the rollback also fails contact admin

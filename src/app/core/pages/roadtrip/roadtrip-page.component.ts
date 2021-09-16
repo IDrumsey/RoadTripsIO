@@ -14,6 +14,8 @@ import { RoadtripStop } from '../../data2/models/client/roadtrip-stop';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CommentSortService } from '../../services/comments/comment-sort.service';
 import { AbstractDataAccessService } from '../../services/data/abstract-data-access.service';
+import { DataAccessService } from '../../services/data/data-access.service';
+import { UserService } from '../../services/users/user.service';
 
 @Component({
   selector: 'app-roadtrip-page',
@@ -21,7 +23,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
   styleUrls: ['./roadtrip-page.component.css']
 })
 export class RoadtripPageComponent implements OnInit, AfterContentInit {
-  constructor(private api2: AbstractDataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router, private commentSort: CommentSortService) {
+  constructor(private api2: AbstractDataAccessService, private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router, private commentSort: CommentSortService, private userService: UserService) {
     this.initPage()
   }
 
@@ -157,6 +159,121 @@ export class RoadtripPageComponent implements OnInit, AfterContentInit {
     // this.roadtrip.removeStop(stop).then(() => {
     //   this.roadtripMap.manager.removeCoordinate(stop.location.coordinates.toLatLngLiteral())
     // })
+    stop.removeFromAPI().then(stopRemoved => {
+      if(this.roadtrip.removeStop(stopRemoved)){
+        console.log(1)
+        this.roadtrip.update().then(updatedRoadtrip => {
+          console.log(2)
+          this.roadtripMap.manager.removeCoordinate(stop.location.coordinates.toLatLngLiteral())
+        }, err => {
+          // rollback
+          stopRemoved.location.upload(this.api).then(rolledBackLocation => {
+            stopRemoved.location = rolledBackLocation
+            stopRemoved.upload().then(rolledBackStop => {
+              this.roadtrip.addStopOnly(rolledBackStop)
+              this.roadtrip.update().then(rolledBackRoadtrip => {
+                // done
+              }, err => {
+                console.log("error removing stop : ", err, "Contact admin")
+              })
+            }, err => {
+              console.log("error removing stop : ", err, "Contact admin")
+            })
+          })
+        })
+      }
+      else{
+        // rollback
+        stopRemoved.upload().then(rolledBackStop => {
+          // done
+        }, err => {
+          console.log("error removing stop : ", err, "Contact admin")
+        })
+      }
+    }, err => {console.log("error removing stop : ", err)})
+  } 
+
+  stopDelete(stop: RoadtripStop): Promise<boolean> {
+    return new Promise(resolve => {
+       this.api.deleteRoadtripStop(stop.id).then(() => {
+          if(this.roadtrip.removeStop(stop)){
+            this.roadtrip.update().then(updatedRoadtrip => {
+              this.userService.isLocationBeingReferenced(stop.location).then(locationStillBeingReferenced => {
+                if(locationStillBeingReferenced){
+                  resolve(true)
+                }
+                else{
+                  this.api.deleteLocation(stop.location.id).then(() => {
+                    resolve(true)
+                  }, err => {
+                    console.log("couldn't rollback operation : Delete roadtrip stop - remove location from api. Reason : couldn't add location back to api")
+                    this.deleteStop_removeLocationFromAPI_ROLLBACK(stop).then(rolledBack => {
+                      resolve(false)
+                    })
+                  })
+                }
+              })
+            }, err => {
+              console.log("couldn't update roadtrip")
+              this.deleteStop_removeStopFromAPI_ROLLBACK(stop).then(stopAddedBackToAPI => {
+                this.deleteStop_removeStopFromRoadtrip_ROLLBACK(stopAddedBackToAPI).then(stopAddedBackToRoadtrip => {
+                  console.log("rolled back")
+                }, err => {
+                  console.log("couldn't rollback operation : Delete roadtrip stop - update roadtrip. Reason : Couldn't add stop back to roadtrip")
+                })
+              }, err => {
+                console.log("couldn't rollback operation : Delete roadtrip stop - update roadtrip. Reason : Couldn't add stop back to api")
+              })
+              resolve(false)
+            })
+          }
+          else{
+            console.log("couldn't remove stop from roadtrip")
+            this.deleteStop_removeStopFromAPI_ROLLBACK(stop)
+            resolve(false)
+          }
+       }, err => {
+         console.log("Couldn't remove stop from api")
+         resolve(false)
+       })
+    })
+  }
+
+  deleteStop_removeStopFromAPI_ROLLBACK(stopToRollback: RoadtripStop): Promise<RoadtripStop> {
+    return new Promise((resolve, reject) => {
+      this.api.addRoadtripStop(stopToRollback.toDTO()).then(rolledBackStop => {
+        console.log("rolled back")
+        resolve(rolledBackStop)
+      }, err => {
+        console.log("Couldn't roll back stop deletion")
+        // TODO : manual removal of stop references in roadtrip (Gen report)
+        reject(err)
+      })
+    })
+  }
+
+  deleteStop_removeStopFromRoadtrip_ROLLBACK(stopToRollback: RoadtripStop): Promise<RoadtripStop> {
+    return new Promise((resolve, reject) => {
+      this.roadtrip.addStopOnly(stopToRollback)
+      resolve(stopToRollback)
+    })
+  }
+
+  deleteStop_removeLocationFromAPI_ROLLBACK(stop: RoadtripStop): Promise<boolean> {
+    return new Promise(resolve => {
+      this.deleteStop_removeStopFromAPI_ROLLBACK(stop).then(stopAddedBackToAPI => {
+        this.deleteStop_removeStopFromRoadtrip_ROLLBACK(stopAddedBackToAPI).then(stopAddedBackToRoadtrip => {
+          console.log("rolled back")
+          resolve(true)
+        }, err => {
+          console.log("couldn't rollback operation : Delete roadtrip stop - update roadtrip. Reason : Couldn't add stop back to roadtrip")
+          resolve(false)
+        })
+      }, err => {
+        console.log("couldn't rollback operation : Delete roadtrip stop - update roadtrip. Reason : Couldn't add stop back to api")
+        resolve(false)
+      })
+    })
   }
 
   onDetailsToolBtnClick(selectedStop: RoadtripStop): void {

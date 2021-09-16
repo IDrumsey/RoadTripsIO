@@ -36,6 +36,7 @@ export class UserPageComponent implements OnInit {
 
   // state
   dataLoaded = false
+  percentDataLoaded = 0
   addingNewRoadtrip = false
   
   isOwner(): boolean {
@@ -54,7 +55,8 @@ export class UserPageComponent implements OnInit {
   usernameStyles = {
     fontFamily: AppFonts.Handwriting,
     fontSize: "50px",
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: "25px"
   }
 
   sectionTitleStyles = {
@@ -96,9 +98,11 @@ export class UserPageComponent implements OnInit {
   async loadData(userId: number): Promise<void> {
     return new Promise(resolve => {
       this.api2.getUserById(userId).then(user => {
+        this.percentDataLoaded = 30
         this.user = user
         user.fetchCreatedRoadtrips().then(createdRoadtrips => {
           this.createdRoadtrips = createdRoadtrips
+          this.percentDataLoaded = 100
         })
         resolve()
       })
@@ -148,13 +152,8 @@ export class UserPageComponent implements OnInit {
 
   onNewRoadtripSubmit(newRoadtrip: RoadtripDTO): void {
     console.log("uploading new roadtrip data : ", newRoadtrip)
-    // TODO
-    // this.api.addRoadtrip(newRoadtrip).then(rawDTO => {
-    //   let dto = new RoadtripDTO(this.api, this.asyncService)
-    //   dto.initFromRawData(rawDTO)
-    //   dto.toRoadtrip().then(roadtrip => {
-    //     this.router.navigate(['/roadtrips', roadtrip.id])
-    //   })
-    // })
+    this.api.addRoadtrip(newRoadtrip).then(createdRoadtrip => {
+      this.router.navigate(['/roadtrips', createdRoadtrip.id])
+    })
   }
 }

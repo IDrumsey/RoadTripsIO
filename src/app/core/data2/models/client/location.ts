@@ -45,4 +45,12 @@ export class Location implements ClientDataObject<LocationDTO, Location> {
             }))
         })
     }
+
+    removeFromAPI(api: DataAccessService): Promise<Location> {
+        return new Promise((resolve, reject) => {
+            api.deleteLocation(this.id).then(() => {
+                resolve(this)
+            }, err => {reject(err)})
+        })
+    }
 }

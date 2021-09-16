@@ -3,26 +3,29 @@
     <app-toolbar [gap]="0">
       <app-rectangle-button
         [text]="'Info'"
+        [fontSize]="'20px'"
         [bgRegularColor]="getButtonBgColor('info')"
         [bgHoverColor]="getButtonBgHoverColor('info')"
         [borderRadius]="0"
-        [padding]="'5px 20px'"
+        [padding]="'10px 20px'"
         (buttonClick)="changePage('info')"
       ></app-rectangle-button>
       <app-rectangle-button
         [text]="'Collaborators'"
+        [fontSize]="'20px'"
         [bgRegularColor]="getButtonBgColor('collaborators')"
         [bgHoverColor]="getButtonBgHoverColor('collaborators')"
         [borderRadius]="0"
-        [padding]="'5px 20px'"
+        [padding]="'10px 20px'"
         (buttonClick)="changePage('collaborators')"
       ></app-rectangle-button>
       <app-rectangle-button
         [text]="'Settings'"
+        [fontSize]="'20px'"
         [bgRegularColor]="getButtonBgColor('settings')"
         [bgHoverColor]="getButtonBgHoverColor('settings')"
         [borderRadius]="0"
-        [padding]="'5px 20px'"
+        [padding]="'10px 20px'"
         (buttonClick)="changePage('settings')"
       ></app-rectangle-button>
     </app-toolbar>
@@ -33,7 +36,7 @@
         <!-- info page -->
         <div *ngIf="page == 'info'" class="new-roadtrip-info-page">
           <div class="title-wrapper field">
-            <h4>Title</h4>
+            <h2>Title</h2>
             <app-text-input
               [name]="'roadtrip-title'"
               [control]="data.get('title')"
@@ -56,7 +59,7 @@
             </p>
           </div>
           <div class="title-wrapper field">
-            <h4>Description</h4>
+            <h2>Description</h2>
             <app-text-input
               [name]="'roadtrip-title'"
               [control]="data.get('description')"
@@ -80,7 +83,7 @@
             formControlName="allowComments"
           />
           <label for="allowComments"
-            ><h4 class="checkbox-label">Allow comments</h4></label
+            ><h2 class="checkbox-label">Allow comments</h2></label
           >
         </div>
       </div>

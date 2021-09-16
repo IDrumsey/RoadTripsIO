@@ -1,9 +1,18 @@
 <div *ngIf="dataLoaded" id="browse-roadtrips-page">
   <app-nav-url [pieces]="navPieces"></app-nav-url>
   <h1 id="page-title" [ngStyle]="titleStyles">Browse Roadtrips</h1>
-  <app-roadtrip-card
-    *ngFor="let roadtrip of roadtrips"
-    [roadtrip]="roadtrip"
-  ></app-roadtrip-card>
+  <div id="roadtrip-cards">
+    <app-roadtrip-card
+      *ngFor="let roadtrip of roadtrips"
+      class="roadtrip-card"
+      [roadtrip]="roadtrip"
+    ></app-roadtrip-card>
+  </div>
 </div>
 <mat-spinner id="page-spinner" *ngIf="!dataLoaded"></mat-spinner>
+<lib-progress-bar
+  id="loading-bar"
+  [progress]="percentDataLoaded"
+  [barColor]="'#03fc4e'"
+  [width]="'80%'"
+></lib-progress-bar>

@@ -19,9 +19,9 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
     description: string
     datePosted: Date
     owner: User
-    collaborators: User[]
-    stops: RoadtripStop[]
-    comments: Comment[]
+    collaborators: User[] = []
+    stops: RoadtripStop[] = []
+    comments: Comment[] = []
 
     // ---------------------------------------- PRIVATE DATA ----------------------------------------
     _ownerId: number
@@ -153,6 +153,15 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         })
     }
 
+    private findStop(stop: RoadtripStop): RoadtripStop | undefined {
+        return this.stops.find(tempStop => tempStop.id == stop.id)
+    }
+
+    addStopOnly(stop: RoadtripStop): void {
+        // TODO : might want to check for duplicates
+        this.stops.push(stop)
+    }
+
     addStop(stop: RoadtripStop): void {
         // upload location to get id
         stop.location.upload(this.api).then(newLocation => {
@@ -173,6 +182,23 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         }, err => {
             console.log("error occured : ", err)
         })
+    }
+
+    removeStop(stop: RoadtripStop): boolean {
+        let startLength = this.stops.length
+        let stopToRemove = this.findStop(stop)
+        if(stopToRemove){
+            let index = this.stops.indexOf(stopToRemove)
+            if(index != -1){
+                this.stops.splice(index, 1)
+            }
+        }
+        if(startLength == this.stops.length + 1){
+            return true
+        }
+        else{
+            return false
+        }
     }
 
     addCommentWithoutUpload(comment: Comment): boolean {

@@ -18,6 +18,7 @@ export class UserDTO extends DataModel implements DtoDataObject<UserDTO, User> {
     email: string
     photo: string
     locationsToVisitIds: number[] = []
+    reportedCommentIds: number[] = []
 
     // ---------------------------------------- FUNCTIONALITY ----------------------------------------
     initFromData(data: UserDTO): void {
@@ -28,10 +29,11 @@ export class UserDTO extends DataModel implements DtoDataObject<UserDTO, User> {
         this.email = data.email
         this.locationsToVisitIds = data.locationsToVisitIds
         this.photo = data.photo
+        this.reportedCommentIds = data.reportedCommentIds
     }
     
     toClient(): User {
-        let clientUser = new User(this.api, this.asyncService)
+        let clientUser = new User(this.api, this.asyncService, )
         clientUser.id = this.id
         clientUser.username = this.username
         clientUser.firstname = this.firstname
@@ -39,7 +41,21 @@ export class UserDTO extends DataModel implements DtoDataObject<UserDTO, User> {
         clientUser.email = this.email
         clientUser.locationsToVisitIds = this.locationsToVisitIds
         clientUser.photo = this.photo
+        clientUser.reportedCommentIds = this.reportedCommentIds
 
         return clientUser
+    }
+
+    getUploadFormat(): {} {
+        return {
+            id: this.id,
+            username: this.username,
+            firstname: this.firstname,
+            lastname: this.lastname,
+            email: this.email,
+            locationsToVisitIds: this.locationsToVisitIds,
+            photo: this.photo,
+            reportedCommentIds: this.reportedCommentIds
+        }
     }
 }

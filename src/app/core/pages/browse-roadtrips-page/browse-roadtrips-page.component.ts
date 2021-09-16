@@ -22,6 +22,7 @@ export class BrowseRoadtripsPageComponent implements OnInit {
 
   // ----------------------------------- DATA -----------------------------------
   dataLoaded: boolean = false
+  percentDataLoaded = 0
   roadtrips: Roadtrip[] = []
 
   navPieces = [new NavURLPiece(this.router, "home", "")]
@@ -36,6 +37,7 @@ export class BrowseRoadtripsPageComponent implements OnInit {
   loadData(): void {
     this.loadRoadtrips().then(() => {
       this.dataLoaded = true
+      this.percentDataLoaded = 100
     })
   }
 

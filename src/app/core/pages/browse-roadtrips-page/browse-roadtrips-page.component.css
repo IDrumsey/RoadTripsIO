@@ -1,3 +1,9 @@
 #page-title {
   margin-bottom: 25px;
 }
+
+#roadtrip-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

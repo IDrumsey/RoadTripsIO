@@ -25,10 +25,15 @@ export class ButtonComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges){
+    console.log(changes)
     if(this.manager){
       if(changes.disabled != null){
         this.manager.disabled = changes.disabled.currentValue
         this.manager.disableChangeHandler()
+      }
+      if(changes.enabledMessage != null){
+        this.manager.enabledTitle = changes.enabledMessage.currentValue
+        this.manager.titleChangeHandler()
       }
     }
   }

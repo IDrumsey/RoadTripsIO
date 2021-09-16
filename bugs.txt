@@ -9,3 +9,5 @@ when new comment is added, delete btn doesn't show when it should when replying 
 can't delete two comments in a row -> shuts down server
 
 when adding root comment, server shorts
+
+icon button doesn't change color on click. Waits for mouse to exit.

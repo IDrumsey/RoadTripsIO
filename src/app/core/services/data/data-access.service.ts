@@ -56,6 +56,21 @@ export class DataAccessService {
     }))
   }
 
+  updateUser(userDTO: UserDTO): Promise<User> {
+    let url = `${this.apiURL}/users/${userDTO.id}`
+    return new Promise((resolve, reject) => {
+      let dataToUpload = userDTO.getUploadFormat()
+      this.ApiResponseHandler(this.api.put(url, dataToUpload, this.requestOptions), (data => {
+        let dto = new UserDTO(this, this.asyncService)
+        let client = this.resolveDTO(dto, data)
+        resolve(client)
+      })).subscribe(() => {}, (err) => {
+        console.log(err)
+        reject(err)
+      })
+    })
+  }
+
   // ------------ ROADTRIPS ------------
 
   getRoadtripById(id: number): Observable<Roadtrip> {
@@ -146,6 +161,15 @@ export class DataAccessService {
     })
   }
 
+  deleteRoadtripStop(id: number): Promise<void> {
+    let url = `${this.apiURL}/stops/${id}`
+    return new Promise((resolve, reject) => {
+      this.api.delete(url, this.requestOptions).subscribe(() => {
+        resolve()
+      }, err => reject(err))
+    })
+  }
+
   // ------------ LOCATIONS ------------
 
   getLocationById(id: number): Observable<Location> {
@@ -186,6 +210,15 @@ export class DataAccessService {
         let client = this.resolveDTO(dto, data)
         resolve(client)
       })).subscribe(() => {}, (err) => {reject(err)})
+    })
+  }
+
+  deleteLocation(id: number): Promise<void> {
+    let url = `${this.apiURL}/locations/${id}`
+    return new Promise((resolve, reject) => {
+      this.api.delete(url, this.requestOptions).subscribe(() => {
+        resolve()
+      }, err => reject(err))
     })
   }
 
@@ -237,7 +270,6 @@ export class DataAccessService {
   deleteComment(id: number): Promise<void> {
     let url = `${this.apiURL}/comments/${id}`
     return new Promise((resolve, reject) => {
-      console.log("comment to delete : ", id)
       this.api.delete(url, this.requestOptions).subscribe(() => {
         resolve()
       }, err => reject(err))

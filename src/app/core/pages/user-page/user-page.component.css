@@ -1,10 +1,11 @@
-#user-profile-image {
-  margin: auto;
-}
-
 #user-image-wrapper {
   display: flex;
   justify-content: center;
+  margin-bottom: 25px;
+}
+
+#user-profile-image {
+  margin: auto;
 }
 
 .section:not(:last-child) {

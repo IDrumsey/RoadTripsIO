@@ -60,14 +60,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSignInBtnClick(): void {
-    this.auth.attemptSignIn().then(signedIn => {
-      if(signedIn){
-        this.close.emit()
-      }
-      else{
-        // display error message
-        this.errorMessages.push("Sorry, incorrect credentials.")
-      }
+    this.auth.attemptSignIn().then(signedInUser => {
+      this.close.emit()
+    }, err => {
+      // display error message
+      this.errorMessages.push("Sorry, incorrect credentials.")
     })
   }
 }

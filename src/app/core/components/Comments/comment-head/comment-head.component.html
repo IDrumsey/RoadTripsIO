@@ -3,15 +3,20 @@
   <app-toolbar class="comment-options" [gap]="35">
     <app-icon-button
       [icon]="replyIcon"
+      [enabledMessage]="'Reply to this comment'"
       (buttonClick)="onReplyClick()"
     ></app-icon-button>
     <app-icon-button
+      *ngIf="isUserLoggedIn()"
       [icon]="reportIcon"
-      [disabled]="reported"
-      [disabledMessage]="'Comment already reported'"
+      [iconRegularColor]="reportBtnColor"
+      [iconHoverColor]="reportBtnHoverColor"
+      [enabledMessage]="getReportBtnHoverMsg()"
+      (buttonClick)="onReportBtnClick()"
     ></app-icon-button>
     <app-icon-button
       [icon]="detailsIcon"
+      [enabledMessage]="getDetailsBtnHoverMsg()"
       (buttonClick)="onDetailsClick()"
     ></app-icon-button>
     <app-icon-button
@@ -19,6 +24,7 @@
       [icon]="deleteIcon"
       [iconRegularColor]="deleteBtnColor"
       [iconHoverColor]="deleteBtnHoverColor"
+      [enabledMessage]="'Delete this comment'"
       (buttonClick)="onDeleteCommentBtnClick()"
     ></app-icon-button>
   </app-toolbar>

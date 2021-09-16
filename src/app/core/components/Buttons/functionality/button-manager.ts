@@ -51,7 +51,7 @@ export class ButtonManager {
     protected fgSelectColor: string | null
 
     protected defaultOpacity: number = 1
-    protected disabledOpacity: number = 0.8
+    protected disabledOpacity: number = 0.5
 
     // current styles
     fgColor: string
@@ -156,6 +156,25 @@ export class ButtonManager {
         this.opacity = this.defaultOpacity
     }
 
+    colorChangeHandler(): void {
+        // updates the current styles on the button when a color value changes
+        if(this.hovering){
+            if(this.fgHoverColor){
+                this.fgColor = this.fgHoverColor
+            }
+        }
+        else if(this.selected){
+            if(this.fgSelectColor){
+                this.fgColor = this.fgSelectColor
+            }
+        }
+        else{
+            if(this.fgDefaultColor){
+                this.fgColor = this.fgDefaultColor
+            }
+        }
+    }
+
     // state handlers
     protected onHoverStateHandler: Function = () => {
         this.hovering = true
@@ -211,5 +230,18 @@ export class ButtonManager {
         }
         this.watchingMouseEnter = true
         this.watchingMouseExit = true
+    }
+
+    titleChangeHandler(): void {
+        if(!this.disabled){
+            if(this.enabledTitle){
+                this.hoverTitle = this.enabledTitle
+            }
+        }
+        else{
+            if(this.disabledTitle){
+                this.hoverTitle = this.disabledTitle
+            }
+        }
     }
 }

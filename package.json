@@ -30,6 +30,7 @@
     "json-server": "^0.16.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
+    "ui-loaders": "0.0.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

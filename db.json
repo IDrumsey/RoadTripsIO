@@ -6,9 +6,10 @@
       "firstname": "Matthew",
       "lastname": "Orson",
       "email": "testemail1@email.test",
+      "locationsToVisitIds": [],
       "photo": "assets/images/pexels-elizabeth-zernetska-9292196.jpg",
-      "locationsToVisitIds": [
-        2
+      "reportedCommentIds": [
+        1
       ]
     },
     {
@@ -42,12 +43,25 @@
         3
       ],
       "stopIds": [
-        4,
         3,
-        1
+        1,
+        4
       ],
       "commentIds": [
+        2,
         1
+      ]
+    },
+    {
+      "id": 2,
+      "title": "test roadtrip 1",
+      "description": "test roadtrip desc",
+      "datePosted": "2021-09-07T17:45:22.555Z",
+      "ownerId": 1,
+      "collaboratorIds": [],
+      "stopIds": [],
+      "commentIds": [
+        3
       ]
     }
   ],
@@ -100,10 +114,10 @@
       ]
     },
     {
-      "title": "asdf",
-      "address": null,
-      "latitude": 43.50545389725432,
-      "longitude": -70.91741115175009,
+      "title": "test",
+      "address": "test",
+      "latitude": 42.24145062993487,
+      "longitude": -71.58766299806356,
       "photos": [],
       "id": 4
     }
@@ -116,6 +130,22 @@
       "replyIds": [],
       "parentCommentId": null,
       "ownerId": 2
+    },
+    {
+      "text": "test1",
+      "datePosted": "2021-09-07T17:05:59.933Z",
+      "replyIds": [],
+      "parentCommentId": null,
+      "ownerId": 1,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "text": "test",
+      "datePosted": "2021-09-07T17:45:30.575Z",
+      "replyIds": [],
+      "parentCommentId": null,
+      "ownerId": 1
     }
   ]
 }

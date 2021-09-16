@@ -16,17 +16,22 @@ export class AuthenticationService {
     this.currentlyLoggedInUser = null
   }
 
-  async attemptSignIn(): Promise<boolean> {
+  async attemptSignIn(): Promise<User> {
     console.log("checking creds")
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.api.getUser(1).subscribe(userFound => {
         // TODO
         if(userFound){
-          this.signUserIn(userFound)
-          resolve(true)
+          // load additional info
+          userFound.loadAdditionalData().then(() => {
+            this.signUserIn(userFound)
+            resolve(userFound)
+          }, err => {
+            reject(err)
+          })
         }
         else{
-          resolve(false)
+          reject("No user found")
         }
       })
     })
