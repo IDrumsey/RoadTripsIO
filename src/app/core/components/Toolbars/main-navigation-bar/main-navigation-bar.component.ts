@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBars, faRoute, faSignInAlt, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRoute, faSignInAlt, faSignOutAlt, faUser, faFlask } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class MainNavigationBarComponent implements OnInit {
   @Output() openLogin = new EventEmitter()
 
   toggleIcon = faBars;
-  otherIcons = [faUser, faRoute, faSignInAlt, faSignOutAlt]
+  otherIcons = [faUser, faRoute, faSignInAlt, faSignOutAlt, faFlask]
 
   routeToUserPage(): void {
     if(this.auth.currentlyLoggedInUser){
@@ -44,5 +44,9 @@ export class MainNavigationBarComponent implements OnInit {
 
   onSignOutBtnClick(): void {
     this.auth.signOut()
+  }
+
+  routeToExperimentPage(): void {
+    this.router.navigate(['test'])
   }
 }

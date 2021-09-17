@@ -1,5 +1,13 @@
 <app-expandable-toolbar [gap]="35" [isExpanded]="false">
   <app-circular-icon-button
+    [icon]="otherIcons[4]"
+    [iconSize]="'20px'"
+    [bgHoverColor]="'rgba(0,0,255,.2)'"
+    [padding]="20"
+    (buttonClick)="routeToExperimentPage()"
+  ></app-circular-icon-button>
+
+  <app-circular-icon-button
     *ngIf="isUserSignedIn()"
     [icon]="otherIcons[0]"
     [iconSize]="'20px'"

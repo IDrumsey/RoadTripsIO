@@ -65,11 +65,14 @@ import { SelectUsersFormComponent } from './core/components/Users/select-users-f
 import { NavURLComponent } from './core/components/nav-url/nav-url.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommentGroupComponent } from './core/components/Comments/comment-group/comment-group.component';
+import { IMapComponent } from './core/playground/i-map/i-map.component';
+import { TesterPageComponent } from './core/pages/tester-page/tester-page.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
   {path: 'users/:userId', component: UserPageComponent},
-  {path: '', component: BrowseRoadtripsPageComponent}
+  {path: '', component: BrowseRoadtripsPageComponent},
+  {path: 'test', component: TesterPageComponent}
 ]
 
 @NgModule({
@@ -121,7 +124,9 @@ const routes: Routes = [
     NewRoadtripFormComponent,
     SelectUsersFormComponent,
     NavURLComponent,
-    CommentGroupComponent
+    CommentGroupComponent,
+    IMapComponent,
+    TesterPageComponent
   ],
   imports: [
     BrowserModule,
