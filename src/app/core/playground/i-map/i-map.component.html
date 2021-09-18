@@ -1,3 +1,6 @@
-<google-map>
-    <map-marker *ngFor="let marker of markers" [position]="getMarkerPosition(marker)"></map-marker>
+<google-map #map>
+  <map-marker
+    *ngFor="let marker of markers"
+    [position]="getMarkerPosition(marker)"
+  ></map-marker>
 </google-map>
