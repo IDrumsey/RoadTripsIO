@@ -57,7 +57,6 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
     let actualMarkerClicked = this.markers.find(marker => marker == markerClicked)
     if(actualMarkerClicked){
       this.markerClick.emit(markerClicked)
-      this.selectMarker(markerClicked)
     }
   }
 
@@ -123,6 +122,8 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   }
 
   removeMarker(markerToRemove: google.maps.Marker): void {
+    // remove from selected array if there
+    this.unselectMarker(markerToRemove)
     let indexToRemove = this.markers.findIndex(tempMarker => tempMarker == markerToRemove)
     if(indexToRemove != -1) {
       this.markers.splice(indexToRemove, 1)
@@ -132,6 +133,13 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   selectMarker(markerToSelect: google.maps.Marker): void {
     this.selectedMarkers.push(markerToSelect)
     markerToSelect.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png")
+  }
+
+  unselectMarker(markerToUnselect: google.maps.Marker): void {
+    let indexOfMarker = this.selectedMarkers.indexOf(markerToUnselect)
+    if(indexOfMarker != -1){
+      this.selectedMarkers.splice(indexOfMarker, 1)
+    }
   }
 
   getMarkerOptions(marker: google.maps.Marker): google.maps.MarkerOptions {
@@ -147,7 +155,6 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
 
   updateMapOptions(): void {
     let options = this.generateMapOptions()
-    console.log(options)
     this.map.setOptions(options)
   }
 }

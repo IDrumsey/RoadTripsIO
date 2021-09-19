@@ -1,9 +1,23 @@
 <div class="i-map">
-  <app-i-map-ui #ui (mapClick)="onMapClick($event)"></app-i-map-ui>
-  <app-toolbar class="i-map-toolbar">
-    <app-icon-button
+  <app-i-map-ui
+    #ui
+    (mapClick)="onMapClick($event)"
+    (markerClick)="onMarkerClick($event)"
+  ></app-i-map-ui>
+  <app-toolbar class="i-map-toolbar" [gap]="25">
+    <app-icon-button-v2
+      #addButton
       [icon]="addMarkerIcon"
-      (buttonClick)="onAddMarkerButtonClick()"
-    ></app-icon-button>
+      [iconSize]="toolButtonSize"
+      [focusColor]="'#5fc97a'"
+      (clicked)="onAddMarkerButtonClick()"
+    ></app-icon-button-v2>
+    <app-icon-button-v2
+      #deleteButton
+      [icon]="deleteMarkerIcon"
+      [iconSize]="toolButtonSize"
+      [focusColor]="'#cc608d'"
+      (clicked)="onDeleteMarkerButtonClick()"
+    ></app-icon-button-v2>
   </app-toolbar>
 </div>

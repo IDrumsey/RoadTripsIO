@@ -68,6 +68,7 @@ import { CommentGroupComponent } from './core/components/Comments/comment-group/
 import { IMapUIComponent } from './core/components/Maps/i-map-ui/i-map-ui.component';
 import { TesterPageComponent } from './core/pages/tester-page/tester-page.component';
 import { IMapComponent } from './core/components/Maps/i-map/i-map.component';
+import { IconButtonV2Component } from './core/components/icon-button-v2/icon-button-v2.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -128,7 +129,8 @@ const routes: Routes = [
     CommentGroupComponent,
     IMapUIComponent,
     TesterPageComponent,
-    IMapComponent
+    IMapComponent,
+    IconButtonV2Component
   ],
   imports: [
     BrowserModule,

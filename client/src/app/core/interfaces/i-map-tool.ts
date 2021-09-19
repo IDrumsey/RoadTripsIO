@@ -1,3 +1,4 @@
 export interface IMapTool {
-    doWork(): void;
+    onSelect(): void;
+    onUnselect(): void;
 }
