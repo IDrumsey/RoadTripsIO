@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
-import { IMapService } from '../../services/maps/i-map.service';
+import { IMapService } from '../../../services/maps/i-map.service';
 
 @Component({
-  selector: 'app-i-map',
-  templateUrl: './i-map.component.html',
-  styleUrls: ['./i-map.component.css']
+  selector: 'app-i-map-ui',
+  templateUrl: './i-map-ui.component.html',
+  styleUrls: ['./i-map-ui.component.css']
 })
-export class IMapComponent implements OnInit, AfterViewInit {
+export class IMapUIComponent implements OnInit, AfterViewInit {
 
   constructor(private imapService: IMapService) { }
 
@@ -26,7 +26,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
     if(this.mapComponent.googleMap){
       this.map = this.mapComponent.googleMap
 
-      this.map.setOptions(this.generateMapOptions())
+      this.updateMapOptions()
     }
 
     this.fitAllMarkersInView()
@@ -39,7 +39,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   map: google.maps.Map
 
   // --------------------------------- STATE ---------------------------------
-  @Input() cursor: string
+  cursor: string
   @Input() defaultMarkerIcon: string = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
 
   // --------------------------------- EVENTS ---------------------------------
@@ -138,5 +138,16 @@ export class IMapComponent implements OnInit, AfterViewInit {
     return {
       icon: marker.getIcon() ? marker.getIcon() as string : this.defaultMarkerIcon
     }
+  }
+
+  changeCursor(cursor: string): void {
+    this.cursor = cursor
+    this.updateMapOptions()
+  }
+
+  updateMapOptions(): void {
+    let options = this.generateMapOptions()
+    console.log(options)
+    this.map.setOptions(options)
   }
 }

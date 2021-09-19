@@ -1,0 +1,9 @@
+<div class="i-map">
+  <app-i-map-ui #ui (mapClick)="onMapClick($event)"></app-i-map-ui>
+  <app-toolbar class="i-map-toolbar">
+    <app-icon-button
+      [icon]="addMarkerIcon"
+      (buttonClick)="onAddMarkerButtonClick()"
+    ></app-icon-button>
+  </app-toolbar>
+</div>

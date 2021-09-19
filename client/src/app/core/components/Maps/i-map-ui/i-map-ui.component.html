@@ -1,4 +1,4 @@
-<google-map #map (mapClick)="onMapClickEvent($event)">
+<google-map #map (mapClick)="onMapClickEvent($event)" [width]="'100%'">
   <map-marker
     *ngFor="let marker of markers"
     [position]="getMarkerPosition(marker)"

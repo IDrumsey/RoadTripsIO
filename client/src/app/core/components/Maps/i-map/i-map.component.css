@@ -1,0 +1,6 @@
+.i-map {
+  /* provides a gap between the map ui and toolbar */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
