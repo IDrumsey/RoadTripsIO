@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faDrawPolygon, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'src/app/core/interfaces/button';
 import { IMapTool } from 'src/app/core/interfaces/i-map-tool';
 import { AddMarkerTool } from 'src/app/core/models/i-map-tools/add-marker-tool';
 import { DeleteMarkerTool } from 'src/app/core/models/i-map-tools/delete-marker-tool';
-import { IconButtonV2Component } from '../../icon-button-v2/icon-button-v2.component';
+import { PolygonAreaTool } from 'src/app/core/models/i-map-tools/polygon-area-tool';
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
 
 @Component({
@@ -20,11 +20,11 @@ export class IMapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.UIComponent)
     if(this.UIComponent){
       // initialize tools that depend on the ui
       this.addMarkerTool = new AddMarkerTool(this.UIComponent, this.addMarkerButtonComponent)
       this.deleteMarkerTool = new DeleteMarkerTool(this.UIComponent, this.deleteMarkerButtonComponent)
+      this.polgyonAreaTool = new PolygonAreaTool(this.UIComponent, this.polygonAreaButtonComponent)
     }
   }
 
@@ -33,14 +33,17 @@ export class IMapComponent implements OnInit, AfterViewInit {
   @ViewChild('ui') UIComponent: IMapUIComponent
   @ViewChild('addButton') addMarkerButtonComponent: Button
   @ViewChild('deleteButton') deleteMarkerButtonComponent: Button
+  @ViewChild('polygonButton') polygonAreaButtonComponent: Button
 
   addMarkerTool: AddMarkerTool
   deleteMarkerTool: DeleteMarkerTool
+  polgyonAreaTool: PolygonAreaTool
 
   // ----- TOOLBAR BUTTON ICONS -----
 
   addMarkerIcon = faPlus
   deleteMarkerIcon = faTrashAlt
+  polygonAreaIcon = faDrawPolygon
 
   toolButtonSize = "20px"
 
@@ -53,27 +56,43 @@ export class IMapComponent implements OnInit, AfterViewInit {
   // --------------------------------- EVENT HANDLERS ---------------------------------
 
   onAddMarkerButtonClick(): void {
-    this.selectTool(this.addMarkerTool)
+    if(this.isToolActive(this.addMarkerTool)){
+      this.unselectTool(this.addMarkerTool)
+    }
+    else{
+      this.selectTool(this.addMarkerTool)
+      this.removeConflictingTools(this.addMarkerTool)
+    }
   }
 
   onDeleteMarkerButtonClick(): void {
-    if(this.UIComponent.selectedMarkers.length > 0){
-      let selectedMarkersCopy: google.maps.Marker[] = [...this.UIComponent.selectedMarkers]
-      this.deleteMarkerTool.deleteMarkers(selectedMarkersCopy)
+    if(this.isToolActive(this.deleteMarkerTool)){
+      this.unselectTool(this.deleteMarkerTool)
     }
     else{
-      try{
-        this.selectTool(this.deleteMarkerTool)
-        
-        // remove all of the conflicting tools
-        let conflictingTools: IMapTool[] = []
-        conflictingTools.forEach(conflictingTool => {
-          this.unselectTool(conflictingTool)
-        })
+      if(this.UIComponent.selectedMarkers.length > 0){
+        let selectedMarkersCopy: google.maps.Marker[] = [...this.UIComponent.selectedMarkers]
+        this.deleteMarkerTool.deleteMarkers(selectedMarkersCopy)
       }
-      catch(e){
-        console.log(e)
+      else{
+        try{
+          this.selectTool(this.deleteMarkerTool)
+          this.removeConflictingTools(this.deleteMarkerTool)
+        }
+        catch(e){
+          console.log(e)
+        }
       }
+    }
+  }
+
+  onPolygonAreaButtonClick(): void {
+    if(this.isToolActive(this.polgyonAreaTool)){
+      this.unselectTool(this.polgyonAreaTool)
+    }
+    else{
+      this.selectTool(this.polgyonAreaTool)
+      this.removeConflictingTools(this.polgyonAreaTool)
     }
   }
 
@@ -83,6 +102,12 @@ export class IMapComponent implements OnInit, AfterViewInit {
         case this.addMarkerTool: {
           this.addMarkerTool.doJob(coordinates)
           this.unselectTool(this.addMarkerTool)
+          break
+        }
+        
+        case this.polgyonAreaTool: {
+          this.polgyonAreaTool.addPoint(coordinates)
+          break
         }
       }
     })
@@ -90,7 +115,12 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   onMarkerClick(markerClicked: google.maps.Marker): void {
     if(this.selectedTools.length == 0){
-      this.UIComponent.selectMarker(markerClicked)
+      if(this.UIComponent.markerIsSelected(markerClicked)){
+        this.UIComponent.unselectMarker(markerClicked)
+      }
+      else{
+        this.UIComponent.selectMarker(markerClicked)
+      }
     }
 
     this.selectedTools.forEach(tool => {
@@ -131,5 +161,34 @@ export class IMapComponent implements OnInit, AfterViewInit {
     else{
       throw 'Tool already unselected'
     }
+  }
+
+  isToolActive(tool: IMapTool): boolean {
+    let index = this.selectedTools.indexOf(tool)
+
+    return index == -1 ? false : true
+  }
+
+  removeConflictingTools(toolToActivate: IMapTool): void {
+    let toolsToDeactivate: IMapTool[] = []
+
+    switch(toolToActivate){
+      case this.addMarkerTool: {
+        toolsToDeactivate = [this.polgyonAreaTool]
+        break;
+      }
+      case this.deleteMarkerTool: {
+        toolsToDeactivate = []
+        break;
+      }
+      case this.polgyonAreaTool: {
+        toolsToDeactivate = [this.addMarkerTool]
+        break;
+      }
+    }
+
+    toolsToDeactivate.forEach(toolToDeactivate => {
+      this.unselectTool(toolToDeactivate)
+    })
   }
 }

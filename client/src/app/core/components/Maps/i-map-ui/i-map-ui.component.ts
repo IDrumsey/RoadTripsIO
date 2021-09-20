@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
+import { IMapMarkerColor } from 'src/app/core/models/imap/i-map-marker-color';
 import { IMapService } from '../../../services/maps/i-map.service';
 
 @Component({
@@ -35,6 +36,8 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   // --------------------------------- PROPERTIES ---------------------------------
   markers: google.maps.Marker[] = []
   selectedMarkers: google.maps.Marker[] = []
+  polygons: google.maps.Polygon[] = []
+
   @ViewChild("map") private mapComponent: GoogleMap
   map: google.maps.Map
 
@@ -132,13 +135,14 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
 
   selectMarker(markerToSelect: google.maps.Marker): void {
     this.selectedMarkers.push(markerToSelect)
-    markerToSelect.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png")
+    markerToSelect.setIcon(IMapMarkerColor.Blue)
   }
 
   unselectMarker(markerToUnselect: google.maps.Marker): void {
     let indexOfMarker = this.selectedMarkers.indexOf(markerToUnselect)
     if(indexOfMarker != -1){
       this.selectedMarkers.splice(indexOfMarker, 1)
+      markerToUnselect.setIcon(IMapMarkerColor.Red)
     }
   }
 
@@ -156,5 +160,35 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   updateMapOptions(): void {
     let options = this.generateMapOptions()
     this.map.setOptions(options)
+  }
+
+  markerIsSelected(marker: google.maps.Marker): boolean {
+    let index = this.selectedMarkers.indexOf(marker)
+    return index == -1 ? false : true
+  }
+
+  findPolygon(polygon: google.maps.Polygon): google.maps.Polygon | undefined {
+    let polygonFound = this.polygons.find(tempPolygon => tempPolygon == polygon)
+    return polygonFound ? polygonFound : undefined
+  }
+
+  addPolygon(polygon: google.maps.Polygon): void {
+    if(this.findPolygon(polygon)){
+      throw 'Polygon already exists on map'
+    }
+    else{
+      this.polygons.push(polygon)
+    }
+  }
+
+  removePolygon(polygonToRemove: google.maps.Polygon): void {
+    let indexToRemove = this.polygons.indexOf(polygonToRemove)
+
+    if(indexToRemove != -1){
+      this.polygons.splice(indexToRemove)
+    }
+    else{
+      throw "Polygon does not exist on map"
+    }
   }
 }

@@ -144,7 +144,6 @@ export class IMapManager {
     }
 
     onMarkerEnter(coord: google.maps.LatLngLiteral): void {
-        console.log("marker enter")
         let marker = this.findMarker(coord)
 
         if(marker){
@@ -250,7 +249,6 @@ export class IMapManager {
 
     findMarker(coord: google.maps.LatLngLiteral): google.maps.Marker | undefined {
         return this.markers.find(marker => {
-            console.log(marker)
             let pos = marker.getPosition() as google.maps.LatLng
             let tempCoord: google.maps.LatLngLiteral = {
                 lat: pos.lat(),

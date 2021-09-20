@@ -1,8 +1,14 @@
 <google-map #map (mapClick)="onMapClickEvent($event)" [width]="'100%'">
+  <!-- Markers -->
   <map-marker
     *ngFor="let marker of markers"
     [position]="getMarkerPosition(marker)"
     [options]="getMarkerOptions(marker)"
     (mapClick)="onMarkerClick(marker)"
   ></map-marker>
+  <!-- Polygons -->
+  <map-polygon
+    *ngFor="let polygon of polygons"
+    [paths]="polygon.getPath()"
+  ></map-polygon>
 </google-map>
