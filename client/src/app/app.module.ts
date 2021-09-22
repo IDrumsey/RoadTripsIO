@@ -69,12 +69,15 @@ import { IMapUIComponent } from './core/components/Maps/i-map-ui/i-map-ui.compon
 import { TesterPageComponent } from './core/pages/tester-page/tester-page.component';
 import { IMapComponent } from './core/components/Maps/i-map/i-map.component';
 import { IconButtonV2Component } from './core/components/icon-button-v2/icon-button-v2.component';
+import { IndividualRoadtripPageComponent } from './core2/pages/individual-roadtrip-page/individual-roadtrip-page.component';
+import { NotificationComponent } from './core2/components/notifications/notification/notification.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
   {path: 'users/:userId', component: UserPageComponent},
   {path: '', component: BrowseRoadtripsPageComponent},
-  {path: 'test', component: TesterPageComponent}
+  {path: 'test', component: TesterPageComponent},
+  {path: 'rt', component: IndividualRoadtripPageComponent}
 ]
 
 @NgModule({
@@ -130,7 +133,9 @@ const routes: Routes = [
     IMapUIComponent,
     TesterPageComponent,
     IMapComponent,
-    IconButtonV2Component
+    IconButtonV2Component,
+    IndividualRoadtripPageComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

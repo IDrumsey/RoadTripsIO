@@ -1,0 +1,9 @@
+<div
+  class="notification"
+  [ngStyle]="getStyles()"
+  (click)="signal_clicked()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+>
+  <p class="notification-text">{{ text }}</p>
+</div>

@@ -13,11 +13,6 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   constructor(private imapService: IMapService) { }
 
   ngOnInit(): void {
-    this.markers.push(
-      new google.maps.Marker({position: {lat: 42.548336429673455, lng: -72.46051052640635}}),
-      new google.maps.Marker({position: {lat: 40.548336429673455, lng: -70.46051052640635}})
-      )
-
     this.selectedMarkers.forEach(selectedMarker => {
       this.selectMarker(selectedMarker)
     })
@@ -88,14 +83,18 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
       let literal: google.maps.LatLngLiteral = {lat: markerPosition.lat(), lng: markerPosition.lng()}
       return literal
     })
-    let westCoordinate = this.imapService.getFurthestWestCoordinate(coordinates)
-    let eastCoordinate = this.imapService.getFurthestEastCoordinate(coordinates)
-    let northCoordinate = this.imapService.getFurthestNorthCoordinate(coordinates)
-    let southCoordinate = this.imapService.getFurthestSouthCoordinate(coordinates)
 
-    let bounds = new google.maps.LatLngBounds({lat: westCoordinate.lat, lng: southCoordinate.lng}, {lat: eastCoordinate.lat, lng: northCoordinate.lng})
+    if(coordinates.length > 0){
+      let westCoordinate = this.imapService.getFurthestWestCoordinate(coordinates)
+      let eastCoordinate = this.imapService.getFurthestEastCoordinate(coordinates)
+      let northCoordinate = this.imapService.getFurthestNorthCoordinate(coordinates)
+      let southCoordinate = this.imapService.getFurthestSouthCoordinate(coordinates)
 
-    return bounds
+      return new google.maps.LatLngBounds({lat: westCoordinate.lat, lng: southCoordinate.lng}, {lat: eastCoordinate.lat, lng: northCoordinate.lng})
+    }
+    else{
+      return new google.maps.LatLngBounds({lat: 5.131768357473487, lng: -129.35439460739414}, {lat: 60.21652070431071, lng: 12.237400247890385})
+    }
   }
 
   private generateMapOptions(): google.maps.MapOptions {
@@ -119,8 +118,9 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
     }
   }
 
-  addMarker(markerToAdd: google.maps.Marker): void {
+  addMarker(markerToAdd: google.maps.Marker): google.maps.Marker {
     this.markers.push(markerToAdd)
+    return markerToAdd
   }
 
   removeMarker(markerToRemove: google.maps.Marker): boolean {

@@ -1,7 +1,7 @@
 import { IMapUIComponent } from "../../components/Maps/i-map-ui/i-map-ui.component";
-import { IMapMarkerFactory } from "../../imap/i-map-marker-factory";
-import { Button } from "../../interfaces/button";
-import { IMapTool } from "../../interfaces/i-map-tool";
+import { IMapMarkerFactory } from "../../../core2/factories/i-map-marker-factory";
+import { Button } from "../../../core2/interfaces/button";
+import { IMapTool } from "../../../core2/interfaces/i-map-tool";
 import { IMapMarkerColor } from "../imap/i-map-marker-color";
 
 export class AddMarkerTool implements IMapTool {
@@ -24,8 +24,8 @@ export class AddMarkerTool implements IMapTool {
         this.button.unselect()
     }
 
-    doJob(position: google.maps.LatLng): void {
+    doJob(position: google.maps.LatLng): google.maps.Marker {
         let markerToAdd = this.markerFactory.generateMarker(position, IMapMarkerColor.Red)
-        this.mapUI.addMarker(markerToAdd)
+        return this.mapUI.addMarker(markerToAdd)
     }
 }

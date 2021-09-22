@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { AppColors } from '../../data/models/app-colors';
-import { Button } from '../../interfaces/button';
+import { Button } from '../../../core2/interfaces/button';
 
 @Component({
   selector: 'app-icon-button-v2[icon]',

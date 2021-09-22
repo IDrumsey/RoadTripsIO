@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { faDrawPolygon, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Button } from 'src/app/core/interfaces/button';
-import { IMapTool } from 'src/app/core/interfaces/i-map-tool';
+import { Button } from 'src/app/core2/interfaces/button';
+import { IMapTool } from "src/app/core2/interfaces/i-map-tool";
 import { AddMarkerTool } from 'src/app/core/models/i-map-tools/add-marker-tool';
 import { DeleteMarkerTool } from 'src/app/core/models/i-map-tools/delete-marker-tool';
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
@@ -91,7 +91,8 @@ export class IMapComponent implements OnInit, AfterViewInit {
     this.selectedTools.forEach(tool => {
       switch(tool){
         case this.addMarkerTool: {
-          this.addMarkerTool.doJob(coordinates)
+          let markerAdded = this.addMarkerTool.doJob(coordinates)
+          this.signal_markerAdded(markerAdded)
           this.unselectTool(this.addMarkerTool)
           break
         }
@@ -112,7 +113,9 @@ export class IMapComponent implements OnInit, AfterViewInit {
     this.selectedTools.forEach(tool => {
       switch(tool){
         case this.deleteMarkerTool: {
-          this.deleteMarkerTool.deleteMarker(markerClicked)
+          if(this.deleteMarkerTool.deleteMarker(markerClicked)){
+            this.signal_markerDeleted(markerClicked)
+          }
           this.unselectTool(this.deleteMarkerTool)
           break
         }
@@ -123,6 +126,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
   // --------------------------------- SIGNLERS ---------------------------------
   signal_markerAdded(markerAdded: google.maps.Marker): void {
     this.markerAdded.emit(markerAdded)
+  }
+
+  signal_markerDeleted(markerDeleted: google.maps.Marker): void {
+    this.markerDeleted.emit(markerDeleted)
   }
 
   // --------------------------------- FUNCTIONALITY ---------------------------------
