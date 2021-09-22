@@ -4,7 +4,6 @@ import { Button } from 'src/app/core/interfaces/button';
 import { IMapTool } from 'src/app/core/interfaces/i-map-tool';
 import { AddMarkerTool } from 'src/app/core/models/i-map-tools/add-marker-tool';
 import { DeleteMarkerTool } from 'src/app/core/models/i-map-tools/delete-marker-tool';
-import { PolygonAreaTool } from 'src/app/core/models/i-map-tools/polygon-area-tool';
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
 
 @Component({
@@ -24,7 +23,6 @@ export class IMapComponent implements OnInit, AfterViewInit {
       // initialize tools that depend on the ui
       this.addMarkerTool = new AddMarkerTool(this.UIComponent, this.addMarkerButtonComponent)
       this.deleteMarkerTool = new DeleteMarkerTool(this.UIComponent, this.deleteMarkerButtonComponent)
-      this.polgyonAreaTool = new PolygonAreaTool(this.UIComponent, this.polygonAreaButtonComponent)
     }
   }
 
@@ -37,7 +35,6 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   addMarkerTool: AddMarkerTool
   deleteMarkerTool: DeleteMarkerTool
-  polgyonAreaTool: PolygonAreaTool
 
   // ----- TOOLBAR BUTTON ICONS -----
 
@@ -52,6 +49,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   // --------------------------------- EVENTS ---------------------------------
   @Output() markerAdded = new EventEmitter<google.maps.Marker>()
+  @Output() markerDeleted = new EventEmitter<google.maps.Marker>()
 
   // --------------------------------- EVENT HANDLERS ---------------------------------
 
@@ -72,7 +70,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
     else{
       if(this.UIComponent.selectedMarkers.length > 0){
         let selectedMarkersCopy: google.maps.Marker[] = [...this.UIComponent.selectedMarkers]
-        this.deleteMarkerTool.deleteMarkers(selectedMarkersCopy)
+        let markersSuccessfullyDeleted = this.deleteMarkerTool.deleteMarkers(selectedMarkersCopy)
+        markersSuccessfullyDeleted.forEach(deletedMarker => {
+          this.markerDeleted.emit(deletedMarker)
+        })
       }
       else{
         try{
@@ -86,27 +87,12 @@ export class IMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onPolygonAreaButtonClick(): void {
-    if(this.isToolActive(this.polgyonAreaTool)){
-      this.unselectTool(this.polgyonAreaTool)
-    }
-    else{
-      this.selectTool(this.polgyonAreaTool)
-      this.removeConflictingTools(this.polgyonAreaTool)
-    }
-  }
-
   onMapClick(coordinates: google.maps.LatLng): void {
     this.selectedTools.forEach(tool => {
       switch(tool){
         case this.addMarkerTool: {
           this.addMarkerTool.doJob(coordinates)
           this.unselectTool(this.addMarkerTool)
-          break
-        }
-        
-        case this.polgyonAreaTool: {
-          this.polgyonAreaTool.addPoint(coordinates)
           break
         }
       }
@@ -174,15 +160,11 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
     switch(toolToActivate){
       case this.addMarkerTool: {
-        toolsToDeactivate = [this.polgyonAreaTool]
+        toolsToDeactivate = []
         break;
       }
       case this.deleteMarkerTool: {
         toolsToDeactivate = []
-        break;
-      }
-      case this.polgyonAreaTool: {
-        toolsToDeactivate = [this.addMarkerTool]
         break;
       }
     }

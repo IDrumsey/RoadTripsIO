@@ -6,9 +6,4 @@
     [options]="getMarkerOptions(marker)"
     (mapClick)="onMarkerClick(marker)"
   ></map-marker>
-  <!-- Polygons -->
-  <map-polygon
-    *ngFor="let polygon of polygons"
-    [paths]="polygon.getPath()"
-  ></map-polygon>
 </google-map>

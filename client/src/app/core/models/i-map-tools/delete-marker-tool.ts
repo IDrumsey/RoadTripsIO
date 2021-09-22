@@ -19,13 +19,19 @@ export class DeleteMarkerTool implements IMapTool {
         this.button.unselect()
     }
 
-    deleteMarker(marker: google.maps.Marker): void {
-        this.mapUI.removeMarker(marker)
+    deleteMarker(marker: google.maps.Marker): boolean {
+        return this.mapUI.removeMarker(marker)
     }
 
-    deleteMarkers(markers: google.maps.Marker[]): void {
+    deleteMarkers(markers: google.maps.Marker[]): google.maps.Marker[] {
+        let markersDeleted: google.maps.Marker[] = []
+
         markers.forEach(markerToDelete => {
-            this.deleteMarker(markerToDelete)
+            if(this.deleteMarker(markerToDelete)){
+                markersDeleted.push(markerToDelete)
+            }
         })
+
+        return markersDeleted
     }
 }

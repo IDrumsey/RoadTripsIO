@@ -36,7 +36,6 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   // --------------------------------- PROPERTIES ---------------------------------
   markers: google.maps.Marker[] = []
   selectedMarkers: google.maps.Marker[] = []
-  polygons: google.maps.Polygon[] = []
 
   @ViewChild("map") private mapComponent: GoogleMap
   map: google.maps.Map
@@ -124,13 +123,17 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
     this.markers.push(markerToAdd)
   }
 
-  removeMarker(markerToRemove: google.maps.Marker): void {
+  removeMarker(markerToRemove: google.maps.Marker): boolean {
+    let startingLength = this.markers.length
+
     // remove from selected array if there
     this.unselectMarker(markerToRemove)
     let indexToRemove = this.markers.findIndex(tempMarker => tempMarker == markerToRemove)
     if(indexToRemove != -1) {
       this.markers.splice(indexToRemove, 1)
     }
+
+    return this.markers.length == startingLength - 1 ? true : false
   }
 
   selectMarker(markerToSelect: google.maps.Marker): void {
@@ -165,30 +168,5 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   markerIsSelected(marker: google.maps.Marker): boolean {
     let index = this.selectedMarkers.indexOf(marker)
     return index == -1 ? false : true
-  }
-
-  findPolygon(polygon: google.maps.Polygon): google.maps.Polygon | undefined {
-    let polygonFound = this.polygons.find(tempPolygon => tempPolygon == polygon)
-    return polygonFound ? polygonFound : undefined
-  }
-
-  addPolygon(polygon: google.maps.Polygon): void {
-    if(this.findPolygon(polygon)){
-      throw 'Polygon already exists on map'
-    }
-    else{
-      this.polygons.push(polygon)
-    }
-  }
-
-  removePolygon(polygonToRemove: google.maps.Polygon): void {
-    let indexToRemove = this.polygons.indexOf(polygonToRemove)
-
-    if(indexToRemove != -1){
-      this.polygons.splice(indexToRemove)
-    }
-    else{
-      throw "Polygon does not exist on map"
-    }
   }
 }
