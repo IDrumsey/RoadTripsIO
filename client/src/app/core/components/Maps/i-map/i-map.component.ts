@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { faDrawPolygon, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { faDrawPolygon, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'src/app/core2/interfaces/button';
 import { IMapTool } from "src/app/core2/interfaces/i-map-tool";
-import { AddMarkerTool } from 'src/app/core/models/i-map-tools/add-marker-tool';
-import { DeleteMarkerTool } from 'src/app/core/models/i-map-tools/delete-marker-tool';
+import { AddMarkerTool } from 'src/app/core2/components/imap/i-map-tools/add-marker-tool';
+import { DeleteMarkerTool } from 'src/app/core2/components/imap/i-map-tools/delete-marker-tool';
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
+import { ZoomOnMarkerTool } from 'src/app/core2/components/imap/i-map-tools/zoom-on-marker-tool';
+import { NotificationManagerComponent } from 'src/app/core2/components/notifications/notification-manager/notification-manager.component';
 
 @Component({
   selector: 'app-i-map',
@@ -23,6 +25,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
       // initialize tools that depend on the ui
       this.addMarkerTool = new AddMarkerTool(this.UIComponent, this.addMarkerButtonComponent)
       this.deleteMarkerTool = new DeleteMarkerTool(this.UIComponent, this.deleteMarkerButtonComponent)
+      this.zoomMarkerTool = new ZoomOnMarkerTool(this.UIComponent, this.zoomInOnMarkerButtonComponent)
     }
   }
 
@@ -32,15 +35,20 @@ export class IMapComponent implements OnInit, AfterViewInit {
   @ViewChild('addButton') addMarkerButtonComponent: Button
   @ViewChild('deleteButton') deleteMarkerButtonComponent: Button
   @ViewChild('polygonButton') polygonAreaButtonComponent: Button
+  @ViewChild('zoomMarkerButton') zoomInOnMarkerButtonComponent: Button
 
   addMarkerTool: AddMarkerTool
   deleteMarkerTool: DeleteMarkerTool
+  zoomMarkerTool: ZoomOnMarkerTool
+
+  @ViewChild('noteManager') notificationManager: NotificationManagerComponent
 
   // ----- TOOLBAR BUTTON ICONS -----
 
   addMarkerIcon = faPlus
   deleteMarkerIcon = faTrashAlt
   polygonAreaIcon = faDrawPolygon
+  zoomMarkerIcon = faSearchLocation
 
   toolButtonSize = "20px"
 
@@ -87,6 +95,30 @@ export class IMapComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onZoomInOnMarkerButtonClick(): void {
+    if(this.isToolActive(this.zoomMarkerTool)){
+      this.unselectTool(this.zoomMarkerTool)
+    }
+    else{
+      if(this.UIComponent.selectedMarkers.length == 0){
+        this.selectTool(this.zoomMarkerTool)
+        this.removeConflictingTools(this.zoomMarkerTool)
+      }
+      else{
+        if(this.UIComponent.selectedMarkers.length > 1){
+          let tooManySelectedNote = this.notificationManager.createNotification("Can only zoom in on 1 marker", {
+            bgColor: "#e7f03e",
+            textColor: "#000"
+          })
+          this.notificationManager.addTempNotification(tooManySelectedNote, 5)
+        }
+        else{
+          this.zoomMarkerTool.zoomInOnMarker(this.UIComponent.selectedMarkers[0])
+        }
+      }
+    }
+  }
+
   onMapClick(coordinates: google.maps.LatLng): void {
     this.selectedTools.forEach(tool => {
       switch(tool){
@@ -117,6 +149,11 @@ export class IMapComponent implements OnInit, AfterViewInit {
             this.signal_markerDeleted(markerClicked)
           }
           this.unselectTool(this.deleteMarkerTool)
+          break
+        }
+        case this.zoomMarkerTool: {
+          this.zoomMarkerTool.zoomInOnMarker(markerClicked)
+          this.unselectTool(this.zoomMarkerTool)
           break
         }
       }
@@ -172,6 +209,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
       }
       case this.deleteMarkerTool: {
         toolsToDeactivate = []
+        break;
+      }
+      case this.zoomMarkerTool: {
+        toolsToDeactivate = [this.deleteMarkerTool]
         break;
       }
     }

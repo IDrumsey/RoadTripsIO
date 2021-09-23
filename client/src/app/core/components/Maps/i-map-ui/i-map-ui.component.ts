@@ -139,6 +139,7 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   selectMarker(markerToSelect: google.maps.Marker): void {
     this.selectedMarkers.push(markerToSelect)
     markerToSelect.setIcon(IMapMarkerColor.Blue)
+    this.bounceMarker(this.markers[0])
   }
 
   unselectMarker(markerToUnselect: google.maps.Marker): void {
@@ -150,9 +151,10 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   }
 
   getMarkerOptions(marker: google.maps.Marker): google.maps.MarkerOptions {
-    return {
-      icon: marker.getIcon() ? marker.getIcon() as string : this.defaultMarkerIcon
+    let options = {
+      icon: marker.getIcon() ? marker.getIcon() as string : this.defaultMarkerIcon,
     }
+    return options
   }
 
   changeCursor(cursor: string): void {
@@ -168,5 +170,12 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   markerIsSelected(marker: google.maps.Marker): boolean {
     let index = this.selectedMarkers.indexOf(marker)
     return index == -1 ? false : true
+  }
+
+  bounceMarker(marker: google.maps.Marker): void {
+    marker.setAnimation(google.maps.Animation.BOUNCE)
+      setTimeout(() => {
+          marker.setAnimation(null)
+      }, 700)
   }
 }

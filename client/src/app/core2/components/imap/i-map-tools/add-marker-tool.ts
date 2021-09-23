@@ -1,8 +1,8 @@
-import { IMapUIComponent } from "../../components/Maps/i-map-ui/i-map-ui.component";
-import { IMapMarkerFactory } from "../../../core2/factories/i-map-marker-factory";
-import { Button } from "../../../core2/interfaces/button";
-import { IMapTool } from "../../../core2/interfaces/i-map-tool";
-import { IMapMarkerColor } from "../imap/i-map-marker-color";
+import { IMapUIComponent } from "../../../../core/components/Maps/i-map-ui/i-map-ui.component";
+import { IMapMarkerFactory } from "../../../factories/i-map-marker-factory";
+import { Button } from "../../../interfaces/button";
+import { IMapTool } from "../../../interfaces/i-map-tool";
+import { IMapMarkerColor } from "../../../../core/models/imap/i-map-marker-color";
 
 export class AddMarkerTool implements IMapTool {
     constructor(mapUI: IMapUIComponent, button: Button){

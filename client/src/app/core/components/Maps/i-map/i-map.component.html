@@ -19,5 +19,13 @@
       [focusColor]="'#cc608d'"
       (clicked)="onDeleteMarkerButtonClick()"
     ></app-icon-button-v2>
+    <app-icon-button-v2
+      #zoomMarkerButton
+      [icon]="zoomMarkerIcon"
+      [iconSize]="toolButtonSize"
+      [focusColor]="'#42a1f5'"
+      (clicked)="onZoomInOnMarkerButtonClick()"
+    ></app-icon-button-v2>
   </app-toolbar>
 </div>
+<app-notification-manager #noteManager></app-notification-manager>
