@@ -26,6 +26,13 @@
       [focusColor]="'#42a1f5'"
       (clicked)="onZoomInOnMarkerButtonClick()"
     ></app-icon-button-v2>
+    <app-icon-button-v2
+      #expandMapButton
+      [icon]="expandMapIcon"
+      [iconSize]="toolButtonSize"
+      [focusColor]="'#f0f763'"
+      (clicked)="onZoomOutBtnClick()"
+    ></app-icon-button-v2>
   </app-toolbar>
 </div>
 <app-notification-manager #noteManager></app-notification-manager>

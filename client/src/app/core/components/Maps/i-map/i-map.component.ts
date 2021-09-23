@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { faDrawPolygon, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faDrawPolygon, faExpandArrowsAlt, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'src/app/core2/interfaces/button';
 import { IMapTool } from "src/app/core2/interfaces/i-map-tool";
 import { AddMarkerTool } from 'src/app/core2/components/imap/i-map-tools/add-marker-tool';
@@ -49,6 +49,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   deleteMarkerIcon = faTrashAlt
   polygonAreaIcon = faDrawPolygon
   zoomMarkerIcon = faSearchLocation
+  expandMapIcon = faExpandArrowsAlt
 
   toolButtonSize = "20px"
 
@@ -117,6 +118,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+
+  onZoomOutBtnClick(): void {
+    this.UIComponent.fitAllMarkersInView()
   }
 
   onMapClick(coordinates: google.maps.LatLng): void {
