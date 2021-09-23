@@ -71,6 +71,7 @@ import { IMapComponent } from './core/components/Maps/i-map/i-map.component';
 import { IconButtonV2Component } from './core/components/icon-button-v2/icon-button-v2.component';
 import { IndividualRoadtripPageComponent } from './core2/pages/individual-roadtrip-page/individual-roadtrip-page.component';
 import { NotificationComponent } from './core2/components/notifications/notification/notification.component';
+import { NotificationManagerComponent } from './core2/components/notifications/notification-manager/notification-manager.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -135,7 +136,8 @@ const routes: Routes = [
     IMapComponent,
     IconButtonV2Component,
     IndividualRoadtripPageComponent,
-    NotificationComponent
+    NotificationComponent,
+    NotificationManagerComponent
   ],
   imports: [
     BrowserModule,

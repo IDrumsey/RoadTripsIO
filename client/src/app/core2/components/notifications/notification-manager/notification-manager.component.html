@@ -1,0 +1,10 @@
+<div class="notification-manager">
+  <app-notification
+    *ngFor="let notification of notifications"
+    class="notification"
+    [text]="notification.message"
+    [bgColor]="notification.bgColor"
+    [textColor]="notification.textColor"
+    (clicked)="onNotificationClick(notification)"
+  ></app-notification>
+</div>

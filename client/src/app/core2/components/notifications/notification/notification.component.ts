@@ -29,23 +29,22 @@ export class NotificationComponent implements OnInit {
   hovering = false
 
   // -------------------------------- STYLES --------------------------------
-  @Input() bgBlurColor = AppColors.elevation3
-  @Input() bgFocusColor = AppColors.elevation2
-  @Input() textBlurColor = AppColors.onColorLight
-  @Input() textFocusColor = AppColors.onColorLighter
+  @Input() bgColor: string
+  @Input() textColor: string
 
   getStyles(): {} {
-    let bgColor = this.bgBlurColor
-    let textColor = this.textBlurColor
+    let bgColor = this.bgColor
+    let textColor = this.textColor
+    let opacity = 0.75
     if(this.hovering){
-      bgColor = this.bgFocusColor
-      textColor = this.textFocusColor
+      opacity = 1
     }
     return {
       backgroundColor: bgColor,
       color: textColor,
-      fontSize: "25px",
-      fontFamily: AppFonts.Handwriting
+      fontSize: "20px",
+      fontFamily: AppFonts.Handwriting,
+      opacity: opacity
     }
   }
 

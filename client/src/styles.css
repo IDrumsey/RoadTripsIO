@@ -68,7 +68,9 @@ body {
 
 app-image-gallery,
 .inline-text,
-app-login-form {
+app-login-form,
+app-notification,
+app-notification-manager {
   display: inline-block;
 }
 

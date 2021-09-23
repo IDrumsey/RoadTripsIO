@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
 
 @Component({
   selector: 'app-individual-roadtrip-page',
@@ -12,14 +13,22 @@ export class IndividualRoadtripPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // --------------------------- DATA ---------------------------
+
+  @ViewChild('NotificationManager') notificationManager: NotificationManagerComponent
+
   // --------------------------- EVENTS ---------------------------
   
   // --------------------------- EVENT HANDLERS ---------------------------
   onMarkerAdded(markerAdded: google.maps.Marker): void {
-    console.log("marker added to map : ", markerAdded)
+    let note = this.notificationManager.createNotification('Marker added', {bgColor: '#218a55'})
+
+    this.notificationManager.addTempNotification(note, 3)
   }
 
   onMarkerDeleted(markerDeleted: google.maps.Marker): void {
-    console.log("marker deleted to map : ", markerDeleted)
+    let note = this.notificationManager.createNotification('Marker deleted', {bgColor: '#8a203c'})
+
+    this.notificationManager.addTempNotification(note, 3)
   }
 }

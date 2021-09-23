@@ -1,0 +1,9 @@
+.notification-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification {
+  width: 100%;
+}

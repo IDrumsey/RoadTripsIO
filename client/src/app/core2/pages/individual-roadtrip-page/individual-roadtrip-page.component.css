@@ -1,0 +1,7 @@
+#page-notification-manager {
+  width: 30%;
+  position: absolute;
+  bottom: 10px;
+  left: 25px;
+  z-index: 10;
+}

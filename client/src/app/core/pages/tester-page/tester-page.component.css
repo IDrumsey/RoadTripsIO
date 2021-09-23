@@ -1,7 +1,7 @@
-#notification {
+#notifications {
   position: absolute;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 25px;
-  width: 90%;
+  width: 80%;
 }
