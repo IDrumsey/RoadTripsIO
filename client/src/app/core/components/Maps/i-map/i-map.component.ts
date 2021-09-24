@@ -7,6 +7,7 @@ import { DeleteMarkerTool } from 'src/app/core2/components/imap/i-map-tools/dele
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
 import { ZoomOnMarkerTool } from 'src/app/core2/components/imap/i-map-tools/zoom-on-marker-tool';
 import { NotificationManagerComponent } from 'src/app/core2/components/notifications/notification-manager/notification-manager.component';
+import { AppColors } from 'src/app/core/data/models/app-colors';
 
 @Component({
   selector: 'app-i-map',
@@ -108,8 +109,8 @@ export class IMapComponent implements OnInit, AfterViewInit {
       else{
         if(this.UIComponent.selectedMarkers.length > 1){
           let tooManySelectedNote = this.notificationManager.createNotification("Can only zoom in on 1 marker", {
-            bgColor: "#e7f03e",
-            textColor: "#000"
+            bgColor: "rgba(0, 0, 0, 0)",
+            textColor: AppColors.onColorLighter
           })
           this.notificationManager.addTempNotification(tooManySelectedNote, 5)
         }
@@ -213,7 +214,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
         break;
       }
       case this.deleteMarkerTool: {
-        toolsToDeactivate = []
+        toolsToDeactivate = [this.zoomMarkerTool]
         break;
       }
       case this.zoomMarkerTool: {

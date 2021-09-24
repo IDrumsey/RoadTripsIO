@@ -1,3 +1,3 @@
 - add bounce animation to the new imap marker
 
-- add map zoom out tool
+add notifications to i map

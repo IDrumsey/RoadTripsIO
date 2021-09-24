@@ -4,3 +4,7 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.i-map-notification-manager {
+  width: 100%;
+}

@@ -35,4 +35,8 @@
     ></app-icon-button-v2>
   </app-toolbar>
 </div>
-<app-notification-manager #noteManager></app-notification-manager>
+<app-notification-manager
+  class="i-map-notification-manager"
+  #noteManager
+  [exclusive]="true"
+></app-notification-manager>

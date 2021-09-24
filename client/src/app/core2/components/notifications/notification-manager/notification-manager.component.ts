@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Notification } from '../notification';
 import { NotificationFactory } from '../notification-factory';
 import { NotificationOptions } from '../notification-options';
@@ -20,6 +20,9 @@ export class NotificationManagerComponent implements OnInit {
   // ------------------------------- DATA -------------------------------
 
   notifications: Notification[] = []
+
+  // ------------------------------- STATE -------------------------------
+  @Input() exclusive = false
 
   // ------------------------------- EVENTS -------------------------------
 
@@ -45,6 +48,11 @@ export class NotificationManagerComponent implements OnInit {
   // ------------------------------- FUNCTIONALITY -------------------------------
 
   addNotification(notification: Notification): void {
+    if(this.exclusive){
+      this.notifications.forEach(note => {
+        this.removeNotification(note)
+      })
+    }
     this.notifications.push(notification)
     this.signal_notificationAdded(notification)
   }
