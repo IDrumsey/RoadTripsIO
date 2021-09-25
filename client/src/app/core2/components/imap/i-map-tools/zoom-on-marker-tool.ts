@@ -1,8 +1,8 @@
 import { IMapUIComponent } from "src/app/core/components/Maps/i-map-ui/i-map-ui.component";
 import { Button } from "src/app/core2/interfaces/button";
-import { IMapTool } from "src/app/core2/interfaces/i-map-tool";
+import { ButtonTool } from "src/app/core2/interfaces/button-tool";
 
-export class ZoomOnMarkerTool implements IMapTool {
+export class ZoomOnMarkerTool implements ButtonTool {
     constructor(mapUI: IMapUIComponent, button: Button){
         this.mapUI = mapUI
         this.button = button

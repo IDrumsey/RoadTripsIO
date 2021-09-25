@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
 
 @Component({
@@ -8,9 +9,10 @@ import { NotificationManagerComponent } from '../../components/notifications/not
 })
 export class IndividualRoadtripPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataLoader: DataAccessService) { }
 
   ngOnInit(): void {
+    this.loadData()
   }
 
   // --------------------------- DATA ---------------------------
@@ -30,5 +32,14 @@ export class IndividualRoadtripPageComponent implements OnInit {
     let note = this.notificationManager.createNotification('Marker deleted', {bgColor: '#8a203c'})
 
     this.notificationManager.addTempNotification(note, 3)
+  }
+
+  // --------------------------- FUNCTIONALITY ---------------------------
+  loadData(): Promise<void> {
+    return new Promise((resolve) => {
+      this.dataLoader.getAllRoadtripStops().subscribe(stopsFound => {
+        console.log(stopsFound)
+      })
+    })
   }
 }

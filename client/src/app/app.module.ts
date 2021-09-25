@@ -72,6 +72,9 @@ import { IconButtonV2Component } from './core/components/icon-button-v2/icon-but
 import { IndividualRoadtripPageComponent } from './core2/pages/individual-roadtrip-page/individual-roadtrip-page.component';
 import { NotificationComponent } from './core2/components/notifications/notification/notification.component';
 import { NotificationManagerComponent } from './core2/components/notifications/notification-manager/notification-manager.component';
+import { StopCardComponent } from './core2/components/stop-card/stop-card.component';
+import { ExpandableToolbar2Component } from './core2/components/toolbars/expandable-toolbar2/expandable-toolbar2.component';
+import { ButtonAliasComponent } from './core2/components/buttons/button-alias/button-alias.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -137,7 +140,10 @@ const routes: Routes = [
     IconButtonV2Component,
     IndividualRoadtripPageComponent,
     NotificationComponent,
-    NotificationManagerComponent
+    NotificationManagerComponent,
+    StopCardComponent,
+    ExpandableToolbar2Component,
+    ButtonAliasComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,20 @@
-<app-notification-manager id="notifications" #notes></app-notification-manager>
+<app-expandable-toolbar2
+  id="tool-bar"
+  [expandDirection]="toolbarExpandDirection"
+>
+  <app-icon-button-v2
+    #toggle
+    [icon]="icon"
+    [focusColor]="'#5fc97a'"
+  ></app-icon-button-v2>
+  <app-icon-button-v2
+    #toggle
+    [icon]="icon2"
+    [focusColor]="'#5fc97a'"
+  ></app-icon-button-v2>
+  <app-icon-button-v2
+    #toggle
+    [icon]="icon3"
+    [focusColor]="'#5fc97a'"
+  ></app-icon-button-v2>
+</app-expandable-toolbar2>

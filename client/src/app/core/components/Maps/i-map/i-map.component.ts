@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { faDrawPolygon, faExpandArrowsAlt, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'src/app/core2/interfaces/button';
-import { IMapTool } from "src/app/core2/interfaces/i-map-tool";
+import { ButtonTool } from "src/app/core2/interfaces/button-tool";
 import { AddMarkerTool } from 'src/app/core2/components/imap/i-map-tools/add-marker-tool';
 import { DeleteMarkerTool } from 'src/app/core2/components/imap/i-map-tools/delete-marker-tool';
 import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
@@ -55,7 +55,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   toolButtonSize = "20px"
 
   // --------------------------------- STATE ---------------------------------
-  selectedTools: IMapTool[] = []
+  selectedTools: ButtonTool[] = []
 
   // --------------------------------- EVENTS ---------------------------------
   @Output() markerAdded = new EventEmitter<google.maps.Marker>()
@@ -176,7 +176,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   }
 
   // --------------------------------- FUNCTIONALITY ---------------------------------
-  selectTool(tool: IMapTool): void {
+  selectTool(tool: ButtonTool): void {
     // check if already selected
     let foundTool = this.selectedTools.find(tempTool => tempTool == tool)
     if(!foundTool){
@@ -188,7 +188,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  unselectTool(tool: IMapTool): void {
+  unselectTool(tool: ButtonTool): void {
     let indexOfTool = this.selectedTools.indexOf(tool)
     if(indexOfTool != -1){
       this.selectedTools.splice(indexOfTool, 1)
@@ -199,14 +199,14 @@ export class IMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  isToolActive(tool: IMapTool): boolean {
+  isToolActive(tool: ButtonTool): boolean {
     let index = this.selectedTools.indexOf(tool)
 
     return index == -1 ? false : true
   }
 
-  removeConflictingTools(toolToActivate: IMapTool): void {
-    let toolsToDeactivate: IMapTool[] = []
+  removeConflictingTools(toolToActivate: ButtonTool): void {
+    let toolsToDeactivate: ButtonTool[] = []
 
     switch(toolToActivate){
       case this.addMarkerTool: {

@@ -1,8 +1,8 @@
 import { IMapUIComponent } from "../../../../core/components/Maps/i-map-ui/i-map-ui.component"
 import { Button } from "../../../interfaces/button"
-import { IMapTool } from "../../../interfaces/i-map-tool"
+import { ButtonTool } from "../../../interfaces/button-tool"
 
-export class DeleteMarkerTool implements IMapTool {
+export class DeleteMarkerTool implements ButtonTool {
     constructor(mapUI: IMapUIComponent, button: Button){
         this.mapUI = mapUI
         this.button = button

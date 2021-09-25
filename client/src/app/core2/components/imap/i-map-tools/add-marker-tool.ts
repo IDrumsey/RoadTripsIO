@@ -1,10 +1,10 @@
 import { IMapUIComponent } from "../../../../core/components/Maps/i-map-ui/i-map-ui.component";
 import { IMapMarkerFactory } from "../../../factories/i-map-marker-factory";
 import { Button } from "../../../interfaces/button";
-import { IMapTool } from "../../../interfaces/i-map-tool";
+import { ButtonTool } from "../../../interfaces/button-tool";
 import { IMapMarkerColor } from "../../../../core/models/imap/i-map-marker-color";
 
-export class AddMarkerTool implements IMapTool {
+export class AddMarkerTool implements ButtonTool {
     constructor(mapUI: IMapUIComponent, button: Button){
         this.mapUI = mapUI
         this.button = button

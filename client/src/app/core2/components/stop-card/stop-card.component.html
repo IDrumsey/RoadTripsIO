@@ -1,0 +1,20 @@
+<div class="stop-card">
+  <div class="stop-card-head">
+    <h5 class="stop-card-title">Title</h5>
+    <div class="stop-card-head-tools">
+      <app-expandable-toolbar>
+        <app-icon-button-v2
+          #toggle
+          [icon]="expandHeadToolsIcon"
+          [iconSize]="toolButtonSize"
+          [focusColor]="'#f0f763'"
+        ></app-icon-button-v2>
+        <app-icon-button-v2
+          [icon]="detailsIcon"
+          [iconSize]="toolButtonSize"
+          [focusColor]="'#f0f763'"
+        ></app-icon-button-v2>
+      </app-expandable-toolbar>
+    </div>
+  </div>
+</div>

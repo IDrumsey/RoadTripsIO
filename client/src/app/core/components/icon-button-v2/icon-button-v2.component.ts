@@ -1,19 +1,28 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef, ElementRef } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { AppColors } from '../../data/models/app-colors';
 import { Button } from '../../../core2/interfaces/button';
+import { ButtonAliasComponent } from 'src/app/core2/components/buttons/button-alias/button-alias.component';
 
 @Component({
   selector: 'app-icon-button-v2[icon]',
   templateUrl: './icon-button-v2.component.html',
-  styleUrls: ['./icon-button-v2.component.css']
+  styleUrls: ['./icon-button-v2.component.css'],
+  providers: [{
+    provide: ButtonAliasComponent,
+    useExisting: forwardRef(() => IconButtonV2Component)
+  }]
 })
 export class IconButtonV2Component implements OnInit, Button {
 
-  constructor() { }
+  constructor(elementRef: ElementRef) {
+    this.element = elementRef
+  }
 
   ngOnInit(): void {
   }
+
+  element: ElementRef
 
   // ------------------------------ STATE ------------------------------
 
@@ -66,4 +75,7 @@ export class IconButtonV2Component implements OnInit, Button {
     this.selected = false
   }
 
+  getElement(): ElementRef {
+    return this.element
+  }
 }

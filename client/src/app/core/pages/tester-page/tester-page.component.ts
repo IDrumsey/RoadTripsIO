@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { faEllipsisV, faInfo, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NotificationManagerComponent } from 'src/app/core2/components/notifications/notification-manager/notification-manager.component';
+import { ExpandDirections } from '../../components/models/Toolbars/expand-directions';
 
 @Component({
   selector: 'app-tester-page',
@@ -14,18 +16,12 @@ export class TesterPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let newNote = this.noteManager.createNotification("this is a notification", {
-      bgColor: "#f00"
-    })
 
-    this.noteManager.addTempNotification(newNote, 2);
-
-    let newNote2 = this.noteManager.createNotification("this is a notification 2", {
-      bgColor: "#00f"
-    })
-
-    this.noteManager.addTempNotification(newNote2, 5);
   }
 
-  @ViewChild('notes') noteManager: NotificationManagerComponent
+  icon = faEllipsisV
+  icon2 = faUser
+  icon3 = faInfo
+
+  toolbarExpandDirection = ExpandDirections.Left
 }

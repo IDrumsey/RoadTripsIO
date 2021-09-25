@@ -5,3 +5,7 @@
   transform: translateX(-50%);
   width: 80%;
 }
+
+#tool-bar {
+  float: right;
+}
