@@ -7,4 +7,6 @@
   #NotificationManager
 ></app-notification-manager>
 <!-- Stops -->
-<app-stop-card></app-stop-card>
+<div class="roadtrip-stops">
+  <app-stop-card *ngFor="let stop of stops" [stop]="stop"></app-stop-card>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
 
@@ -19,6 +20,8 @@ export class IndividualRoadtripPageComponent implements OnInit {
 
   @ViewChild('NotificationManager') notificationManager: NotificationManagerComponent
 
+  stops: RoadtripStop[] = []
+
   // --------------------------- EVENTS ---------------------------
   
   // --------------------------- EVENT HANDLERS ---------------------------
@@ -38,7 +41,11 @@ export class IndividualRoadtripPageComponent implements OnInit {
   loadData(): Promise<void> {
     return new Promise((resolve) => {
       this.dataLoader.getAllRoadtripStops().subscribe(stopsFound => {
-        console.log(stopsFound)
+        stopsFound.forEach(stop => {
+          stop.loadAdditionalData().then(() => {
+            this.stops.push(stop)
+          })
+        })
       })
     })
   }

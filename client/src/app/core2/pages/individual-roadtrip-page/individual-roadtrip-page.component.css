@@ -5,3 +5,9 @@
   left: 25px;
   z-index: 10;
 }
+
+.roadtrip-stops {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}

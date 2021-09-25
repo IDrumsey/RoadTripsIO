@@ -1,0 +1,26 @@
+.stop-card-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stop-card-head-tools {
+  margin-left: auto;
+  min-width: fit-content;
+}
+
+.stop-card-title {
+  margin-bottom: 0;
+}
+
+.stop-card-title,
+.stop-card-head-tools {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.stop-card-title::-webkit-scrollbar,
+.stop-card-head-tools::-webkit-scrollbar {
+  display: none;
+}

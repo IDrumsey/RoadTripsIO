@@ -1,11 +1,20 @@
-<div class="stop-card">
-  <div class="stop-card-head">
-    <h5 class="stop-card-title">Title</h5>
+<div class="stop-card" [ngStyle]="getCardStyles()">
+  <div class="stop-card-head" [ngStyle]="getHeadWrapperStyles()">
+    <h5 class="stop-card-title" [ngStyle]="getTitleStyles()">
+      {{ stop.location.title }}
+    </h5>
     <div class="stop-card-head-tools">
-      <app-expandable-toolbar>
+      <app-expandable-toolbar2
+        #headToolbar
+        [expandDirection]="headToolbarExpandDirection"
+        [isExpanded]="headToolbarInitialExpandedState"
+        [gap]="'25px'"
+        (expanded)="onHeadToolbarExpand()"
+        (collapsed)="onHeadToolbarCollapse()"
+      >
         <app-icon-button-v2
           #toggle
-          [icon]="expandHeadToolsIcon"
+          [icon]="headToolbarToggleIcon"
           [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
         ></app-icon-button-v2>
@@ -14,7 +23,7 @@
           [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
         ></app-icon-button-v2>
-      </app-expandable-toolbar>
+      </app-expandable-toolbar2>
     </div>
   </div>
 </div>
