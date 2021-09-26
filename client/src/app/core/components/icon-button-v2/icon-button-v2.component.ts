@@ -22,12 +22,16 @@ export class IconButtonV2Component implements OnInit, Button {
   ngOnInit(): void {
   }
 
+  // ------------------------------ DATA ------------------------------
   element: ElementRef
+  @Input() enabledTooltip: string
+  @Input() disabledTooltip: string
 
   // ------------------------------ STATE ------------------------------
 
   @Input() selected = false
   hovering = false;
+  @Input() disabled = false
 
   // ------------------------------ STYLES ------------------------------
 
@@ -36,15 +40,24 @@ export class IconButtonV2Component implements OnInit, Button {
   @Input() blurColor: string = AppColors.onColorLight
   @Input() focusColor: string = AppColors.onContrastGreen
 
+  enabledOpacity = 1
+  disabledOpacity = .8
+
   getStyles(): {} {
     let color = this.blurColor
     if(this.selected || this.hovering){
       color = this.focusColor
     }
 
+    let opacity = this.disabled ? this.disabledOpacity : this.enabledOpacity
+
+    let cursor = this.disabled ? "auto" : "pointer"
+
     return {
       color: color,
-      fontSize: this.iconSize
+      fontSize: this.iconSize,
+      opacity: opacity,
+      cursor: cursor
     }
   }
 
@@ -54,15 +67,21 @@ export class IconButtonV2Component implements OnInit, Button {
   // ------------------------------ EVENT HANDLERS ------------------------------
 
   onMouseEnter(): void {
-    this.hovering = true
+    if(!this.disabled){
+      this.hovering = true
+    }
   }
 
   onMouseExit(): void {
-    this.hovering = false
+    if(!this.disabled){
+      this.hovering = false
+    }
   }
 
   onMouseClick(): void {
-    this.clicked.emit()
+    if(!this.disabled){
+      this.clicked.emit()
+    }
   }
 
   // ------------------------------ FUNCTIONALITY ------------------------------
@@ -77,5 +96,14 @@ export class IconButtonV2Component implements OnInit, Button {
 
   getElement(): ElementRef {
     return this.element
+  }
+
+  getToolTip(): string {
+    if(this.disabled){
+      return this.disabledTooltip
+    }
+    else{
+      return this.enabledTooltip
+    }
   }
 }

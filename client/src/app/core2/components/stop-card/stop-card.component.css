@@ -24,3 +24,29 @@
 .stop-card-head-tools::-webkit-scrollbar {
   display: none;
 }
+
+.stop-card-details-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.stop-card-details-main-title {
+  font-size: 15px;
+}
+
+.stop-card-details-subtitle {
+  margin-left: auto;
+  font-size: 15px;
+}
+
+.stop-card-details-main-title,
+.stop-card-details-subtitle,
+.stop-card-details-description {
+  margin-bottom: 0;
+}
+
+.stop-card-details-description {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}

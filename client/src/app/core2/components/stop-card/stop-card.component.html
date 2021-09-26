@@ -17,13 +17,44 @@
           [icon]="headToolbarToggleIcon"
           [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
+          [enabledTooltip]="headToolbarToggleButtonTooltip"
         ></app-icon-button-v2>
         <app-icon-button-v2
           [icon]="detailsIcon"
           [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
+          [enabledTooltip]="toggleDetailsButtonTooltip()"
+          (clicked)="onToggleDetailsButtonClick()"
         ></app-icon-button-v2>
       </app-expandable-toolbar2>
+    </div>
+  </div>
+  <div
+    class="stop-card-details"
+    *ngIf="showingDetails"
+    [ngStyle]="getDetailStyles()"
+  >
+    <div class="stop-card-details-top">
+      <fa-icon [icon]="getTypeIcon()"></fa-icon>
+      <h5 *ngIf="stop.location.address" class="stop-card-details-main-title">
+        {{ getDetailsMainTitle() }}
+      </h5>
+      <p class="stop-card-details-subtitle">
+        {{ getDetailsSubtitle() }}
+      </p>
+    </div>
+    <div class="stop-card-details-middle">
+      <p class="stop-card-details-description" *ngIf="stop.description">
+        {{ stop.description }}
+      </p>
+    </div>
+    <div class="stop-card-details-bottom">
+      <app-image-gallery>
+        <app-image
+          *ngFor="let photo of stop.location.photos"
+          [filePath]="photo"
+        ></app-image>
+      </app-image-gallery>
     </div>
   </div>
 </div>

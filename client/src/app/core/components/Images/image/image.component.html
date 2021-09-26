@@ -4,14 +4,15 @@
     [src]="getFilePath()"
     [ngStyle]="getImageStyles()"
   />
-  <app-icon-button
+  <app-icon-button-v2
     class="report-image-button"
     [icon]="reportIcon"
-    [iconRegularColor]="reportColor"
-    [iconHoverColor]="reportHoverColor"
-    [iconSize]="'100%'"
-    (buttonClick)="reportImage()"
     [disabled]="reported"
-    [disabledMessage]="'Already reported!'"
-  ></app-icon-button>
+    [enabledTooltip]="'Report image'"
+    [disabledTooltip]="'Already reported!'"
+    [iconSize]="'100%'"
+    [blurColor]="reportColor"
+    [focusColor]="reportHoverColor"
+    (clicked)="reportImage()"
+  ></app-icon-button-v2>
 </div>
