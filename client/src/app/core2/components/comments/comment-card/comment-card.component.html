@@ -1,0 +1,46 @@
+<div #card class="comment-card">
+  <div class="comment-card-head" [ngStyle]="headStyles()">
+    <div class="comment-card-head-main">
+      <app-user-profile-image
+        *ngIf="hasProfileImage()"
+        [path]="comment.owner.photo"
+        [size]="'35px'"
+      ></app-user-profile-image>
+      <div class="comment-card-text-wrapper" [ngStyle]="textWrapperStyles()">
+        <p class="comment-card-text" [ngStyle]="textStyles()">
+          {{ comment.text }}
+        </p>
+      </div>
+      <div class="comment-card-toolbar-wrapper">
+        <app-expandable-toolbar2
+          [expandDirection]="toolsExpandDirection"
+          [gap]="'25px'"
+        >
+          <app-icon-button-v2
+            #toggle
+            [icon]="toggleButtonIcon()"
+            [focusColor]="'#8c8b8b'"
+          ></app-icon-button-v2>
+          <app-icon-button-v2
+            [icon]="reportIcon"
+            [focusColor]="'#ffec45'"
+          ></app-icon-button-v2>
+          <app-icon-button-v2
+            [icon]="detailsIcon"
+            [focusColor]="'#aa4fe3'"
+          ></app-icon-button-v2>
+        </app-expandable-toolbar2>
+      </div>
+    </div>
+    <div class="comment-card-head-bottom">
+      <p
+        *ngIf="viewInitialized && displayShowAllButton()"
+        class="comment-card-show-all-button"
+        (click)="onShowAllTextButtonClick()"
+      >
+        {{ toggleOverflowTextButtonText() }}
+      </p>
+    </div>
+  </div>
+  <div class="comment-card-details"></div>
+</div>

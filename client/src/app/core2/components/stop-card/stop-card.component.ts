@@ -117,7 +117,7 @@ export class StopCardComponent implements OnInit {
   }
 
   getDetailsMainTitle(): string {
-      return this.stop.location.address
+      return this.stop.location.address ? this.stop.location.address : this.stop.location.title
   }
 
   getDetailsSubtitle(): string {
