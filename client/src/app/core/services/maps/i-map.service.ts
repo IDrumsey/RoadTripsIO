@@ -50,4 +50,8 @@ export class IMapService {
     }
     return coordinates.reduce(reducerFunction)
   }
+
+  compareCoordinates(coordinateA: google.maps.LatLng, coordinateB: google.maps.LatLng): boolean {
+    return (coordinateA?.lat() == coordinateB.lat() && coordinateA.lng() == coordinateB.lng())
+  }
 }

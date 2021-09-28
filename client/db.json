@@ -42,12 +42,12 @@
       ],
       "stopIds": [
         3,
-        1,
-        4
+        1
       ],
       "commentIds": [
         2,
-        1
+        1,
+        4
       ]
     },
     {
@@ -73,11 +73,6 @@
       "locationId": 3,
       "description": "Good pizza place near the Atlantic",
       "id": 3
-    },
-    {
-      "locationId": 4,
-      "description": null,
-      "id": 4
     }
   ],
   "locations": [
@@ -112,12 +107,12 @@
       ]
     },
     {
+      "id": 4,
       "title": "test",
       "address": "test",
       "latitude": 42.24145062993487,
       "longitude": -71.58766299806356,
-      "photos": [],
-      "id": 4
+      "photos": []
     }
   ],
   "comments": [
@@ -141,9 +136,85 @@
       "id": 3,
       "text": "asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf alsdkjh flksd alsadl fadsf asdf asd f lksdajf asd fdasjfk asdfj; asdf;l jads;jf ;asd fdsjafkhdashf lhdaslkfh alsdkjh flksd alsadl fadsf",
       "datePosted": "2021-09-07T17:45:30.575Z",
-      "replyIds": [],
+      "replyIds": [
+        6,
+        7,
+        8
+      ],
       "parentCommentId": null,
       "ownerId": 1
+    },
+    {
+      "id": 4,
+      "text": "kfkjhsa dflk haslkdfh lkasjdh fkljas hdlkfjh laskjdh flkjahsdlkf hlaskdjf hlkajs dlkfj alsdkfhlkajsdhlf kjasdkfj hkasjdhfkjdshalfkjd hsalkfhkajsdhfkj ashldkf haksdjfhkasjd hfkjshaldkfhlaskdhfiwuaehfiuhsadfuh u afi hasidf hasu dhfh asldkfhlaksdfh lkasdh fl khasldfkhs adf kfkjhsa dflk haslkdfh lkasjdh fkljas hdlkfjh laskjdh flkjahsdlkf hlaskdjf hlkajs dlkfj alsdkfhlkajsdhlf kjasdkfj hkasjdhfkjdshalfkjd hsalkfhkajsdhfkj ashldkf haksdjfhkasjd hfkjshaldkfhlaskdhfiwuaehfiuhsadfuh u afi hasidf hasu dhfh asldkfhlaksdfh lkasdh fl khasldfkhs adf kfkjhsa dflk haslkdfh lkasjdh fkljas hdlkfjh laskjdh flkjahsdlkf hlaskdjf hlkajs dlkfj alsdkfhlkajsdhlf kjasdkfj hkasjdhfkjdshalfkjd hsalkfhkajsdhfkj ashldkf haksdjfhkasjd hfkjshaldkfhlaskdhfiwuaehfiuhsadfuh u afi hasidf hasu dhfh asldkfhlaksdfh lkasdh fl khasldfkhs adf kfkjhsa dflk haslkdfh lkasjdh fkljas hdlkfjh laskjdh flkjahsdlkf hlaskdjf hlkajs dlkfj alsdkfhlkajsdhlf kjasdkfj hkasjdhfkjdshalfkjd hsalkfhkajsdhfkj ashldkf haksdjfhkasjd hfkjshaldkfhlaskdhfiwuaehfiuhsadfuh u afi hasidf hasu dhfh asldkfhlaksdfh lkasdh fl khasldfkhs adf",
+      "datePosted": "2021-09-28T18:29:58.786Z",
+      "replyIds": [
+        5
+      ],
+      "parentCommentId": null,
+      "ownerId": 1
+    },
+    {
+      "text": "this is a reply",
+      "datePosted": "2021-09-28T18:36:51.208Z",
+      "replyIds": [],
+      "parentCommentId": 4,
+      "ownerId": 1,
+      "id": 5
+    },
+    {
+      "text": "this is also a reply",
+      "datePosted": "2021-09-28T18:37:22.456Z",
+      "replyIds": [],
+      "parentCommentId": 3,
+      "ownerId": 1,
+      "id": 6
+    },
+    {
+      "id": 7,
+      "text": "test1",
+      "datePosted": "2021-09-28T18:45:56.365Z",
+      "replyIds": [
+        9
+      ],
+      "parentCommentId": 3,
+      "ownerId": 1
+    },
+    {
+      "id": 8,
+      "text": "test2",
+      "datePosted": "2021-09-28T18:46:01.657Z",
+      "replyIds": [
+        10
+      ],
+      "parentCommentId": 3,
+      "ownerId": 1
+    },
+    {
+      "id": 9,
+      "text": "test3",
+      "datePosted": "2021-09-28T18:46:05.321Z",
+      "replyIds": [
+        11
+      ],
+      "parentCommentId": 7,
+      "ownerId": 1
+    },
+    {
+      "text": "test4",
+      "datePosted": "2021-09-28T18:46:09.469Z",
+      "replyIds": [],
+      "parentCommentId": 8,
+      "ownerId": 1,
+      "id": 10
+    },
+    {
+      "text": "test5",
+      "datePosted": "2021-09-28T18:46:13.481Z",
+      "replyIds": [],
+      "parentCommentId": 9,
+      "ownerId": 1,
+      "id": 11
     }
   ]
 }

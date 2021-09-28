@@ -76,6 +76,7 @@ import { StopCardComponent } from './core2/components/stop-card/stop-card.compon
 import { ExpandableToolbar2Component } from './core2/components/toolbars/expandable-toolbar2/expandable-toolbar2.component';
 import { ButtonAliasComponent } from './core2/components/buttons/button-alias/button-alias.component';
 import { CommentCardComponent } from './core2/components/comments/comment-card/comment-card.component';
+import { CommentThreadComponent } from './core2/components/comments/comment-thread/comment-thread.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
@@ -145,7 +146,8 @@ const routes: Routes = [
     StopCardComponent,
     ExpandableToolbar2Component,
     ButtonAliasComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    CommentThreadComponent
   ],
   imports: [
     BrowserModule,

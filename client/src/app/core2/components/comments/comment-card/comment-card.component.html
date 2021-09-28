@@ -28,6 +28,7 @@
           <app-icon-button-v2
             [icon]="detailsIcon"
             [focusColor]="'#aa4fe3'"
+            (clicked)="onToggleDetailsButtonClick()"
           ></app-icon-button-v2>
         </app-expandable-toolbar2>
       </div>
@@ -42,5 +43,22 @@
       </p>
     </div>
   </div>
-  <div class="comment-card-details"></div>
+  <div
+    *ngIf="showingDetails"
+    class="comment-card-details"
+    [ngStyle]="detailsStyles()"
+  >
+    <div class="comment-card-details-date-time">
+      <div class="comment-card-details-bar">
+        <div class="comment-card-details-date">
+          <fa-icon [icon]="dateIcon"></fa-icon>
+          <p class="comment-posted-date">{{ getDate() }}</p>
+        </div>
+        <div class="comment-card-details-time">
+          <fa-icon [icon]="timeIcon"></fa-icon>
+          <p class="comment-posted-time">{{ getTime() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

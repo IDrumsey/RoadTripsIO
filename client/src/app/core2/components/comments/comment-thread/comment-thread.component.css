@@ -1,0 +1,4 @@
+.comment-thread {
+  display: flex;
+  flex-direction: column;
+}

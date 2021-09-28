@@ -12,5 +12,6 @@ export enum AppColors {
     onContrastRed = "#ed4a57",
     onContrastDarkRed = "rgba(232, 53, 58, 0.75)",
     onContrastGreen = "rgba(78, 181, 140)",
-    onContrastDarkGreen = "rgba(78, 181, 140, 0.75)"
+    onContrastDarkGreen = "rgba(78, 181, 140, 0.75)",
+    lightGrey = "#e0e0e0"
 }

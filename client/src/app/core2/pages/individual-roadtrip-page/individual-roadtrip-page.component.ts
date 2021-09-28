@@ -1,6 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { IMapComponent } from 'src/app/core/components/Maps/i-map/i-map.component';
+import { AppColors } from 'src/app/core/data/models/app-colors';
+import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
+import { AbstractDataAccessService } from 'src/app/core/services/data/abstract-data-access.service';
 import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
 
 @Component({
@@ -8,19 +12,38 @@ import { NotificationManagerComponent } from '../../components/notifications/not
   templateUrl: './individual-roadtrip-page.component.html',
   styleUrls: ['./individual-roadtrip-page.component.css']
 })
-export class IndividualRoadtripPageComponent implements OnInit {
+export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataLoader: DataAccessService) { }
+  constructor(private dataLoader: AbstractDataAccessService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.loadData()
+    this.loadData().then(() => {
+      this.dataLoaded = true
+      if(this.viewInitialized){
+        this.initializeMap()
+      }
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.viewInitialized = true
+    this.changeDetector.detectChanges()
+    if(this.dataLoaded){
+      this.initializeMap()
+    }
   }
 
   // --------------------------- DATA ---------------------------
 
   @ViewChild('NotificationManager') notificationManager: NotificationManagerComponent
+  @ViewChild('map') map: IMapComponent
 
-  stops: RoadtripStop[] = []
+  roadtrip: Roadtrip
+  dataLoaded = false
+
+  // --------------------------- STATE ---------------------------
+
+  viewInitialized = false
 
   // --------------------------- EVENTS ---------------------------
   
@@ -37,16 +60,46 @@ export class IndividualRoadtripPageComponent implements OnInit {
     this.notificationManager.addTempNotification(note, 3)
   }
 
+  onStopCardSeeOnMapButtonClick(stop: RoadtripStop): void {
+    // find the marker
+    let latlng = new google.maps.LatLng(stop.location.coordinates.latitude, stop.location.coordinates.longitude)
+    let markerFound = this.map.findMarker(latlng)
+    if(markerFound){
+      this.map.zoomMarkerTool.zoomInOnMarker(markerFound)
+    }
+  }
+
   // --------------------------- FUNCTIONALITY ---------------------------
   loadData(): Promise<void> {
     return new Promise((resolve) => {
-      this.dataLoader.getAllRoadtripStops().subscribe(stopsFound => {
-        stopsFound.forEach(stop => {
-          stop.loadAdditionalData().then(() => {
-            this.stops.push(stop)
-          })
-        })
+      this.dataLoader.getRoadtripById(1).then(roadtrip => {
+        this.roadtrip = roadtrip
+        resolve()
       })
+    })
+  }
+
+  // --------------------------- STYLES ---------------------------
+
+  sectionTitleStyles(): {} {
+    return {
+      fontFamily: AppFonts.Handwriting,
+      fontSize: "25px",
+      fontWeight: "bold",
+      color: AppColors.onColorLighter
+    }
+  }
+
+  initializeMap(): void {
+    this.addInitialStopsToMap()
+  }
+
+  addInitialStopsToMap(): void {
+    this.roadtrip.stops.forEach(stop => {
+      // convert coordinates to latlng
+      let latlng = new google.maps.LatLng(stop.location.coordinates.latitude, stop.location.coordinates.longitude)
+      // add to map
+      this.map.addMarkerByCoordinates(latlng)
     })
   }
 }

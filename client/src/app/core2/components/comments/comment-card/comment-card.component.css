@@ -35,3 +35,19 @@
 .comment-card-show-all-button:hover {
   color: #599eb3;
 }
+
+.comment-card-details-bar {
+  display: flex;
+  gap: 25px;
+}
+
+.comment-card-details-date,
+.comment-card-details-time {
+  display: flex;
+  gap: 10px;
+}
+
+.comment-posted-date,
+.comment-posted-time {
+  margin-bottom: 0;
+}

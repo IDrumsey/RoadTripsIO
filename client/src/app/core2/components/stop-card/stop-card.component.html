@@ -26,6 +26,20 @@
           [enabledTooltip]="toggleDetailsButtonTooltip()"
           (clicked)="onToggleDetailsButtonClick()"
         ></app-icon-button-v2>
+        <app-icon-button-v2
+          [icon]="deleteIcon"
+          [iconSize]="toolButtonSize"
+          [focusColor]="'#e35656'"
+          [enabledTooltip]="'Delete this stop'"
+          (clicked)="onDeleteButtonClick()"
+        ></app-icon-button-v2>
+        <app-icon-button-v2
+          [icon]="seeOnMapIcon"
+          [iconSize]="toolButtonSize"
+          [focusColor]="'#48b569'"
+          [enabledTooltip]="'See on map'"
+          (clicked)="onSeeOnMapButtonClick()"
+        ></app-icon-button-v2>
       </app-expandable-toolbar2>
     </div>
   </div>

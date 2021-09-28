@@ -1,9 +1,10 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDay, faClock, faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { Comment } from 'src/app/core/data2/models/client/comment';
+import { CalendarService } from 'src/app/core/services/utilities/calendar.service';
 
 @Component({
   selector: 'app-comment-card',
@@ -12,7 +13,7 @@ import { Comment } from 'src/app/core/data2/models/client/comment';
 })
 export class CommentCardComponent implements OnInit, AfterViewInit {
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(private changeDetector: ChangeDetectorRef, private calendarService: CalendarService) { }
 
   ngOnInit(): void {
   }
@@ -43,11 +44,19 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   // ------------------------------------ EVENT HANDLERS ------------------------------------
 
+  onToggleDetailsButtonClick(): void {
+    this.toggleDetails()
+  }
+
   onShowAllTextButtonClick(): void {
     this.toggleOverflowingText()
   }
 
   // ------------------------------------ FUNCTIONALITY ------------------------------------
+
+  toggleDetails(): void {
+    this.showingDetails ? this.hideDetails() : this.showDetails()
+  }
 
   showDetails(): void {
     this.showingDetails = true
@@ -91,6 +100,9 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
   reportIcon = faExclamationCircle
   detailsIcon = faInfoCircle
 
+  dateIcon = faCalendarDay
+  timeIcon = faClock
+
   textSize = 15
 
   textOverflowHeight = (this.textSize * 1.35) * 3
@@ -108,6 +120,15 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  detailsStyles(): {} {
+    return {
+      backgroundColor: AppColors.elevation3,
+      padding: this.cardPadding,
+      color: AppColors.lightGrey,
+      fontWeight: "bold"
+    }
+  }
+
   textWrapperStyles(): {} {
     return {
       maxHeight: !this.showingOverflowingText ? `${this.textOverflowHeight}px` : "fit-content"
@@ -120,5 +141,13 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
       fontSize: `${this.textSize}px`,
       color: AppColors.onColorLight
     }
+  }
+
+  getDate(): string {
+    return this.calendarService.getDateStandard(this.comment.datePosted)
+  }
+
+  getTime(): string {
+    return this.calendarService.getTime(this.comment.datePosted)
   }
 }

@@ -1,4 +1,5 @@
 <app-i-map
+  #map
   (markerAdded)="onMarkerAdded($event)"
   (markerDeleted)="onMarkerDeleted($event)"
 ></app-i-map>
@@ -6,7 +7,27 @@
   id="page-notification-manager"
   #NotificationManager
 ></app-notification-manager>
-<!-- Stops -->
-<div class="roadtrip-stops">
-  <app-stop-card *ngFor="let stop of stops" [stop]="stop"></app-stop-card>
+
+<div *ngIf="dataLoaded" class="roadtrip-page">
+  <!-- Stops -->
+  <div class="roadtrip-stops-section">
+    <h4 class="section-title" [ngStyle]="sectionTitleStyles()">Stops</h4>
+    <div class="roadtrip-stops">
+      <app-stop-card
+        *ngFor="let stop of roadtrip.stops"
+        [stop]="stop"
+        (seeOnMapButtonClicked)="onStopCardSeeOnMapButtonClick(stop)"
+      ></app-stop-card>
+    </div>
+  </div>
+  <!-- Comments -->
+  <div class="roadtrip-comments-section">
+    <h4 class="section-title" [ngStyle]="sectionTitleStyles()">Comments</h4>
+    <div class="roadtrip-comments">
+      <app-comment-thread
+        *ngFor="let rootComment of roadtrip.comments"
+        [rootComment]="rootComment"
+      ></app-comment-thread>
+    </div>
+  </div>
 </div>

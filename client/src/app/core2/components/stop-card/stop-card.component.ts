@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { faCampground, faEllipsisH, faEllipsisV, faGlasses, faHiking, faInfo, faLandmark, faMapMarkerAlt, faUtensils, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faCampground, faEllipsisH, faEllipsisV, faGlasses, faHiking, faInfo, faLandmark, faMapMarkedAlt, faMapMarkerAlt, faTrashAlt, faUtensils, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -29,6 +29,8 @@ export class StopCardComponent implements OnInit {
   
   headToolbarToggleIcon = faEllipsisV
   detailsIcon = faInfo
+  deleteIcon = faTrashAlt
+  seeOnMapIcon = faMapMarkedAlt
 
   stopTypeIcons = new Map([
     [LocationTypes.Landmark, faLandmark],
@@ -43,7 +45,7 @@ export class StopCardComponent implements OnInit {
 
   // -------------------------------- STATE --------------------------------
   headToolbarExpandDirection = ExpandDirections.Left
-  headToolbarInitialExpandedState = true
+  headToolbarInitialExpandedState = false
   showingDetails = false
   headToolbarToggleButtonTooltip = "Show options"
   toggleDetailsButtonTooltip = () => {
@@ -82,6 +84,30 @@ export class StopCardComponent implements OnInit {
     }
   }
 
+  // -------------------------------- EVENTS --------------------------------
+
+  @Output() detailsExpanded = new EventEmitter()
+  @Output() detailsCollapsed = new EventEmitter()
+  @Output() deleteStopButtonClicked = new EventEmitter()
+  @Output() seeOnMapButtonClicked = new EventEmitter()
+
+  // -------------------------------- SIGNALERS --------------------------------
+  signal_detailsExpanded(): void {
+    this.detailsExpanded.emit()
+  }
+
+  signal_detailsCollapsed(): void {
+    this.detailsCollapsed.emit()
+  }
+
+  signal_deleteStopButtonClicked(): void {
+    this.deleteStopButtonClicked.emit()
+  }
+
+  signal_seeOnMapButtonClicked(): void {
+    this.seeOnMapButtonClicked.emit()
+  }
+
   // -------------------------------- EVENT HANDLERS --------------------------------
 
   onHeadToolbarExpand(): void {
@@ -96,6 +122,14 @@ export class StopCardComponent implements OnInit {
 
   onToggleDetailsButtonClick(): void {
     this.toggleDetails()
+  }
+
+  onDeleteButtonClick(): void {
+    this.signal_deleteStopButtonClicked()
+  }
+
+  onSeeOnMapButtonClick(): void {
+    this.signal_seeOnMapButtonClicked()
   }
 
   // -------------------------------- FUNCTIONALITY --------------------------------

@@ -11,3 +11,11 @@
   flex-direction: column;
   gap: 14px;
 }
+
+.roadtrip-comments-section {
+  margin-top: 50px;
+}
+
+.section-title {
+  margin-bottom: 10px;
+}

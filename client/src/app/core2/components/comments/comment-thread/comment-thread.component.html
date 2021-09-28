@@ -1,0 +1,12 @@
+<div class="comment-thread" [ngStyle]="threadStyles()">
+  <app-comment-card [comment]="rootComment"></app-comment-card>
+  <!-- replies -->
+  <div class="comment-thread-replies" [ngStyle]="replyStyles()">
+    <app-comment-thread
+      *ngFor="let reply of rootComment.replies"
+      [rootComment]="reply"
+      [gap]="gap"
+      [offset]="offset"
+    ></app-comment-thread>
+  </div>
+</div>

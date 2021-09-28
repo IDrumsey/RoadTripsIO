@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { faDrawPolygon, faExpandArrowsAlt, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { faCheckSquare, faDrawPolygon, faExpandArrowsAlt, faMinusSquare, faPlus, faSearchLocation, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'src/app/core2/interfaces/button';
 import { ButtonTool } from "src/app/core2/interfaces/button-tool";
 import { AddMarkerTool } from 'src/app/core2/components/imap/i-map-tools/add-marker-tool';
@@ -8,6 +8,9 @@ import { IMapUIComponent } from '../i-map-ui/i-map-ui.component';
 import { ZoomOnMarkerTool } from 'src/app/core2/components/imap/i-map-tools/zoom-on-marker-tool';
 import { NotificationManagerComponent } from 'src/app/core2/components/notifications/notification-manager/notification-manager.component';
 import { AppColors } from 'src/app/core/data/models/app-colors';
+import { IMapMarkerFactory } from 'src/app/core2/factories/i-map-marker-factory';
+import { IMapMarkerColor } from 'src/app/core/models/imap/i-map-marker-color';
+import { IMapService } from 'src/app/core/services/maps/i-map.service';
 
 @Component({
   selector: 'app-i-map',
@@ -16,7 +19,7 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 })
 export class IMapComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(private imapService: IMapService) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +44,8 @@ export class IMapComponent implements OnInit, AfterViewInit {
   addMarkerTool: AddMarkerTool
   deleteMarkerTool: DeleteMarkerTool
   zoomMarkerTool: ZoomOnMarkerTool
+  
+  markerFactory = new IMapMarkerFactory()
 
   @ViewChild('noteManager') notificationManager: NotificationManagerComponent
 
@@ -51,6 +56,8 @@ export class IMapComponent implements OnInit, AfterViewInit {
   polygonAreaIcon = faDrawPolygon
   zoomMarkerIcon = faSearchLocation
   expandMapIcon = faExpandArrowsAlt
+  unselectAllIcon = faMinusSquare
+  selectAllIcon = faCheckSquare
 
   toolButtonSize = "20px"
 
@@ -123,6 +130,14 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   onZoomOutBtnClick(): void {
     this.UIComponent.fitAllMarkersInView()
+  }
+
+  onUnselectAllBtnClick(): void {
+    this.unselectAllMarkers()
+  }
+
+  onSelectAllBtnClick(): void {
+    this.selectAllMarkers()
   }
 
   onMapClick(coordinates: google.maps.LatLng): void {
@@ -226,5 +241,28 @@ export class IMapComponent implements OnInit, AfterViewInit {
     toolsToDeactivate.forEach(toolToDeactivate => {
       this.unselectTool(toolToDeactivate)
     })
+  }
+
+  addMarkerByCoordinates(coordinates: google.maps.LatLng): void {
+    let newMarker = this.markerFactory.generateMarker(coordinates, IMapMarkerColor.Red)
+    this.UIComponent.addMarker(newMarker)
+  }
+
+  unselectAllMarkers(): void {
+    this.UIComponent.markers.forEach(marker => {
+      this.UIComponent.unselectMarker(marker)
+    })
+  }
+
+  selectAllMarkers(): void {
+    this.UIComponent.markers.forEach(marker => {
+      this.UIComponent.selectMarker(marker)
+    })
+  }
+
+  findMarker(coordinates: google.maps.LatLng): google.maps.Marker | undefined {
+    // POSSIBLE BUG : may cause bug because of explicit type implication
+    let markerFound = this.UIComponent.markers.find(marker => this.imapService.compareCoordinates(coordinates, marker.getPosition() as google.maps.LatLng))
+    return markerFound
   }
 }
