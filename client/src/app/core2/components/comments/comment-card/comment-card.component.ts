@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppColors } from 'src/app/core/data/models/app-colors';
@@ -12,13 +12,14 @@ import { Comment } from 'src/app/core/data2/models/client/comment';
 })
 export class CommentCardComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
     this.viewInitialized = true
+    this.changeDetector.detectChanges()
   }
 
   // ------------------------------------ DATA ------------------------------------
@@ -68,7 +69,7 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
   }
 
   displayShowAllButton(): boolean {
-    return this.doesTextOverlow()
+    return this.viewInitialized ? this.doesTextOverlow() : false
   }
 
   toggleOverflowingText(): void {
