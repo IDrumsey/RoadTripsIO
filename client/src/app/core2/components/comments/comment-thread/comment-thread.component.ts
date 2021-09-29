@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from 'src/app/core/data2/models/client/comment';
 
 @Component({
@@ -16,6 +16,20 @@ export class CommentThreadComponent implements OnInit {
   // ------------------------------------ DATA ------------------------------------
 
   @Input() rootComment: Comment
+
+  // ------------------------------------ EVENTS ------------------------------------
+  @Output() profileImageClicked = new EventEmitter<Comment>()
+
+  // ------------------------------------ SIGNALERS ------------------------------------
+  signal_profileImageClicked(comment: Comment): void {
+    this.profileImageClicked.emit(comment)
+  }
+
+  // ------------------------------------ EVENT HANDLERS ------------------------------------
+
+  onProfileImageClick(comment: Comment): void {
+    this.signal_profileImageClicked(comment)
+  }
 
   // ------------------------------------ STYLES ------------------------------------
 

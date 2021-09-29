@@ -7,19 +7,21 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./user-profile-image.component.css']
 })
 export class UserProfileImageComponent implements OnInit {
-  // data
-  @Input() path: string = "assets/images/pexels-andrea-piacquadio-722014.jpg"
-  placeholderIcon = faUser
-  @Input() iconSize = "100px"
-
-  // styles
-  @Input() size: string = "200px"
 
   constructor() { }
 
   ngOnInit(): void {
     this.iconStyles.fontSize = this.iconSize
   }
+
+  // ------------------------------- DATA -------------------------------
+  @Input() path: string = "assets/images/pexels-andrea-piacquadio-722014.jpg"
+  @Input() tooltip: string
+
+  // ------------------------------- STYLES -------------------------------
+  @Input() size: string = "200px"
+  @Input() iconSize = "100px"
+  placeholderIcon = faUser
 
   getWrapperStyles(): {} {
     return {
@@ -34,6 +36,7 @@ export class UserProfileImageComponent implements OnInit {
     fontSize: this.iconSize
   }
 
+  // ------------------------------- STATE -------------------------------
   hasImage(): boolean {
     return this.path != null
   }

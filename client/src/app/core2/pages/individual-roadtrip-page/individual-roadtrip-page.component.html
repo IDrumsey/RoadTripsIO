@@ -27,6 +27,7 @@
       <app-comment-thread
         *ngFor="let rootComment of roadtrip.comments"
         [rootComment]="rootComment"
+        (profileImageClicked)="onCommentProfileImageClick($event)"
       ></app-comment-thread>
     </div>
   </div>

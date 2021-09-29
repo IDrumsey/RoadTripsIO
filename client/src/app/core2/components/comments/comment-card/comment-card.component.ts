@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { faCalendarDay, faClock, faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { faCalendarDay, faClock, faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, faUserCircle, faUserSecret, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -29,6 +29,10 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   @ViewChild('card') cardElement: ElementRef<HTMLElement>
 
+  noProfileImageOwnerName(): string {
+    return this.comment.owner ? this.comment.owner.username : "Anonymous User"
+  }
+
   // ------------------------------------ STATE ------------------------------------
 
   showingDetails = false
@@ -42,6 +46,14 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   viewInitialized = false
 
+  // ------------------------------------ EVENTS ------------------------------------
+  @Output() profileImageClicked = new EventEmitter()
+
+  // ------------------------------------ SIGNALERS ------------------------------------
+  signal_profileImageClicked(): void {
+    this.profileImageClicked.emit()
+  }
+
   // ------------------------------------ EVENT HANDLERS ------------------------------------
 
   onToggleDetailsButtonClick(): void {
@@ -50,6 +62,10 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   onShowAllTextButtonClick(): void {
     this.toggleOverflowingText()
+  }
+
+  onProfileImageClick(): void {
+    this.signal_profileImageClicked()
   }
 
   // ------------------------------------ FUNCTIONALITY ------------------------------------
@@ -93,7 +109,18 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
     this.showingOverflowingText = false
   }
 
+  getDate(): string {
+    return this.calendarService.getDateStandard(this.comment.datePosted)
+  }
+
+  getTime(): string {
+    return this.calendarService.getTime(this.comment.datePosted)
+  }
+
   // ------------------------------------ STYLES ------------------------------------
+  noProfileImageReplacementIcon = faUserCircle
+  anonymousOwnerIcon = faUserSecret
+
   toggleToolsIconExpanded = faEllipsisV
   toggleToolsIconCollapsed = faEllipsisH
 
@@ -143,11 +170,15 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getDate(): string {
-    return this.calendarService.getDateStandard(this.comment.datePosted)
+  noProfileImageIconStyles(): {} {
+    return {
+      color: AppColors.onColorLight,
+      fontSize: this.comment.owner ? "35px" : "25px",
+      padding: this.comment.owner ? "0" : "0 5px"
+    }
   }
 
-  getTime(): string {
-    return this.calendarService.getTime(this.comment.datePosted)
+  noProfileImageIcon(): IconDefinition {
+    return this.comment.owner ? this.noProfileImageReplacementIcon : this.anonymousOwnerIcon
   }
 }

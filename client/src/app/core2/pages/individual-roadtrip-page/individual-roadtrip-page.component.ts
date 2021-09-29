@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { IMapComponent } from 'src/app/core/components/Maps/i-map/i-map.component';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { Comment } from 'src/app/core/data2/models/client/comment';
 import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 import { AbstractDataAccessService } from 'src/app/core/services/data/abstract-data-access.service';
@@ -14,7 +16,7 @@ import { NotificationManagerComponent } from '../../components/notifications/not
 })
 export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataLoader: AbstractDataAccessService, private changeDetector: ChangeDetectorRef) { }
+  constructor(private dataLoader: AbstractDataAccessService, private changeDetector: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit(): void {
     this.loadData().then(() => {
@@ -66,6 +68,12 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     let markerFound = this.map.findMarker(latlng)
     if(markerFound){
       this.map.zoomMarkerTool.zoomInOnMarker(markerFound)
+    }
+  }
+
+  onCommentProfileImageClick(comment: Comment): void {
+    if(comment.owner){
+      this.router.navigate(['users', comment.owner.id])
     }
   }
 

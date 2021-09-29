@@ -1,5 +1,8 @@
 <div class="comment-thread" [ngStyle]="threadStyles()">
-  <app-comment-card [comment]="rootComment"></app-comment-card>
+  <app-comment-card
+    [comment]="rootComment"
+    (profileImageClicked)="onProfileImageClick(rootComment)"
+  ></app-comment-card>
   <!-- replies -->
   <div class="comment-thread-replies" [ngStyle]="replyStyles()">
     <app-comment-thread
@@ -7,6 +10,7 @@
       [rootComment]="reply"
       [gap]="gap"
       [offset]="offset"
+      (profileImageClicked)="onProfileImageClick(reply)"
     ></app-comment-thread>
   </div>
 </div>

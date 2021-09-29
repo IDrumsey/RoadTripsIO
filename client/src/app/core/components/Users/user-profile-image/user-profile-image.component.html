@@ -1,8 +1,13 @@
-<div class="user-profile-image" [ngStyle]="getWrapperStyles()">
+<div
+  class="user-profile-image"
+  [ngStyle]="getWrapperStyles()"
+  [title]="tooltip"
+>
   <fa-icon
     *ngIf="!hasImage()"
     [icon]="placeholderIcon"
     class="profile-image-placeholder"
+    [title]="tooltip"
     [ngStyle]="iconStyles"
   ></fa-icon>
 </div>

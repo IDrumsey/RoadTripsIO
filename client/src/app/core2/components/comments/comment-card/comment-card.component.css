@@ -51,3 +51,11 @@
 .comment-posted-time {
   margin-bottom: 0;
 }
+
+.comment-card-profile-image {
+  cursor: pointer;
+}
+
+.comment-card-missing-profile-image-template {
+  font-size: 35px;
+}
