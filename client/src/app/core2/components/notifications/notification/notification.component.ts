@@ -5,7 +5,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 @Component({
   selector: 'app-notification[text]',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css']
+  styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class NotificationComponent implements OnInit {
   getStyles(): {} {
     let bgColor = this.bgColor
     let textColor = this.textColor
-    let opacity = 0.75
+    let opacity = 0.95
     if(this.hovering){
       opacity = 1
     }

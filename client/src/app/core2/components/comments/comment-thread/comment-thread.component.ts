@@ -4,7 +4,7 @@ import { Comment } from 'src/app/core/data2/models/client/comment';
 @Component({
   selector: 'app-comment-thread',
   templateUrl: './comment-thread.component.html',
-  styleUrls: ['./comment-thread.component.css']
+  styleUrls: ['./comment-thread.component.scss']
 })
 export class CommentThreadComponent implements OnInit {
 

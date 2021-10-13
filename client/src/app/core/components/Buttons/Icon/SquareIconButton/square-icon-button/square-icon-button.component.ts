@@ -8,7 +8,7 @@ import { ShapeIconButtonComponent } from '../../../shape-icon-button/shape-icon-
   selector: 'app-square-icon-button',
   providers: [{provide: ButtonComponent, useExisting: SquareIconButtonComponent}],
   templateUrl: './square-icon-button.component.html',
-  styleUrls: ['./square-icon-button.component.css']
+  styleUrls: ['./square-icon-button.component.scss']
 })
 export class SquareIconButtonComponent extends ShapeIconButtonComponent implements OnInit {
   constructor(elementRef: ElementRef) {

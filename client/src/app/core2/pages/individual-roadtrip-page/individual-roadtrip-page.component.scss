@@ -1,0 +1,45 @@
+#page-notification-manager {
+  width: 30%;
+  position: fixed;
+  bottom: 10px;
+  left: 25px;
+  z-index: 10;
+}
+
+.roadtrip-stops {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.roadtrip-comments-section {
+  margin-top: 50px;
+}
+
+.section-title {
+  margin-bottom: 10px;
+}
+
+.add-new-stop-form {
+  margin: 25px 0;
+}
+
+#new-stop-form-options {
+  display: flex;
+  gap: 10px;
+  margin: auto;
+  width: 100%;
+  padding: 0;
+}
+
+#submit-new-stop-form-button {
+  margin-left: auto;
+}
+
+#cancel-new-stop-form-button {
+  margin-right: auto;
+}
+
+app-new-stop-form {
+  padding: 0;
+}

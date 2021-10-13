@@ -20,7 +20,7 @@ import { UserService } from '../../services/users/user.service';
 @Component({
   selector: 'app-roadtrip-page',
   templateUrl: './roadtrip-page.component.html',
-  styleUrls: ['./roadtrip-page.component.css']
+  styleUrls: ['./roadtrip-page.component.scss']
 })
 export class RoadtripPageComponent implements OnInit, AfterContentInit {
   constructor(private api2: AbstractDataAccessService, private api: DataAccessService, private auth: AuthenticationService, private route: ActivatedRoute, private router: Router, private commentSort: CommentSortService, private userService: UserService) {

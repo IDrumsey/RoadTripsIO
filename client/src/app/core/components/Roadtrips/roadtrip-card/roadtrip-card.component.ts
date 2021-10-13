@@ -9,7 +9,7 @@ import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
 @Component({
   selector: 'app-roadtrip-card',
   templateUrl: './roadtrip-card.component.html',
-  styleUrls: ['./roadtrip-card.component.css']
+  styleUrls: ['./roadtrip-card.component.scss']
 })
 export class RoadtripCardComponent implements OnInit {
   // data
@@ -24,7 +24,6 @@ export class RoadtripCardComponent implements OnInit {
   trashIcon = faTrashAlt
 
   cardStyles = {
-    backgroundColor: AppColors.elevation2,
     color: AppColors.onColorLight,
     padding: "10px 20px",
     borderRadius: "4px"

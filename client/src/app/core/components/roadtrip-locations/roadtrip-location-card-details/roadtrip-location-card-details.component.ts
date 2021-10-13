@@ -9,7 +9,7 @@ import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 @Component({
   selector: 'app-roadtrip-location-card-details',
   templateUrl: './roadtrip-location-card-details.component.html',
-  styleUrls: ['./roadtrip-location-card-details.component.css']
+  styleUrls: ['./roadtrip-location-card-details.component.scss']
 })
 export class RoadtripLocationCardDetailsComponent implements OnInit {
   constructor() { }

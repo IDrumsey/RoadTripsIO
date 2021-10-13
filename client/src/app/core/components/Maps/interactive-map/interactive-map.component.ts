@@ -14,7 +14,7 @@ import { DataAccessService } from 'src/app/core/services/data/data-access.servic
 @Component({
   selector: 'app-interactive-map',
   templateUrl: './interactive-map.component.html',
-  styleUrls: ['./interactive-map.component.css']
+  styleUrls: ['./interactive-map.component.scss']
 })
 export class InteractiveMapComponent implements OnInit {
   constructor(private mapServices: InteractiveMapService, private api: DataAccessService, private api2: DataAccessService, private asyncService: AsyncService) {}

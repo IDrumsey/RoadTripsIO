@@ -6,7 +6,7 @@ import { SelectToolbarComponent } from '../select-toolbar/select-toolbar.compone
 @Component({
   selector: 'app-single-select-toolbar',
   templateUrl: './single-select-toolbar.component.html',
-  styleUrls: ['./single-select-toolbar.component.css']
+  styleUrls: ['./single-select-toolbar.component.scss']
 })
 export class SingleSelectToolbarComponent extends SelectToolbarComponent implements OnInit {
   selectedButton: ButtonComponent;

@@ -7,7 +7,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 @Component({
   selector: 'app-map-radius-form',
   templateUrl: './map-radius-form.component.html',
-  styleUrls: ['./map-radius-form.component.css']
+  styleUrls: ['./map-radius-form.component.scss']
 })
 export class MapRadiusFormComponent implements OnInit {
   // events

@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, Input, Output, EventEmitter, OnChanges, 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css']
+  styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit, OnChanges {
   manager: any

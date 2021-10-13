@@ -1,0 +1,21 @@
+.new-stop-form {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.row {
+  padding: 0;
+  margin: auto;
+  width: 100%;
+}
+
+.col-12,
+.col-6 {
+  padding: 0;
+}
+
+mat-form-field {
+  padding: 0;
+}

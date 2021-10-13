@@ -10,7 +10,7 @@ import { RoadtripLocationCardEditFormComponent } from '../../roadtrip-locations/
 @Component({
   selector: 'app-location-card',
   templateUrl: './location-card.component.html',
-  styleUrls: ['./location-card.component.css']
+  styleUrls: ['./location-card.component.scss']
 })
 export class LocationCardComponent implements OnInit, AfterViewInit {
   constructor(private stringService: StringService) { }

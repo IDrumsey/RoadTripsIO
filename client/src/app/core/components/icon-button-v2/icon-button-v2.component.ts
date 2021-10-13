@@ -3,11 +3,12 @@ import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { AppColors } from '../../data/models/app-colors';
 import { Button } from '../../../core2/interfaces/button';
 import { ButtonAliasComponent } from 'src/app/core2/components/buttons/button-alias/button-alias.component';
+import { ThemeManagerService } from 'src/app/core2/services/theme-manager.service';
 
 @Component({
   selector: 'app-icon-button-v2[icon]',
   templateUrl: './icon-button-v2.component.html',
-  styleUrls: ['./icon-button-v2.component.css'],
+  styleUrls: ['./icon-button-v2.component.scss'],
   providers: [{
     provide: ButtonAliasComponent,
     useExisting: forwardRef(() => IconButtonV2Component)
@@ -15,7 +16,7 @@ import { ButtonAliasComponent } from 'src/app/core2/components/buttons/button-al
 })
 export class IconButtonV2Component implements OnInit, Button {
 
-  constructor(elementRef: ElementRef) {
+  constructor(elementRef: ElementRef, private theme: ThemeManagerService) {
     this.element = elementRef
   }
 
@@ -37,8 +38,8 @@ export class IconButtonV2Component implements OnInit, Button {
 
   @Input() icon: IconDefinition
   @Input() iconSize = '25px'
-  @Input() blurColor: string = AppColors.onColorLight
-  @Input() focusColor: string = AppColors.onContrastGreen
+  @Input() blurColor: string
+  @Input() focusColor: string
 
   enabledOpacity = 1
   disabledOpacity = .8

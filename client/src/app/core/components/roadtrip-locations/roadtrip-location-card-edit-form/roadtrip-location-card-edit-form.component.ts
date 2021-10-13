@@ -7,7 +7,7 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 @Component({
   selector: 'app-roadtrip-location-card-edit-form',
   templateUrl: './roadtrip-location-card-edit-form.component.html',
-  styleUrls: ['./roadtrip-location-card-edit-form.component.css']
+  styleUrls: ['./roadtrip-location-card-edit-form.component.scss']
 })
 export class RoadtripLocationCardEditFormComponent implements OnInit {
   // data

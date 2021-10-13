@@ -9,7 +9,7 @@ import { CalendarService } from 'src/app/core/services/utilities/calendar.servic
 @Component({
   selector: 'app-comment-body',
   templateUrl: './comment-body.component.html',
-  styleUrls: ['./comment-body.component.css']
+  styleUrls: ['./comment-body.component.scss']
 })
 export class CommentBodyComponent implements OnInit {
   // data

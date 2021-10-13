@@ -52,11 +52,13 @@ export class AbstractDataAccessService {
   // ----------------- ROADTRIPS -----------------
 
   getRoadtripById(id: number): Promise<Roadtrip> {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.apiService.getRoadtripById(id).subscribe(roadtrip => {
         roadtrip.loadAdditionalData().then(() => {
           resolve(roadtrip)
         })
+      }, err => {
+        reject(err)
       })
     })
   }

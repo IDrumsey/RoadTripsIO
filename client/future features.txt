@@ -34,3 +34,5 @@ maybe a select multiple comments feature -
 error reports for errors that need manually handled. for example if an operation fails and then the rollback also fails contact admin
 
 select area on map tool
+
+for the new stop form, have autocomplete for the address (https://www.solodev.com/blog/web-design/adding-an-auto-complete-address-field-to-your-forms.stml)

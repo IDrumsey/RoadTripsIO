@@ -6,7 +6,7 @@ import { RectangleTextButtonManager } from '../functionality/rectangle-text-butt
 @Component({
   selector: 'app-rectangle-button[text]',
   templateUrl: './rectangle-button.component.html',
-  styleUrls: ['./rectangle-button.component.css']
+  styleUrls: ['./rectangle-button.component.scss']
 })
 export class RectangleButtonComponent extends ButtonComponent implements OnInit, OnChanges {
   constructor(element: ElementRef) {

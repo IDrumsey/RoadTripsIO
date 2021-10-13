@@ -7,7 +7,7 @@ import { IMapManager } from '../functionality/i-map-manager';
 @Component({
   selector: 'app-map-ui',
   templateUrl: './map-ui.component.html',
-  styleUrls: ['./map-ui.component.css']
+  styleUrls: ['./map-ui.component.scss']
 })
 export class MapUiComponent implements OnInit, AfterViewInit {
   @Input() manager: IMapManager

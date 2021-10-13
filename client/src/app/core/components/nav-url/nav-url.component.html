@@ -1,5 +1,5 @@
 <div class="nav-url">
-  <p class="separator" [ngStyle]="separatorStyles">/</p>
+  <p class="separator">/</p>
   <span *ngFor="let piece of pieces; let i = index">
     <p
       class="nav-url-piece"
@@ -8,12 +8,6 @@
     >
       {{ piece.name }}
     </p>
-    <p
-      *ngIf="i != pieces.length - 1"
-      class="separator"
-      [ngStyle]="separatorStyles"
-    >
-      /
-    </p>
+    <p *ngIf="i != pieces.length - 1" class="separator">/</p>
   </span>
 </div>

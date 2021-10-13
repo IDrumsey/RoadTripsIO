@@ -15,7 +15,7 @@ import { IMapService } from 'src/app/core/services/maps/i-map.service';
 @Component({
   selector: 'app-i-map',
   templateUrl: './i-map.component.html',
-  styleUrls: ['./i-map.component.css']
+  styleUrls: ['./i-map.component.scss']
 })
 export class IMapComponent implements OnInit, AfterViewInit {
 
@@ -63,14 +63,20 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   // --------------------------------- STATE ---------------------------------
   selectedTools: ButtonTool[] = []
+  lockedTools: ButtonTool[] = []
 
   // --------------------------------- EVENTS ---------------------------------
   @Output() markerAdded = new EventEmitter<google.maps.Marker>()
   @Output() markerDeleted = new EventEmitter<google.maps.Marker>()
 
+  @Output() toolSelected = new EventEmitter<ButtonTool>()
+  @Output() toolUnselected = new EventEmitter<ButtonTool>()
+  @Output() toolClick = new EventEmitter<ButtonTool>()
+
   // --------------------------------- EVENT HANDLERS ---------------------------------
 
   onAddMarkerButtonClick(): void {
+    this.toolClick.emit(this.addMarkerTool)
     if(this.isToolActive(this.addMarkerTool)){
       this.unselectTool(this.addMarkerTool)
     }
@@ -81,6 +87,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteMarkerButtonClick(): void {
+    this.toolClick.emit(this.deleteMarkerTool)
     if(this.isToolActive(this.deleteMarkerTool)){
       this.unselectTool(this.deleteMarkerTool)
     }
@@ -105,6 +112,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   }
 
   onZoomInOnMarkerButtonClick(): void {
+    this.toolClick.emit(this.zoomMarkerTool)
     if(this.isToolActive(this.zoomMarkerTool)){
       this.unselectTool(this.zoomMarkerTool)
     }
@@ -195,8 +203,11 @@ export class IMapComponent implements OnInit, AfterViewInit {
     // check if already selected
     let foundTool = this.selectedTools.find(tempTool => tempTool == tool)
     if(!foundTool){
-      this.selectedTools.push(tool)
-      tool.onSelect()
+      if(!this.isToolLocked(tool)){
+        this.selectedTools.push(tool)
+        tool.onSelect()
+        this.toolSelected.emit(tool)
+      }
     }
     else{
       throw 'Tool already selected'
@@ -206,8 +217,11 @@ export class IMapComponent implements OnInit, AfterViewInit {
   unselectTool(tool: ButtonTool): void {
     let indexOfTool = this.selectedTools.indexOf(tool)
     if(indexOfTool != -1){
-      this.selectedTools.splice(indexOfTool, 1)
-      tool.onUnselect()
+      if(!this.isToolLocked(tool)){
+        this.selectedTools.splice(indexOfTool, 1)
+        tool.onUnselect()
+        this.toolUnselected.emit(tool)
+      }
     }
     else{
       throw 'Tool already unselected'
@@ -264,5 +278,24 @@ export class IMapComponent implements OnInit, AfterViewInit {
     // POSSIBLE BUG : may cause bug because of explicit type implication
     let markerFound = this.UIComponent.markers.find(marker => this.imapService.compareCoordinates(coordinates, marker.getPosition() as google.maps.LatLng))
     return markerFound
+  }
+
+  isToolLocked(tool: ButtonTool): boolean {
+    let toolFound = this.lockedTools.find(tempTool => tempTool == tool)
+    return toolFound ? true : false
+  }
+
+  lockTool(tool: ButtonTool): void {
+    if(!this.isToolLocked(tool)){
+      this.lockedTools.push(tool)
+    }
+  }
+
+  unlockTool(tool: ButtonTool): void {
+    let toolIndex = this.lockedTools.indexOf(tool)
+    if(toolIndex != -1){
+      // tool found
+      this.lockedTools.splice(toolIndex, 1)
+    }
   }
 }

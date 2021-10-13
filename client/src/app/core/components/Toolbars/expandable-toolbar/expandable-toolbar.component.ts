@@ -8,7 +8,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
 @Component({
   selector: 'app-expandable-toolbar',
   templateUrl: './expandable-toolbar.component.html',
-  styleUrls: ['./expandable-toolbar.component.css']
+  styleUrls: ['./expandable-toolbar.component.scss']
 })
 export class ExpandableToolbarComponent extends ToolbarComponent implements OnInit, AfterViewInit {
   @Input() isExpanded: boolean = false;

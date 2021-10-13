@@ -7,7 +7,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
 @Component({
   selector: 'app-select-toolbar',
   templateUrl: './select-toolbar.component.html',
-  styleUrls: ['./select-toolbar.component.css']
+  styleUrls: ['./select-toolbar.component.scss']
 })
 export class SelectToolbarComponent extends ToolbarComponent implements OnInit, AfterViewInit {
   @Input() selectForegroundColor: string = "#fff";

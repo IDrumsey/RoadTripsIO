@@ -6,7 +6,7 @@ import { CommentSortService } from 'src/app/core/services/comments/comment-sort.
 @Component({
   selector: 'app-comment[comment][roadtrip]',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit {
   constructor(private commentSort: CommentSortService) { }

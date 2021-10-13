@@ -1,0 +1,21 @@
+@import "~@angular/material/theming";
+
+@mixin stop-card-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .stop-card-head {
+    background-color: mat-color($background, disabled-button);
+  }
+
+  .stop-card-details {
+    background-color: mat-color($foreground, disabled-button);
+  }
+
+  .stop-card {
+    color: mat-color($foreground, text);
+  }
+}

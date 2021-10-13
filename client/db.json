@@ -41,8 +41,10 @@
         3
       ],
       "stopIds": [
+        4,
         3,
-        1
+        1,
+        5
       ],
       "commentIds": [
         2,
@@ -73,6 +75,16 @@
       "locationId": 3,
       "description": "Good pizza place near the Atlantic",
       "id": 3
+    },
+    {
+      "locationId": 5,
+      "description": "This is the description of test stop 1",
+      "id": 4
+    },
+    {
+      "locationId": 6,
+      "description": "This is test stop 2's description",
+      "id": 5
     }
   ],
   "locations": [
@@ -113,6 +125,22 @@
       "latitude": 42.24145062993487,
       "longitude": -71.58766299806356,
       "photos": []
+    },
+    {
+      "title": "Test Stop 1",
+      "address": "",
+      "latitude": 39.149068127686945,
+      "longitude": -84.21981309772063,
+      "photos": [],
+      "id": 5
+    },
+    {
+      "title": "Test Stop 2",
+      "address": "123 Some Rd. Kansas",
+      "latitude": 37.49430480270768,
+      "longitude": -100.39168809772063,
+      "photos": [],
+      "id": 6
     }
   ],
   "comments": [

@@ -10,7 +10,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
 @Component({
   selector: 'app-browse-roadtrips-page',
   templateUrl: './browse-roadtrips-page.component.html',
-  styleUrls: ['./browse-roadtrips-page.component.css']
+  styleUrls: ['./browse-roadtrips-page.component.scss']
 })
 export class BrowseRoadtripsPageComponent implements OnInit {
   constructor(private api: AbstractDataAccessService, private router: Router) {
@@ -30,7 +30,6 @@ export class BrowseRoadtripsPageComponent implements OnInit {
   // ----------------------------------- STYLES -----------------------------------
   titleStyles = {
     fontFamily: AppFonts.Handwriting,
-    color: AppColors.onColorLight
   }
 
   // ----------------------------------- FUNCTIONALITY -----------------------------------

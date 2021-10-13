@@ -162,25 +162,28 @@ export class Roadtrip extends DataModel implements ClientDataObject<RoadtripDTO,
         this.stops.push(stop)
     }
 
-    addStop(stop: RoadtripStop): void {
-        // upload location to get id
-        stop.location.upload(this.api).then(newLocation => {
-            stop.locationId = newLocation.id
-            stop.upload().then(newStop => {
-                // already have the location so you don't need to fetch it
-                newStop.location = newLocation
-                this.stops.push(newStop)
-                // update roadtrip stop references to include new stop id in database
-                this.update().then(updatedRoadtrip => {
-                    console.log("roadtrip updated")
-                }, err => {
-                    console.log("error occured : ", err)
-                })
-            }, (err => {
-                console.log("error occured : ", err)
-            }))
-        }, err => {
-            console.log("error occured : ", err)
+    addStop(stop: RoadtripStop): Promise<RoadtripStop> {
+        return new Promise((resolve, reject) => {
+            // upload location to get id
+            stop.location.upload(this.api).then(newLocation => {
+                stop.locationId = newLocation.id
+                stop.upload().then(newStop => {
+                    // already have the location so you don't need to fetch it
+                    newStop.location = newLocation
+                    this.stops.push(newStop)
+                    // update roadtrip stop references to include new stop id in database
+                    this.update().then(updatedRoadtrip => {
+                        console.log("roadtrip updated")
+                        resolve(newStop)
+                    }, err => {
+                        reject(err)
+                    })
+                }, (err => {
+                    reject(err)
+                }))
+            }, err => {
+                reject(err)
+            })
         })
     }
 

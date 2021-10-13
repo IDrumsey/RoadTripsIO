@@ -17,7 +17,7 @@ import { DataAccessService } from '../../services/data/data-access.service';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.css']
+  styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private api: DataAccessService, private api2: AbstractDataAccessService, private asyncService: AsyncService, private auth: AuthenticationService, private router: Router) { }

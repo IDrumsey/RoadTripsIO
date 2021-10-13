@@ -4,7 +4,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
 @Component({
   selector: 'app-toolbar-group',
   templateUrl: './toolbar-group.component.html',
-  styleUrls: ['./toolbar-group.component.css']
+  styleUrls: ['./toolbar-group.component.scss']
 })
 export class ToolbarGroupComponent implements OnInit, AfterViewInit {
   // data

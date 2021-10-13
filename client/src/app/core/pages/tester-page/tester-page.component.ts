@@ -8,7 +8,7 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
 @Component({
   selector: 'app-tester-page',
   templateUrl: './tester-page.component.html',
-  styleUrls: ['./tester-page.component.css']
+  styleUrls: ['./tester-page.component.scss']
 })
 export class TesterPageComponent implements OnInit, AfterViewInit {
 
@@ -21,6 +21,8 @@ export class TesterPageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
   }
+
+  icon = faEllipsisV
 
   loaded = false
 

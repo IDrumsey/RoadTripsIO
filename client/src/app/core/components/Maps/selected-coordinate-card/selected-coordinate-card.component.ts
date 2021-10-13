@@ -6,7 +6,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 @Component({
   selector: 'app-selected-coordinate-card',
   templateUrl: './selected-coordinate-card.component.html',
-  styleUrls: ['./selected-coordinate-card.component.css']
+  styleUrls: ['./selected-coordinate-card.component.scss']
 })
 export class SelectedCoordinateCardComponent implements OnInit {
   // data

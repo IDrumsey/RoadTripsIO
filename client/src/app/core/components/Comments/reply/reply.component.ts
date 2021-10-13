@@ -10,7 +10,7 @@ import { DataAccessService } from 'src/app/core/services/data/data-access.servic
 @Component({
   selector: 'app-reply[parentComment][roadtrip]',
   templateUrl: './reply.component.html',
-  styleUrls: ['./reply.component.css']
+  styleUrls: ['./reply.component.scss']
 })
 export class ReplyComponent implements OnInit {
   constructor(private api: DataAccessService, private asyncService: AsyncService, private auth: AuthenticationService) { }

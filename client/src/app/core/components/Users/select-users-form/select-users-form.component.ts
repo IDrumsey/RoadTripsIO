@@ -14,7 +14,7 @@ class userSelectable {
 @Component({
   selector: 'app-select-users-form',
   templateUrl: './select-users-form.component.html',
-  styleUrls: ['./select-users-form.component.css']
+  styleUrls: ['./select-users-form.component.scss']
 })
 export class SelectUsersFormComponent implements OnInit {
   constructor(private api: DataAccessService, private userService: UserService) { }

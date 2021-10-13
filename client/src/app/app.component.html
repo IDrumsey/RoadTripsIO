@@ -14,11 +14,18 @@
   *ngIf="showingLoginForm"
   (close)="closeLoginForm()"
 ></app-login-form>
-<app-icon-button
+<app-icon-button-v2
   id="to-top-button"
   [icon]="toTopBtnIcon"
   [iconSize]="'40px'"
-  [iconRegularColor]="toTopBtnColor"
-  [iconHoverColor]="toTopBtnHoverColor"
-  (buttonClick)="scrollToTop()"
-></app-icon-button>
+  (clicked)="scrollToTop()"
+></app-icon-button-v2>
+<span id="theme-mode-toggle-wrapper">
+  <fa-icon id="theme-mode-toggle-icon" [icon]="modeIcon()"></fa-icon>
+  <mat-slide-toggle
+    id="theme-mode-toggle-button"
+    color="primary"
+    [checked]="isDarkMode()"
+    (change)="onThemeModeToggle($event)"
+  ></mat-slide-toggle>
+</span>

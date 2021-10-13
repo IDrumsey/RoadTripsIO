@@ -1,0 +1,17 @@
+@import "~@angular/material/theming";
+
+@mixin roadtrip-card-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .roadtrip-card {
+    background-color: mat-color($background, disabled-button);
+  }
+
+  .roadtrip-card-title {
+    color: mat-color($foreground, text);
+  }
+}

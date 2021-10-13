@@ -7,7 +7,7 @@ import { AppFonts } from 'src/app/core/data/models/app-fonts';
 @Component({
   selector: 'app-images-form',
   templateUrl: './images-form.component.html',
-  styleUrls: ['./images-form.component.css']
+  styleUrls: ['./images-form.component.scss']
 })
 export class ImagesFormComponent implements OnInit {
   // events

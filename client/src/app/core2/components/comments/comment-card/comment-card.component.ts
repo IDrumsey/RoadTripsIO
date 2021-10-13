@@ -9,7 +9,7 @@ import { CalendarService } from 'src/app/core/services/utilities/calendar.servic
 @Component({
   selector: 'app-comment-card',
   templateUrl: './comment-card.component.html',
-  styleUrls: ['./comment-card.component.css']
+  styleUrls: ['./comment-card.component.scss']
 })
 export class CommentCardComponent implements OnInit, AfterViewInit {
 
@@ -142,16 +142,13 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   headStyles(): {} {
     return {
-      backgroundColor: AppColors.elevation4,
       padding: this.cardPadding
     }
   }
 
   detailsStyles(): {} {
     return {
-      backgroundColor: AppColors.elevation3,
       padding: this.cardPadding,
-      color: AppColors.lightGrey,
       fontWeight: "bold"
     }
   }
@@ -165,14 +162,12 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
   textStyles(): {} {
     return {
       fontFamily: AppFonts.Data,
-      fontSize: `${this.textSize}px`,
-      color: AppColors.onColorLight
+      fontSize: `${this.textSize}px`
     }
   }
 
   noProfileImageIconStyles(): {} {
     return {
-      color: AppColors.onColorLight,
       fontSize: this.comment.owner ? "35px" : "25px",
       padding: this.comment.owner ? "0" : "0 5px"
     }

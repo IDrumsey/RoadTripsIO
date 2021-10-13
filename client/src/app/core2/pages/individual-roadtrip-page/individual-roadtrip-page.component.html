@@ -2,11 +2,35 @@
   #map
   (markerAdded)="onMarkerAdded($event)"
   (markerDeleted)="onMarkerDeleted($event)"
+  (toolClick)="onMapToolClick($event)"
 ></app-i-map>
 <app-notification-manager
   id="page-notification-manager"
   #NotificationManager
 ></app-notification-manager>
+<div *ngIf="fillingOutStopForm" class="add-new-stop-form row">
+  <h4>New stop info</h4>
+  <app-new-stop-form #newStopForm class="col-12"></app-new-stop-form>
+  <div id="new-stop-form-options" class="row">
+    <button
+      mat-raised-button
+      color="warn"
+      id="cancel-new-stop-form-button"
+      class="col-sm-12 col-md-4 col-lg-2 mr-auto"
+      (click)="cancelNewStopForm()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      id="submit-new-stop-form-button"
+      class="col-sm-12 col-md-4 col-lg-2 ml-auto"
+      (click)="submitNewStopForm()"
+    >
+      Add Stop
+    </button>
+  </div>
+</div>
 
 <div *ngIf="dataLoaded" class="roadtrip-page">
   <!-- Stops -->

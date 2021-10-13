@@ -12,7 +12,7 @@ import { DataAccessService } from 'src/app/core/services/data/data-access.servic
 @Component({
   selector: 'app-new-roadtrip-form',
   templateUrl: './new-roadtrip-form.component.html',
-  styleUrls: ['./new-roadtrip-form.component.css']
+  styleUrls: ['./new-roadtrip-form.component.scss']
 })
 export class NewRoadtripFormComponent implements OnInit {
 

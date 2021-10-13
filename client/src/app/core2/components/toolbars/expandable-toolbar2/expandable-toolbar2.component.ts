@@ -6,7 +6,7 @@ import { ButtonAliasComponent } from '../../buttons/button-alias/button-alias.co
 @Component({
   selector: 'app-expandable-toolbar2',
   templateUrl: './expandable-toolbar2.component.html',
-  styleUrls: ['./expandable-toolbar2.component.css']
+  styleUrls: ['./expandable-toolbar2.component.scss']
 })
 export class ExpandableToolbar2Component implements OnInit, AfterContentInit {
 

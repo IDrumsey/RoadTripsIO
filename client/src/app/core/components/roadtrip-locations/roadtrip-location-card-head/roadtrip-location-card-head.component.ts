@@ -7,7 +7,7 @@ import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 @Component({
   selector: 'app-roadtrip-location-card-head',
   templateUrl: './roadtrip-location-card-head.component.html',
-  styleUrls: ['./roadtrip-location-card-head.component.css']
+  styleUrls: ['./roadtrip-location-card-head.component.scss']
 })
 export class RoadtripLocationCardHeadComponent implements OnInit {
   @Output() detailsClick = new EventEmitter()

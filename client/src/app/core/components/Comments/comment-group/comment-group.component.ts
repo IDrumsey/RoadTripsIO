@@ -5,7 +5,7 @@ import { CommentComponent } from '../comment/comment.component';
 @Component({
   selector: 'app-comment-group',
   templateUrl: './comment-group.component.html',
-  styleUrls: ['./comment-group.component.css']
+  styleUrls: ['./comment-group.component.scss']
 })
 export class CommentGroupComponent implements OnInit, AfterContentInit {
   /*

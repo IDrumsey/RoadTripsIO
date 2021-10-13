@@ -1,0 +1,33 @@
+#not-found-page {
+  /* had to do it this way because the text in the h1 was overflowing its own box model */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+#page-title {
+  font-size: 100px;
+  text-align: center;
+}
+
+#page-subtitle {
+  font-size: 25px;
+  font-style: italic;
+  text-align: left;
+}
+
+#page-title,
+#page-subtitle {
+  font-family: "Caveat Brush";
+  color: #fff;
+}
+
+#not-found-icon {
+  font-size: 50px;
+  color: #fff;
+  margin: auto;
+}

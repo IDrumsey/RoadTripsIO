@@ -4,7 +4,7 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 @Component({
   selector: 'app-selected-coordinates',
   templateUrl: './selected-coordinates.component.html',
-  styleUrls: ['./selected-coordinates.component.css']
+  styleUrls: ['./selected-coordinates.component.scss']
 })
 export class SelectedCoordinatesComponent implements OnInit {
   // styles

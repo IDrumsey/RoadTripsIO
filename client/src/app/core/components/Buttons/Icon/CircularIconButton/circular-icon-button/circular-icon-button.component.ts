@@ -9,7 +9,7 @@ import { ShapeIconButtonComponent } from '../../../shape-icon-button/shape-icon-
   selector: 'app-circular-icon-button',
   providers: [{provide: ButtonComponent, useExisting: CircularIconButtonComponent}],
   templateUrl: './circular-icon-button.component.html',
-  styleUrls: ['./circular-icon-button.component.css']
+  styleUrls: ['./circular-icon-button.component.scss']
 })
 export class CircularIconButtonComponent extends ShapeIconButtonComponent implements OnInit {
 

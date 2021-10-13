@@ -7,7 +7,7 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 @Component({
   selector: 'app-new-location-form',
   templateUrl: './new-location-form.component.html',
-  styleUrls: ['./new-location-form.component.css']
+  styleUrls: ['./new-location-form.component.scss']
 })
 export class NewLocationFormComponent implements OnInit, OnChanges {
   // data

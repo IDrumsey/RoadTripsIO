@@ -10,7 +10,7 @@ import { IMapManager } from '../functionality/i-map-manager';
 @Component({
   selector: 'app-map-toolbar',
   templateUrl: './map-toolbar.component.html',
-  styleUrls: ['./map-toolbar.component.css']
+  styleUrls: ['./map-toolbar.component.scss']
 })
 export class MapToolbarComponent implements OnInit, AfterViewInit {
   @Input() roadtrip: Roadtrip

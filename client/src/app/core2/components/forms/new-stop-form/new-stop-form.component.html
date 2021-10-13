@@ -1,0 +1,50 @@
+<form class="new-stop-form row" [formGroup]="form">
+  <div class="row">
+    <mat-form-field id="title-field" class="col-12">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="title" formControlName="title" />
+      <mat-hint *ngIf="titleInvalid()">Required</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field id="description-field" class="col-12">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [matTextareaAutosize]="true"
+        placeholder="description"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field id="address-field" class="col-12">
+      <mat-label>Address</mat-label>
+      <input matInput placeholder="address" formControlName="address" />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field id="latitude-field" class="col-6">
+      <mat-label>Latitude</mat-label>
+      <input
+        matInput
+        type="number"
+        class="new-stop-form-latitude-field"
+        formControlName="latitude"
+        min="-180"
+        max="180"
+      />
+    </mat-form-field>
+    <mat-form-field id="longitude-field" class="col-6">
+      <mat-label>Longitude</mat-label>
+      <input
+        matInput
+        type="number"
+        class="new-stop-form-longitude-field"
+        formControlName="longitude"
+        min="-180"
+        max="180"
+      />
+    </mat-form-field>
+  </div>
+</form>

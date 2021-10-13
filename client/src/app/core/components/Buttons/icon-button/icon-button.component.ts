@@ -10,7 +10,7 @@ import { IconButtonManager } from '../functionality/icon-button-manager';
   // https://github.com/angular/angular/issues/8580
   providers: [{provide: ButtonComponent, useExisting: IconButtonComponent}],
   templateUrl: './icon-button.component.html',
-  styleUrls: ['./icon-button.component.css']
+  styleUrls: ['./icon-button.component.scss']
 })
 export class IconButtonComponent extends ButtonComponent implements OnInit, OnChanges {
   // data

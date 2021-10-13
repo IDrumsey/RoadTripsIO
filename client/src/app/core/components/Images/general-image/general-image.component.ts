@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-general-image',
   templateUrl: './general-image.component.html',
-  styleUrls: ['./general-image.component.css']
+  styleUrls: ['./general-image.component.scss']
 })
 export class GeneralImageComponent implements OnInit {
     @Input() width: string = "100%"

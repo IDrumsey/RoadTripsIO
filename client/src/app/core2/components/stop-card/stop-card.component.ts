@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCampground, faEllipsisH, faEllipsisV, faGlasses, faHiking, faInfo, faLandmark, faMapMarkedAlt, faMapMarkerAlt, faTrashAlt, faUtensils, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
-import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { LocationTypes } from 'src/app/core/data/models/location-types';
 import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
@@ -9,7 +8,7 @@ import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
 @Component({
   selector: 'app-stop-card',
   templateUrl: './stop-card.component.html',
-  styleUrls: ['./stop-card.component.css']
+  styleUrls: ['./stop-card.component.scss']
 })
 export class StopCardComponent implements OnInit {
 
@@ -53,13 +52,11 @@ export class StopCardComponent implements OnInit {
   }
 
   // -------------------------------- STYLES --------------------------------
-  @Input() titleColor: string = AppColors.onColorLight
   cardPadding = "10px 20px"
   toolButtonSize = "20px"
   
   getTitleStyles(): {} {
     return {
-      color: this.titleColor,
       fontFamily: AppFonts.Data,
       fontSize: "17px"
     }
@@ -71,16 +68,13 @@ export class StopCardComponent implements OnInit {
 
   getHeadWrapperStyles(): {} {
     return {
-      backgroundColor: AppColors.elevation4,
       padding: this.cardPadding
     }
   }
 
   getDetailStyles(): {} {
     return {
-      color: AppColors.onColorLighter,
-      padding: this.cardPadding,
-      backgroundColor: AppColors.elevation3
+      padding: this.cardPadding
     }
   }
 

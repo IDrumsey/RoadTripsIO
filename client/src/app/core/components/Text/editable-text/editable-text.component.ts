@@ -8,7 +8,7 @@ import { TextInputComponent } from '../text-input/text-input.component';
 @Component({
   selector: 'app-editable-text',
   templateUrl: './editable-text.component.html',
-  styleUrls: ['./editable-text.component.css']
+  styleUrls: ['./editable-text.component.scss']
 })
 export class EditableTextComponent implements OnInit {
   // data

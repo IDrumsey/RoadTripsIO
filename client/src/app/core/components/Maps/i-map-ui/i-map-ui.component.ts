@@ -6,7 +6,7 @@ import { IMapService } from '../../../services/maps/i-map.service';
 @Component({
   selector: 'app-i-map-ui',
   templateUrl: './i-map-ui.component.html',
-  styleUrls: ['./i-map-ui.component.css']
+  styleUrls: ['./i-map-ui.component.scss']
 })
 export class IMapUIComponent implements OnInit, AfterViewInit {
 

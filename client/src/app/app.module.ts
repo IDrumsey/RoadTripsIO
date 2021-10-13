@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { GoogleMapsModule } from '@angular/google-maps';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
+import {MaterialModule} from './core2/components/material/material.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 
 import {ProgressBarModule} from 'ui-loaders'
@@ -28,7 +29,7 @@ import { SelectToolbarComponent } from './core/components/Toolbars/select-toolba
 import { SingleSelectToolbarComponent } from './core/components/Toolbars/single-select-toolbar/single-select-toolbar.component';
 import { EditableTextComponent } from './core/components/Text/editable-text/editable-text.component';
 import { TextInputComponent } from './core/components/Text/text-input/text-input.component';
-import { RoadtripPageComponent } from './core/pages/roadtrip/roadtrip-page.component';
+import { RoadtripPageComponent as OldRoadtripPage } from './core/pages/roadtrip/roadtrip-page.component';
 import { RoadtripLocationCardComponent } from './core/components/roadtrip-locations/roadtrip-location-card/roadtrip-location-card.component';
 import { RoadtripLocationCardHeadComponent } from './core/components/roadtrip-locations/roadtrip-location-card-head/roadtrip-location-card-head.component';
 import { RoadtripLocationCardDetailsComponent } from './core/components/roadtrip-locations/roadtrip-location-card-details/roadtrip-location-card-details.component';
@@ -77,13 +78,16 @@ import { ExpandableToolbar2Component } from './core2/components/toolbars/expanda
 import { ButtonAliasComponent } from './core2/components/buttons/button-alias/button-alias.component';
 import { CommentCardComponent } from './core2/components/comments/comment-card/comment-card.component';
 import { CommentThreadComponent } from './core2/components/comments/comment-thread/comment-thread.component';
+import { NotFoundPageComponent } from './core2/pages/not-found-page/not-found-page.component';
+import { NewStopFormComponent } from './core2/components/forms/new-stop-form/new-stop-form.component';
 
 const routes: Routes = [
-  {path: 'roadtrips/:roadtripId', component: RoadtripPageComponent},
+  {path: 'roadtrips/:roadtripId', component: IndividualRoadtripPageComponent},
   {path: 'users/:userId', component: UserPageComponent},
   {path: '', component: BrowseRoadtripsPageComponent},
   {path: 'test', component: TesterPageComponent},
-  {path: 'rt', component: IndividualRoadtripPageComponent}
+  {path: 'rt', component: OldRoadtripPage},
+  {path: '404', component: NotFoundPageComponent}
 ]
 
 @NgModule({
@@ -100,7 +104,7 @@ const routes: Routes = [
     SingleSelectToolbarComponent,
     EditableTextComponent,
     TextInputComponent,
-    RoadtripPageComponent,
+    OldRoadtripPage,
     RoadtripLocationCardComponent,
     RoadtripLocationCardHeadComponent,
     RoadtripLocationCardDetailsComponent,
@@ -147,7 +151,9 @@ const routes: Routes = [
     ExpandableToolbar2Component,
     ButtonAliasComponent,
     CommentCardComponent,
-    CommentThreadComponent
+    CommentThreadComponent,
+    NotFoundPageComponent,
+    NewStopFormComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +166,8 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MaterialModule
   ],
   exports: [RouterModule],
   providers: [],

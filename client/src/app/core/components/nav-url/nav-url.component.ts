@@ -5,7 +5,7 @@ import { NavURLPiece } from '../data/models/nav-urlpiece';
 @Component({
   selector: 'app-nav-url',
   templateUrl: './nav-url.component.html',
-  styleUrls: ['./nav-url.component.css']
+  styleUrls: ['./nav-url.component.scss']
 })
 export class NavURLComponent implements OnInit {
   constructor() { }
@@ -17,10 +17,6 @@ export class NavURLComponent implements OnInit {
   @Input() pieces: NavURLPiece[]
 
   // ------------------------------------ STYLES ------------------------------------
-  separatorColor: string = AppColors.elevation1
-  separatorStyles = {
-    color: this.separatorColor
-  }
 
   getPieceStyles(piece: NavURLPiece): {} {
     if(piece.path != null){
@@ -37,13 +33,11 @@ export class NavURLComponent implements OnInit {
   }
 
   enabledPieceStyles = {
-    color: AppColors.onColorLight,
     cursor: "pointer",
     ...this.commonPieceStyles
   }
 
   disabledPieceStyles = {
-    color: AppColors.elevation2,
     ...this.commonPieceStyles
   }
 }

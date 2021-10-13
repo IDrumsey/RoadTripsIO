@@ -9,7 +9,7 @@ import { User } from 'src/app/core/data2/models/client/user';
 @Component({
   selector: 'app-personal-info-card',
   templateUrl: './personal-info-card.component.html',
-  styleUrls: ['./personal-info-card.component.css']
+  styleUrls: ['./personal-info-card.component.scss']
 })
 export class PersonalInfoCardComponent implements OnInit {
   @Input() user: User

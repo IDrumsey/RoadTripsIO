@@ -8,7 +8,7 @@ import { GeneralImageComponent } from '../general-image/general-image.component'
   selector: 'app-image-template',
   providers: [{provide: GeneralImageComponent, useExisting: ImageTemplateComponent}],
   templateUrl: './image-template.component.html',
-  styleUrls: ['./image-template.component.css']
+  styleUrls: ['./image-template.component.scss']
 })
 export class ImageTemplateComponent extends GeneralImageComponent implements OnInit {
 

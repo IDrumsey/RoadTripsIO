@@ -10,7 +10,7 @@ import { CommentService } from 'src/app/core/services/comments/comment.service';
 @Component({
   selector: 'app-comment-head',
   templateUrl: './comment-head.component.html',
-  styleUrls: ['./comment-head.component.css']
+  styleUrls: ['./comment-head.component.scss']
 })
 export class CommentHeadComponent implements OnInit {
   constructor(private auth: AuthenticationService, private commentService: CommentService) { }

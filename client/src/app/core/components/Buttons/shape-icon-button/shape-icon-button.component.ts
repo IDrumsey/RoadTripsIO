@@ -5,7 +5,7 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
 @Component({
   selector: 'app-shape-icon-button',
   templateUrl: './shape-icon-button.component.html',
-  styleUrls: ['./shape-icon-button.component.css']
+  styleUrls: ['./shape-icon-button.component.scss']
 })
 export class ShapeIconButtonComponent extends IconButtonComponent implements OnInit {
   constructor(element: ElementRef) {
