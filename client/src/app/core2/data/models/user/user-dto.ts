@@ -1,0 +1,36 @@
+import { DataTransferObject } from "../data-transfer-object"
+import { User } from "./user"
+
+export class UserDTO implements DataTransferObject<UserDTO, User> {
+    id: number
+    username: string
+    firstname: string
+    lastname: string
+    email: string
+    locationsToVisitIds: number[]
+    photo: string
+    reportedCommentIds: number[]
+
+    init(data: UserDTO): void {
+        this.id = data.id
+        this.username = data.username
+        this.firstname = data.firstname
+        this.lastname = data.lastname
+        this.email = data.email
+        this.locationsToVisitIds = data.locationsToVisitIds
+        this.photo = data.photo
+        this.reportedCommentIds = data.reportedCommentIds
+    }
+
+    toClient(): User {
+        let client = new User()
+        client.id = this.id
+        client.username = this.username
+        client.firstname = this.firstname
+        client.lastname = this.lastname
+        client.email = this.email
+        client.photo = this.photo
+
+        return client
+    }
+}

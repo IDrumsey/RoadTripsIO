@@ -3,6 +3,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { faArrowCircleUp, faMoon, faSun, faUmbrella, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from './core/data/models/app-colors';
 import { AuthenticationService } from './core/services/authentication.service';
+import { DataAccessService } from './core2/data/services/data-access.service';
 import { ThemeManagerService } from './core2/services/theme-manager.service';
 
 @Component({
@@ -11,11 +12,16 @@ import { ThemeManagerService } from './core2/services/theme-manager.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private auth: AuthenticationService, private themeManager: ThemeManagerService){}
+  constructor(private auth: AuthenticationService, private themeManager: ThemeManagerService, private data: DataAccessService){}
 
   ngOnInit(): void {
     this.auth.attemptSignIn()
     this.themeManager.init()
+
+    // tests
+    this.data.getUser(2).then(user => {
+      console.log(user)
+    })
   }
 
   // ----------------------------------- DATA -----------------------------------

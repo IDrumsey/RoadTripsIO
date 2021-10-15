@@ -44,7 +44,8 @@
         4,
         3,
         1,
-        5
+        5,
+        6
       ],
       "commentIds": [
         2,
@@ -85,6 +86,11 @@
       "locationId": 6,
       "description": "This is test stop 2's description",
       "id": 5
+    },
+    {
+      "locationId": 7,
+      "description": "some description",
+      "id": 6
     }
   ],
   "locations": [
@@ -141,6 +147,14 @@
       "longitude": -100.39168809772063,
       "photos": [],
       "id": 6
+    },
+    {
+      "title": "Test stop 3",
+      "address": "",
+      "latitude": 35.822454085302496,
+      "longitude": -91.72798339158568,
+      "photos": [],
+      "id": 7
     }
   ],
   "comments": [
