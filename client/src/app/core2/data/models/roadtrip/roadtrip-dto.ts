@@ -29,6 +29,11 @@ export class RoadtripDTO implements DataTransferObject<RoadtripDTO, Roadtrip> {
         client.description = this.description
         client.datePosted = this.datePosted
 
+        client.ownerId = this.ownerId
+        client.collaboratorIds = this.collaboratorIds
+        client.stopIds = this.stopIds
+        client.commentIds = this.commentIds
+
         return client
     }
 }

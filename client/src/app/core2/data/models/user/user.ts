@@ -11,7 +11,8 @@ export class User implements ClientDataObject<UserDTO> {
     email: string
     photo: string
     locationsToVisit: Location[] = []
-    reportedComments: Comment[] = []
+
+    locationsToVisitIds: number[] = []
 
     toDTO(): UserDTO {
         let dto = new UserDTO()
@@ -22,7 +23,6 @@ export class User implements ClientDataObject<UserDTO> {
         dto.email = this.email
         dto.photo = this.photo
         dto.locationsToVisitIds = this.locationsToVisit.map(location => location.id)
-        dto.reportedCommentIds = this.reportedComments.map(comment => comment.id)
 
         return dto
     }

@@ -9,10 +9,16 @@ export class Roadtrip implements ClientDataObject<RoadtripDTO> {
     title: string
     description: string
     datePosted: Date
+
     owner: User
-    collaborators: User[]
-    stops: Stop[]
-    comments: Comment[]
+    collaborators: User[] = []
+    stops: Stop[] = []
+    comments: Comment[] = []
+
+    ownerId: number
+    collaboratorIds: number[] = []
+    stopIds: number[] = []
+    commentIds: number[] = []
 
     toDTO(): RoadtripDTO {
         let dto = new RoadtripDTO()

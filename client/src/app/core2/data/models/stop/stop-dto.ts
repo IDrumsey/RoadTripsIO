@@ -17,6 +17,8 @@ export class StopDTO implements DataTransferObject<StopDTO, Stop> {
         client.id = this.id
         client.description = this.description
 
+        client.locationId = this.locationId
+
         return client
     }
 }

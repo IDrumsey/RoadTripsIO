@@ -5,8 +5,7 @@ export class CommentDTO implements DataTransferObject<CommentDTO, Comment> {
     id: number
     text: string
     datePosted: Date
-    replyIds: number[]
-    parentCommentId: number | null
+    replyIds: number[] = []
     ownerId: number | null
 
     init(data: CommentDTO): void {
@@ -14,7 +13,6 @@ export class CommentDTO implements DataTransferObject<CommentDTO, Comment> {
         this.text = data.text
         this.datePosted = data.datePosted
         this.replyIds = data.replyIds
-        this.parentCommentId = data.parentCommentId
         this.ownerId = data.ownerId
     }
 
@@ -23,6 +21,9 @@ export class CommentDTO implements DataTransferObject<CommentDTO, Comment> {
         client.id = this.id
         client.text = this.text
         client.datePosted = this.datePosted
+
+        client.ownerId = this.ownerId
+        client.replyIds = this.replyIds
 
         return client
     }

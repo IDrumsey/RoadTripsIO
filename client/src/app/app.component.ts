@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
     this.themeManager.init()
 
     // tests
-    this.data.getUser(2).then(user => {
-      console.log(user)
+    this.data.getRoadtrip(1).then(data => {
+      console.log(data)
     })
   }
 

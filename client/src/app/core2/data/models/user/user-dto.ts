@@ -9,7 +9,7 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
     email: string
     locationsToVisitIds: number[]
     photo: string
-    reportedCommentIds: number[]
+    reportedCommentIds: number[] = []
 
     init(data: UserDTO): void {
         this.id = data.id
@@ -17,9 +17,14 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
         this.firstname = data.firstname
         this.lastname = data.lastname
         this.email = data.email
-        this.locationsToVisitIds = data.locationsToVisitIds
         this.photo = data.photo
-        this.reportedCommentIds = data.reportedCommentIds
+        // this method avoids the [] being replaced with undefined
+        if(data.reportedCommentIds){
+            this.reportedCommentIds = data.reportedCommentIds
+        }
+        if(data.locationsToVisitIds){
+            this.locationsToVisitIds = data.locationsToVisitIds
+        }
     }
 
     toClient(): User {
@@ -30,6 +35,7 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
         client.lastname = this.lastname
         client.email = this.email
         client.photo = this.photo
+        client.locationsToVisitIds = this.locationsToVisitIds
 
         return client
     }
