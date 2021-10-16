@@ -17,11 +17,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.auth.attemptSignIn()
     this.themeManager.init()
-
-    // tests
-    this.data.getRoadtrip(1).then(data => {
-      console.log(data)
-    })
   }
 
   // ----------------------------------- DATA -----------------------------------

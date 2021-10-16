@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Comment } from 'src/app/core/data2/models/client/comment';
+import { Comment } from 'src/app/core2/data/models/comment/comment';
 
 @Component({
   selector: 'app-comment-thread',

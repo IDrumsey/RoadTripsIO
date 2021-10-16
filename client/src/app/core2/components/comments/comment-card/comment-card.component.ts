@@ -1,10 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { faCalendarDay, faClock, faEllipsisH, faEllipsisV, faExclamationCircle, faInfoCircle, faUserCircle, faUserSecret, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
-import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { Comment } from 'src/app/core/data2/models/client/comment';
 import { CalendarService } from 'src/app/core/services/utilities/calendar.service';
+import { Comment } from 'src/app/core2/data/models/comment/comment';
 
 @Component({
   selector: 'app-comment-card',
@@ -115,6 +114,15 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
 
   getTime(): string {
     return this.calendarService.getTime(this.comment.datePosted)
+  }
+
+  getOwnerName(): string {
+    return this.comment.owner ? this.comment.owner.username : "Anonymous"
+  }
+
+  getOwnerPhoto(): string {
+    // BUG (possible) : might try requesting empty url
+    return this.comment.owner ? this.comment.owner.photo : ""
   }
 
   // ------------------------------------ STYLES ------------------------------------

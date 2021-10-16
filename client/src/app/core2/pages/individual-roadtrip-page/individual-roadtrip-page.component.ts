@@ -4,16 +4,14 @@ import {Subject} from 'rxjs';
 import { IMapComponent } from 'src/app/core/components/Maps/i-map/i-map.component';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { Comment } from 'src/app/core/data2/models/client/comment';
-import { Coordinate } from 'src/app/core/data2/models/client/coordinate';
-import { Location } from 'src/app/core/data2/models/client/location';
-import { Roadtrip } from 'src/app/core/data2/models/client/roadtrip';
-import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
-import { AsyncService } from 'src/app/core/services/async.service';
-import { AbstractDataAccessService } from 'src/app/core/services/data/abstract-data-access.service';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
 import { NewStopFormComponent } from '../../components/forms/new-stop-form/new-stop-form.component';
 import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
+import { Comment } from '../../data/models/comment/comment';
+import { Coordinate } from '../../data/models/coordinate/coordinate';
+import { Location } from '../../data/models/location/location';
+import { Roadtrip } from '../../data/models/roadtrip/roadtrip';
+import { Stop } from '../../data/models/stop/stop';
+import { DataAccessService } from '../../data/services/data-access.service';
 import { ButtonTool } from '../../interfaces/button-tool';
 
 @Component({
@@ -23,7 +21,7 @@ import { ButtonTool } from '../../interfaces/button-tool';
 })
 export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private abstractAPI: AbstractDataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private api: DataAccessService, private asyncService: AsyncService) { }
+  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.url.paramMap.subscribe(params => {
@@ -104,9 +102,9 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     this.notificationManager.addTempNotification(note, 3)
   }
 
-  onStopCardSeeOnMapButtonClick(stop: RoadtripStop): void {
+  onStopCardSeeOnMapButtonClick(stop: Stop): void {
     // find the marker
-    let latlng = new google.maps.LatLng(stop.location.coordinates.latitude, stop.location.coordinates.longitude)
+    let latlng = new google.maps.LatLng(stop.location.coordinate.latitude, stop.location.coordinate.longitude)
     let markerFound = this.map.findMarker(latlng)
     if(markerFound){
       this.map.zoomMarkerTool.zoomInOnMarker(markerFound)
@@ -137,7 +135,7 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   // --------------------------- FUNCTIONALITY ---------------------------
   loadData(roadtripId: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.abstractAPI.getRoadtripById(roadtripId).then(roadtrip => {
+      this.api.getRoadtrip(roadtripId).then(roadtrip => {
         this.roadtrip = roadtrip
         resolve()
       }, err => {
@@ -153,7 +151,7 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   addInitialStopsToMap(): void {
     this.roadtrip.stops.forEach(stop => {
       // convert coordinates to latlng
-      let latlng = new google.maps.LatLng(stop.location.coordinates.latitude, stop.location.coordinates.longitude)
+      let latlng = new google.maps.LatLng(stop.location.coordinate.latitude, stop.location.coordinate.longitude)
       // add to map
       this.map.addMarkerByCoordinates(latlng)
     })
@@ -187,18 +185,19 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
       console.log("submitting form : ", title)
 
-      let uploadStop = new RoadtripStop(this.api, this.asyncService)
+      let uploadStop = new Stop()
       uploadStop.description = description
       let uploadLocation = new Location();
       uploadLocation.address = address
       uploadLocation.title = title
       let uploadCoords = new Coordinate(latitude, longitude)
-      uploadLocation.coordinates = uploadCoords
+      uploadLocation.coordinate = uploadCoords
       uploadStop.location = uploadLocation
 
-      this.roadtrip.addStop(uploadStop).then(newStop => {
-        this.closeNewStopForm()
-      })
+      // TODO
+      // this.roadtrip.addStop(uploadStop).then(newStop => {
+      //   this.closeNewStopForm()
+      // })
     }
   }
 

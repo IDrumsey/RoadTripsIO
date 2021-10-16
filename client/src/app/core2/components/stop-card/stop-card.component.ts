@@ -3,7 +3,7 @@ import { faCampground, faEllipsisH, faEllipsisV, faGlasses, faHiking, faInfo, fa
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { LocationTypes } from 'src/app/core/data/models/location-types';
-import { RoadtripStop } from 'src/app/core/data2/models/client/roadtrip-stop';
+import { Stop } from '../../data/models/stop/stop';
 
 @Component({
   selector: 'app-stop-card',
@@ -24,7 +24,7 @@ export class StopCardComponent implements OnInit {
   }
 
   // -------------------------------- DATA --------------------------------
-  @Input() stop: RoadtripStop
+  @Input() stop: Stop
   
   headToolbarToggleIcon = faEllipsisV
   detailsIcon = faInfo
@@ -149,6 +149,6 @@ export class StopCardComponent implements OnInit {
   }
 
   getDetailsSubtitle(): string {
-    return this.stop.location.coordinates.genFormattedString()
+    return this.stop.location.coordinate.genFormattedString()
   }
 }

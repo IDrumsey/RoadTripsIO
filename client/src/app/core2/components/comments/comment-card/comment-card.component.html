@@ -4,9 +4,9 @@
       <app-user-profile-image
         *ngIf="hasProfileImage()"
         class="comment-card-profile-image"
-        [path]="comment.owner.photo"
+        [path]="getOwnerPhoto()"
         [size]="'35px'"
-        [tooltip]="comment.owner.username"
+        [tooltip]="getOwnerName()"
         (click)="onProfileImageClick()"
       ></app-user-profile-image>
       <fa-icon
