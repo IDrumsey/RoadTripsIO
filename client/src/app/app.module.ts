@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 
 // Third Party
@@ -80,6 +80,7 @@ import { CommentCardComponent } from './core2/components/comments/comment-card/c
 import { CommentThreadComponent } from './core2/components/comments/comment-thread/comment-thread.component';
 import { NotFoundPageComponent } from './core2/pages/not-found-page/not-found-page.component';
 import { NewStopFormComponent } from './core2/components/forms/new-stop-form/new-stop-form.component';
+import { ApiRequestInterceptor } from './core2/interceptors/api-request.interceptor';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: IndividualRoadtripPageComponent},
@@ -88,6 +89,10 @@ const routes: Routes = [
   {path: 'test', component: TesterPageComponent},
   {path: 'rt', component: OldRoadtripPage},
   {path: '404', component: NotFoundPageComponent}
+]
+
+const interceptors = [
+  {provide: HTTP_INTERCEPTORS, useClass: ApiRequestInterceptor, multi: true}
 ]
 
 @NgModule({
@@ -170,7 +175,7 @@ const routes: Routes = [
     MaterialModule
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [interceptors],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

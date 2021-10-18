@@ -105,6 +105,75 @@ export class DataAccessService {
     })
   }
 
+  deleteLocation(location: Location): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/locations/${location.id}`
+
+      this.api.delete(url, this.requestOptions).subscribe(() => {
+        resolve()
+      }, err => reject(err))
+    })
+  }
+
+  deleteStop(stop: Stop): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/stops/${stop.id}`
+
+      this.asyncService.runMultiplePromises([
+        this.deleteLocation(stop.location),
+        this.api.delete(url, this.requestOptions).toPromise()
+      ]).then(() => {
+        resolve()
+      }, err => reject(err))
+    })
+  }
+
+  updateRoadtrip(roadtrip: Roadtrip): Promise<Roadtrip> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/roadtrips/${roadtrip.id}`
+
+      let uploadDTO = roadtrip.toDTO()
+      this.api.put<RoadtripDTO>(url, uploadDTO, this.requestOptions).subscribe(data => {
+        let downloadDTO = new RoadtripDTO()
+        downloadDTO.init(data)
+
+        let client = downloadDTO.toClient()
+        this.fulfillRoadtrip(client).then(roadtrip => resolve(roadtrip), err => reject(err))
+      })
+    })
+  }
+
+  addLocation(location: Location): Promise<Location> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/locations/`
+
+      this.api.post<LocationDto>(url, location, this.requestOptions).subscribe(data => {
+        let dto = new LocationDto()
+        dto.init(data)
+
+        let client = dto.toClient()
+        resolve(client)
+      }, err => reject(err))
+    })
+  }
+
+  addStop(stop: Stop): Promise<Stop> {
+    console.log("adding stop : ", stop)
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/stops/`
+
+      let uploadDTO = stop.toDTO()
+
+      this.api.post<StopDTO>(url, uploadDTO, this.requestOptions).subscribe(data => {
+        let dto = new StopDTO()
+        dto.init(data)
+
+        let client = dto.toClient()
+        this.fulfillStop(client).then(newStop => resolve(newStop), err => reject(err))
+      }, err => reject(err))
+    })
+  }
+
   // --------------------------------------- NESTED DATA LOADERS ---------------------------------------
   
   private fulfillUser(user: User): Promise<User> {
@@ -144,8 +213,14 @@ export class DataAccessService {
     return new Promise<Stop>((resolve, reject) => {
       let requests: Promise<any>[] = []
 
+      console.log(stop)
       // get location
-      requests.push(this.getLocation(stop.locationId).then(location => stop.location = location, err => reject(err)))
+      if(stop.location){
+        requests.push(this.getLocation(stop.location.id).then(location => stop.location = location, err => reject(err)))
+      }
+      else{
+        requests.push(this.getLocation(stop.locationId).then(location => stop.location = location, err => reject(err)))
+      }
 
       // run requests
       this.asyncService.runMultiplePromises(requests).then(() => {

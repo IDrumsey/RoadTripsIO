@@ -6,6 +6,7 @@ import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
 import { NewStopFormComponent } from '../../components/forms/new-stop-form/new-stop-form.component';
 import { NotificationManagerComponent } from '../../components/notifications/notification-manager/notification-manager.component';
+import { StopCardComponent } from '../../components/stop-card/stop-card.component';
 import { Comment } from '../../data/models/comment/comment';
 import { Coordinate } from '../../data/models/coordinate/coordinate';
 import { Location } from '../../data/models/location/location';
@@ -13,6 +14,7 @@ import { Roadtrip } from '../../data/models/roadtrip/roadtrip';
 import { Stop } from '../../data/models/stop/stop';
 import { DataAccessService } from '../../data/services/data-access.service';
 import { ButtonTool } from '../../interfaces/button-tool';
+import { IMapService } from 'src/app/core/services/maps/i-map.service';
 
 @Component({
   selector: 'app-individual-roadtrip-page',
@@ -21,7 +23,7 @@ import { ButtonTool } from '../../interfaces/button-tool';
 })
 export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute) { }
+  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private mapService: IMapService) { }
 
   ngOnInit(): void {
     this.url.paramMap.subscribe(params => {
@@ -57,6 +59,9 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
         this.newStopFormShown.next()
       }
     })
+    this.stopCardComponents.changes.subscribe(components => {
+      this.stopCards = components.toArray()
+    })
   }
 
   // --------------------------- DATA ---------------------------
@@ -65,6 +70,8 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   @ViewChild('map') map: IMapComponent
   @ViewChildren('newStopForm') newStopForm = new QueryList<NewStopFormComponent>()
   newStopInfo: NewStopFormComponent
+  @ViewChildren(StopCardComponent) stopCardComponents = new QueryList<StopCardComponent>()
+  stopCards: StopCardComponent[] = []
 
   roadtrip: Roadtrip
   dataLoaded = false
@@ -98,8 +105,10 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   }
 
   onMarkerDeleted(markerDeleted: google.maps.Marker): void {
-    let note = this.notificationManager.createNotification('Marker deleted', {bgColor: '#8a203c'})
-    this.notificationManager.addTempNotification(note, 3)
+    this.deleteStop(markerDeleted).then(() => {
+      let note = this.notificationManager.createNotification('Stop deleted', {bgColor: '#8a203c'})
+      this.notificationManager.addTempNotification(note, 3)
+    })
   }
 
   onStopCardSeeOnMapButtonClick(stop: Stop): void {
@@ -192,12 +201,14 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
       uploadLocation.title = title
       let uploadCoords = new Coordinate(latitude, longitude)
       uploadLocation.coordinate = uploadCoords
-      uploadStop.location = uploadLocation
 
-      // TODO
-      // this.roadtrip.addStop(uploadStop).then(newStop => {
-      //   this.closeNewStopForm()
-      // })
+      this.api.addLocation(uploadLocation).then(stopLocation => {
+        uploadStop.location = stopLocation
+        this.api.addStop(uploadStop).then(newStop => {
+          this.roadtrip.addStop(newStop)
+          this.closeNewStopForm()
+        })
+      })
     }
   }
 
@@ -221,6 +232,29 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   defineNewStopForm(): void {
     let form = this.newStopForm.toArray()[0]
     this.newStopInfo = form
+  }
+
+  deleteStop(marker: google.maps.Marker): Promise<void> {
+    // remove necessary data from api
+    return new Promise((resolve, reject) => {
+      let coord = this.mapService.getMarkerPosition(marker)
+      if(coord){
+        let stopToDelete = this.roadtrip.findStop(coord)
+        console.log(stopToDelete)
+        if(stopToDelete){
+          this.api.deleteStop(stopToDelete).then(() => {
+            if(stopToDelete){ // needed to duplicate this conditional unfortunately
+              this.roadtrip.removeStop(stopToDelete)
+              this.api.updateRoadtrip(this.roadtrip).then(updatedRoadtrip => {
+                this.roadtrip = updatedRoadtrip
+              }, err => reject(err))
+            }
+          }, err => reject(err))
+        }
+        reject("Couldn't find stop to delete")
+      }
+      reject("Coordinate not defined")
+    })
   }
 
   // --------------------------- STYLES ---------------------------

@@ -19,4 +19,8 @@ export class Coordinate {
     toLatLngLiteral(): google.maps.LatLngLiteral {
         return {lat: this.latitude, lng: this.longitude}
     }
+
+    toLatLng(): google.maps.LatLng {
+        return new google.maps.LatLng(this.latitude, this.longitude)
+    }
 }

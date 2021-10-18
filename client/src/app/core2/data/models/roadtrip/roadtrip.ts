@@ -33,4 +33,20 @@ export class Roadtrip implements ClientDataObject<RoadtripDTO> {
 
         return dto
     }
+
+    findStop(coordinates: google.maps.LatLngLiteral): Stop | undefined {
+        return this.stops.find(stop => stop.location.coordinate.compare(coordinates))
+    }
+
+    addStop(stop: Stop): void {
+        this.stops.push(stop)
+        // TODO : Maybe avoid duplicates here
+    }
+
+    removeStop(stop: Stop){
+        let stopIndex = this.stops.indexOf(stop)
+        if(stopIndex != -1){
+            this.stops.splice(stopIndex, 1)
+        }
+    }
 }

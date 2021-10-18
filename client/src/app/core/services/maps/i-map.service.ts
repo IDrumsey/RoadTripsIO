@@ -54,4 +54,23 @@ export class IMapService {
   compareCoordinates(coordinateA: google.maps.LatLng, coordinateB: google.maps.LatLng): boolean {
     return (coordinateA?.lat() == coordinateB.lat() && coordinateA.lng() == coordinateB.lng())
   }
+
+  getMarkerPosition(marker: google.maps.Marker): google.maps.LatLngLiteral | null {
+    let pos = marker.getPosition()
+    if(pos){
+      let lat = pos.lat()
+      let lng = pos.lng()
+
+      if(lat && lng){
+        return {
+          lat: lat,
+          lng: lng
+        }
+      }else{
+        return null
+      }
+    }else{
+      return null
+    }
+  }
 }
