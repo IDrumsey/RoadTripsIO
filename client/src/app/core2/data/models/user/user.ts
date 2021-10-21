@@ -12,8 +12,6 @@ export class User implements ClientDataObject<UserDTO> {
     photo: string
     locationsToVisit: Location[] = []
 
-    locationsToVisitIds: number[] = []
-
     toDTO(): UserDTO {
         let dto = new UserDTO()
         dto.id = this.id

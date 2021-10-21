@@ -11,3 +11,7 @@ can't delete two comments in a row -> shuts down server
 when adding root comment, server shorts
 
 icon button doesn't change color on click. Waits for mouse to exit.
+
+when deleting a stop from the roadtrip page, the 404 api endpoint error is thrown. This might just have to do with the test data server idk. It's not being called twice.
+
+manually selecting a marker takes a long time (sometimes). sometimes, it fixes itself with a page refresh (it's kind of random)

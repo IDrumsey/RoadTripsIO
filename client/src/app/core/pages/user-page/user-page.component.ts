@@ -40,7 +40,9 @@ export class UserPageComponent implements OnInit {
   addingNewRoadtrip = false
   
   isOwner(): boolean {
-    return this.auth.isCurrentlyLoggedInUser(this.user)
+    return true
+    // BUG : not backward compatible with new authentication service
+    // return this.auth.isCurrentlyLoggedInUser(this.user)
   }
 
   // styles

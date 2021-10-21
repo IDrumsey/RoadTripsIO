@@ -22,9 +22,6 @@ export class CommentDTO implements DataTransferObject<CommentDTO, Comment> {
         client.text = this.text
         client.datePosted = this.datePosted
 
-        client.ownerId = this.ownerId
-        client.replyIds = this.replyIds
-
         return client
     }
 }

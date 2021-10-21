@@ -1,0 +1,22 @@
+<form class="comment-reply-field row" [formGroup]="form">
+  <mat-form-field id="message-field" class="col-12" appearance="fill">
+    <mat-label>Reply</mat-label>
+    <!-- BUG : The error color shows without any typing -->
+    <textarea
+      matInput
+      cdkTextareaAutosize
+      placeholder="Enter your message"
+      formControlName="message"
+      [ngStyle]="inputStyles"
+    ></textarea>
+    <mat-hint *ngIf="!messageValid">Required</mat-hint>
+  </mat-form-field>
+</form>
+<div class="comment-reply-field-options">
+  <button mat-raised-button color="warn" (click)="onCancelBtnClick()">
+    Cancel
+  </button>
+  <button mat-raised-button color="accent" (click)="onSendBtnClick()">
+    Send
+  </button>
+</div>

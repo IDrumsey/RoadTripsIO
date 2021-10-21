@@ -110,7 +110,9 @@ export class RoadtripPageComponent implements OnInit, AfterContentInit {
   // ------------------- FUNCTIONALITY -------------------
 
   isOwner(): boolean {
-    return this.auth.isCurrentlyLoggedInUser(this.roadtrip.owner)
+    return true
+    // BUG : not backward compatible with new authentication service
+    // return this.auth.isCurrentlyLoggedInUser(this.roadtrip.owner)
   }
 
   initPage(): void {

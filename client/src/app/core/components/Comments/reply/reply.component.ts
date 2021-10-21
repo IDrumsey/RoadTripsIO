@@ -89,7 +89,8 @@ export class ReplyComponent implements OnInit {
     return new Promise((resolve, reject) => {
       replyToUpload.addToAPI().then(uploadedReply => {
         if(this.auth.currentlyLoggedInUser){
-          uploadedReply.owner = this.auth.currentlyLoggedInUser
+          // BUG : not backward compatible with new authentication service
+          // uploadedReply.owner = this.auth.currentlyLoggedInUser
         }
         resolve(uploadedReply)
       }, err => reject(err))

@@ -15,11 +15,6 @@ export class Roadtrip implements ClientDataObject<RoadtripDTO> {
     stops: Stop[] = []
     comments: Comment[] = []
 
-    ownerId: number
-    collaboratorIds: number[] = []
-    stopIds: number[] = []
-    commentIds: number[] = []
-
     toDTO(): RoadtripDTO {
         let dto = new RoadtripDTO()
         dto.id = this.id

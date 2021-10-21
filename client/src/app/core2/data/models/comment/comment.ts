@@ -10,9 +10,6 @@ export class Comment implements ClientDataObject<CommentDTO> {
     replies: Comment[] = []
     owner: User | null
 
-    ownerId: number | null
-    replyIds: number[] = []
-
     toDTO(): CommentDTO {
         let dto = new CommentDTO()
         dto.id = this.id
@@ -24,5 +21,13 @@ export class Comment implements ClientDataObject<CommentDTO> {
         }
 
         return dto
+    }
+
+    addReply(reply: Comment): void {
+        // check for duplicate to avoid spam
+        let found = this.replies.find(tempReply => tempReply == reply)
+        if(!found){
+            this.replies.push(reply)
+        }
     }
 }

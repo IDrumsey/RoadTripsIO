@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCampground, faEllipsisH, faEllipsisV, faGlasses, faHiking, faInfo, faLandmark, faMapMarkedAlt, faMapMarkerAlt, faTrashAlt, faUtensils, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
@@ -12,7 +12,9 @@ import { Stop } from '../../data/models/stop/stop';
 })
 export class StopCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ref: ElementRef) {
+    this.element = ref
+  }
 
   ngOnInit(): void {
     if(this.headToolbarInitialExpandedState){
@@ -24,6 +26,8 @@ export class StopCardComponent implements OnInit {
   }
 
   // -------------------------------- DATA --------------------------------
+  element: ElementRef
+
   @Input() stop: Stop
   
   headToolbarToggleIcon = faEllipsisV

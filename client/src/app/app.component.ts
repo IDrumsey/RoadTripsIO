@@ -4,6 +4,7 @@ import { faArrowCircleUp, faMoon, faSun, faUmbrella, IconDefinition } from '@for
 import { AppColors } from './core/data/models/app-colors';
 import { AuthenticationService } from './core/services/authentication.service';
 import { DataAccessService } from './core2/data/services/data-access.service';
+import { PageService } from './core2/services/page.service';
 import { ThemeManagerService } from './core2/services/theme-manager.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ThemeManagerService } from './core2/services/theme-manager.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private auth: AuthenticationService, private themeManager: ThemeManagerService, private data: DataAccessService){}
+  constructor(private auth: AuthenticationService, private themeManager: ThemeManagerService, private pageService: PageService){}
 
   ngOnInit(): void {
     this.auth.attemptSignIn()
@@ -61,6 +62,6 @@ export class AppComponent implements OnInit {
   }
 
   scrollToTop(): void {
-    window.scrollTo(0, 0)
+    this.pageService.scrollToTop()
   }
 }

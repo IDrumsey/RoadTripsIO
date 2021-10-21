@@ -68,6 +68,7 @@ export class IMapComponent implements OnInit, AfterViewInit {
   // --------------------------------- EVENTS ---------------------------------
   @Output() markerAdded = new EventEmitter<google.maps.Marker>()
   @Output() markerDeleted = new EventEmitter<google.maps.Marker>()
+  @Output() markerSelected = new EventEmitter<google.maps.Marker>()
 
   @Output() toolSelected = new EventEmitter<ButtonTool>()
   @Output() toolUnselected = new EventEmitter<ButtonTool>()
@@ -189,6 +190,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
     })
   }
 
+  onMarkerSelect(markerSelected: google.maps.Marker): void {
+    this.signal_markerSelected(markerSelected)
+  }
+
   // --------------------------------- SIGNLERS ---------------------------------
   signal_markerAdded(markerAdded: google.maps.Marker): void {
     this.markerAdded.emit(markerAdded)
@@ -196,6 +201,10 @@ export class IMapComponent implements OnInit, AfterViewInit {
 
   signal_markerDeleted(markerDeleted: google.maps.Marker): void {
     this.markerDeleted.emit(markerDeleted)
+  }
+
+  signal_markerSelected(markerSelected: google.maps.Marker): void {
+    this.markerSelected.emit(markerSelected)
   }
 
   // --------------------------------- FUNCTIONALITY ---------------------------------

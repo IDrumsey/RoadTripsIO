@@ -2,6 +2,7 @@
   #map
   (markerAdded)="onMarkerAdded($event)"
   (markerDeleted)="onMarkerDeleted($event)"
+  (markerSelected)="onMarkerSelected($event)"
   (toolClick)="onMapToolClick($event)"
 ></app-i-map>
 <app-notification-manager
@@ -41,6 +42,7 @@
         *ngFor="let stop of roadtrip.stops"
         [stop]="stop"
         (seeOnMapButtonClicked)="onStopCardSeeOnMapButtonClick(stop)"
+        (deleteStopButtonClicked)="onStopCardDeleteBtnClick(stop)"
       ></app-stop-card>
     </div>
   </div>
@@ -48,11 +50,12 @@
   <div class="roadtrip-comments-section">
     <h4 class="section-title" [ngStyle]="sectionTitleStyles()">Comments</h4>
     <div class="roadtrip-comments">
-      <app-comment-thread
+      <!-- <app-comment-thread
         *ngFor="let rootComment of roadtrip.comments"
         [rootComment]="rootComment"
         (profileImageClicked)="onCommentProfileImageClick($event)"
-      ></app-comment-thread>
+      ></app-comment-thread> -->
+      <app-thread-group [rootComments]="roadtrip.comments"></app-thread-group>
     </div>
   </div>
 </div>

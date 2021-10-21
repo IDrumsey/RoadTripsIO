@@ -7,8 +7,6 @@ export class Stop implements ClientDataObject<StopDTO> {
     location: Location
     description: string
 
-    locationId: number
-
     toDTO(): StopDTO {
         let dto = new StopDTO()
         dto.id = this.id

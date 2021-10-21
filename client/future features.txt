@@ -36,3 +36,7 @@ error reports for errors that need manually handled. for example if an operation
 select area on map tool
 
 for the new stop form, have autocomplete for the address (https://www.solodev.com/blog/web-design/adding-an-auto-complete-address-field-to-your-forms.stml)
+
+for the new stop form when you add the marker the title field input should be focused automatically
+
+for a comment thread group have search functionality and filters

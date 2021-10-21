@@ -35,7 +35,6 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
         client.lastname = this.lastname
         client.email = this.email
         client.photo = this.photo
-        client.locationsToVisitIds = this.locationsToVisitIds
 
         return client
     }

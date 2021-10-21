@@ -42,6 +42,8 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
   // --------------------------------- EVENTS ---------------------------------
   @Output() mapClick = new EventEmitter<google.maps.LatLng>()
   @Output() markerClick = new EventEmitter<google.maps.Marker>()
+  @Output() markerSelect = new EventEmitter<google.maps.Marker>()
+  @Output() markerUnselect = new EventEmitter<google.maps.Marker>()
 
   // --------------------------------- EVENT HANDLERS ---------------------------------
   
@@ -140,6 +142,7 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
     this.selectedMarkers.push(markerToSelect)
     markerToSelect.setIcon(IMapMarkerColor.Blue)
     this.bounceMarker(this.markers[0])
+    this.markerSelect.emit(markerToSelect)
   }
 
   unselectMarker(markerToUnselect: google.maps.Marker): void {
@@ -147,6 +150,7 @@ export class IMapUIComponent implements OnInit, AfterViewInit {
     if(indexOfMarker != -1){
       this.selectedMarkers.splice(indexOfMarker, 1)
       markerToUnselect.setIcon(IMapMarkerColor.Red)
+      this.markerUnselect.emit(markerToUnselect)
     }
   }
 

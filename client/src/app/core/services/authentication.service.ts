@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from '../data2/models/client/user';
-import { DataAccessService } from './data/data-access.service';
+import { User } from 'src/app/core2/data/models/user/user';
+import { DataAccessService } from 'src/app/core2/data/services/data-access.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +19,11 @@ export class AuthenticationService {
   async attemptSignIn(): Promise<User> {
     console.log("checking creds")
     return new Promise((resolve, reject) => {
-      this.api.getUser(1).subscribe(userFound => {
+      this.api.getUser(1).then(userFound => {
         // TODO
         if(userFound){
           // load additional info
-          userFound.loadAdditionalData().then(() => {
-            this.signUserIn(userFound)
-            resolve(userFound)
-          }, err => {
-            reject(err)
-          })
+          resolve(userFound)
         }
         else{
           reject("No user found")

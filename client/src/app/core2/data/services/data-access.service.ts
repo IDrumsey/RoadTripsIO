@@ -44,7 +44,7 @@ export class DataAccessService {
         dto.init(data)
 
         let client = dto.toClient()
-        this.fulfillUser(client).then(user => resolve(user))
+        this.fulfillUser(dto, client).then(user => resolve(user))
       }, err => reject(err))
     })
   }
@@ -72,7 +72,7 @@ export class DataAccessService {
         dto.init(data)
 
         let client = dto.toClient()
-        this.fulfillComment(client).then(comment => resolve(comment))
+        this.fulfillComment(dto, client).then(comment => resolve(comment))
       }, err => reject(err))
     })
   }
@@ -86,7 +86,7 @@ export class DataAccessService {
         dto.init(data)
 
         let client = dto.toClient()
-        this.fulfillStop(client).then(stop => resolve(stop), err => reject(err))
+        this.fulfillStop(dto, client).then(stop => resolve(stop), err => reject(err))
       }, err => reject(err))
     })
   }
@@ -100,7 +100,7 @@ export class DataAccessService {
         dto.init(data)
 
         let client = dto.toClient()
-        this.fulfillRoadtrip(client).then(roadtrip => resolve(roadtrip), err => reject(err))
+        this.fulfillRoadtrip(dto, client).then(roadtrip => resolve(roadtrip), err => reject(err))
       }, err => reject(err))
     })
   }
@@ -138,7 +138,22 @@ export class DataAccessService {
         downloadDTO.init(data)
 
         let client = downloadDTO.toClient()
-        this.fulfillRoadtrip(client).then(roadtrip => resolve(roadtrip), err => reject(err))
+        this.fulfillRoadtrip(downloadDTO, client).then(updatedRoadtrip => resolve(updatedRoadtrip), err => reject(err))
+      })
+    })
+  }
+
+  updateComment(comment: Comment): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/comments/${comment.id}`
+
+      let uploadDTO = comment.toDTO()
+      this.api.put<CommentDTO>(url, uploadDTO, this.requestOptions).subscribe(data => {
+        let downloadDTO = new CommentDTO()
+        downloadDTO.init(data)
+
+        let client = downloadDTO.toClient()
+        this.fulfillComment(downloadDTO, client).then(updatedComment => resolve(updatedComment), err => reject(err))
       })
     })
   }
@@ -147,7 +162,9 @@ export class DataAccessService {
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/locations/`
 
-      this.api.post<LocationDto>(url, location, this.requestOptions).subscribe(data => {
+      let uploadDTO = location.toDTO()
+
+      this.api.post<LocationDto>(url, uploadDTO, this.requestOptions).subscribe(data => {
         let dto = new LocationDto()
         dto.init(data)
 
@@ -158,7 +175,6 @@ export class DataAccessService {
   }
 
   addStop(stop: Stop): Promise<Stop> {
-    console.log("adding stop : ", stop)
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/stops/`
 
@@ -169,85 +185,95 @@ export class DataAccessService {
         dto.init(data)
 
         let client = dto.toClient()
-        this.fulfillStop(client).then(newStop => resolve(newStop), err => reject(err))
+        this.fulfillStop(dto, client).then(newStop => resolve(newStop), err => reject(err))
+      }, err => reject(err))
+    })
+  }
+
+  addComment(comment: Comment): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/comments/`
+
+      let uploadDTO = comment.toDTO()
+
+      this.api.post<CommentDTO>(url, uploadDTO, this.requestOptions).subscribe(data => {
+        let dto = new CommentDTO()
+        dto.init(data)
+
+        let client = dto.toClient()
+        this.fulfillComment(dto, client).then(newComment => resolve(newComment), err => reject(err))
       }, err => reject(err))
     })
   }
 
   // --------------------------------------- NESTED DATA LOADERS ---------------------------------------
   
-  private fulfillUser(user: User): Promise<User> {
+  private fulfillUser(dto: UserDTO, client: User): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       let requests: Promise<any>[] = []
 
       // get locations to visit
-      requests.push(...user.locationsToVisitIds.map(id => this.getLocation(id).then(locationToVisit => user.locationsToVisit.push(locationToVisit), err => reject(err))))
+      requests.push(...dto.locationsToVisitIds.map(id => this.getLocation(id).then(locationToVisit => client.locationsToVisit.push(locationToVisit), err => reject(err))))
 
       // run requests
       this.asyncService.runMultiplePromises(requests).then(() => {
-        resolve(user)
+        resolve(client)
       })
     })
   }
 
-  private fulfillComment(comment: Comment): Promise<Comment> {
+  private fulfillComment(dto: CommentDTO, client: Comment): Promise<Comment> {
     return new Promise<Comment>((resolve, reject) => {
       let requests: Promise<any>[] = []
 
       // get replies
-      requests.push(...comment.replyIds.map(replyId => this.getComment(replyId).then(reply => comment.replies.push(reply), err => reject(err))))
+      requests.push(...dto.replyIds.map(replyId => this.getComment(replyId).then(reply => client.replies.push(reply), err => reject(err))))
 
       // get owner
-      if(comment.ownerId){
-        requests.push(this.getUser(comment.ownerId).then(owner => comment.owner = owner, err => reject(err)))
+      if(dto.ownerId){
+        requests.push(this.getUser(dto.ownerId).then(owner => client.owner = owner, err => reject(err)))
       }
 
       // run requests
       this.asyncService.runMultiplePromises(requests).then(() => {
-        resolve(comment)
+        resolve(client)
       })
     })
   }
 
-  fulfillStop(stop: Stop): Promise<Stop> {
+  fulfillStop(dto: StopDTO, client: Stop): Promise<Stop> {
     return new Promise<Stop>((resolve, reject) => {
       let requests: Promise<any>[] = []
 
-      console.log(stop)
       // get location
-      if(stop.location){
-        requests.push(this.getLocation(stop.location.id).then(location => stop.location = location, err => reject(err)))
-      }
-      else{
-        requests.push(this.getLocation(stop.locationId).then(location => stop.location = location, err => reject(err)))
-      }
+      requests.push(this.getLocation(dto.locationId).then(location => client.location = location, err => reject(err)))
 
       // run requests
       this.asyncService.runMultiplePromises(requests).then(() => {
-        resolve(stop)
+        resolve(client)
       })
     })
   }
 
-  fulfillRoadtrip(roadtrip: Roadtrip): Promise<Roadtrip> {
+  fulfillRoadtrip(dto: RoadtripDTO, client: Roadtrip): Promise<Roadtrip> {
     return new Promise<Roadtrip>((resolve, reject) => {
       let requests: Promise<any>[] = []
 
       // get owner
-      requests.push(this.getUser(roadtrip.ownerId).then(owner => roadtrip.owner = owner, err => reject(err)))
+      requests.push(this.getUser(dto.ownerId).then(owner => client.owner = owner, err => reject(err)))
 
       // get collaborators
-      requests.push(...roadtrip.collaboratorIds.map(collaboratorId => this.getUser(collaboratorId).then(collaborator => roadtrip.collaborators.push(collaborator), err => reject(err))))
+      requests.push(...dto.collaboratorIds.map(collaboratorId => this.getUser(collaboratorId).then(collaborator => client.collaborators.push(collaborator), err => reject(err))))
 
       // get stops
-      requests.push(...roadtrip.stopIds.map(stopId => this.getStop(stopId).then(stop => roadtrip.stops.push(stop), err => reject(err))))
+      requests.push(...dto.stopIds.map(stopId => this.getStop(stopId).then(stop => client.stops.push(stop), err => reject(err))))
 
       // get comments
-      requests.push(...roadtrip.commentIds.map(commentId => this.getComment(commentId).then(comment => roadtrip.comments.push(comment), err => reject(err))))
+      requests.push(...dto.commentIds.map(commentId => this.getComment(commentId).then(comment => client.comments.push(comment), err => reject(err))))
 
       // run requests
       this.asyncService.runMultiplePromises(requests).then(() => {
-        resolve(roadtrip)
+        resolve(client)
       })
     })
   }

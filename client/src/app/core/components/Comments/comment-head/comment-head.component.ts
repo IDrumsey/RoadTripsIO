@@ -69,10 +69,11 @@ export class CommentHeadComponent implements OnInit {
 
   isReported(): boolean {
     if(this.auth.currentlyLoggedInUser){
-      let found = this.auth.currentlyLoggedInUser?.reportedComments.find(reportedComment => reportedComment.id == this.comment.id)
-      if(found != null){
-        return true
-      }
+      // BUG : not backward compatible with new authentication service
+      // let found = this.auth.currentlyLoggedInUser?.reportedComments.find(reportedComment => reportedComment.id == this.comment.id)
+      // if(found != null){
+      //   return true
+      // }
     }
     return false
   }
@@ -183,25 +184,27 @@ export class CommentHeadComponent implements OnInit {
 
   attemptReportComment(): void {
     if(this.auth.currentlyLoggedInUser){
-      this.auth.currentlyLoggedInUser.reportComment(this.comment, this.auth).then(reportedComment => {
-        this.reportBtnColor = this.reportBtnColor_Reported
-        this.reportBtnHoverColor = this.reportBtnHoverColor_Reported
-      }, err => {
-        alert("Couldn't report comment")
-        console.log(err)
-      })
+      // BUG : not backward compatible with new authentication service
+      // this.auth.currentlyLoggedInUser.reportComment(this.comment, this.auth).then(reportedComment => {
+      //   this.reportBtnColor = this.reportBtnColor_Reported
+      //   this.reportBtnHoverColor = this.reportBtnHoverColor_Reported
+      // }, err => {
+      //   alert("Couldn't report comment")
+      //   console.log(err)
+      // })
     }
   }
 
   attemptUnreportComment(): void {
     if(this.auth.currentlyLoggedInUser){
-      this.auth.currentlyLoggedInUser.unreportComment(this.comment, this.auth).then(unreportedComment => {
-        this.reportBtnColor = this.reportBtnColor_NotReported
-        this.reportBtnHoverColor = this.reportBtnHoverColor_NotReported
-      }, err => {
-        alert("Couldn't unreport comment")
-        console.log(err)
-      })
+      // BUG : not backward compatible with new authentication service
+      // this.auth.currentlyLoggedInUser.unreportComment(this.comment, this.auth).then(unreportedComment => {
+      //   this.reportBtnColor = this.reportBtnColor_NotReported
+      //   this.reportBtnHoverColor = this.reportBtnHoverColor_NotReported
+      // }, err => {
+      //   alert("Couldn't unreport comment")
+      //   console.log(err)
+      // })
     }
   }
 }

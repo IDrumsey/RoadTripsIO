@@ -15,6 +15,7 @@ import { Stop } from '../../data/models/stop/stop';
 import { DataAccessService } from '../../data/services/data-access.service';
 import { ButtonTool } from '../../interfaces/button-tool';
 import { IMapService } from 'src/app/core/services/maps/i-map.service';
+import { PageService } from '../../services/page.service';
 
 @Component({
   selector: 'app-individual-roadtrip-page',
@@ -23,7 +24,7 @@ import { IMapService } from 'src/app/core/services/maps/i-map.service';
 })
 export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private mapService: IMapService) { }
+  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private mapService: IMapService, private pageService: PageService) { }
 
   ngOnInit(): void {
     this.url.paramMap.subscribe(params => {
@@ -105,10 +106,14 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   }
 
   onMarkerDeleted(markerDeleted: google.maps.Marker): void {
-    this.deleteStop(markerDeleted).then(() => {
-      let note = this.notificationManager.createNotification('Stop deleted', {bgColor: '#8a203c'})
-      this.notificationManager.addTempNotification(note, 3)
-    })
+    let stopToDelete = this.findStopWithMarker(markerDeleted)
+
+    if(stopToDelete){
+      this.deleteStop(stopToDelete).then(() => {
+        let note = this.notificationManager.createNotification('Stop deleted', {bgColor: '#8a203c'})
+        this.notificationManager.addTempNotification(note, 3)
+      })
+    }
   }
 
   onStopCardSeeOnMapButtonClick(stop: Stop): void {
@@ -116,6 +121,7 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     let latlng = new google.maps.LatLng(stop.location.coordinate.latitude, stop.location.coordinate.longitude)
     let markerFound = this.map.findMarker(latlng)
     if(markerFound){
+      this.pageService.scrollToTop()
       this.map.zoomMarkerTool.zoomInOnMarker(markerFound)
     }
   }
@@ -139,6 +145,24 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
         break;
       }
     }
+  }
+
+  onStopCardDeleteBtnClick(stop: Stop): void {
+    this.deleteStop(stop);
+  }
+
+  onMarkerSelected(markerSelected: google.maps.Marker): void {
+    // let stopFound = this.findStopWithMarker(markerSelected)
+    // if(stopFound){
+    //   let cardComponent = this.findStopCard(stopFound.location.coordinate.latitude, stopFound.location.coordinate.longitude)
+    //   if(cardComponent){
+    //     // BUG (possible) : possible null value might cause unexpected operations with the scrollToElement function
+    //     // This should fix it
+    //     if(cardComponent.element.nativeElement){
+    //       this.pageService.scrollToElement(cardComponent.element.nativeElement)
+    //     }
+    //   }
+    // }
   }
 
   // --------------------------- FUNCTIONALITY ---------------------------
@@ -192,8 +216,6 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
       let latitude = this.newStopInfo.form.controls["latitude"].value
       let longitude = this.newStopInfo.form.controls["longitude"].value
 
-      console.log("submitting form : ", title)
-
       let uploadStop = new Stop()
       uploadStop.description = description
       let uploadLocation = new Location();
@@ -206,6 +228,9 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
         uploadStop.location = stopLocation
         this.api.addStop(uploadStop).then(newStop => {
           this.roadtrip.addStop(newStop)
+          this.api.updateRoadtrip(this.roadtrip).then(updatedRoadtrip => {
+            this.roadtrip = updatedRoadtrip
+          })
           this.closeNewStopForm()
         })
       })
@@ -234,27 +259,30 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     this.newStopInfo = form
   }
 
-  deleteStop(marker: google.maps.Marker): Promise<void> {
+  deleteStop(stop: Stop): Promise<void> {
     // remove necessary data from api
     return new Promise((resolve, reject) => {
-      let coord = this.mapService.getMarkerPosition(marker)
-      if(coord){
-        let stopToDelete = this.roadtrip.findStop(coord)
-        console.log(stopToDelete)
-        if(stopToDelete){
-          this.api.deleteStop(stopToDelete).then(() => {
-            if(stopToDelete){ // needed to duplicate this conditional unfortunately
-              this.roadtrip.removeStop(stopToDelete)
-              this.api.updateRoadtrip(this.roadtrip).then(updatedRoadtrip => {
-                this.roadtrip = updatedRoadtrip
-              }, err => reject(err))
-            }
+      this.api.deleteStop(stop).then(() => {
+          this.roadtrip.removeStop(stop)
+          this.api.updateRoadtrip(this.roadtrip).then(updatedRoadtrip => {
+            this.roadtrip = updatedRoadtrip
           }, err => reject(err))
-        }
-        reject("Couldn't find stop to delete")
-      }
-      reject("Coordinate not defined")
+      }, err => reject(err))
     })
+  }
+
+  findStopCard(lat: number, lng: number): StopCardComponent | undefined {
+    return this.stopCards.find(card => card.stop.location.coordinate.latitude == lat && card.stop.location.coordinate.longitude == lng)
+  }
+
+  findStopWithMarker(marker: google.maps.Marker): Stop | undefined {
+    let coord = this.mapService.getMarkerPosition(marker)
+    if(coord){
+      return this.roadtrip.findStop(coord)
+    }
+    else{
+      throw new Error("Couldn't extract coordinates from the marker")
+    }
   }
 
   // --------------------------- STYLES ---------------------------
