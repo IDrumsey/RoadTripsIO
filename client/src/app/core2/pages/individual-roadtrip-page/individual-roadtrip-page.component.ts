@@ -16,6 +16,7 @@ import { DataAccessService } from '../../data/services/data-access.service';
 import { ButtonTool } from '../../interfaces/button-tool';
 import { IMapService } from 'src/app/core/services/maps/i-map.service';
 import { PageService } from '../../services/page.service';
+import { CommentParams, CommentV2Service, SortingDirections, SortingOptions } from '../../services/comment-v2.service';
 
 @Component({
   selector: 'app-individual-roadtrip-page',
@@ -24,7 +25,7 @@ import { PageService } from '../../services/page.service';
 })
 export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private mapService: IMapService, private pageService: PageService) { }
+  constructor(private api: DataAccessService, private changeDetector: ChangeDetectorRef, private router: Router, private url: ActivatedRoute, private mapService: IMapService, private pageService: PageService, private commentService: CommentV2Service) { }
 
   ngOnInit(): void {
     this.url.paramMap.subscribe(params => {
@@ -36,6 +37,7 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
       if(roadtripId){
         this.loadData(roadtripId).then(() => {
           this.dataLoaded = true
+          this.runAfterDataLoaded()
           if(this.viewInitialized){
             this.initializeMap()
           }
@@ -83,6 +85,16 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
   viewInitialized = false
   fillingOutStopForm = false;
+
+  commentSortParam = CommentParams.Date
+  commentSortDirection = SortingDirections.Descending
+
+  get commentSortOptions(): SortingOptions {
+    return {
+      param: this.commentSortParam,
+      direction: this.commentSortDirection
+    }
+  }
 
   // --------------------------- EVENTS ---------------------------
   newStopFormShown = new Subject()
@@ -163,6 +175,10 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     //     }
     //   }
     // }
+  }
+
+  runAfterDataLoaded(): void {
+    this.commentService.sort(this.roadtrip.comments, this.commentSortParam, this.commentSortDirection)
   }
 
   // --------------------------- FUNCTIONALITY ---------------------------

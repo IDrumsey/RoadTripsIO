@@ -27,16 +27,20 @@
   <app-reply-field
     *ngIf="showingReplyField"
     #replyField
+    class="comment-thread-reply-field"
     [ngStyle]="replyStyles"
     (cancel)="onReplyCancel()"
     (send)="onReplySend($event)"
   ></app-reply-field>
   <div
-    *ngIf="showingReplies"
+    *ngIf="showingReplies && hasReplies"
     class="comment-thread-replies"
     [ngStyle]="replyStyles"
   >
     <!-- replies -->
-    <app-thread-group [rootComments]="rootComment.replies"></app-thread-group>
+    <app-comment-thread
+      *ngFor="let reply of rootComment.replies"
+      [rootComment]="reply"
+    ></app-comment-thread>
   </div>
 </div>

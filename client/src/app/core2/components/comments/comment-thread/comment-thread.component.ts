@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, AfterViewInit, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { Comment } from 'src/app/core2/data/models/comment/comment';
 import { DataAccessService } from 'src/app/core2/data/services/data-access.service';
+import { CommentV2Service, SortingOptions } from 'src/app/core2/services/comment-v2.service';
 import { PageService } from 'src/app/core2/services/page.service';
 
 @Component({
@@ -10,13 +11,16 @@ import { PageService } from 'src/app/core2/services/page.service';
   templateUrl: './comment-thread.component.html',
   styleUrls: ['./comment-thread.component.scss']
 })
-export class CommentThreadComponent implements OnInit, AfterViewInit {
+export class CommentThreadComponent implements OnInit, AfterViewInit, OnChanges {
 
-  constructor(private ref: ElementRef, private api: DataAccessService, private pageService: PageService) {
+  constructor(private ref: ElementRef, private api: DataAccessService, private pageService: PageService, private commentService: CommentV2Service) {
     this.element = ref
   }
 
   ngOnInit(): void {
+    if(this.sortingOptions){
+      this.sort()
+    }
   }
 
   ngAfterViewInit(): void {
@@ -29,6 +33,13 @@ export class CommentThreadComponent implements OnInit, AfterViewInit {
         this.replyCardShown.next(threadComponent)
       })
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // https://dev.to/nickraphael/ngonchanges-best-practice-always-use-simplechanges-always-1feg
+    if(changes.sortingOptions && changes.sortingOptions.currentValue){
+      this.sort()
+    }
   }
 
   // ------------------------------------ DATA ------------------------------------
@@ -44,6 +55,8 @@ export class CommentThreadComponent implements OnInit, AfterViewInit {
   showingThreadOptions = false
   showingReplies = false
   showingReplyField = false
+
+  @Input() sortingOptions: SortingOptions
 
   get toggleRepliesBtnText(): string {
     return this.showingReplies ? "Hide replies" : "Show replies"
@@ -122,8 +135,20 @@ export class CommentThreadComponent implements OnInit, AfterViewInit {
     this.showingThreadOptions = false
   }
 
-  showReplies(): void {
+  showReplies(): Promise<void> {
     this.showingReplies = true
+    return new Promise((resolve) => {
+      let threadsShowing: CommentThreadComponent[] = []
+
+      let threadAdditionWatcher = this.replyCardShown.subscribe(threadAdded => {
+        threadsShowing.push(threadAdded)
+        if(threadsShowing.length == this.rootComment.replies.length){
+          // all the replies are now showing on the screen
+          threadAdditionWatcher.unsubscribe()
+          resolve()
+        }
+      })
+    })
   }
 
   hideReplies(): void {
@@ -139,19 +164,15 @@ export class CommentThreadComponent implements OnInit, AfterViewInit {
   }
 
   showNLevels(numLvls: number){
-    let rootThreads = [this]
-
-    for(let level = 0; level < numLvls; level++){
-      let newRootThreads = []
-      rootThreads.forEach(thread => {
-        thread.showReplies()
-        newRootThreads.push(thread.replyThreads)
-      })
-    }
+    this.commentService.expandThreadNLevels(this, numLvls)
   }
 
   findReplyThread(replyId: number): CommentThreadComponent | undefined {
     return this.replyThreads.find(thread => thread.rootComment.id == replyId)
+  }
+
+  sort(): void {
+    this.rootComment.replies = this.commentService.sort(this.rootComment.replies, this.sortingOptions.param, this.sortingOptions.direction)
   }
 
   // ------------------------------------ STYLES ------------------------------------

@@ -50,12 +50,13 @@
   <div class="roadtrip-comments-section">
     <h4 class="section-title" [ngStyle]="sectionTitleStyles()">Comments</h4>
     <div class="roadtrip-comments">
-      <!-- <app-comment-thread
+      <app-comment-thread
         *ngFor="let rootComment of roadtrip.comments"
         [rootComment]="rootComment"
+        [sortingOptions]="commentSortOptions"
         (profileImageClicked)="onCommentProfileImageClick($event)"
-      ></app-comment-thread> -->
-      <app-thread-group [rootComments]="roadtrip.comments"></app-thread-group>
+      ></app-comment-thread>
+      <!-- <app-thread-group [rootComments]="roadtrip.comments"></app-thread-group> -->
     </div>
   </div>
 </div>

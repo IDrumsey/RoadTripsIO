@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CommentThreadComponent } from '../components/comments/comment-thread/comment-thread.component';
 import { Comment } from '../data/models/comment/comment';
 
 export enum CommentParams {
@@ -10,6 +11,11 @@ export enum CommentParams {
 export enum SortingDirections {
   Ascending,
   Descending
+}
+
+export class SortingOptions {
+  param: CommentParams
+  direction: SortingDirections
 }
 
 @Injectable({
@@ -37,5 +43,15 @@ export class CommentV2Service {
       }
     }
     return comments
+  }
+
+  expandThreadNLevels(thread: CommentThreadComponent, nLevels: number){
+    thread.showReplies().then(() => {
+      if(nLevels > 1){
+        thread.replyThreadComponents.forEach(replyThread => {
+          this.expandThreadNLevels(replyThread, nLevels - 1)
+        })
+      }
+    })
   }
 }

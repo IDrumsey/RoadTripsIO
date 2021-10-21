@@ -13,7 +13,6 @@ export class ThreadGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootComments = this.commentService.sort(this.rootComments, CommentParams.Date, SortingDirections.Ascending)
-    console.log("sorted")
   }
 
   // ----------------------------------- DATA -----------------------------------
