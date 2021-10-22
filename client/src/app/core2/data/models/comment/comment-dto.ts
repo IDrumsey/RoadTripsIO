@@ -20,7 +20,7 @@ export class CommentDTO implements DataTransferObject<CommentDTO, Comment> {
         let client = new Comment()
         client.id = this.id
         client.text = this.text
-        client.datePosted = this.datePosted
+        client.datePosted = new Date(this.datePosted)
 
         return client
     }

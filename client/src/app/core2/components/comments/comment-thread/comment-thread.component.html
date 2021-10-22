@@ -40,6 +40,9 @@
     <!-- replies -->
     <app-comment-thread
       *ngFor="let reply of rootComment.replies"
+      class="comment-reply-thread"
+      [gap]="gap"
+      [offset]="offset"
       [rootComment]="reply"
     ></app-comment-thread>
   </div>

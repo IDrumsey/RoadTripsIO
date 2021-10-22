@@ -1,4 +1,4 @@
-import { Component, OnInit, ContentChildren, QueryList, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ContentChildren, QueryList, AfterViewInit, Input, ElementRef } from '@angular/core';
 
 import { ImageTemplateComponent } from '../image-template/image-template.component';
 import { ImageComponent } from '../image/image.component';

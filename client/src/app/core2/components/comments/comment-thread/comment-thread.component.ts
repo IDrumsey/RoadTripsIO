@@ -191,7 +191,8 @@ export class CommentThreadComponent implements OnInit, AfterViewInit, OnChanges 
   get replyStyles(): {} {
     return {
       width: `${100-this.offset}%`,
-      marginLeft: "auto"
+      marginLeft: "auto",
+      gap: this.gap
     }
   }
 }

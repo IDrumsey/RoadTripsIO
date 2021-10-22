@@ -1,9 +1,7 @@
-$spacing: 10px;
-
 .comment-thread {
   display: flex;
   flex-direction: column;
-  gap: $spacing;
+  gap: auto; // this was just in the browser somehow and worked out so I added it manually
 }
 
 .thread-options {
@@ -24,5 +22,4 @@ $spacing: 10px;
 .comment-thread-replies {
   display: flex;
   flex-direction: column;
-  gap: $spacing;
 }

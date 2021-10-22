@@ -303,6 +303,8 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
   // --------------------------- STYLES ---------------------------
 
+  commentGap = "10px"
+
   sectionTitleStyles(): {} {
     return {
       fontFamily: AppFonts.Handwriting,

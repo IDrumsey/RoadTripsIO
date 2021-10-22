@@ -15,3 +15,5 @@ icon button doesn't change color on click. Waits for mouse to exit.
 when deleting a stop from the roadtrip page, the 404 api endpoint error is thrown. This might just have to do with the test data server idk. It's not being called twice.
 
 manually selecting a marker takes a long time (sometimes). sometimes, it fixes itself with a page refresh (it's kind of random)
+
+the comment section adding new comment. when scrolling after added comment, scrolls past comment

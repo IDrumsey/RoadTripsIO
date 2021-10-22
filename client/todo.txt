@@ -1,3 +1,5 @@
 split up comment-head component onConfirmDelete method
 
 The logic for locking imap tools is when locked, they are unselected and can't be used, maybe would make more sense to just be locked in current state.
+
+get rid of thread group component if still not using it

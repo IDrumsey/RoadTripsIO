@@ -52,8 +52,10 @@
     <div class="roadtrip-comments">
       <app-comment-thread
         *ngFor="let rootComment of roadtrip.comments"
+        class="root-comment"
         [rootComment]="rootComment"
         [sortingOptions]="commentSortOptions"
+        [gap]="commentGap"
         (profileImageClicked)="onCommentProfileImageClick($event)"
       ></app-comment-thread>
       <!-- <app-thread-group [rootComments]="roadtrip.comments"></app-thread-group> -->

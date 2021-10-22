@@ -1,0 +1,18 @@
+<div class="image-selector-form row" [formGroup]="form">
+  <input
+    #selectFilesButton
+    type="file"
+    class="row"
+    style="display: none"
+    formControlName="images"
+    multiple
+    (change)="onFileChanges($event)"
+  />
+  <button mat-raised-button (click)="selectFilesButton.click()" color="accent">
+    Select Images
+  </button>
+  <!-- might update image gallery component later -->
+  <app-image-gallery class="image-selector-form-gallery row">
+    <template #previewGallery></template>
+  </app-image-gallery>
+</div>

@@ -83,6 +83,7 @@ import { NewStopFormComponent } from './core2/components/forms/new-stop-form/new
 import { ApiRequestInterceptor } from './core2/interceptors/api-request.interceptor';
 import { ReplyFieldComponent } from './core2/components/comments/reply-field/reply-field.component';
 import { ThreadGroupComponent } from './core2/components/comments/thread-group/thread-group.component';
+import { ImageSelectorFormComponent } from './core2/components/forms/image-selector-form/image-selector-form.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: IndividualRoadtripPageComponent},
@@ -162,7 +163,8 @@ const interceptors = [
     NotFoundPageComponent,
     NewStopFormComponent,
     ReplyFieldComponent,
-    ThreadGroupComponent
+    ThreadGroupComponent,
+    ImageSelectorFormComponent
   ],
   imports: [
     BrowserModule,

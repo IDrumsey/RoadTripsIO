@@ -15,6 +15,8 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
   constructor(private changeDetector: ChangeDetectorRef, private calendarService: CalendarService) { }
 
   ngOnInit(): void {
+    this.postDate = this.getDate()
+    this.postTime = this.getTime()
   }
 
   ngAfterViewInit(): void {
@@ -25,6 +27,9 @@ export class CommentCardComponent implements OnInit, AfterViewInit {
   // ------------------------------------ DATA ------------------------------------
 
   @Input() comment: Comment
+
+  postDate: string
+  postTime: string
 
   @ViewChild('card') cardElement: ElementRef<HTMLElement>
 
