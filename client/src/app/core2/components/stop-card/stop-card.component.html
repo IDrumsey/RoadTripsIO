@@ -14,28 +14,28 @@
       >
         <app-icon-button-v2
           #toggle
+          class="main-toolbar-button"
           [icon]="headToolbarToggleIcon"
-          [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
           [enabledTooltip]="headToolbarToggleButtonTooltip"
         ></app-icon-button-v2>
         <app-icon-button-v2
+          class="main-toolbar-button"
           [icon]="detailsIcon"
-          [iconSize]="toolButtonSize"
           [focusColor]="'#f0f763'"
           [enabledTooltip]="toggleDetailsButtonTooltip()"
           (clicked)="onToggleDetailsButtonClick()"
         ></app-icon-button-v2>
         <app-icon-button-v2
+          class="main-toolbar-button"
           [icon]="deleteIcon"
-          [iconSize]="toolButtonSize"
           [focusColor]="'#e35656'"
           [enabledTooltip]="'Delete this stop'"
           (clicked)="onDeleteButtonClick()"
         ></app-icon-button-v2>
         <app-icon-button-v2
+          class="main-toolbar-button"
           [icon]="seeOnMapIcon"
-          [iconSize]="toolButtonSize"
           [focusColor]="'#48b569'"
           [enabledTooltip]="'See on map'"
           (clicked)="onSeeOnMapButtonClick()"

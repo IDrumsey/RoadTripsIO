@@ -232,6 +232,8 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
       let latitude = this.newStopInfo.form.controls["latitude"].value
       let longitude = this.newStopInfo.form.controls["longitude"].value
 
+      let images = this.newStopInfo.imageSelectorForm.images
+
       let uploadStop = new Stop()
       uploadStop.description = description
       let uploadLocation = new Location();
@@ -242,6 +244,8 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
 
       this.api.addLocation(uploadLocation).then(stopLocation => {
         uploadStop.location = stopLocation
+        uploadStop.location.photos = images
+        // FIX : new stop can't store images in test db because I think there's too much data
         this.api.addStop(uploadStop).then(newStop => {
           this.roadtrip.addStop(newStop)
           this.api.updateRoadtrip(this.roadtrip).then(updatedRoadtrip => {

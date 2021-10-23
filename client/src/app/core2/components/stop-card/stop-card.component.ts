@@ -57,7 +57,6 @@ export class StopCardComponent implements OnInit {
 
   // -------------------------------- STYLES --------------------------------
   cardPadding = "10px 20px"
-  toolButtonSize = "20px"
   
   getTitleStyles(): {} {
     return {

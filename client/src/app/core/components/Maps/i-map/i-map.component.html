@@ -8,48 +8,48 @@
   <app-toolbar class="i-map-toolbar" [gap]="25">
     <app-icon-button-v2
       #addButton
+      class="toolbar-button"
       [icon]="addMarkerIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#5fc97a'"
       [enabledTooltip]="'Add marker'"
       (clicked)="onAddMarkerButtonClick()"
     ></app-icon-button-v2>
     <app-icon-button-v2
       #deleteButton
+      class="toolbar-button"
       [icon]="deleteMarkerIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#cc608d'"
       [enabledTooltip]="'Remove marker'"
       (clicked)="onDeleteMarkerButtonClick()"
     ></app-icon-button-v2>
     <app-icon-button-v2
       #zoomMarkerButton
+      class="toolbar-button"
       [icon]="zoomMarkerIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#42a1f5'"
       [enabledTooltip]="'Zoom in on marker'"
       (clicked)="onZoomInOnMarkerButtonClick()"
     ></app-icon-button-v2>
     <app-icon-button-v2
       #expandMapButton
+      class="toolbar-button"
       [icon]="expandMapIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#f0f763'"
       [enabledTooltip]="'Zoom out'"
       (clicked)="onZoomOutBtnClick()"
     ></app-icon-button-v2>
     <app-icon-button-v2
       #unselectAllButton
+      class="toolbar-button"
       [icon]="unselectAllIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#f0f763'"
       [enabledTooltip]="'Unselect all markers'"
       (clicked)="onUnselectAllBtnClick()"
     ></app-icon-button-v2>
     <app-icon-button-v2
       #selectAllButton
+      class="toolbar-button"
       [icon]="selectAllIcon"
-      [iconSize]="toolButtonSize"
       [focusColor]="'#f0f763'"
       [enabledTooltip]="'Select all markers'"
       (clicked)="onSelectAllBtnClick()"

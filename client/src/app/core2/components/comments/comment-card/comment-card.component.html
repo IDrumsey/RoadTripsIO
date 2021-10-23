@@ -31,14 +31,17 @@
         >
           <app-icon-button-v2
             #toggle
+            class="main-options-button"
             [icon]="toggleButtonIcon()"
             [focusColor]="'#8c8b8b'"
           ></app-icon-button-v2>
           <app-icon-button-v2
+            class="main-options-button"
             [icon]="reportIcon"
             [focusColor]="'#ffec45'"
           ></app-icon-button-v2>
           <app-icon-button-v2
+            class="main-options-button"
             [icon]="detailsIcon"
             [focusColor]="'#aa4fe3'"
             (clicked)="onToggleDetailsButtonClick()"

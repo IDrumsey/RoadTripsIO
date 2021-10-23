@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ImageSelectorFormComponent } from '../image-selector-form/image-selector-form.component';
 
 @Component({
   selector: 'app-new-stop-form',
@@ -12,6 +13,8 @@ export class NewStopFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @ViewChild('imageSelector') imageSelectorForm: ImageSelectorFormComponent
 
   // ------------------------------- DATA -------------------------------
   form = new FormGroup({
