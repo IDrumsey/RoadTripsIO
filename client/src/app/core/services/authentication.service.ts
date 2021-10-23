@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { User } from 'src/app/core2/data/models/user/user';
 import { DataAccessService } from 'src/app/core2/data/services/data-access.service';
 
@@ -11,9 +12,27 @@ export class AuthenticationService {
   // ------------------------------------ DATA ------------------------------------
   currentlyLoggedInUser: User | null
 
+  // ------------------------------------ EVENTS ------------------------------------
+
+  userSignedIn = new Subject<User>()
+  userSignedOut = new Subject<User>()
+
+  // ------------------------------------ SINGALERS ------------------------------------
+
+  private signal_userSignedIn(user: User): void {
+    this.userSignedIn.next(user)
+  }
+
+  private signal_userSignedOut(user: User): void {
+    this.userSignedOut.next(user)
+  }
+
   // ------------------------------------ FUNCTIONALITY ------------------------------------
   signOut(): void {
-    this.currentlyLoggedInUser = null
+    if(this.currentlyLoggedInUser){
+      this.signal_userSignedOut(this.currentlyLoggedInUser)
+      this.currentlyLoggedInUser = null
+    }
   }
 
   async attemptSignIn(): Promise<User> {
@@ -23,6 +42,8 @@ export class AuthenticationService {
         // TODO
         if(userFound){
           // load additional info
+          this.currentlyLoggedInUser = userFound
+          this.signal_userSignedIn(userFound) // avoids extra conditional
           resolve(userFound)
         }
         else{

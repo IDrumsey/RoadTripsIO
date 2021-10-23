@@ -1,0 +1,12 @@
+<div class="image-wrapper">
+  <img class="image" [src]="filePath" [ngStyle]="imgStyles" />
+  <app-icon-button-v2
+    *ngIf="reportable"
+    class="image-report-button"
+    [icon]="reportIcon"
+    [focusColor]="reportBtnFocusColor"
+    [selected]="reported"
+    [enabledTooltip]="reportBtnTooltip"
+    (clicked)="onReportBtnClick()"
+  ></app-icon-button-v2>
+</div>

@@ -8,6 +8,10 @@ import { CommentDTO } from '../models/comment/comment-dto';
 import { DataTransferObject } from '../models/data-transfer-object';
 import { Location } from '../models/location/location';
 import { LocationDto } from '../models/location/location-dto';
+import { GeneralReport } from '../models/report/general-report';
+import { GeneralReportDTO } from '../models/report/general-report-dto';
+import { ImageReport } from '../models/report/image-report';
+import { ImageReportDTO } from '../models/report/image-report-dto';
 import { Roadtrip } from '../models/roadtrip/roadtrip';
 import { RoadtripDTO } from '../models/roadtrip/roadtrip-dto';
 import { Stop } from '../models/stop/stop';
@@ -35,6 +39,7 @@ export class DataAccessService {
 
   // --------------------------------------- FUNCTIONALITY ---------------------------------------
 
+  // --------------------------- GET ---------------------------
   getUser(id: number): Promise<User> {
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/users/${id}`
@@ -105,6 +110,48 @@ export class DataAccessService {
     })
   }
 
+  getImageReport(id: number): Promise<ImageReport> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/image-reports/${id}`
+
+      this.api.get<ImageReportDTO>(url, this.requestOptions).subscribe(data => {
+        let dto = new ImageReportDTO()
+        dto.init(data)
+
+        let client = dto.toClient()
+        this.fulfillImageReport(dto, client).then(newImageReport => resolve(newImageReport), err => reject(err))
+      }, err => reject(err))
+    })
+  }
+
+  getUserImageReports(user: User): Promise<ImageReport[]> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/image-reports/`
+
+      let reports: ImageReport[] = []
+
+      this.api.get<ImageReportDTO[]>(url, this.requestOptions).subscribe(data => {
+        let requests: Promise<any>[]
+
+        data = data.filter(reportDTO => reportDTO.reporterId == user.id)
+
+        requests = data.map(reportData => {
+          let dto = new ImageReportDTO()
+          dto.init(reportData)
+
+          let client = dto.toClient()
+          return this.fulfillImageReport(dto, client).then(newImageReport => reports.push(newImageReport), err => reject(err))
+        })
+
+        this.asyncService.runMultiplePromises(requests).then(() => {
+          resolve(reports)
+        }, err => reject(err))
+      }, err => reject(err))
+    })
+  }
+
+  // --------------------------- DELETE ---------------------------
+
   deleteLocation(location: Location): Promise<void> {
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/locations/${location.id}`
@@ -127,6 +174,18 @@ export class DataAccessService {
       }, err => reject(err))
     })
   }
+
+  deleteImageReport(imageReport: ImageReport): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/image-reports/${imageReport.id}`
+
+      this.api.delete(url, this.requestOptions).subscribe(() => {
+        resolve()
+      }, err => reject(err))
+    })
+  }
+
+  // --------------------------- PUT ---------------------------
 
   updateRoadtrip(roadtrip: Roadtrip): Promise<Roadtrip> {
     return new Promise((resolve, reject) => {
@@ -157,6 +216,8 @@ export class DataAccessService {
       })
     })
   }
+
+  // --------------------------- POST ---------------------------
 
   addLocation(location: Location): Promise<Location> {
     return new Promise((resolve, reject) => {
@@ -202,6 +263,23 @@ export class DataAccessService {
 
         let client = dto.toClient()
         this.fulfillComment(dto, client).then(newComment => resolve(newComment), err => reject(err))
+      }, err => reject(err))
+    })
+  }
+
+  addImageReport(report: ImageReport): Promise<ImageReport> {
+    return new Promise((resolve, reject) => {
+      // temp url because json server can't do nested routes I think
+      let url = `${this.apiURL}/image-reports/`
+
+      let uploadDTO = report.toDTO()
+
+      this.api.post<ImageReportDTO>(url, uploadDTO, this.requestOptions).subscribe(data => {
+        let dto = new ImageReportDTO()
+        dto.init(data)
+
+        let client = dto.toClient()
+        this.fulfillImageReport(dto, client).then(newImageReport => resolve(newImageReport), err => reject(err))
       }, err => reject(err))
     })
   }
@@ -277,5 +355,36 @@ export class DataAccessService {
       })
     })
   }
-  
+
+  fulfillImageReport(dto: ImageReportDTO, client: ImageReport): Promise<ImageReport> {
+    return new Promise<ImageReport>((resolve, reject) => {
+      let requests: Promise<any>[] = []
+
+      // get the generic report data
+      requests.push(this.fulfillReport(dto, client))
+
+      // run requests
+      this.asyncService.runMultiplePromises(requests).then(() => {
+        resolve(client)
+      })
+    })
+  }
+
+  fulfillReport(dto: GeneralReportDTO, client: GeneralReport): Promise<GeneralReport> {
+    return new Promise<GeneralReport>((resolve, reject) => {
+      let requests: Promise<any>[] = []
+
+      // get owner
+      if(dto.reporterId){
+        requests.push(this.getUser(dto.reporterId).then(reporter => {
+          client.reporter = reporter
+        }))
+      }
+
+      // run requests
+      this.asyncService.runMultiplePromises(requests).then(() => {
+        resolve(client)
+      })
+    })
+  }
 }

@@ -604,5 +604,13 @@
       "datePosted": "2021-10-21T17:49:35.398Z",
       "id": 38
     }
-  ]
+  ],
+  "image-reports": [
+    {
+      "date": "2021-10-22T20:54:56.126Z",
+      "imageURL": "assets/images/pexels-guilherme-rossi-1755680.jpg",
+      "id": 1
+    }
+  ],
+  "comment-reports": []
 }

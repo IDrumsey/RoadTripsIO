@@ -14,6 +14,13 @@ export class TesterPageComponent implements OnInit, AfterViewInit {
 
   constructor(private data: AbstractDataAccessService) { }
 
+  images = [
+    'assets/images/pexels-guilherme-rossi-1755680.jpg',
+    'assets/images/pexels-guilherme-rossi-1755680.jpg',
+    'assets/images/pexels-guilherme-rossi-1755680.jpg',
+    'assets/images/pexels-guilherme-rossi-1755680.jpg'
+  ]
+
   ngOnInit(): void {
     this.loadComment()
   }

@@ -56,7 +56,7 @@ export class IconButtonV2Component implements OnInit, Button {
 
     return {
       color: color,
-      fontSize: this.iconSize,
+      // fontSize: this.iconSize,
       opacity: opacity,
       cursor: cursor
     }

@@ -28,10 +28,11 @@ export class ImageComponent extends GeneralImageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getFilePath(): SafeUrl {
-    // https://stackoverflow.com/questions/57743966/getting-unsafe-url-error-while-displaying-image
-    return this.sanitizer.bypassSecurityTrustUrl(this.filePath);
-  }
+  // path working without this now (10/21)
+  // getFilePath(): SafeUrl {
+  //   // https://stackoverflow.com/questions/57743966/getting-unsafe-url-error-while-displaying-image
+  //   return this.sanitizer.bypassSecurityTrustUrl(this.filePath);
+  // }
 
   getImageStyles(): {} {
     return {

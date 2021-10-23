@@ -1,0 +1,11 @@
+<div class="image-gallery">
+  <span class="image-gallery-images mx-auto row">
+    <div
+      #imageWrapper
+      class="image-wrapper"
+      *ngFor="let path of images; let i = index"
+    >
+      <app-image-v2 [filePath]="path" [width]="'100%'"></app-image-v2>
+    </div>
+  </span>
+</div>

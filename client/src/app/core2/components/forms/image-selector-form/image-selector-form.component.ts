@@ -1,7 +1,5 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ImageGalleryComponent } from 'src/app/core/components/Images/image-gallery/image-gallery.component';
-import { ImageComponent } from 'src/app/core/components/Images/image/image.component';
 import { FileService } from 'src/app/core2/services/file.service';
 
 @Component({
@@ -11,47 +9,67 @@ import { FileService } from 'src/app/core2/services/file.service';
 })
 export class ImageSelectorFormComponent implements OnInit {
 
-  constructor(private factoryFactory: ComponentFactoryResolver, private fileService: FileService) { }
+  constructor(private fileService: FileService) { }
 
   ngOnInit(): void {
   }
 
   // ------------------------------------- DATA -------------------------------------
   form = new FormGroup({
-    images: new FormControl()
+    selectedImages: new FormControl()
   })
 
-  @ViewChild('previewGallery', {read: ViewContainerRef}) previewGallery: ViewContainerRef
+  images: string[] = []
 
-  componentFactory = this.factoryFactory.resolveComponentFactory(ImageComponent)
+  // ------------------------------------- STATE -------------------------------------
+
+  get hasImages(): boolean {
+    return this.images.length > 0
+  }
 
   // ------------------------------------- FUNCTIONALITY -------------------------------------
   onFileChanges(event: Event): void {
     const element = event.target as HTMLInputElement
     const files = element.files
 
-    console.log(files)
-
     // add preview images
     if(files){
-      this.previewGallery.clear()
       for(let i = 0; i < files.length; i++){
         let file = files.item(i)
         if(file){
-          this.addImageToPreviewGallery(file)
+          this.fileService.getFileURL(file).then(path => {
+            this.addImage(path)
+          })
         }
       }
     }
   }
 
-  addImageToPreviewGallery(file: File): void {
-    // https://netbasal.com/dynamically-creating-components-with-angular-a7346f4a982d
-    // BUG : The filepath is set after the component is injected resulting in an undefined path error
-    let newImageComponent = this.previewGallery.createComponent(this.componentFactory)
-    this.fileService.getFileURL(file).then(path => {
-      console.log(path)
-      newImageComponent.instance.filePath = path
-    })
+  addImage(path: string): void {
+    let imageFound = this.findImage(path)
+    if(!imageFound){
+      this.images.push(path)
+    }
+    else{
+      throw new Error("Image already selected")
+    }
   }
 
+  findImage(path: string): string | undefined {
+    return this.images.find(image => image == path)
+  }
+
+  removeImage(path: string): void {
+    let imageIndex = this.images.indexOf(path)
+    if(imageIndex != -1){
+      this.images.splice(imageIndex, 1)
+    }
+    else{
+      throw new Error("Couldn't find image to remove")
+    }
+  }
+
+  clearImages(): void {
+    this.images = []
+  }
 }

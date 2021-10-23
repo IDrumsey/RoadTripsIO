@@ -2,17 +2,30 @@
   <input
     #selectFilesButton
     type="file"
-    class="row"
     style="display: none"
-    formControlName="images"
+    formControlName="selectedImages"
     multiple
     (change)="onFileChanges($event)"
   />
-  <button mat-raised-button (click)="selectFilesButton.click()" color="accent">
+  <button
+    mat-raised-button
+    class="select-images-button col-sm-12 col-md-3"
+    (click)="selectFilesButton.click()"
+    color="accent"
+  >
     Select Images
   </button>
-  <!-- might update image gallery component later -->
-  <app-image-gallery class="image-selector-form-gallery row">
-    <template #previewGallery></template>
-  </app-image-gallery>
+  <app-image-gallery-v2
+    class="image-selector-preview-gallery col-12"
+    [images]="images"
+  ></app-image-gallery-v2>
+  <button
+    *ngIf="hasImages"
+    mat-raised-button
+    class="clear-images-button col-12"
+    (click)="clearImages()"
+    color="warn"
+  >
+    Clear Images
+  </button>
 </div>
