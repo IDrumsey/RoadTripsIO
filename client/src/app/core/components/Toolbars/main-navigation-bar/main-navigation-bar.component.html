@@ -5,12 +5,14 @@
 >
   <app-icon-button-v2
     #toggle
+    class="nav-button"
     [icon]="toggleIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"
   ></app-icon-button-v2>
   <app-icon-button-v2
     *ngIf="!isUserSignedIn()"
+    class="nav-button"
     [icon]="signInIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"
@@ -18,24 +20,28 @@
   ></app-icon-button-v2>
   <app-icon-button-v2
     *ngIf="isUserSignedIn()"
+    class="nav-button"
     [icon]="signOutIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"
     (clicked)="onSignOutBtnClick()"
   ></app-icon-button-v2>
   <app-icon-button-v2
+    class="nav-button"
     [icon]="userIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"
     (clicked)="routeToUserPage()"
   ></app-icon-button-v2>
   <app-icon-button-v2
+    class="nav-button"
     [icon]="routeIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"
     (clicked)="routeToBrowseRoadtripsPage()"
   ></app-icon-button-v2>
   <app-icon-button-v2
+    class="nav-button"
     [icon]="testIcon"
     [iconSize]="toolSize"
     [focusColor]="'#f0f763'"

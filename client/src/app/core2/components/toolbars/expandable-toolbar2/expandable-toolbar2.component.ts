@@ -16,21 +16,11 @@ export class ExpandableToolbar2Component implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    this.buttons = this.buttonComponents.toArray()
-    if(!this.toggleButton){
-      // if no toggle button was specified
-      if(this.buttons.length > 0){
-        this.toggleButton = this.buttons[0]
-      }
-    }
-    // remove toggle button from buttons array
-    let indexOfToggle = this.buttons.indexOf(this.toggleButton)
-    if(indexOfToggle != -1){
-      this.buttons.splice(indexOfToggle, 1)
-    }
+    this.defineButtons()
 
-    // adjust ui to state
-    this.isExpanded ? this.expand() : this.collapse()
+    this.buttonComponents.changes.subscribe(() => {
+      this.defineButtons()
+    })
 
     this.listenForToggleButtonClick()
   }
@@ -130,5 +120,24 @@ export class ExpandableToolbar2Component implements OnInit, AfterContentInit {
 
   showButton(button: Button): void {
     button.getElement().nativeElement.setAttribute('style', 'display: auto')
+  }
+
+  defineButtons(): void {
+    this.buttons = this.buttonComponents.toArray()
+
+    if(!this.toggleButton){
+      // if no toggle button was specified
+      if(this.buttons.length > 0){
+        this.toggleButton = this.buttons[0]
+      }
+    }
+    // remove toggle button from buttons array
+    let indexOfToggle = this.buttons.indexOf(this.toggleButton)
+    if(indexOfToggle != -1){
+      this.buttons.splice(indexOfToggle, 1)
+    }
+
+    // adjust ui to state
+    this.isExpanded ? this.expand() : this.collapse()
   }
 }
