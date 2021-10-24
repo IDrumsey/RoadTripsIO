@@ -54,6 +54,15 @@ app-new-stop-form {
   padding: 0;
 }
 
+.header {
+  display: flex;
+  gap: 25px;
+}
+
+.roadtrip-owner-picture {
+  cursor: pointer;
+}
+
 .roadtrip-title {
   font-size: 50px;
   font-family: "Caveat Brush";

@@ -1,4 +1,13 @@
-<h1 *ngIf="dataLoaded" class="roadtrip-title">{{ roadtrip.title }}</h1>
+<div *ngIf="dataLoaded" class="header">
+  <app-user-profile-image
+    class="roadtrip-owner-picture"
+    [path]="roadtrip.owner.photo"
+    [size]="'50px'"
+    [tooltip]="roadtrip.owner.username"
+    (click)="onOwnerProfilePicClick()"
+  ></app-user-profile-image>
+  <h1 class="roadtrip-title">{{ roadtrip.title }}</h1>
+</div>
 <p *ngIf="dataLoaded" class="roadtrip-description">
   {{ roadtrip.description }}
 </p>

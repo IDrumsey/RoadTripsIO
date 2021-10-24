@@ -182,6 +182,10 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
     this.commentService.sort(this.roadtrip.comments, this.commentSortParam, this.commentSortDirection)
   }
 
+  onOwnerProfilePicClick(): void {
+    this.router.navigate(['users', this.roadtrip.owner.id]);
+  }
+
   // --------------------------- FUNCTIONALITY ---------------------------
   loadData(roadtripId: number): Promise<void> {
     return new Promise((resolve, reject) => {
