@@ -4,6 +4,7 @@ import { User } from "./user"
 export class UserDTO implements DataTransferObject<UserDTO, User> {
     id: number
     username: string
+    bio: string
     firstname: string
     lastname: string
     email: string
@@ -14,6 +15,7 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
     init(data: UserDTO): void {
         this.id = data.id
         this.username = data.username
+        this.bio = data.bio
         this.firstname = data.firstname
         this.lastname = data.lastname
         this.email = data.email
@@ -31,6 +33,7 @@ export class UserDTO implements DataTransferObject<UserDTO, User> {
         let client = new User()
         client.id = this.id
         client.username = this.username
+        client.bio = this.bio
         client.firstname = this.firstname
         client.lastname = this.lastname
         client.email = this.email

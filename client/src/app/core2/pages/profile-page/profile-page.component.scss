@@ -1,0 +1,24 @@
+.profile-picture {
+  margin: auto;
+}
+
+.head-content-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.username {
+  text-align: center;
+  margin: 0;
+  font-family: "Caveat Brush";
+  font-size: 40px;
+}
+
+.bio {
+  text-align: center;
+  margin: 0;
+  font-family: "Caveat Brush";
+  font-size: 20px;
+}

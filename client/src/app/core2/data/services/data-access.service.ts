@@ -110,6 +110,40 @@ export class DataAccessService {
     })
   }
 
+  getAllRoadtrips(): Promise<Roadtrip[]> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/roadtrips`
+
+      let roadtrips: Roadtrip[] = []
+
+      this.api.get<RoadtripDTO[]>(url, this.requestOptions).subscribe(data => {
+        let fulfillers: Promise<any>[] = []
+        data.forEach(roadtripData => {
+          let dto = new RoadtripDTO()
+          dto.init(roadtripData)
+
+          let client = dto.toClient()
+          fulfillers.push(this.fulfillRoadtrip(dto, client).then(fulfilledRoadtrip => {
+            roadtrips.push(fulfilledRoadtrip)
+          }, err => reject(err)))
+        })
+
+        this.asyncService.runMultiplePromises(fulfillers).then(() => {
+          resolve(roadtrips)
+        })
+      }, err => reject(err))
+    })
+  }
+
+  getUserRoadtrips(user: User): Promise<Roadtrip[]> {
+    return new Promise((resolve, reject) => {
+      this.getAllRoadtrips().then(roadtrips => {
+        let userRoadtrips = roadtrips.filter(tempRoadtrip => tempRoadtrip.owner.id == user.id)
+        resolve(userRoadtrips)
+      }, err => reject(err))
+    })
+  }
+
   getImageReport(id: number): Promise<ImageReport> {
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/image-reports/${id}`

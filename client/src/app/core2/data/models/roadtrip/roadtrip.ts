@@ -44,4 +44,14 @@ export class Roadtrip implements ClientDataObject<RoadtripDTO> {
             this.stops.splice(stopIndex, 1)
         }
     }
+
+    getPhotos(): string[] {
+        let photos: string[] = []
+
+        this.stops.forEach(stop => {
+            photos.push(...stop.location.photos)
+        })
+
+        return photos
+    }
 }

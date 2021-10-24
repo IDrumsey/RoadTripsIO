@@ -6,6 +6,7 @@ import { UserDTO } from "./user-dto"
 export class User implements ClientDataObject<UserDTO> {
     id: number
     username: string
+    bio: string
     firstname: string
     lastname: string
     email: string
@@ -16,6 +17,7 @@ export class User implements ClientDataObject<UserDTO> {
         let dto = new UserDTO()
         dto.id = this.id
         dto.username = this.username
+        dto.bio = this.bio
         dto.firstname = this.firstname
         dto.lastname = this.lastname
         dto.email = this.email
@@ -23,5 +25,13 @@ export class User implements ClientDataObject<UserDTO> {
         dto.locationsToVisitIds = this.locationsToVisit.map(location => location.id)
 
         return dto
+    }
+
+    get hasPhoto(): boolean {
+        return this.photo ? true : false
+    }
+
+    get hasBio(): boolean {
+        return this.bio ? true : false
     }
 }

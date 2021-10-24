@@ -8,7 +8,7 @@ export class LocationDto implements DataTransferObject<LocationDto, Location> {
     address: string
     latitude: number
     longitude: number
-    photos: string[]
+    photos: string[] = []
 
     init(data: LocationDto): void {
         this.id = data.id
@@ -16,7 +16,9 @@ export class LocationDto implements DataTransferObject<LocationDto, Location> {
         this.address = data.address
         this.latitude = data.latitude
         this.longitude = data.longitude
-        this.photos = data.photos
+        if(data.photos){
+            this.photos = data.photos
+        }
     }
 
     toClient(): Location {

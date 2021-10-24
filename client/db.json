@@ -3,6 +3,7 @@
     {
       "id": 1,
       "username": "testuser1",
+      "bio": "I'm a college student who likes to travel around the world and see all the sights.",
       "firstname": "Matthew",
       "lastname": "Orson",
       "email": "testemail1@email.test",

@@ -1,0 +1,18 @@
+<div *ngIf="dataLoaded" class="profile-page">
+  <div class="row">
+    <div class="head-content-wrapper col-12">
+      <app-user-profile-image
+        *ngIf="user.hasPhoto"
+        class="profile-picture"
+        [path]="user.photo"
+        [tooltip]="user.username"
+      ></app-user-profile-image>
+      <h1 class="username">{{ user.username }}</h1>
+      <p *ngIf="user.hasBio" class="bio">{{ user.bio }}</p>
+      <app-image-gallery-v2
+        class="profile-page-collage"
+        [images]="photos"
+      ></app-image-gallery-v2>
+    </div>
+  </div>
+</div>

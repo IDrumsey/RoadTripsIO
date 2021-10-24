@@ -77,11 +77,12 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   stopCards: StopCardComponent[] = []
 
   roadtrip: Roadtrip
-  dataLoaded = false
 
   newStopMarker: google.maps.Marker | null = null
 
   // --------------------------- STATE ---------------------------
+
+  dataLoaded = false
 
   viewInitialized = false
   fillingOutStopForm = false;

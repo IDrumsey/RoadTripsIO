@@ -8,7 +8,7 @@ export class Location implements ClientDataObject<LocationDto> {
     title: string
     address: string
     coordinate: Coordinate
-    photos: string[]
+    photos: string[] = []
 
     toDTO(): LocationDto {
         let dto = new LocationDto()
