@@ -1,0 +1,8 @@
+@use "~@angular/material" as mat;
+
+// fonts
+$handwriting-font: "Caveat Brush";
+
+$app-typography-config: mat.define-typography-config(
+  $font-family: $handwriting-font,
+);

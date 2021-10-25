@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Roadtrip } from '../../data/models/roadtrip/roadtrip';
 import { User } from '../../data/models/user/user';
 import { DataAccessService } from '../../data/services/data-access.service';
+import { NavService } from '../../services/nav.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,12 +12,13 @@ import { DataAccessService } from '../../data/services/data-access.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private api: DataAccessService, private url: ActivatedRoute, private router: Router) { }
+  constructor(private api: DataAccessService, private url: ActivatedRoute, private nav: NavService) { }
 
   ngOnInit(): void {
     this.loadData().then(() => {
       this.dataLoaded = true
       this.runAfterData()
+      console.log(this.userRoadtrips)
     })
   }
 
@@ -35,6 +37,10 @@ export class ProfilePageComponent implements OnInit {
   // -------------------------------------- EVENTS --------------------------------------
 
   // -------------------------------------- EVENT HANDLERS --------------------------------------
+
+  onRoadtripCardProfileImageClick(user: User): void {
+    this.nav.routeToUserPage(user)
+  }
 
   // -------------------------------------- FUNCTIONALITY --------------------------------------
 
@@ -55,7 +61,7 @@ export class ProfilePageComponent implements OnInit {
           }, err => {
             console.log(err)
             if(err.status == 404){
-              this.router.navigate(['404'])
+              this.nav.routeToNotFoundPage()
             }
           })
         }

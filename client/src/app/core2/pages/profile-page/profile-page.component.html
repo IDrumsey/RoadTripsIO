@@ -15,4 +15,12 @@
       ></app-image-gallery-v2>
     </div>
   </div>
+  <div class="user-created-roadtrips row">
+    <app-roadtrip-summary-card
+      *ngFor="let roadtrip of userRoadtrips"
+      class="roadtrip-card col-12"
+      [roadtrip]="roadtrip"
+      (profileImageClick)="onRoadtripCardProfileImageClick($event)"
+    ></app-roadtrip-summary-card>
+  </div>
 </div>

@@ -87,6 +87,7 @@ import { ImageSelectorFormComponent } from './core2/components/forms/image-selec
 import { ImageV2Component } from './core2/components/images/image-v2/image-v2.component';
 import { ImageGalleryV2Component } from './core2/components/images/image-gallery-v2/image-gallery-v2.component';
 import { ProfilePageComponent } from './core2/pages/profile-page/profile-page.component';
+import { RoadtripSummaryCardComponent } from './core2/components/roadtrip-summary-card/roadtrip-summary-card.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: IndividualRoadtripPageComponent},
@@ -170,7 +171,8 @@ const interceptors = [
     ImageSelectorFormComponent,
     ImageV2Component,
     ImageGalleryV2Component,
-    ProfilePageComponent
+    ProfilePageComponent,
+    RoadtripSummaryCardComponent
   ],
   imports: [
     BrowserModule,

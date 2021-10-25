@@ -1,0 +1,21 @@
+.roadtrip-summary-card {
+  padding: 10px;
+}
+
+.collaborators {
+  display: flex;
+  column-gap: 25px;
+  overflow-x: scroll;
+}
+
+.collaborators::-webkit-scrollbar {
+  display: none;
+}
+
+.roadtrip-collaborator {
+  cursor: pointer;
+}
+
+.roadtrip-collaborator-picture-placeholder {
+  font-size: 35px;
+}

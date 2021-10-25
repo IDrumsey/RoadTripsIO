@@ -1,6 +1,9 @@
 // themes
 @import "~@angular/material/theming";
-@include mat-core();
+
+@import "./app/core2/themes/typography.scss";
+
+@include mat-core($app-typography-config);
 
 @import "./app/core2/themes/green.scss";
 @import "./app/core2/themes/blue.scss";
@@ -48,10 +51,6 @@
 
 $light-bg-color: #fff;
 $dark-bg-color: #101010;
-
-// .light-mode {
-//   background-color: $light-bg-color !important;
-// }
 
 .dark-mode {
   background-color: $dark-bg-color !important;
