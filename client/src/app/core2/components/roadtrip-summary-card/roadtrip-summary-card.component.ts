@@ -47,10 +47,14 @@ export class RoadtripSummaryCardComponent implements OnInit {
     this.detailsClosed.emit()
   }
 
+  toggleDetails(): void {
+    this.showingDetails ? this.hideDetails() : this.showDetails()
+  }
+
   // ----------------------------------- STYLES -----------------------------------
   userIcon = faUserCircle
 
-  get titleStyles(): {} {
+  get headStyles(): {} {
     return {
       marginBottom: this.showingDetails ? "25px" : 0
     }

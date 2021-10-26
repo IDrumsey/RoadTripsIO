@@ -17,9 +17,14 @@
 }
 
 .roadtrip-collaborator-picture-placeholder {
-  font-size: 35px;
+  font-size: 30px;
 }
 
 .head-content {
   display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 0;
 }

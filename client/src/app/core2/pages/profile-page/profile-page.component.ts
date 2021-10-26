@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
+import { RoadtripSummaryCardComponent } from '../../components/roadtrip-summary-card/roadtrip-summary-card.component';
 import { Roadtrip } from '../../data/models/roadtrip/roadtrip';
 import { User } from '../../data/models/user/user';
 import { DataAccessService } from '../../data/services/data-access.service';
@@ -12,7 +13,7 @@ import { NavService } from '../../services/nav.service';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, AfterViewInit {
 
   constructor(private api: DataAccessService, private url: ActivatedRoute, private nav: NavService) { }
 
@@ -22,6 +23,9 @@ export class ProfilePageComponent implements OnInit {
       this.runAfterData()
       console.log(this.userRoadtrips)
     })
+  }
+
+  ngAfterViewInit(): void {
   }
 
   // -------------------------------------- DATA --------------------------------------
@@ -42,6 +46,10 @@ export class ProfilePageComponent implements OnInit {
 
   onRoadtripCardProfileImageClick(user: User): void {
     this.nav.routeToUserPage(user)
+  }
+
+  onRoadtripSummaryCardInfoButtonClick(card: RoadtripSummaryCardComponent): void {
+    card.toggleDetails()
   }
 
   // -------------------------------------- FUNCTIONALITY --------------------------------------

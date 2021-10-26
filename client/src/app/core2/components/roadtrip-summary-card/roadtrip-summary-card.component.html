@@ -1,16 +1,16 @@
 <div class="roadtrip-summary-card">
-  <div class="head-content row">
-    <h1 class="title col-sm-12 col-md-9" [ngStyle]="titleStyles">
+  <div class="head-content row" [ngStyle]="headStyles">
+    <h1 class="title col-sm-12 col-md">
       {{ roadtrip.title }}
     </h1>
     <ng-content
-      class="options col-sm-12 col-md-3"
+      class="options col-sm-12 col-md"
       select="[tools]"
     ></ng-content>
   </div>
   <div *ngIf="showingDetails" class="details row">
     <div class="row">
-      <h2 class="description col-12">{{ roadtrip.description }}</h2>
+      <h3 class="description col-12">{{ roadtrip.description }}</h3>
     </div>
     <div class="row">
       <div class="collaborators col-12">
@@ -19,7 +19,7 @@
             *ngIf="user.hasPhoto"
             class="roadtrip-collaborator"
             [path]="user.photo"
-            [size]="'35px'"
+            [size]="'30px'"
             [tooltip]="user.username"
             (click)="onProfileImageClick(user)"
           ></app-user-profile-image>

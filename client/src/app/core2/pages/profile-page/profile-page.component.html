@@ -17,13 +17,14 @@
   </div>
   <div class="user-created-roadtrips row">
     <app-roadtrip-summary-card
+      #summaryCard
       *ngFor="let roadtrip of userRoadtrips"
       class="roadtrip-card col-12"
       [roadtrip]="roadtrip"
       (profileImageClick)="onRoadtripCardProfileImageClick($event)"
     >
-      <app-expandable-toolbar2 tools [expandDirection]="toolsExpandDirection">
-        <app-icon-button-v2 [icon]="infoIcon"></app-icon-button-v2>
+      <app-expandable-toolbar2 tools class="roadtrip-summary-card-tools" [expandDirection]="toolsExpandDirection">
+        <app-icon-button-v2 [icon]="infoIcon" (click)="onRoadtripSummaryCardInfoButtonClick(summaryCard)"></app-icon-button-v2>
       </app-expandable-toolbar2>
     </app-roadtrip-summary-card>
   </div>
