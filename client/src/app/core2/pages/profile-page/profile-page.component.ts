@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { ExpandDirections } from 'src/app/core/components/models/Toolbars/expand-directions';
 import { Roadtrip } from '../../data/models/roadtrip/roadtrip';
 import { User } from '../../data/models/user/user';
 import { DataAccessService } from '../../data/services/data-access.service';
@@ -80,4 +82,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   // -------------------------------------- STYLES --------------------------------------
+  infoIcon = faInfo
+
+  toolsExpandDirection = ExpandDirections.Left
 }

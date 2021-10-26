@@ -26,6 +26,8 @@ export class RoadtripSummaryCardComponent implements OnInit {
   // ----------------------------------- EVENTS -----------------------------------
 
   @Output() profileImageClick = new EventEmitter<User>()
+  @Output() detailsOpened = new EventEmitter()
+  @Output() detailsClosed = new EventEmitter()
 
   // ----------------------------------- EVENT HANDLERS -----------------------------------
 
@@ -33,22 +35,16 @@ export class RoadtripSummaryCardComponent implements OnInit {
     this.profileImageClick.emit(user)
   }
 
-  onHover(): void {
-    this.showDetails()
-  }
-
-  onMouseOut(): void {
-    this.hideDetails()
-  }
-
   // ----------------------------------- FUNCTIONALITY -----------------------------------
 
   showDetails(): void {
     this.showingDetails = true
+    this.detailsOpened.emit()
   }
 
   hideDetails(): void {
     this.showingDetails = false
+    this.detailsClosed.emit()
   }
 
   // ----------------------------------- STYLES -----------------------------------

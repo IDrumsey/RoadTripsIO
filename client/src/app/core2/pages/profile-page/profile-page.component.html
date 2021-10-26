@@ -21,6 +21,10 @@
       class="roadtrip-card col-12"
       [roadtrip]="roadtrip"
       (profileImageClick)="onRoadtripCardProfileImageClick($event)"
-    ></app-roadtrip-summary-card>
+    >
+      <app-expandable-toolbar2 tools [expandDirection]="toolsExpandDirection">
+        <app-icon-button-v2 [icon]="infoIcon"></app-icon-button-v2>
+      </app-expandable-toolbar2>
+    </app-roadtrip-summary-card>
   </div>
 </div>

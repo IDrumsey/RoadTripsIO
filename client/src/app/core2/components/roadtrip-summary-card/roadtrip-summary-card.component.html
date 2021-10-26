@@ -1,12 +1,12 @@
-<div
-  class="roadtrip-summary-card"
-  (mouseenter)="onHover()"
-  (mouseleave)="onMouseOut()"
->
-  <div class="row">
-    <h1 class="title col-12 mat-display-1" [ngStyle]="titleStyles">
+<div class="roadtrip-summary-card">
+  <div class="head-content row">
+    <h1 class="title col-sm-12 col-md-9" [ngStyle]="titleStyles">
       {{ roadtrip.title }}
     </h1>
+    <ng-content
+      class="options col-sm-12 col-md-3"
+      select="[tools]"
+    ></ng-content>
   </div>
   <div *ngIf="showingDetails" class="details row">
     <div class="row">
