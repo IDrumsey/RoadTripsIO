@@ -263,10 +263,10 @@ export class IndividualRoadtripPageComponent implements OnInit, AfterViewInit {
   }
 
   cancelNewStopForm(): void {
-    this.closeNewStopForm()
     if(this.newStopMarker){
       this.map.deleteMarkerTool.deleteMarker(this.newStopMarker)
     }
+    this.closeNewStopForm()
   }
 
   closeNewStopForm(): void {
