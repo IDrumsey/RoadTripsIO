@@ -127,9 +127,10 @@ export class ExpandableToolbar2Component implements OnInit, AfterContentInit {
 
     if(!this.toggleButton){
       // if no toggle button was specified
-      if(this.buttons.length > 0){
-        this.toggleButton = this.buttons[0]
-      }
+      // if(this.buttons.length > 0){
+      //   this.toggleButton = this.buttons[0]
+      // }
+      this.expand()
     }
     // remove toggle button from buttons array
     let indexOfToggle = this.buttons.indexOf(this.toggleButton)

@@ -1,0 +1,9 @@
+<h1>Explore Roadtrips</h1>
+<div class="browse-roadtrip-section">
+    <app-roadtrip-summary-card #roadtripCard class="roadtrip-card" *ngFor="let roadtrip of roadtrips" [roadtrip]="roadtrip">
+        <app-expandable-toolbar2 tools [gap]="'25px'">
+            <app-icon-button-v2 class="roadtrip-card-btn" [icon]="infoIcon" (click)="onRoadtripCardInfoBtnClick(roadtripCard)"></app-icon-button-v2>
+            <app-icon-button-v2 class="roadtrip-card-btn" [icon]="roadtripIcon" (click)="onRoadtripCardRouteBtnClick(roadtripCard)"></app-icon-button-v2>
+        </app-expandable-toolbar2>
+    </app-roadtrip-summary-card>
+</div>

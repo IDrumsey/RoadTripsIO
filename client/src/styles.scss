@@ -17,16 +17,17 @@
 @import "./app/core2/components/comments/comment-card/comment-card-theme.component";
 @import "./app/core2/pages/individual-roadtrip-page/individual-roadtrip-page-theme.component";
 @import "./app/core2/components/images/image-v2/image-theme.component";
+@import "./app/core2/components/roadtrip-summary-card/roadtrip-summary-card-theme.component";
 
 @mixin custom-component-themes($theme) {
   @include icon-button-v2-theme($theme);
-  @include roadtrip-card-theme($theme);
   @include browse-roadtrips-page-theme($theme);
   @include nav-url-theme($theme);
   @include stop-card-theme($theme);
   @include comment-card-theme($theme);
   @include roadtrip-page-theme($theme);
   @include image-theme($theme);
+  @include roadtrip-summary-card-theme($theme);
 }
 
 .green-light-theme {
