@@ -21,7 +21,6 @@ export class ProfilePageComponent implements OnInit, AfterViewInit {
     this.loadData().then(() => {
       this.dataLoaded = true
       this.runAfterData()
-      console.log(this.userRoadtrips)
     })
   }
 
