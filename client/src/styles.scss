@@ -18,6 +18,7 @@
 @import "./app/core2/pages/individual-roadtrip-page/individual-roadtrip-page-theme.component";
 @import "./app/core2/components/images/image-v2/image-theme.component";
 @import "./app/core2/components/roadtrip-summary-card/roadtrip-summary-card-theme.component";
+@import "./app/core/components/Users/select-users-form/select-users-form.component-theme";
 
 @mixin custom-component-themes($theme) {
   @include icon-button-v2-theme($theme);
@@ -28,6 +29,7 @@
   @include roadtrip-page-theme($theme);
   @include image-theme($theme);
   @include roadtrip-summary-card-theme($theme);
+  @include select-users-form-theme($theme);
 }
 
 .green-light-theme {

@@ -53,8 +53,6 @@ export class TextInputComponent implements OnInit {
   @Input() font: string = AppFonts.Data
   @Input() padding: string = "5px"
   @Input() width: string = "100%"
-  @Input() bgColor: string = AppColors.elevation3
-  @Input() borderColor: string | null = AppColors.elevation1
 
   @Input() focusBoxShadowBlurRadius: number = 5
   @Input() focusBoxShadowColor: string = AppColors.onColorLight
@@ -86,8 +84,6 @@ export class TextInputComponent implements OnInit {
       color: this.textColor,
       fontSize: this.fontSize,
       fontFamily: this.font,
-      backgroundColor: this.bgColor,
-      border: `2px solid ${this.borderColor}`,
       padding: this.padding,
       width: this.width
     }

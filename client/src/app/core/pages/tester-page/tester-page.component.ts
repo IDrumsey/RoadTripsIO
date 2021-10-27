@@ -12,17 +12,9 @@ import { AbstractDataAccessService } from '../../services/data/abstract-data-acc
 })
 export class TesterPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private data: AbstractDataAccessService) { }
-
-  images = [
-    'assets/images/pexels-guilherme-rossi-1755680.jpg',
-    'assets/images/pexels-guilherme-rossi-1755680.jpg',
-    'assets/images/pexels-guilherme-rossi-1755680.jpg',
-    'assets/images/pexels-guilherme-rossi-1755680.jpg'
-  ]
+  constructor(private data: AbstractDataAccessService) {}
 
   ngOnInit(): void {
-    this.loadComment()
   }
 
   ngAfterViewInit(): void {
@@ -34,11 +26,4 @@ export class TesterPageComponent implements OnInit, AfterViewInit {
   loaded = false
 
   comment: Comment
-
-  loadComment(): void {
-    this.data.getAllComments().then(comments => {
-      this.comment = comments[2]
-      this.loaded = true
-    })
-  }
 }

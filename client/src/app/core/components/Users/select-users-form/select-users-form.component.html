@@ -1,18 +1,12 @@
-<div class="select-users-form">
-  <!-- search bar - might want to create component for this -->
-  <div class="user-search-bar">
-    <app-text-input
-      [name]="'user-search-bar'"
-      [focusBoxShadowBlurRadius]="0"
-      [bgColor]="searchbarBgColor"
-      [placeholder]="'username'"
-      (fieldChange)="onSearchBarValueChange($event)"
-    ></app-text-input>
-  </div>
+<div class="select-users-form row">
+  <mat-form-field appearance="fill" color="accent" class="user-search-bar-wrapper col-12">
+    <mat-label>Username</mat-label>
+    <input matInput class="user-search-bar" [(ngModel)]="usernameField">
+  </mat-form-field>
 
   <!-- matching users -->
-  <div class="matching-users">
-    <div *ngFor="let userSelectable of userSelectables" class="matching-user">
+  <div class="matching-users row">
+    <div *ngFor="let userSelectable of userSelectables" class="matching-user col-sm-12 col-md-6">
       <input
         type="checkbox"
         name="{{ 'user-' + userSelectable.user.id }}"

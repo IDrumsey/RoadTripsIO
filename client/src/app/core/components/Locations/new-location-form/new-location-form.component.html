@@ -21,11 +21,6 @@
       <div>
         <h5 class="sub-input-label">Latitude</h5>
         <app-text-input
-          [borderColor]="
-            form.get('latitude')?.errors && form.get('latitude')?.dirty
-              ? inputInvalidBorderColor
-              : inputValidBorderColor
-          "
           [inputType]="'number'"
           [placeholder]="'latitude'"
           [name]="'latitude'"
@@ -50,11 +45,6 @@
       <div>
         <h5 class="sub-input-label">Longitude</h5>
         <app-text-input
-          [borderColor]="
-            form.get('longitude')?.errors && form.get('longitude')?.dirty
-              ? inputInvalidBorderColor
-              : inputValidBorderColor
-          "
           [inputType]="'number'"
           [placeholder]="'longitude'"
           [name]="'longitude'"
@@ -81,11 +71,6 @@
   <div class="field">
     <h5 class="input-label">Title</h5>
     <app-text-input
-      [borderColor]="
-        form.get('title')?.errors && form.get('title')?.dirty
-          ? inputInvalidBorderColor
-          : inputValidBorderColor
-      "
       [placeholder]="'title'"
       [name]="'title'"
       [ngStyle]="getInputStyles()"

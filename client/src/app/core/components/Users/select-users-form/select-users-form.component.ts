@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
 import { AppFonts } from 'src/app/core/data/models/app-fonts';
-import { User } from 'src/app/core/data2/models/client/user';
-import { DataAccessService } from 'src/app/core/services/data/data-access.service';
-import { UserService } from 'src/app/core/services/users/user.service';
+import { User } from 'src/app/core2/data/models/user/user';
+import { DataAccessService } from 'src/app/core2/data/services/data-access.service';
 
 class userSelectable {
   user: User
@@ -17,7 +17,7 @@ class userSelectable {
   styleUrls: ['./select-users-form.component.scss']
 })
 export class SelectUsersFormComponent implements OnInit {
-  constructor(private api: DataAccessService, private userService: UserService) { }
+  constructor(private api: DataAccessService) { }
 
   ngOnInit(): void {
   }
@@ -28,9 +28,26 @@ export class SelectUsersFormComponent implements OnInit {
   @Input() selectedUsers: User[] = []
   userSelectables: userSelectable[] = []
 
+  _usernameField: string
+
+  get usernameField(): string {
+    return this._usernameField
+  }
+
+  set usernameField(value: string) {
+    this._usernameField = value
+    this.onUsernameFieldChange()
+  }
+
   // --------------------------------- EVENTS ---------------------------------
   @Output() userSelected = new EventEmitter<User>()
   @Output() userUnselected = new EventEmitter<User>()
+
+  // --------------------------------- EVENT HANDLERS ---------------------------------
+
+  onUsernameFieldChange(): void {
+    this.onSearchBarValueChange(this.usernameField)
+  }
 
   // --------------------------------- STYLES ---------------------------------
   searchbarBgColor = AppColors.elevation4
@@ -64,8 +81,8 @@ export class SelectUsersFormComponent implements OnInit {
 
   async searchUsersForValue(): Promise<User[]> {
     return new Promise(resolve => {
-      this.api.getAllUsers().subscribe(allUsers => {
-        let result = this.userService.filterByUsernameContain(this.searchValue, allUsers)
+      this.api.getAllUsers().then(allUsers => {
+        let result = allUsers.filter(user => user.username.includes(this.searchValue))
         resolve(result)
       })
     })

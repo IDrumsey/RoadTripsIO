@@ -1,11 +1,9 @@
 .user-search-bar {
-  margin-bottom: 25px;
+  font-size: 25px;
 }
 
 .matching-users {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  row-gap: 10px;
   max-height: 50vh;
   overflow: scroll;
   margin-bottom: 25px;

@@ -54,6 +54,29 @@ export class DataAccessService {
     })
   }
 
+  getAllUsers(): Promise<User[]> {
+    return new Promise((resolve, reject) => {
+      let url = `${this.apiURL}/users`
+
+      let users: User[] = []
+
+      this.api.get<UserDTO[]>(url, this.requestOptions).subscribe(data => {
+        let fulfillers: Promise<any>[] = []
+        data.forEach(userData => {
+          let dto = new UserDTO()
+          dto.init(userData)
+
+          let client = dto.toClient()
+          fulfillers.push(this.fulfillUser(dto, client).then(user => users.push(user)))
+        })
+        
+        this.asyncService.runMultiplePromises(fulfillers).then(() => {
+          resolve(users)
+        })
+      }, err => reject(err))
+    })
+  }
+
   getLocation(id: number): Promise<Location> {
     return new Promise((resolve, reject) => {
       let url = `${this.apiURL}/locations/${id}`
