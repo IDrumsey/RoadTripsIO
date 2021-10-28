@@ -5,25 +5,11 @@
   </mat-form-field>
 
   <!-- matching users -->
-  <div class="matching-users row">
-    <div *ngFor="let userSelectable of userSelectables" class="matching-user col-sm-12 col-md-6">
-      <input
-        type="checkbox"
-        name="{{ 'user-' + userSelectable.user.id }}"
-        [(ngModel)]="userSelectable.checked"
-        (change)="onCheckBoxClick(userSelectable)"
-      />
-      <label
-        for="{{ 'user-' + userSelectable.user.id }}"
-        [ngStyle]="userLabelStyles"
-        >{{ userSelectable.user.username }}</label
-      >
-    </div>
-  </div>
+  <app-user-select-list #selectUsersList [users]="matchingUsers" (userSelected)="onUserSelected($event)" (userUnselected)="onUserUnselected($event)"></app-user-select-list>
 
   <!-- selected users -->
   <div class="selected-users">
-    <div *ngFor="let user of selectedUsers" class="selected-user">
+    <div *ngFor="let user of selectUsersList.selectedUsers" class="selected-user">
       <app-user-profile-image
         [path]="user.photo"
         [size]="'35px'"

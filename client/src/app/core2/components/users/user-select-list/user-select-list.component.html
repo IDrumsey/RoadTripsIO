@@ -1,0 +1,7 @@
+<div class="user-select-list row">
+    <app-content-checkbox class="col-sm-12 col-md" *ngFor="let user of users" [selected]="isUserSelected(user)" (checked)="selectUser(user)" (unchecked)="unselectUser(user)">
+        <div class="user-info">
+            <h1 class="username m-0">{{user.username}}</h1>
+        </div>
+    </app-content-checkbox>
+</div>

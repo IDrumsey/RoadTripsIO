@@ -1,0 +1,14 @@
+<div class="user-search-form row">
+    <mat-form-field appearance="fill" color="accent" class="user-search-bar-wrapper col-12 p-0">
+        <mat-label>Username</mat-label>
+        <input matInput class="user-search-bar" [(ngModel)]="usernameField">
+    </mat-form-field>
+    <div class="matching-users">
+        <mat-card *ngFor="let user of matchingUsers" class="matching-user row" (click)="onUserCardClick(user)">
+            <div class="col-sm-12 col-md-12">
+                <mat-card-title class="matching-user-username p-0">{{user.username}}</mat-card-title>
+                <mat-card-subtitle class="matching-user-name p-0">{{user.firstname + ' ' + user.lastname}}</mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+</div>

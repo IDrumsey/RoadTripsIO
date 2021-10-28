@@ -1,0 +1,7 @@
+.content-checkbox {
+    // https://stackoverflow.com/questions/47171214/set-column-width-to-content-length-in-css-grid
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    column-gap: 20px;
+}

@@ -89,6 +89,10 @@ import { ImageGalleryV2Component } from './core2/components/images/image-gallery
 import { ProfilePageComponent } from './core2/pages/profile-page/profile-page.component';
 import { RoadtripSummaryCardComponent } from './core2/components/roadtrip-summary-card/roadtrip-summary-card.component';
 import { ExplorePageComponent } from './core2/pages/explore-page/explore-page.component';
+import { ContentCheckboxComponent } from './core2/components/content-checkbox/content-checkbox.component';
+import { UserSelectListComponent } from './core2/components/users/user-select-list/user-select-list.component';
+import { UserSearchComponent } from './core2/components/users/user-search/user-search.component';
+import { ListComponent } from './core2/components/utility/list/list.component';
 
 const routes: Routes = [
   {path: 'roadtrips/:roadtripId', component: IndividualRoadtripPageComponent},
@@ -174,7 +178,11 @@ const interceptors = [
     ImageGalleryV2Component,
     ProfilePageComponent,
     RoadtripSummaryCardComponent,
-    ExplorePageComponent
+    ExplorePageComponent,
+    ContentCheckboxComponent,
+    UserSelectListComponent,
+    UserSearchComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

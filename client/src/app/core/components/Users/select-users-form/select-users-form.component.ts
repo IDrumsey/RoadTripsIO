@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppColors } from 'src/app/core/data/models/app-colors';
-import { AppFonts } from 'src/app/core/data/models/app-fonts';
+import { UserSelectListComponent } from 'src/app/core2/components/users/user-select-list/user-select-list.component';
 import { User } from 'src/app/core2/data/models/user/user';
 import { DataAccessService } from 'src/app/core2/data/services/data-access.service';
 
@@ -23,10 +22,9 @@ export class SelectUsersFormComponent implements OnInit {
   }
 
   // --------------------------------- DATA ---------------------------------
-  searchValue: string
+  @ViewChild('selectUsersList') selectUsersList: UserSelectListComponent
+
   matchingUsers: User[] = []
-  @Input() selectedUsers: User[] = []
-  userSelectables: userSelectable[] = []
 
   _usernameField: string
 
@@ -40,23 +38,22 @@ export class SelectUsersFormComponent implements OnInit {
   }
 
   // --------------------------------- EVENTS ---------------------------------
-  @Output() userSelected = new EventEmitter<User>()
-  @Output() userUnselected = new EventEmitter<User>()
 
   // --------------------------------- EVENT HANDLERS ---------------------------------
 
   onUsernameFieldChange(): void {
-    this.onSearchBarValueChange(this.usernameField)
+    this.updateMatchingUsers()
+  }
+
+  onUserSelected(user: User): void {
+
+  }
+
+  onUserUnselected(user: User): void {
+    
   }
 
   // --------------------------------- STYLES ---------------------------------
-  searchbarBgColor = AppColors.elevation4
-
-  userLabelStyles = {
-    fontFamily: AppFonts.Data,
-    fontSize: "25px",
-    marginLeft: "10px"
-  }
 
   deleteSelectedUserIcon = faTimes
   deleteBtnSize = "20px"
@@ -64,76 +61,31 @@ export class SelectUsersFormComponent implements OnInit {
   deleteBtnHoverColor = AppColors.onContrastDarkRed
 
   // --------------------------------- FUNCTIONALITY ---------------------------------
-  onSearchBarValueChange(searchTerm: string): void {
-    this.searchValue = searchTerm
-    if(this.searchValue != ""){
-      this.searchUsersForValue().then(matchingUsers => {
-        this.matchingUsers = matchingUsers
-        this.userSelectables = this.genUserSelectables()
-      })
-    }
-    else{
-      // search bar value empty
-      this.matchingUsers = []
-      this.userSelectables = []
-    }
+
+  updateMatchingUsers(): void {
+    this.findMatchingUsers().then(users => {
+      this.matchingUsers = users
+    })
   }
 
-  async searchUsersForValue(): Promise<User[]> {
+  findMatchingUsers(): Promise<User[]> {
     return new Promise(resolve => {
+      if(this._usernameField == ""){
+        resolve([])
+      }
       this.api.getAllUsers().then(allUsers => {
-        let result = allUsers.filter(user => user.username.includes(this.searchValue))
+        let result = allUsers.filter(user => user.username.includes(this._usernameField))
         resolve(result)
       })
     })
   }
 
-  genUserSelectables(): userSelectable[] {
-    return this.matchingUsers.map(user => {
-      return {
-        user: user,
-        checked: this.isSelected(user)
-      }
-    })
-  }
-
-  onCheckBoxClick(userSelectable: userSelectable): void {
-    // note - the checked prop has already been updated
-    if(!userSelectable.checked){
-      this.unselectUser(userSelectable.user)
-    }
-    else{
-      this.selectUser(userSelectable.user)
-    }
-  }
-
-  unselectUser(user: User): void {
-    let userFound = this.selectedUsers.find(selectedUser => selectedUser.id == user.id)
-    if(userFound){
-      let index = this.selectedUsers.indexOf(userFound)
-      if(index != -1){
-        this.selectedUsers.splice(index, 1)
-        this.userUnselected.emit(user)
-      }
-    }
-  }
-
-  selectUser(user: User): void {
-    this.selectedUsers.push(user)
-    // this.userSelected.emit(user)
-  }
-
   isSelected(user: User): boolean {
-    let userFound = this.selectedUsers.find(selectedUser => selectedUser.id == user.id)
+    let userFound = this.selectUsersList.selectedUsers.find(selectedUser => selectedUser.id == user.id)
     return userFound ? true : false
   }
 
   onDeleteBtnClick(user: User): void {
-    this.unselectUser(user)
-    // uncheck checkbox
-    let userSelectable = this.userSelectables.find(selectable => selectable.user.id == user.id)
-    if(userSelectable){
-      userSelectable.checked = false
-    }
+    this.selectUsersList.unselectUser(user)
   }
 }

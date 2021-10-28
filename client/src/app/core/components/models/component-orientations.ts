@@ -1,4 +1,4 @@
 export enum ComponentOrientations {
-    Horizontal,
-    Vertical
+    Horizontal = "Horizontal",
+    Vertical = "Vertical"
 }
