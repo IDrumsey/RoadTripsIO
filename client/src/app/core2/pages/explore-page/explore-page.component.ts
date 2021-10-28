@@ -45,7 +45,7 @@ export class ExplorePageComponent implements OnInit {
     this.nav.routeToRoadtripPage(card.roadtrip)
   }
 
-  onUserCardClick(user: User): void {
+  onMatchingUserCardClick(user: User): void {
     this.nav.routeToUserPage(user)
   }
 

@@ -13,7 +13,15 @@
     <div class="section row">
         <h1>Find Users</h1>
         <div class="browse-users-section row">
-            <app-user-search (userCardClicked)=onUserCardClick($event)></app-user-search>
+            <app-user-search #userSearch></app-user-search>
+            <app-list class="user-search-matching-users-list" [gap]="'10px'">
+                <mat-card *ngFor="let user of userSearch.matchingUsers" class="matching-user row" (click)="onMatchingUserCardClick(user)">
+                    <div class="col-sm-12 col-md-12">
+                        <mat-card-title class="matching-user-username p-0">{{user.username}}</mat-card-title>
+                        <mat-card-subtitle class="matching-user-name p-0 m-0">{{user.firstname + ' ' + user.lastname}}</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </app-list>
         </div>
     </div>
 </div>

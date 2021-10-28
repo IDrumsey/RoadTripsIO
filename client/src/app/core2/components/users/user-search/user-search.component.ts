@@ -34,16 +34,10 @@ export class UserSearchComponent implements OnInit {
 
   // -------------------------------- EVENTS --------------------------------
 
-  @Output() userCardClicked = new EventEmitter<User>()
-
   // -------------------------------- EVENT HANDLERS --------------------------------
 
   onUsernameFieldChange(): void {
     this.updateMatchingUsers()
-  }
-
-  onUserCardClick(user: User): void {
-    this.userCardClicked.emit(user)
   }
 
   // -------------------------------- FUNCTIONALITY --------------------------------
@@ -77,6 +71,4 @@ export class UserSearchComponent implements OnInit {
   }
 
   // -------------------------------- STYLES --------------------------------
-
-  userIcon = faUser
 }
